@@ -1,0 +1,109 @@
+info face="Molot" size=40 bold=0 italic=0 charset="" unicode=0 stretchH=100 smooth=1 aa=1 padding=0,0,0,0 spacing=1,1
+common lineHeight=47 base=38 scaleW=256 scaleH=256 pages=1 packed=0
+page id=0 file="MolotShadow.png"
+chars count=60
+char id=41 x=1 y=1 width=13 height=48 xoffset=0 yoffset=1 xadvance=10 page=0 chnl=0 letter=")"
+char id=40 x=15 y=1 width=13 height=48 xoffset=2 yoffset=1 xadvance=10 page=0 chnl=0 letter="("
+char id=91 x=29 y=1 width=13 height=48 xoffset=2 yoffset=1 xadvance=10 page=0 chnl=0 letter="["
+char id=93 x=43 y=1 width=13 height=48 xoffset=0 yoffset=1 xadvance=10 page=0 chnl=0 letter="]"
+char id=113 x=57 y=1 width=25 height=40 xoffset=2 yoffset=8 xadvance=24 page=0 chnl=0 letter="q"
+char id=36 x=83 y=1 width=23 height=38 xoffset=1 yoffset=7 xadvance=20 page=0 chnl=0 letter="$"
+char id=59 x=107 y=1 width=12 height=35 xoffset=2 yoffset=10 xadvance=11 page=0 chnl=0 letter=";"
+char id=109 x=120 y=1 width=35 height=32 xoffset=1 yoffset=10 xadvance=32 page=0 chnl=0 letter="m"
+char id=119 x=156 y=1 width=35 height=32 xoffset=1 yoffset=10 xadvance=32 page=0 chnl=0 letter="w"
+char id=35 x=192 y=1 width=32 height=32 xoffset=1 yoffset=10 xadvance=30 page=0 chnl=0 letter="#"
+char id=64 x=225 y=1 width=30 height=32 xoffset=2 yoffset=10 xadvance=28 page=0 chnl=0 letter="@"
+char id=97 x=1 y=50 width=27 height=32 xoffset=1 yoffset=10 xadvance=24 page=0 chnl=0 letter="a"
+char id=120 x=29 y=50 width=27 height=32 xoffset=0 yoffset=10 xadvance=23 page=0 chnl=0 letter="x"
+char id=121 x=57 y=50 width=27 height=32 xoffset=0 yoffset=10 xadvance=23 page=0 chnl=0 letter="y"
+char id=118 x=85 y=50 width=27 height=32 xoffset=0 yoffset=10 xadvance=23 page=0 chnl=0 letter="v"
+char id=38 x=113 y=50 width=27 height=32 xoffset=1 yoffset=10 xadvance=24 page=0 chnl=0 letter="&"
+char id=107 x=141 y=50 width=26 height=32 xoffset=2 yoffset=10 xadvance=24 page=0 chnl=0 letter="k"
+char id=114 x=168 y=50 width=26 height=32 xoffset=2 yoffset=10 xadvance=24 page=0 chnl=0 letter="r"
+char id=98 x=195 y=50 width=26 height=32 xoffset=2 yoffset=10 xadvance=24 page=0 chnl=0 letter="b"
+char id=112 x=222 y=50 width=26 height=32 xoffset=2 yoffset=10 xadvance=24 page=0 chnl=0 letter="p"
+char id=52 x=1 y=83 width=26 height=32 xoffset=1 yoffset=10 xadvance=24 page=0 chnl=0 letter="4"
+char id=100 x=28 y=83 width=25 height=32 xoffset=2 yoffset=10 xadvance=24 page=0 chnl=0 letter="d"
+char id=103 x=54 y=83 width=25 height=32 xoffset=2 yoffset=10 xadvance=24 page=0 chnl=0 letter="g"
+char id=111 x=80 y=83 width=25 height=32 xoffset=2 yoffset=10 xadvance=24 page=0 chnl=0 letter="o"
+char id=117 x=106 y=83 width=25 height=32 xoffset=2 yoffset=10 xadvance=24 page=0 chnl=0 letter="u"
+char id=104 x=132 y=83 width=25 height=32 xoffset=2 yoffset=10 xadvance=24 page=0 chnl=0 letter="h"
+char id=110 x=158 y=83 width=25 height=32 xoffset=2 yoffset=10 xadvance=24 page=0 chnl=0 letter="n"
+char id=51 x=184 y=83 width=25 height=32 xoffset=1 yoffset=10 xadvance=22 page=0 chnl=0 letter="3"
+char id=56 x=210 y=83 width=25 height=32 xoffset=2 yoffset=10 xadvance=23 page=0 chnl=0 letter="8"
+char id=57 x=1 y=116 width=25 height=32 xoffset=1 yoffset=10 xadvance=23 page=0 chnl=0 letter="9"
+char id=48 x=27 y=116 width=25 height=32 xoffset=2 yoffset=10 xadvance=23 page=0 chnl=0 letter="0"
+char id=47 x=53 y=116 width=25 height=32 xoffset=0 yoffset=10 xadvance=21 page=0 chnl=0 letter="/"
+char id=92 x=79 y=116 width=25 height=32 xoffset=0 yoffset=10 xadvance=21 page=0 chnl=0 letter="\"
+char id=122 x=105 y=116 width=24 height=32 xoffset=1 yoffset=10 xadvance=21 page=0 chnl=0 letter="z"
+char id=116 x=130 y=116 width=24 height=32 xoffset=0 yoffset=10 xadvance=20 page=0 chnl=0 letter="t"
+char id=50 x=155 y=116 width=24 height=32 xoffset=1 yoffset=10 xadvance=21 page=0 chnl=0 letter="2"
+char id=53 x=180 y=116 width=24 height=32 xoffset=2 yoffset=10 xadvance=23 page=0 chnl=0 letter="5"
+char id=54 x=205 y=116 width=24 height=32 xoffset=2 yoffset=10 xadvance=23 page=0 chnl=0 letter="6"
+char id=63 x=230 y=116 width=24 height=32 xoffset=0 yoffset=10 xadvance=21 page=0 chnl=0 letter="?"
+char id=99 x=1 y=149 width=23 height=32 xoffset=2 yoffset=10 xadvance=21 page=0 chnl=0 letter="c"
+char id=101 x=25 y=149 width=23 height=32 xoffset=2 yoffset=10 xadvance=21 page=0 chnl=0 letter="e"
+char id=102 x=49 y=149 width=23 height=32 xoffset=2 yoffset=10 xadvance=21 page=0 chnl=0 letter="f"
+char id=115 x=73 y=149 width=23 height=32 xoffset=1 yoffset=10 xadvance=20 page=0 chnl=0 letter="s"
+char id=108 x=97 y=149 width=22 height=32 xoffset=2 yoffset=10 xadvance=20 page=0 chnl=0 letter="l"
+char id=55 x=120 y=149 width=22 height=32 xoffset=0 yoffset=10 xadvance=18 page=0 chnl=0 letter="7"
+char id=106 x=143 y=149 width=19 height=32 xoffset=0 yoffset=10 xadvance=16 page=0 chnl=0 letter="j"
+char id=33 x=163 y=149 width=14 height=32 xoffset=1 yoffset=10 xadvance=12 page=0 chnl=0 letter="!"
+char id=105 x=178 y=149 width=13 height=32 xoffset=2 yoffset=10 xadvance=12 page=0 chnl=0 letter="i"
+char id=49 x=192 y=149 width=13 height=32 xoffset=2 yoffset=10 xadvance=12 page=0 chnl=0 letter="1"
+char id=58 x=206 y=149 width=12 height=32 xoffset=2 yoffset=10 xadvance=11 page=0 chnl=0 letter=":"
+char id=43 x=219 y=149 width=24 height=25 xoffset=1 yoffset=13 xadvance=21 page=0 chnl=0 letter="+"
+char id=61 x=1 y=182 width=24 height=21 xoffset=2 yoffset=15 xadvance=23 page=0 chnl=0 letter="="
+char id=60 x=26 y=182 width=18 height=21 xoffset=1 yoffset=16 xadvance=16 page=0 chnl=0 letter="<"
+char id=62 x=45 y=182 width=18 height=21 xoffset=2 yoffset=16 xadvance=16 page=0 chnl=0 letter=">"
+char id=42 x=64 y=182 width=19 height=20 xoffset=2 yoffset=9 xadvance=18 page=0 chnl=0 letter="*"
+char id=44 x=84 y=182 width=12 height=14 xoffset=2 yoffset=31 xadvance=11 page=0 chnl=0 letter=","
+char id=45 x=97 y=182 width=24 height=11 xoffset=1 yoffset=20 xadvance=21 page=0 chnl=0 letter="-"
+char id=95 x=122 y=182 width=24 height=11 xoffset=0 yoffset=39 xadvance=20 page=0 chnl=0 letter="_"
+char id=46 x=147 y=182 width=12 height=11 xoffset=2 yoffset=31 xadvance=11 page=0 chnl=0 letter="."
+char id=32 x=169 y=182 width=0 height=0 xoffset=20 yoffset=58 xadvance=20 page=0 chnl=0 letter="space"
+kernings count=44
+kerning first=109 second=119 amount=-1
+kerning first=109 second=121 amount=-2
+kerning first=109 second=118 amount=-1
+kerning first=109 second=116 amount=-1
+kerning first=119 second=109 amount=-1
+kerning first=119 second=97 amount=-1
+kerning first=119 second=106 amount=-2
+kerning first=119 second=44 amount=-2
+kerning first=119 second=46 amount=-2
+kerning first=97 second=119 amount=-1
+kerning first=97 second=121 amount=-2
+kerning first=97 second=118 amount=-2
+kerning first=97 second=116 amount=-2
+kerning first=121 second=109 amount=-2
+kerning first=121 second=97 amount=-2
+kerning first=121 second=106 amount=-3
+kerning first=121 second=44 amount=-5
+kerning first=121 second=46 amount=-5
+kerning first=118 second=109 amount=-1
+kerning first=118 second=97 amount=-2
+kerning first=118 second=106 amount=-2
+kerning first=118 second=44 amount=-2
+kerning first=118 second=46 amount=-2
+kerning first=112 second=97 amount=-1
+kerning first=112 second=120 amount=-1
+kerning first=112 second=106 amount=-2
+kerning first=112 second=44 amount=-5
+kerning first=112 second=46 amount=-5
+kerning first=52 second=55 amount=-2
+kerning first=116 second=109 amount=-1
+kerning first=116 second=97 amount=-2
+kerning first=116 second=106 amount=-3
+kerning first=116 second=44 amount=-3
+kerning first=116 second=46 amount=-3
+kerning first=102 second=109 amount=-1
+kerning first=102 second=97 amount=-1
+kerning first=102 second=106 amount=-2
+kerning first=102 second=44 amount=-4
+kerning first=102 second=46 amount=-4
+kerning first=108 second=119 amount=-2
+kerning first=108 second=121 amount=-3
+kerning first=108 second=118 amount=-2
+kerning first=108 second=116 amount=-3
+kerning first=55 second=52 amount=-1
