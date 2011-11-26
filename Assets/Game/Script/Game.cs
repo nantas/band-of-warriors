@@ -15,14 +15,16 @@ public class Game : MonoBehaviour {
         }
     }
 	
+	[System.NonSerialized] public Spawner theSpawner;
+	
+	
 	public WarriorControl theplayer;
-
+	public exLayer enemyLayer;
 	public float leftBoundary = -480;
 	public float rightBoundary = 480;
-
 	
 	protected virtual void Init () {
-		
+		theSpawner = GetComponent<Spawner>();
 	}
 
 	// Use this for initialization

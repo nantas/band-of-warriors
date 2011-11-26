@@ -11,12 +11,19 @@ public class WarriorControl : MonoBehaviour {
 	}
 	
 	[System.NonSerialized] public MoveState charMoveState;
-	
-	private Game game;
+
+	public exSprite[] allBodyParts;
+
+	private bool isTakingDamage = false;
+	private float flashTime = 0.0f;
+
 	  
+	void Awake () {
+		flashTime = allBodyParts[0].spanim.animations[0].length;
+	}
+	
 	// Use this for initialization
 	void Start () {
-		
 		transform.localScale = new Vector3(1,1,1);
 		charMoveState = MoveState.Right;
 		animation["walk"].speed = movementSpeed/120.0f;
@@ -72,6 +79,20 @@ public class WarriorControl : MonoBehaviour {
 		if (charMoveState != MoveState.Left) {
 			charMoveState = MoveState.Left;
 			transform.localScale = new Vector3(-1,1,1);
+		}
+	}
+	
+	public IEnumerator OnPlayerHurt() {
+		Debug.Log("Calling OnPlayerHurt");
+		if (!isTakingDamage) {
+			isTakingDamage = true;
+			//playing hurt flash effect
+			foreach (exSprite sprite in allBodyParts) {
+				sprite.spanim.Play("flash");
+			}
+			Debug.Log("playing hurt animation");
+			yield return new WaitForSeconds(flashTime);
+			isTakingDamage = false;	
 		}
 	}
 	
