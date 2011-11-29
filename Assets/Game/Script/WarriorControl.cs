@@ -4,13 +4,8 @@ using System.Collections;
 public class WarriorControl : MonoBehaviour {
 
 	public float movementSpeed = 120.0f;
-	public enum MoveState {
-		Left,
-		Right,
-		Stop
-	}
 	
-	[System.NonSerialized] public MoveState charMoveState;
+	[System.NonSerialized] public MoveDir charMoveState;
 
 	public exSprite[] allBodyParts;
 
@@ -25,7 +20,7 @@ public class WarriorControl : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		transform.localScale = new Vector3(1,1,1);
-		charMoveState = MoveState.Right;
+		charMoveState = MoveDir.Right;
 		animation["walk"].speed = movementSpeed/120.0f;
 		StartWalk();
 		
@@ -47,13 +42,13 @@ public class WarriorControl : MonoBehaviour {
 		//handle movement
 		float horizonDist = Time.deltaTime * movementSpeed;		
 		switch (charMoveState) {
-			case MoveState.Right:
+			case MoveDir.Right:
 				//don't need to change
 				break;
-			case MoveState.Left:
+			case MoveDir.Left:
 				horizonDist = -horizonDist;
 				break;
-			case MoveState.Stop:
+			case MoveDir.Stop:
 				horizonDist = 0;
 				break;
 			default:
@@ -69,15 +64,15 @@ public class WarriorControl : MonoBehaviour {
 	}
 	
 	public void TurnRight() {
-		if (charMoveState != MoveState.Right) {
-			charMoveState = MoveState.Right;
+		if (charMoveState != MoveDir.Right) {
+			charMoveState = MoveDir.Right;
 			transform.localScale = new Vector3(1,1,1);
 		}
 	}
 	
 	public void TurnLeft() {
-		if (charMoveState != MoveState.Left) {
-			charMoveState = MoveState.Left;
+		if (charMoveState != MoveDir.Left) {
+			charMoveState = MoveDir.Left;
 			transform.localScale = new Vector3(-1,1,1);
 		}
 	}

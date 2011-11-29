@@ -3,14 +3,12 @@ using System.Collections;
 
 public class playerCollider : MonoBehaviour {
 	
-	private WarriorControl controller;
+	public WarriorControl controller;
 	
 	void Awake () {
-		controller = transform.parent.GetComponent<WarriorControl>();
 	}
 	void TouchedEnemy () {
 		//Debug.Log("player touched enemy.");
-		//controller.OnPlayerHurt();
 		controller.SendMessage("OnPlayerHurt");
 	}
 	

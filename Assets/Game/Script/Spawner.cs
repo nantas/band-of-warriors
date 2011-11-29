@@ -77,7 +77,15 @@ public class Spawner : MonoBehaviour {
 	
 	public int maxSlimeCount = 10;
 	private int aliveSlimeCount = 0;
+    private int totalSlimeSpawned = 0;
+
 	public SlimePool slimePool = new SlimePool();
+	
+	//spawner locations
+	public SpawnLocation topSpawner;
+	public SpawnLocation botSpawner;
+	public SpawnLocation leftSpawner;
+	public SpawnLocation rightSpawner;
 	
 	void Awake () {
 		slimePool.Init(Game.instance.enemyLayer);
@@ -85,7 +93,7 @@ public class Spawner : MonoBehaviour {
 	
 	// Use this for initialization
 	void Start () {
-		InvokeRepeating("SpawnASlime", 2.0f, 4.0f);
+		Invoke("SpawnASlime", 2.0f);
 	}
 	
 	// Update is called once per frame
@@ -94,9 +102,39 @@ public class Spawner : MonoBehaviour {
 	}
 	
 	void SpawnASlime () {
-		Vector2 spawnPos = new Vector2(Random.Range(Game.instance.leftBoundary,Game.instance.rightBoundary), -130);
+		int spawnSelector = Random.Range(1,4);
+		switch (spawnSelector) {
+			case 1:
+				SpawnASlimeFrom (topSpawner);
+				break;
+			case 2:
+				SpawnASlimeFrom (botSpawner);
+				break;
+			case 3:
+				SpawnASlimeFrom (leftSpawner);
+				break;
+			case 4:
+				SpawnASlimeFrom (rightSpawner);
+				break;
+			default:
+				Debug.LogError("can't get a valid spawner");
+				break;
+		}
+        totalSlimeSpawned += 1;
+        if (totalSlimeSpawned > 15) {
+            Invoke("SpawnASlime", Random.Range(0.7f, 1.2f));
+        } else {
+            Invoke("SpawnASlime", Random.Range(1.5f, 2.0f));
+        }
+	}
+	
+	void SpawnASlimeFrom (SpawnLocation _spawner) {
+		float leftBorder = _spawner.transform.position.x - _spawner.width/2;
+		float rightBorder = _spawner.transform.position.x + _spawner.width/2;
+		Vector2 spawnPos = new Vector2(Random.Range(leftBorder,rightBorder), _spawner.transform.position.y);
 		if (aliveSlimeCount <= maxSlimeCount) {
-			SpawnSlimeAt (spawnPos);
+			Slime slime = SpawnSlimeAt (spawnPos);
+			slime.GetIntoField(_spawner.moveDirection);
 		}
 	}
 	

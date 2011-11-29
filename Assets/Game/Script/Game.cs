@@ -1,6 +1,14 @@
 using UnityEngine;
 using System.Collections;
 
+public enum MoveDir {
+	Left,
+	Right,
+	Up,
+	Down,
+	Stop
+}
+
 public class Game : MonoBehaviour {
 
     protected static Game instance_ = null; 
@@ -17,14 +25,15 @@ public class Game : MonoBehaviour {
 	
 	[System.NonSerialized] public Spawner theSpawner;
 	
-	
 	public WarriorControl theplayer;
 	public exLayer enemyLayer;
 	public float leftBoundary = -480;
 	public float rightBoundary = 480;
+	public float groundPosY = -130;
 	
 	protected virtual void Init () {
 		theSpawner = GetComponent<Spawner>();
+		
 	}
 
 	// Use this for initialization
