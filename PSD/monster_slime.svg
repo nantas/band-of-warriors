@@ -14,7 +14,7 @@
    id="svg2"
    version="1.1"
    inkscape:version="0.48.2 r9819"
-   sodipodi:docname="New document 1">
+   sodipodi:docname="monster_slime.svg">
   <defs
      id="defs4" />
   <sodipodi:namedview
@@ -25,8 +25,8 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="0.35"
-     inkscape:cx="-20.409409"
-     inkscape:cy="384.46119"
+     inkscape:cx="98.641386"
+     inkscape:cy="592.15382"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -53,7 +53,7 @@
      id="layer1">
     <path
        style="fill:#5fd35f;stroke:#2b0000;stroke-width:10;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none"
-       d="m 407.09148,148.27565 c 0,53.55762 -43.53753,48.48733 -98.48988,48.48733 -54.95234,0 -100.51017,5.07029 -100.51017,-48.48733 0,-53.557622 44.54768,-117.177692 99.50002,-117.177692 54.95235,0 99.50003,63.62007 99.50003,117.177692 z"
+       d="m 262.80577,129.70422 c 0,53.55762 -43.53753,48.48733 -98.48988,48.48733 -54.95234,0 -100.510174,5.07029 -100.510174,-48.48733 0,-53.557621 44.547684,-117.177691 99.500024,-117.177691 54.95235,0 99.50003,63.62007 99.50003,117.177691 z"
        id="path2985"
        inkscape:connector-curvature="0"
        sodipodi:nodetypes="sssss"
@@ -69,7 +69,7 @@
        sodipodi:rx="8.586297"
        sodipodi:ry="12.121831"
        d="m 316.17776,276.56503 a 8.586297,12.121831 0 1 1 -17.1726,0 8.586297,12.121831 0 1 1 17.1726,0 z"
-       transform="translate(-34.345187,-172.73608)"
+       transform="translate(-178.6309,-191.30751)"
        inkscape:export-filename="/Users/nantas/APgame/PSD/monster_slime.png"
        inkscape:export-xdpi="43.060001"
        inkscape:export-ydpi="43.060001" />
@@ -82,7 +82,7 @@
        id="path3758"
        style="fill:#000000;stroke:none"
        sodipodi:type="arc"
-       transform="translate(28.284271,-172.73608)"
+       transform="translate(-116.00144,-191.30751)"
        inkscape:export-filename="/Users/nantas/APgame/PSD/monster_slime.png"
        inkscape:export-xdpi="43.060001"
        inkscape:export-ydpi="43.060001" />
@@ -90,14 +90,14 @@
        sodipodi:nodetypes="sssss"
        inkscape:connector-curvature="0"
        id="path3760"
-       d="m 387.54921,404.85439 c 0.66099,53.55354 -35.30242,67.68023 -81.13555,67.68023 -45.83312,0 -85.47828,-14.1264 -84.84088,-67.68023 1.01015,-84.87235 38.16524,-126.26906 83.99836,-126.26906 45.83313,0 80.96791,44.42717 81.97807,126.26906 z"
-       style="fill:#5fd35f;stroke:#2b0000;stroke-width:9.13264561;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none"
+       d="m 243.2635,386.28296 c 0.66099,53.55354 -35.30242,67.68023 -81.13555,67.68023 -45.83312,0 -85.478284,-14.1264 -84.840884,-67.68023 1.01015,-84.87235 38.165244,-126.26906 83.998364,-126.26906 45.83313,0 80.96791,44.42717 81.97807,126.26906 z"
+       style="fill:#5fd35f;stroke:#2b0000;stroke-width:9.13300037;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none"
        inkscape:export-filename="/Users/nantas/APgame/PSD/monster_slime.png"
        inkscape:export-xdpi="43.060001"
        inkscape:export-ydpi="43.060001" />
     <path
        style="fill:none;stroke:#000000;stroke-width:8;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
-       d="m 259.60921,348.28585 24.24366,19.1929 -24.24366,12.12183"
+       d="m 115.3235,329.71442 24.24366,19.1929 -24.24366,12.12183"
        id="path3766"
        inkscape:connector-curvature="0"
        inkscape:export-filename="/Users/nantas/APgame/PSD/monster_slime.png"
@@ -106,70 +106,162 @@
     <path
        inkscape:connector-curvature="0"
        id="path3768"
-       d="m 347.49248,348.28585 -24.24366,19.1929 24.24366,12.12183"
+       d="m 203.20677,329.71442 -24.24366,19.1929 24.24366,12.12183"
        style="fill:none;stroke:#000000;stroke-width:8;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
        inkscape:export-filename="/Users/nantas/APgame/PSD/monster_slime.png"
        inkscape:export-xdpi="43.060001"
        inkscape:export-ydpi="43.060001" />
     <path
-       style="fill:#d7f4d7;stroke:#afe9af;stroke-width:9.13264561000000086;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none"
-       d="m 387.54921,670.52451 c 0.66099,53.55354 -35.30242,67.68023 -81.13555,67.68023 -45.83312,0 -85.47828,-14.1264 -84.84088,-67.68023 1.01015,-84.87235 38.16524,-126.26906 83.99836,-126.26906 45.83313,0 80.96791,44.42717 81.97807,126.26906 z"
+       style="fill:#5fd35f;fill-opacity:1;stroke:#2b0000;stroke-width:10;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       d="m 279.91239,669.47629 c 0.96428,64.17292 -51.50036,81.10086 -118.36328,81.10086 -66.862897,0 -124.698587,-16.92759 -123.768727,-81.10086 1.47364,-101.70207 55.67674,-151.30753 122.539637,-151.30753 66.86291,0 118.11872,53.23684 119.59237,151.30753 z"
        id="path3770"
        inkscape:connector-curvature="0"
        sodipodi:nodetypes="sssss"
        inkscape:export-filename="/Users/nantas/APgame/PSD/monster_slime.png"
        inkscape:export-xdpi="43.060001"
        inkscape:export-ydpi="43.060001" />
-    <path
-       inkscape:connector-curvature="0"
-       id="path3772"
-       d="m 259.60921,613.95597 24.24366,19.1929 -24.24366,12.12183"
-       style="fill:none;stroke:#000000;stroke-width:8;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+    <g
+       id="g3122"
+       transform="matrix(1.3882133,0,0,1,-263.55676,-24)"
        inkscape:export-filename="/Users/nantas/APgame/PSD/monster_slime.png"
        inkscape:export-xdpi="43.060001"
-       inkscape:export-ydpi="43.060001" />
-    <path
-       style="fill:none;stroke:#000000;stroke-width:8;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
-       d="m 347.49248,613.95597 -24.24366,19.1929 24.24366,12.12183"
-       id="path3774"
-       inkscape:connector-curvature="0"
+       inkscape:export-ydpi="43.060001">
+      <path
+         inkscape:export-ydpi="43.060001"
+         inkscape:export-xdpi="43.060001"
+         inkscape:export-filename="/Users/nantas/APgame/PSD/monster_slime.png"
+         style="fill:none;stroke:#000000;stroke-width:8;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+         d="m 259.60921,613.95597 24.24366,19.1929 -24.24366,12.12183"
+         id="path3772"
+         inkscape:connector-curvature="0" />
+      <path
+         inkscape:export-ydpi="43.060001"
+         inkscape:export-xdpi="43.060001"
+         inkscape:export-filename="/Users/nantas/APgame/PSD/monster_slime.png"
+         inkscape:connector-curvature="0"
+         id="path3774"
+         d="m 347.49248,613.95597 -24.24366,19.1929 24.24366,12.12183"
+         style="fill:none;stroke:#000000;stroke-width:8;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
+    </g>
+    <g
+       id="g3126"
+       transform="translate(124.28572,-775.71429)"
        inkscape:export-filename="/Users/nantas/APgame/PSD/monster_slime.png"
        inkscape:export-xdpi="43.060001"
-       inkscape:export-ydpi="43.060001" />
-    <path
-       inkscape:export-ydpi="43.060001"
-       inkscape:export-xdpi="43.060001"
+       inkscape:export-ydpi="43.060001">
+      <path
+         style="fill:#5fd35f;stroke:#2b0000;stroke-width:9.69602966;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none"
+         d="m 393.90873,903.0329 c 0,56.71355 -38.65326,51.34449 -87.44076,51.34449 -48.7875,0 -89.23441,5.36906 -89.23441,-51.34449 0,-56.71355 39.55009,-124.08249 88.33758,-124.08249 48.7875,0 88.33759,67.36894 88.33759,124.08249 z"
+         id="path3789"
+         inkscape:connector-curvature="0"
+         sodipodi:nodetypes="sssss"
+         inkscape:export-filename="/Users/nantas/APgame/PSD/monster_slime.png"
+         inkscape:export-xdpi="43.060001"
+         inkscape:export-ydpi="43.060001" />
+      <path
+         sodipodi:type="arc"
+         style="fill:#000000;stroke:none"
+         id="path3791"
+         sodipodi:cx="307.59146"
+         sodipodi:cy="276.56503"
+         sodipodi:rx="8.586297"
+         sodipodi:ry="12.121831"
+         d="m 316.17776,276.56503 c 0,6.69471 -3.84422,12.12183 -8.5863,12.12183 -4.74208,0 -8.5863,-5.42712 -8.5863,-12.12183 0,-6.6947 3.84422,-12.12183 8.5863,-12.12183 4.74208,0 8.5863,5.42713 8.5863,12.12183 z"
+         transform="matrix(0.88781469,0,0,1.0589259,1.9947742,563.10527)"
+         inkscape:export-filename="/Users/nantas/APgame/PSD/monster_slime.png"
+         inkscape:export-xdpi="43.060001"
+         inkscape:export-ydpi="43.060001" />
+      <path
+         d="m 316.17776,276.56503 c 0,6.69471 -3.84422,12.12183 -8.5863,12.12183 -4.74208,0 -8.5863,-5.42712 -8.5863,-12.12183 0,-6.6947 3.84422,-12.12183 8.5863,-12.12183 4.74208,0 8.5863,5.42713 8.5863,12.12183 z"
+         sodipodi:ry="12.121831"
+         sodipodi:rx="8.586297"
+         sodipodi:cy="276.56503"
+         sodipodi:cx="307.59146"
+         id="path3793"
+         style="fill:#000000;stroke:none"
+         sodipodi:type="arc"
+         transform="matrix(0.88781469,0,0,1.0589259,57.598127,563.10527)"
+         inkscape:export-filename="/Users/nantas/APgame/PSD/monster_slime.png"
+         inkscape:export-xdpi="43.060001"
+         inkscape:export-ydpi="43.060001" />
+    </g>
+    <g
+       id="g3938"
        inkscape:export-filename="/Users/nantas/APgame/PSD/monster_slime.png"
-       sodipodi:nodetypes="sssss"
-       inkscape:connector-curvature="0"
-       id="path3789"
-       d="m 393.90873,903.0329 c 0,56.71355 -38.65326,51.34449 -87.44076,51.34449 -48.7875,0 -89.23441,5.36906 -89.23441,-51.34449 0,-56.71355 39.55009,-124.08249 88.33758,-124.08249 48.7875,0 88.33759,67.36894 88.33759,124.08249 z"
-       style="fill:#5fd35f;stroke:#2b0000;stroke-width:9.69602966;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none" />
-    <path
-       inkscape:export-ydpi="43.060001"
        inkscape:export-xdpi="43.060001"
+       inkscape:export-ydpi="43.060001">
+      <path
+         style="fill:#5fd35f;fill-opacity:1;stroke:#2b0000;stroke-width:10;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+         d="m 695.62668,568.04772 c -10.49398,63.31643 -51.50036,81.10086 -118.36328,81.10086 -66.8629,0 -124.69859,-16.92759 -123.76873,-81.10086 0.36841,-25.42552 -11.32473,-62.14857 -6.59837,-79.35987 4.72637,-17.21129 37.30079,52.23204 46.20436,41.9964 8.90356,-10.23563 8.42197,-84.43593 21.32199,-88.93447 12.90002,-4.49853 53.53983,97.67538 65.89737,86.41898 70.57432,-64.28572 27.8324,27.93255 47.88858,31.7344 33.14175,6.28234 85.25268,-99.46222 67.41808,8.14456 z"
+         id="path3905"
+         inkscape:connector-curvature="0"
+         sodipodi:nodetypes="sssssssss"
+         inkscape:export-filename="/Users/nantas/APgame/PSD/monster_slime.png"
+         inkscape:export-xdpi="43.060001"
+         inkscape:export-ydpi="43.060001" />
+      <path
+         sodipodi:nodetypes="sssss"
+         inkscape:connector-curvature="0"
+         id="path3913"
+         d="m 648.57141,443.07645 c 0,14.5961 -24.05003,37.85715 -37.85715,37.85715 -13.80712,0 -9.28571,-20.40391 -9.28571,-35.00001 0,-14.59609 12.62145,-26.42857 26.42857,-26.42857 13.80712,0 20.71429,8.97534 20.71429,23.57143 z"
+         style="fill:#5fd35f;fill-opacity:1;stroke:#2b0000;stroke-width:10;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1" />
+    </g>
+    <g
+       id="g3934"
        inkscape:export-filename="/Users/nantas/APgame/PSD/monster_slime.png"
-       transform="matrix(0.88781469,0,0,1.0589259,1.9947742,563.10527)"
-       d="m 316.17776,276.56503 a 8.586297,12.121831 0 1 1 -17.1726,0 8.586297,12.121831 0 1 1 17.1726,0 z"
-       sodipodi:ry="12.121831"
-       sodipodi:rx="8.586297"
-       sodipodi:cy="276.56503"
-       sodipodi:cx="307.59146"
-       id="path3791"
-       style="fill:#000000;stroke:none"
-       sodipodi:type="arc" />
-    <path
-       inkscape:export-ydpi="43.060001"
        inkscape:export-xdpi="43.060001"
+       inkscape:export-ydpi="43.060001">
+      <path
+         inkscape:export-ydpi="43.060001"
+         inkscape:export-xdpi="43.060001"
+         inkscape:export-filename="/Users/nantas/APgame/PSD/monster_slime.png"
+         sodipodi:nodetypes="sssssssss"
+         inkscape:connector-curvature="0"
+         id="path3916"
+         d="m 694.19811,942.33344 c -5.93003,63.90566 -72.32576,83.48446 -118.36328,81.10086 -15.61167,-0.8083 -76.38786,8.6382 -102.34016,-56.81515 -9.37244,-23.63789 -18.46759,-52.14857 -13.74123,-69.35987 4.72637,-17.21129 34.35119,36.95131 40.49008,24.85355 14.61784,-28.80706 16.9934,38.42121 29.89342,33.92267 12.90002,-4.49853 33.70462,-42.59406 41.61165,-27.86673 29.14575,54.28571 43.54669,37.93255 63.60288,41.7344 33.14174,6.28234 65.25267,-96.60508 58.84664,-27.56973 z"
+         style="fill:#5fd35f;fill-opacity:1;stroke:#2b0000;stroke-width:10;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
+      <path
+         style="fill:#5fd35f;fill-opacity:1;stroke:#2b0000;stroke-width:10;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1"
+         d="m 668.57141,827.36217 c -12.85714,43.16753 -9.76432,6.42858 -23.57144,6.42858 -13.80712,0 -24.99999,22.45323 -23.57142,-3.57144 0.80002,-14.57415 12.62145,-26.42857 26.42857,-26.42857 13.80712,0 24.88075,9.58263 20.71429,23.57143 z"
+         id="path3918"
+         inkscape:connector-curvature="0"
+         sodipodi:nodetypes="sssss" />
+    </g>
+    <g
+       id="g3928"
        inkscape:export-filename="/Users/nantas/APgame/PSD/monster_slime.png"
-       transform="matrix(0.88781469,0,0,1.0589259,57.598127,563.10527)"
-       sodipodi:type="arc"
-       style="fill:#000000;stroke:none"
-       id="path3793"
-       sodipodi:cx="307.59146"
-       sodipodi:cy="276.56503"
-       sodipodi:rx="8.586297"
-       sodipodi:ry="12.121831"
-       d="m 316.17776,276.56503 a 8.586297,12.121831 0 1 1 -17.1726,0 8.586297,12.121831 0 1 1 17.1726,0 z" />
+       inkscape:export-xdpi="43.060001"
+       inkscape:export-ydpi="43.060001">
+      <path
+         style="fill:#f2f2f2;fill-opacity:1;stroke:#ffffff;stroke-width:10;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+         d="m 279.91239,949.47629 c 0.96428,64.17291 -51.50036,81.10091 -118.36328,81.10091 -66.862897,0 -124.698587,-16.9276 -123.768727,-81.10091 1.47364,-101.70207 55.67674,-151.30753 122.539637,-151.30753 66.86291,0 118.11872,53.23684 119.59237,151.30753 z"
+         id="path3920"
+         inkscape:connector-curvature="0"
+         sodipodi:nodetypes="sssss"
+         inkscape:export-filename="/Users/nantas/APgame/PSD/monster_slime.png"
+         inkscape:export-xdpi="43.060001"
+         inkscape:export-ydpi="43.060001" />
+      <g
+         style="stroke:#ffffff;fill:#f2f2f2"
+         id="g3922"
+         transform="matrix(1.3882133,0,0,1,-263.55676,256)">
+        <path
+           inkscape:export-ydpi="43.060001"
+           inkscape:export-xdpi="43.060001"
+           inkscape:export-filename="/Users/nantas/APgame/PSD/monster_slime.png"
+           style="fill:#f2f2f2;stroke:#ffffff;stroke-width:8;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+           d="m 259.60921,613.95597 24.24366,19.1929 -24.24366,12.12183"
+           id="path3924"
+           inkscape:connector-curvature="0" />
+        <path
+           inkscape:export-ydpi="43.060001"
+           inkscape:export-xdpi="43.060001"
+           inkscape:export-filename="/Users/nantas/APgame/PSD/monster_slime.png"
+           inkscape:connector-curvature="0"
+           id="path3926"
+           d="m 347.49248,613.95597 -24.24366,19.1929 24.24366,12.12183"
+           style="fill:#f2f2f2;stroke:#ffffff;stroke-width:8;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
+      </g>
+    </g>
   </g>
 </svg>

@@ -10,12 +10,19 @@ public class enemyCollider : MonoBehaviour {
 	}
 
 	void OnTriggerEnter (Collider other) {
+        bool isSlimeOnLeft;
+        if (transform.position.x < other.transform.position.x) {
+            isSlimeOnLeft = true;
+        } else {
+            isSlimeOnLeft = false;
+        }
+
 		if (other.tag == "player") {
-			other.SendMessage("TouchedEnemy");
+			other.SendMessage("TouchedEnemy", isSlimeOnLeft);
 		}
 		if (other.tag == "player_weapon") {
 			other.SendMessage("AttackEnemy");
-			controller.SendMessage("OnDamaged");
+			controller.SendMessage("OnDamaged", isSlimeOnLeft);
 		}
 	}
 	

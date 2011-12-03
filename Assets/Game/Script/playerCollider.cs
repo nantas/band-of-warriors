@@ -7,9 +7,9 @@ public class playerCollider : MonoBehaviour {
 	
 	void Awake () {
 	}
-	void TouchedEnemy () {
+	void TouchedEnemy (bool _isHurtFromLeft) {
 		//Debug.Log("player touched enemy.");
-		controller.SendMessage("OnPlayerHurt");
+		controller.SendMessage("OnPlayerHurt", _isHurtFromLeft);
 	}
 	
 	void Update () {

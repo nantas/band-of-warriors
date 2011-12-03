@@ -4,14 +4,26 @@ using System.Collections;
 public class WarriorControl : MonoBehaviour {
 
 	public float movementSpeed = 120.0f;
-	
-	[System.NonSerialized] public MoveDir charMoveState;
-
 	public exSprite[] allBodyParts;
+    public enum JumpState {
+        Ready2Jump,
+        Ground,
+        InAir,
+        StunInAir
+    }
 
+    public enum HurtState {
+        Invincible,
+        Stun,
+        Hitable
+    }
+
+	[System.NonSerialized] public MoveDir charMoveState;
+    [System.NonSerialized] public JumpState charJumpState;
+    [System.NonSerialized] public HurtState charHurtState;
 	private bool isTakingDamage = false;
 	private float flashTime = 0.0f;
-
+    private float stunTime = 0.1f;
 	  
 	void Awake () {
 		flashTime = allBodyParts[0].spanim.animations[0].length;
@@ -21,6 +33,8 @@ public class WarriorControl : MonoBehaviour {
 	void Start () {
 		transform.localScale = new Vector3(1,1,1);
 		charMoveState = MoveDir.Right;
+        charJumpState = JumpState.Ground;
+        charHurtState = HurtState.Hitable;
 		animation["walk"].speed = movementSpeed/120.0f;
 		StartWalk();
 		
@@ -39,6 +53,12 @@ public class WarriorControl : MonoBehaviour {
 			StartJump();
 		}
 		
+        //handle Jump
+        if (charJumpState == JumpState.Ready2Jump) {
+            if (!animation.IsPlaying("jump"))
+                animation.Play("jump");
+            charJumpState = JumpState.InAir;
+        }
 		//handle movement
 		float horizonDist = Time.deltaTime * movementSpeed;		
 		switch (charMoveState) {
@@ -56,10 +76,12 @@ public class WarriorControl : MonoBehaviour {
 				break;
 		}
 		//move character
-		if ((transform.position.x + horizonDist < Game.instance.rightBoundary) 
-			&& (transform.position.x + horizonDist > Game.instance.leftBoundary) ) {
-			transform.Translate (horizonDist, 0, 0);
-		}
+        if (charHurtState != HurtState.Stun){
+    		if ((transform.position.x + horizonDist < Game.instance.rightBoundary) 
+	    		&& (transform.position.x + horizonDist > Game.instance.leftBoundary) ) {
+		    	transform.Translate (horizonDist, 0, 0);
+		    }
+        }
 	
 	}
 	
@@ -77,17 +99,29 @@ public class WarriorControl : MonoBehaviour {
 		}
 	}
 	
-	public IEnumerator OnPlayerHurt() {
-		Debug.Log("Calling OnPlayerHurt");
-		if (!isTakingDamage) {
-			isTakingDamage = true;
+	public IEnumerator OnPlayerHurt(bool _isHurtFromLeft) {
+		//Debug.Log("Calling OnPlayerHurt");
+		if (charHurtState == HurtState.Hitable) {
+			charHurtState = HurtState.Stun;
 			//playing hurt flash effect
 			foreach (exSprite sprite in allBodyParts) {
 				sprite.spanim.Play("flash");
 			}
-			Debug.Log("playing hurt animation");
-			yield return new WaitForSeconds(flashTime);
-			isTakingDamage = false;	
+            if (charJumpState == JumpState.Ground) {
+                if (_isHurtFromLeft) {
+                    //push player away a little bit: magic number
+                    transform.Translate(40.0f, 0, 0);
+                } else {
+                    transform.Translate(-40.0f, 0, 0);
+                }
+            }
+			//Debug.Log("playing hurt animation");
+            yield return new WaitForSeconds(stunTime);
+            charHurtState = HurtState.Invincible;
+            if (flashTime > stunTime) {
+    			yield return new WaitForSeconds(flashTime - stunTime);
+            }
+			charHurtState = HurtState.Hitable;	
 		}
 	}
 	
@@ -98,12 +132,17 @@ public class WarriorControl : MonoBehaviour {
 	}
 	
 	public void StartJump() {
-		if (!animation.IsPlaying("jump")) {
-			animation.Play("jump");
-		}
+        if (charJumpState == JumpState.Ground) {
+            charJumpState = JumpState.Ready2Jump;
+        }
+    
 	}
 	
 	public void OnJumpFinish() {
+        animation.Stop();
+        charJumpState = JumpState.Ground;
+        transform.position = new Vector3(transform.position.x, Game.instance.groundPosY,
+                                         transform.position.z);
 		StartWalk();
 	}
 }

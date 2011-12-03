@@ -5,6 +5,7 @@ public class Slime : MonoBehaviour {
 	
 	public exSprite spEnemy;
 	public Collider spCollider;
+    public float moveSpeed = 100.0f;
 	
 	private bool isTakingDamage;
 	
@@ -38,6 +39,17 @@ public class Slime : MonoBehaviour {
 	void Update () {
 	
 	}
+
+    public void MoveToRandomLoc () {
+        Vector3 targetPos = new Vector3(Random.Range(Game.instance.leftBoundary, 
+                                                     Game.instance.rightBoundary),
+                                        Game.instance.groundPosY, transform.position.z);
+        float moveTime = Mathf.Abs((targetPos.x - transform.position.x))/moveSpeed;
+        float delayTime = Random.Range(0.0f, 0.7f);
+        //start moving
+        gameObject.MoveTo(targetPos, moveTime, delayTime, EaseType.linear, 
+                          "MoveToRandomLoc", gameObject);
+    }
 	
 	public void GetIntoField (MoveDir moveDir) {
         spEnemy.spanim.Play("slime_idle");
@@ -59,16 +71,23 @@ public class Slime : MonoBehaviour {
 			targetPos.x = Game.instance.leftBoundary + 30;
 			moveTime = 0.7f;
 		}
-		gameObject.MoveTo(targetPos, moveTime, 0, EaseType.easeInOutQuad, "StartIdle", gameObject);
+		gameObject.MoveTo(targetPos, moveTime, 0, EaseType.easeInOutQuad, "MoveToRandomLoc", gameObject);
 //		gameObject.MoveTo(targetPos, moveTime, 0);		
 		
 	}
 	
-	public IEnumerator OnDamaged() {
+	public IEnumerator OnDamaged(bool _isHurtFromRight) {
 		if (!isTakingDamage) {
 			isTakingDamage = true;
 			Spawner spawner = Game.instance.theSpawner;
 			spCollider.enabled = false;
+            iTween.Stop(gameObject);
+            if (_isHurtFromRight) {
+                //push slime a bit, hacked magic number
+                transform.Translate(-30.0f,0,0);
+            } else {
+                transform.Translate(30.0f,0,0);
+            }
             spEnemy.spanim.Play("slime_hurt");
 			float animTime = spEnemy.spanim.animations[1].length;
 			yield return new WaitForSeconds(animTime);
