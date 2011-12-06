@@ -24,11 +24,13 @@ public class Game : MonoBehaviour {
     }
 	
 	[System.NonSerialized] public Spawner theSpawner;
+	public Transform leftBoundary;
+	public Transform rightBoundary;
+    public Transform leftSpawnEntry;
+    public Transform rightSpawnEntry;
 	
-	public WarriorControl theplayer;
+    public WarriorControl theplayer;
 	public exLayer enemyLayer;
-	public float leftBoundary = -480;
-	public float rightBoundary = 480;
 	public float groundPosY = -130;
 	
 	protected virtual void Init () {

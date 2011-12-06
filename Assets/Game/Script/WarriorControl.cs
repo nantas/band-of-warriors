@@ -77,8 +77,8 @@ public class WarriorControl : MonoBehaviour {
 		}
 		//move character
         if (charHurtState != HurtState.Stun){
-    		if ((transform.position.x + horizonDist < Game.instance.rightBoundary) 
-	    		&& (transform.position.x + horizonDist > Game.instance.leftBoundary) ) {
+    		if ((transform.position.x + horizonDist < Game.instance.rightBoundary.position.x) 
+	    		&& (transform.position.x + horizonDist > Game.instance.leftBoundary.position.x) ) {
 		    	transform.Translate (horizonDist, 0, 0);
 		    }
         }

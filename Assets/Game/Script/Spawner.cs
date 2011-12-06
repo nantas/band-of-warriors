@@ -122,9 +122,9 @@ public class Spawner : MonoBehaviour {
 		}
         totalSlimeSpawned += 1;
         if (totalSlimeSpawned > 15) {
-            Invoke("SpawnASlime", Random.Range(0.7f, 1.2f));
+            Invoke("SpawnASlime", Random.Range(0.5f, 1.0f));
         } else {
-            Invoke("SpawnASlime", Random.Range(1.5f, 2.0f));
+            Invoke("SpawnASlime", Random.Range(1.2f, 1.5f));
         }
 	}
 	

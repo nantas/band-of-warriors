@@ -41,8 +41,8 @@ public class Slime : MonoBehaviour {
 	}
 
     public void MoveToRandomLoc () {
-        Vector3 targetPos = new Vector3(Random.Range(Game.instance.leftBoundary, 
-                                                     Game.instance.rightBoundary),
+        Vector3 targetPos = new Vector3(Random.Range(Game.instance.leftSpawnEntry.position.x, 
+                                                     Game.instance.rightSpawnEntry.position.x),
                                         Game.instance.groundPosY, transform.position.z);
         float moveTime = Mathf.Abs((targetPos.x - transform.position.x))/moveSpeed;
         float delayTime = Random.Range(0.0f, 0.7f);
@@ -64,11 +64,11 @@ public class Slime : MonoBehaviour {
 			moveTime = 1.0f;
 		}
 		if (moveDir == MoveDir.Left) {
-			targetPos.x = Game.instance.rightBoundary - 30;
+			targetPos.x = Game.instance.rightSpawnEntry.position.x - 30;
 			moveTime = 0.7f;
 		}
 		if (moveDir == MoveDir.Right) {
-			targetPos.x = Game.instance.leftBoundary + 30;
+			targetPos.x = Game.instance.leftSpawnEntry.position.x + 30;
 			moveTime = 0.7f;
 		}
 		gameObject.MoveTo(targetPos, moveTime, 0, EaseType.easeInOutQuad, "MoveToRandomLoc", gameObject);
