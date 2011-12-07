@@ -9,8 +9,8 @@
    xmlns="http://www.w3.org/2000/svg"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   width="744.09448819"
-   height="1052.3622047"
+   width="1444.09"
+   height="1600"
    id="svg2"
    version="1.1"
    inkscape:version="0.48.2 r9819"
@@ -25,8 +25,8 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="0.35"
-     inkscape:cx="98.641386"
-     inkscape:cy="592.15382"
+     inkscape:cx="1101.6938"
+     inkscape:cy="1283.7805"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -50,7 +50,8 @@
   <g
      inkscape:label="Layer 1"
      inkscape:groupmode="layer"
-     id="layer1">
+     id="layer1"
+     transform="translate(0,547.63782)">
     <path
        style="fill:#5fd35f;stroke:#2b0000;stroke-width:10;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none"
        d="m 262.80577,129.70422 c 0,53.55762 -43.53753,48.48733 -98.48988,48.48733 -54.95234,0 -100.510174,5.07029 -100.510174,-48.48733 0,-53.557621 44.547684,-117.177691 99.500024,-117.177691 54.95235,0 99.50003,63.62007 99.50003,117.177691 z"
@@ -68,13 +69,13 @@
        sodipodi:cy="276.56503"
        sodipodi:rx="8.586297"
        sodipodi:ry="12.121831"
-       d="m 316.17776,276.56503 a 8.586297,12.121831 0 1 1 -17.1726,0 8.586297,12.121831 0 1 1 17.1726,0 z"
+       d="m 316.17776,276.56503 c 0,6.69471 -3.84422,12.12183 -8.5863,12.12183 -4.74208,0 -8.5863,-5.42712 -8.5863,-12.12183 0,-6.6947 3.84422,-12.12183 8.5863,-12.12183 4.74208,0 8.5863,5.42713 8.5863,12.12183 z"
        transform="translate(-178.6309,-191.30751)"
        inkscape:export-filename="/Users/nantas/APgame/PSD/monster_slime.png"
        inkscape:export-xdpi="43.060001"
        inkscape:export-ydpi="43.060001" />
     <path
-       d="m 316.17776,276.56503 a 8.586297,12.121831 0 1 1 -17.1726,0 8.586297,12.121831 0 1 1 17.1726,0 z"
+       d="m 316.17776,276.56503 c 0,6.69471 -3.84422,12.12183 -8.5863,12.12183 -4.74208,0 -8.5863,-5.42712 -8.5863,-12.12183 0,-6.6947 3.84422,-12.12183 8.5863,-12.12183 4.74208,0 8.5863,5.42713 8.5863,12.12183 z"
        sodipodi:ry="12.121831"
        sodipodi:rx="8.586297"
        sodipodi:cy="276.56503"
@@ -242,7 +243,7 @@
          inkscape:export-xdpi="43.060001"
          inkscape:export-ydpi="43.060001" />
       <g
-         style="stroke:#ffffff;fill:#f2f2f2"
+         style="fill:#f2f2f2;stroke:#ffffff"
          id="g3922"
          transform="matrix(1.3882133,0,0,1,-263.55676,256)">
         <path
@@ -263,5 +264,258 @@
            style="fill:#f2f2f2;stroke:#ffffff;stroke-width:8;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
       </g>
     </g>
+    <path
+       sodipodi:nodetypes="ssscscsssss"
+       inkscape:connector-curvature="0"
+       id="path3898"
+       d="m 1012.2615,-402.58029 c -12.67996,-36.53803 -34.97907,-59.57106 -48.93441,-69.90001 -16.10035,-11.91653 -66.46832,-10.46306 -70.32525,3.04947 -2.00732,7.03254 54.26315,17.4748 54.26315,17.4748 0,0 -58.47978,-3.17942 -61.70231,7.70861 -4.44935,15.0338 51.94182,16.85232 51.94182,16.85232 0,0 -53.60501,0.13394 -55.27808,14.99521 -0.83699,7.43472 37.44571,2.15172 60.8597,17.12111 23.414,14.96938 32.41049,39.11163 41.8538,47.50777 16.79308,14.93095 29.09338,3.42799 32.66368,-10.00028 4.0723,-15.31713 -1.2508,-33.02007 -5.3421,-44.809 z"
+       style="fill:#ececec;stroke:#000000;stroke-width:8;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:2.9000001;stroke-opacity:1;stroke-dasharray:none"
+       inkscape:export-filename="/Users/nantas/APgame/PSD/flymon.png"
+       inkscape:export-xdpi="43.060001"
+       inkscape:export-ydpi="43.060001" />
+    <path
+       style="fill:#ff9955;fill-opacity:1;stroke:#280b0b;stroke-width:10;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1"
+       d="m 1180.0001,-359.06638 c 0,56.80643 -47.3299,87.70485 -105.7143,87.70485 -58.3844,0 -108.74478,-19.78674 -108.74478,-76.59317 0,-56.80643 45.30958,-106.89775 103.69398,-106.89775 58.3844,0 110.7651,38.97964 110.7651,95.78607 z"
+       id="path3126"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="sssss"
+       inkscape:export-filename="/Users/nantas/APgame/PSD/flymon.png"
+       inkscape:export-xdpi="43.060001"
+       inkscape:export-ydpi="43.060001" />
+    <path
+       style="fill:#ececec;stroke:#000000;stroke-width:8;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:2.9000001;stroke-opacity:1;stroke-dasharray:none"
+       d="m 1141.0689,-437.58729 c 13.4677,-47.01947 29.3913,-58.15089 48.9104,-68.20518 26.6991,-13.75275 96.7619,-13.16628 103.7569,3.16986 5.8832,13.73926 -88.5967,29.06125 -88.5967,29.06125 0,0 100.3787,-22.52966 104.6253,3.00356 4.4607,26.82127 -88.2568,32.3287 -88.2568,32.3287 2.8824,-2.51223 86.4128,-7.04052 83.4218,10.58852 -5.2422,30.89803 -49.7545,10.44975 -80.5673,27.45626 -34.0792,18.80933 -33.4142,34.02844 -44.7539,45.28762 -20.1655,20.02244 -36.4979,6.35381 -41.9408,-10.35369 -6.2083,-19.05754 -0.9442,-57.16621 3.4011,-72.3369 z"
+       id="path3128"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="ssscscsssss"
+       inkscape:export-filename="/Users/nantas/APgame/PSD/flymon.png"
+       inkscape:export-xdpi="43.060001"
+       inkscape:export-ydpi="43.060001" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:9;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       d="m 1062.6805,-339.16245 c 0,0 7.071,-22.22336 31.3147,-21.2132"
+       id="path3901"
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="/Users/nantas/APgame/PSD/flymon.png"
+       inkscape:export-xdpi="43.060001"
+       inkscape:export-ydpi="43.060001" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:8.20162106;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       d="m 1012.5721,-343.81402 c 0,0 -6.7728,-18.017 -22.01165,-23.02174"
+       id="path3903"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="cc"
+       inkscape:export-filename="/Users/nantas/APgame/PSD/flymon.png"
+       inkscape:export-xdpi="43.060001"
+       inkscape:export-ydpi="43.060001" />
+    <path
+       style="fill:#ececec;stroke:#000000;stroke-width:8;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:2.9000001;stroke-opacity:1;stroke-dasharray:none"
+       d="m 961.39862,129.49197 c -37.18304,-10.64107 -68.85037,-5.64599 -85.32623,-0.17013 -19.00825,6.31754 -44.85522,21.61542 -36.01936,32.54209 4.59859,5.68673 56.63025,-14.05721 56.63025,-14.05721 0,0 -64.12013,33.23644 -57.06641,42.1347 9.73963,12.28623 59.79497,-11.86813 59.79497,-11.86813 0,0 -56.29592,32.98093 -45.1007,42.89675 11.20138,9.92129 111.61202,-31.81216 136.2114,-37.60483 21.87266,-5.15059 19.53686,-21.82871 10.60506,-32.47239 -10.18836,-12.14069 -27.73191,-17.96757 -39.72898,-21.40085 z"
+       id="path3906"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="ssscscssss"
+       inkscape:export-filename="/Users/nantas/APgame/PSD/flymon.png"
+       inkscape:export-xdpi="43.060001"
+       inkscape:export-ydpi="43.060001" />
+    <path
+       sodipodi:nodetypes="sssss"
+       inkscape:connector-curvature="0"
+       id="path3908"
+       d="m 1168.5715,144.49123 c 0,56.80643 -47.3299,87.70485 -105.7143,87.70485 -58.3844,0 -108.74476,-19.78674 -108.74476,-76.59317 0,-56.806426 45.30957,-106.897746 103.69396,-106.897746 58.3844,0 110.7651,38.97964 110.7651,95.786066 z"
+       style="fill:#ff9955;fill-opacity:1;stroke:#280b0b;stroke-width:10;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1"
+       inkscape:export-filename="/Users/nantas/APgame/PSD/flymon.png"
+       inkscape:export-xdpi="43.060001"
+       inkscape:export-ydpi="43.060001" />
+    <path
+       sodipodi:nodetypes="ssscscssss"
+       inkscape:connector-curvature="0"
+       id="path3910"
+       d="m 1198.0322,126.77071 c 48.9102,-0.0195 85.6807,17.05734 103.812,29.44039 20.918,14.28639 47.0314,41.86867 32.4908,52.08488 -7.5675,5.31702 -63.9754,-36.76949 -63.9754,-36.76949 0,0 66.4188,62.69301 54.7501,71.062 -16.1119,11.55539 -68.5843,-35.2073 -68.5843,-35.2073 0,0 56.9938,59.66373 39.9356,67.83108 -17.0676,8.17179 -124.6618,-77.46261 -152.5607,-93.05343 -24.8066,-13.86275 -16.1714,-33.33098 -1.6124,-43.16975 16.6068,-11.22254 39.9636,-12.21208 55.7443,-12.21838 z"
+       style="fill:#ececec;stroke:#000000;stroke-width:8;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:2.9000001;stroke-opacity:1;stroke-dasharray:none"
+       inkscape:export-filename="/Users/nantas/APgame/PSD/flymon.png"
+       inkscape:export-xdpi="43.060001"
+       inkscape:export-ydpi="43.060001" />
+    <path
+       inkscape:connector-curvature="0"
+       id="path3912"
+       d="m 1051.2519,164.39516 c 0,0 7.071,-22.22336 31.3147,-21.2132"
+       style="fill:none;stroke:#000000;stroke-width:9;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       inkscape:export-filename="/Users/nantas/APgame/PSD/flymon.png"
+       inkscape:export-xdpi="43.060001"
+       inkscape:export-ydpi="43.060001" />
+    <path
+       sodipodi:nodetypes="cc"
+       inkscape:connector-curvature="0"
+       id="path3914"
+       d="m 1001.1435,159.74359 c 0,0 -6.77279,-18.017 -22.01163,-23.02174"
+       style="fill:none;stroke:#000000;stroke-width:8.20162106;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       inkscape:export-filename="/Users/nantas/APgame/PSD/flymon.png"
+       inkscape:export-xdpi="43.060001"
+       inkscape:export-ydpi="43.060001" />
+    <path
+       style="fill:#ececec;stroke:#000000;stroke-width:8;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:2.9000001;stroke-opacity:1;stroke-dasharray:none"
+       d="m 982.00253,-128.47705 c -22.95197,-31.12903 -51.08192,-46.50683 -67.47386,-52.229 -18.91145,-6.60167 -66.57902,9.73379 -66.25215,23.78219 0.17013,7.31143 57.00454,0.58414 57.00454,0.58414 0,0 -56.78883,14.31859 -56.635,25.67245 0.2126,15.67695 54.60305,0.6786 54.60305,0.6786 0,0 -51.15038,16.03602 -48.33777,30.724304 1.40708,7.34818 36.39735,-9.057804 63.19895,-1.711244 26.8016,7.346554 42.55739,27.731361 54.06696,32.946811 20.46761,9.2747 28.80015,-5.36036 28.22455,-19.243227 -0.65684,-15.835604 -10.99374,-31.161324 -18.39927,-41.205024 z"
+       id="path3917"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="ssscscsssss"
+       inkscape:export-filename="/Users/nantas/APgame/PSD/flymon.png"
+       inkscape:export-xdpi="43.060001"
+       inkscape:export-ydpi="43.060001" />
+    <path
+       sodipodi:nodetypes="sssss"
+       inkscape:connector-curvature="0"
+       id="path3919"
+       d="m 1171.4287,-101.92352 c 0,56.806427 -47.3299,87.704847 -105.7143,87.704847 -58.3844,0 -108.74481,-19.78674 -108.74481,-76.59317 0,-56.806427 45.30961,-106.897747 103.69401,-106.897747 58.3844,0 110.7651,38.97964 110.7651,95.78607 z"
+       style="fill:#ff9955;fill-opacity:1;stroke:#280b0b;stroke-width:10;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1"
+       inkscape:export-filename="/Users/nantas/APgame/PSD/flymon.png"
+       inkscape:export-xdpi="43.060001"
+       inkscape:export-ydpi="43.060001" />
+    <path
+       sodipodi:nodetypes="ssscscsssss"
+       inkscape:connector-curvature="0"
+       id="path3921"
+       d="m 1186.7488,-164.91148 c 40.9984,-26.67088 60.32,-24.63467 81.65,-19.42774 29.1762,7.12232 81.6917,53.50414 76.2619,70.42504 -4.5666,14.231104 -85.9488,-36.14909 -85.9488,-36.14909 0,0 90.5619,48.8059 77.0265,70.868814 -14.2181,23.175898 -87.8344,-33.459074 -87.8344,-33.459074 3.8236,-0.007 69.8611,51.343495 56.0438,62.692929 -24.2174,19.891915 -44.4182,-24.733205 -78.8338,-32.096095 -38.0641,-8.14344 -47.5409,3.78355 -63.4852,4.84945 -28.354,1.89549 -31.7233,-19.1337 -24.8781,-35.317274 7.8083,-18.45981 36.77,-43.78171 49.9981,-52.38696 z"
+       style="fill:#ececec;stroke:#000000;stroke-width:8;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:2.9000001;stroke-opacity:1;stroke-dasharray:none"
+       inkscape:export-filename="/Users/nantas/APgame/PSD/flymon.png"
+       inkscape:export-xdpi="43.060001"
+       inkscape:export-ydpi="43.060001" />
+    <path
+       inkscape:connector-curvature="0"
+       id="path3923"
+       d="m 1054.1091,-82.019593 c 0,0 7.071,-22.223357 31.3147,-21.213197"
+       style="fill:none;stroke:#000000;stroke-width:9;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       inkscape:export-filename="/Users/nantas/APgame/PSD/flymon.png"
+       inkscape:export-xdpi="43.060001"
+       inkscape:export-ydpi="43.060001" />
+    <path
+       sodipodi:nodetypes="cc"
+       inkscape:connector-curvature="0"
+       id="path3925"
+       d="m 1004.0007,-86.671163 c 0,0 -6.77283,-18.016997 -22.01168,-23.021737"
+       style="fill:none;stroke:#000000;stroke-width:8.20162106;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       inkscape:export-filename="/Users/nantas/APgame/PSD/flymon.png"
+       inkscape:export-xdpi="43.060001"
+       inkscape:export-ydpi="43.060001" />
+    <path
+       inkscape:export-ydpi="43.060001"
+       inkscape:export-xdpi="43.060001"
+       inkscape:export-filename="/Users/nantas/APgame/PSD/flymon.png"
+       sodipodi:nodetypes="ssscscsssss"
+       inkscape:connector-curvature="0"
+       id="path3927"
+       d="m 992.67539,439.96266 c -4.75072,-33.48375 -16.44129,-52.51648 -24.08817,-60.47781 -8.82226,-9.18501 -39.55599,-0.47448 -42.9939,13.14807 -1.78922,7.0898 31.56967,9.02326 31.56967,9.02326 0,0 -35.28957,5.40827 -38.12948,16.40158 -3.92111,15.17915 30.20903,8.75818 30.20903,8.75818 0,0 -32.59458,7.90439 -34.81418,22.51408 -1.11041,7.30885 22.5872,-3.351 35.608,7.72456 13.02079,11.07556 16.53562,33.11003 21.59629,39.85727 8.99942,11.99869 17.40703,-0.90574 20.66388,-14.40525 3.71481,-15.39837 1.91176,-31.74048 0.37886,-42.54394 z"
+       style="fill:#ececec;stroke:#000000;stroke-width:6.07102442;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:2.9000001;stroke-opacity:1;stroke-dasharray:none" />
+    <path
+       inkscape:export-ydpi="43.060001"
+       inkscape:export-xdpi="43.060001"
+       inkscape:export-filename="/Users/nantas/APgame/PSD/flymon.png"
+       style="fill:#ff9955;fill-opacity:1;stroke:#280b0b;stroke-width:9.70198917;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1"
+       d="m 1156.887,511.23456 c -14.6371,54.8883 -65.6452,73.26413 -118.746,59.1037 -53.10074,-14.16042 -93.80529,-45.49333 -79.16818,-100.38164 14.6371,-54.8883 68.75318,-92.29893 121.85398,-78.13852 53.1007,14.16041 90.6973,64.52815 76.0602,119.41646 z"
+       id="path3929"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="sssss" />
+    <path
+       inkscape:export-ydpi="43.060001"
+       inkscape:export-xdpi="43.060001"
+       inkscape:export-filename="/Users/nantas/APgame/PSD/flymon.png"
+       style="fill:#ececec;stroke:#000000;stroke-width:6.45906544;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:2.9000001;stroke-opacity:1;stroke-dasharray:none"
+       d="m 1175.5383,451.01916 c 32.6952,-18.88405 44.3404,-13.67126 56.4336,-5.05748 16.5417,11.78241 37.6678,65.41882 29.8879,80.85636 -6.5432,12.98356 -44.821,-49.3648 -44.821,-49.3648 0,0 44.4653,62.36906 30.2552,81.41356 -14.9271,20.00518 -46.7019,-47.08237 -46.7019,-47.08237 2.4101,0.63547 30.773,61.34401 19.1457,69.98942 -20.379,15.15257 -21.6042,-31.35874 -41.3839,-44.2536 -21.8767,-14.26189 -30.9188,-4.32939 -41.2361,-5.97756 -18.3473,-2.93096 -15.0511,-23.81601 -6.5696,-38.30338 9.6746,-16.52497 34.441,-36.12732 44.9901,-42.22015 z"
+       id="path3931"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="ssscscsssss" />
+    <g
+       id="g3949"
+       style="stroke:#280b0b;stroke-width:8;stroke-miterlimit:4;stroke-dasharray:none"
+       transform="matrix(1.059259,0,0,1.1324442,-58.031524,-59.720976)"
+       inkscape:export-filename="/Users/nantas/APgame/PSD/flymon.png"
+       inkscape:export-xdpi="43.060001"
+       inkscape:export-ydpi="43.060001">
+      <path
+         transform="translate(0,-547.63782)"
+         inkscape:connector-curvature="0"
+         id="path3937"
+         d="m 992.85714,1001.4286 6.42858,25"
+         style="fill:none;stroke:#280b0b;stroke-width:8;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
+      <path
+         transform="translate(0,-547.63782)"
+         inkscape:connector-curvature="0"
+         id="path3939"
+         d="m 1010,1009.2857 -24.28571,10"
+         style="fill:none;stroke:#280b0b;stroke-width:8;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
+    </g>
+    <g
+       id="g3945"
+       style="stroke:#280b0b;stroke-width:8;stroke-miterlimit:4;stroke-dasharray:none"
+       transform="matrix(1.059259,0,0,1.1324442,-58.031524,-59.720976)"
+       inkscape:export-filename="/Users/nantas/APgame/PSD/flymon.png"
+       inkscape:export-xdpi="43.060001"
+       inkscape:export-ydpi="43.060001">
+      <path
+         transform="translate(0,-547.63782)"
+         inkscape:connector-curvature="0"
+         id="path3941"
+         d="M 1050.7143,1025.7143 1057.8571,1055"
+         style="fill:none;stroke:#280b0b;stroke-width:8;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
+      <path
+         transform="translate(0,-547.63782)"
+         inkscape:connector-curvature="0"
+         id="path3943"
+         d="M 1069.2857,1035.7143 1040,1044.2857"
+         style="fill:none;stroke:#280b0b;stroke-width:8;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
+    </g>
+    <path
+       style="fill:#ececec;stroke:#000000;stroke-width:6.07102442;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:2.9000001;stroke-opacity:1;stroke-dasharray:none"
+       d="m 971.46219,745.18674 c -4.75072,-33.48375 -16.44129,-52.51648 -24.08817,-60.47781 -8.82226,-9.18501 -39.55599,-0.47448 -42.9939,13.14807 -1.78922,7.0898 31.56967,9.02326 31.56967,9.02326 0,0 -35.28957,5.40827 -38.12948,16.40158 -3.92111,15.17915 30.20903,8.75818 30.20903,8.75818 0,0 -32.59458,7.90439 -34.81418,22.51408 -1.11041,7.30885 22.5872,-3.351 35.608,7.72456 13.02079,11.07556 16.53562,33.11003 21.59629,39.85727 8.99942,11.99869 17.40703,-0.90574 20.66388,-14.40525 3.71481,-15.39837 1.91176,-31.74048 0.37886,-42.54394 z"
+       id="path3953"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="ssscscsssss"
+       inkscape:export-filename="/Users/nantas/APgame/PSD/flymon.png"
+       inkscape:export-xdpi="43.060001"
+       inkscape:export-ydpi="43.060001" />
+    <path
+       sodipodi:nodetypes="cccccccc"
+       inkscape:connector-curvature="0"
+       id="path3955"
+       d="m 962.76831,741.75213 c 16.09152,-59.97598 69.52389,-85.70198 127.90109,-70.22901 m 28.2843,11.11168 c 58.3771,15.47296 72.6466,77.44705 58.3642,119.37368 m 0,0 c -15.6548,45.9556 -61.0564,87.12617 -119.4336,71.65319 m -29.2944,-3.03046 C 970.21274,855.15824 937.5854,824.96164 953.67693,764.98564"
+       style="fill:#ff9955;fill-opacity:1;stroke:#280b0b;stroke-width:10.63360786;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1"
+       inkscape:export-filename="/Users/nantas/APgame/PSD/flymon.png"
+       inkscape:export-xdpi="43.060001"
+       inkscape:export-ydpi="43.060001" />
+    <path
+       sodipodi:nodetypes="ssscscsssss"
+       inkscape:connector-curvature="0"
+       id="path3957"
+       d="m 1203.8226,739.07065 c 32.6952,-18.88405 44.3404,-13.67126 56.4336,-5.05748 16.5417,11.78241 37.6678,65.41882 29.8879,80.85636 -6.5432,12.98356 -44.821,-49.3648 -44.821,-49.3648 0,0 44.4653,62.36906 30.2552,81.41356 -14.9271,20.00518 -46.7019,-47.08237 -46.7019,-47.08237 2.4101,0.63547 30.773,61.34401 19.1457,69.98942 -20.379,15.15257 -21.6042,-31.35874 -41.3839,-44.2536 -21.8767,-14.26189 -30.9188,-4.32939 -41.2361,-5.97756 -18.3473,-2.93096 -15.0511,-23.81601 -6.5696,-38.30338 9.6746,-16.52497 34.441,-36.12732 44.9901,-42.22015 z"
+       style="fill:#ececec;stroke:#000000;stroke-width:6.45906544;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:2.9000001;stroke-opacity:1;stroke-dasharray:none"
+       inkscape:export-filename="/Users/nantas/APgame/PSD/flymon.png"
+       inkscape:export-xdpi="43.060001"
+       inkscape:export-ydpi="43.060001" />
+    <path
+       inkscape:export-ydpi="43.060001"
+       inkscape:export-xdpi="43.060001"
+       inkscape:export-filename="/Users/nantas/APgame/PSD/flymon.png"
+       sodipodi:nodetypes="cccccc"
+       inkscape:connector-curvature="0"
+       id="path3971"
+       d="m 936.92587,995.38776 c -8.82226,-9.18501 -24.55599,-8.33162 -42.9939,5.29094 -21.14799,8.6243 9.09736,15.9697 14.97029,38.261 0.95761,23.4185 -15.99411,-16.669 -26.13525,26.2932 -1.11041,7.3089 22.5872,-3.351 35.608,7.7246 25.07736,26.7105 47.61403,-49.5248 18.55086,-77.56974 z"
+       style="fill:#ececec;stroke:#999999;stroke-width:6.07102441999999964;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:2.90000010000000019;stroke-opacity:1;stroke-dasharray:none" />
+    <path
+       inkscape:export-ydpi="43.060001"
+       inkscape:export-xdpi="43.060001"
+       inkscape:export-filename="/Users/nantas/APgame/PSD/flymon.png"
+       style="fill:#ff9955;fill-opacity:1;stroke:#999999;stroke-width:13.31861018999999935;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1"
+       d="m 922.46087,1028.6693 c 9.85454,-53.39839 70.82836,-97.92364 110.00003,-95.39363 m 92.7095,23.08695 c 37.743,8.24428 76.6139,67.36848 67.7271,124.63288 m -15.7143,62.8571 c -43.6014,49.8581 -55.3345,60.7752 -123.0776,56.8166 m -50.4306,-8.1386 c -54.88595,-19.6729 -92.28609,-53.7802 -92.43153,-115.75"
+       id="path3973"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="cccccccc" />
+    <path
+       inkscape:export-ydpi="43.060001"
+       inkscape:export-xdpi="43.060001"
+       inkscape:export-filename="/Users/nantas/APgame/PSD/flymon.png"
+       style="fill:#ececec;stroke:#999999;stroke-width:6.45906543999999982;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:2.90000010000000019;stroke-opacity:1;stroke-dasharray:none"
+       d="m 1273.9817,1109.8341 c -55.2362,-41.3176 17.796,-19.1884 -14.5658,32.0487 -61.762,-53.5079 4.1724,30.3179 -68.9401,-21.3465 -79.077,-91.9339 118.8749,-101.7024 83.5059,-10.7022 z"
+       id="path3975"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="cccc" />
   </g>
 </svg>

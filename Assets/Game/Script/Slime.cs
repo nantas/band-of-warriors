@@ -1,44 +1,9 @@
 using UnityEngine;
 using System.Collections;
 
-public class Slime : MonoBehaviour {
+public class Slime : Enemy {
 	
-	public exSprite spEnemy;
-	public Collider spCollider;
     public float moveSpeed = 100.0f;
-	
-	private bool isTakingDamage;
-	
-	
-	
-	void OnEnable () {
-		isTakingDamage = false;
-		if (spEnemy) spEnemy.enabled = true;
-		if (spCollider) spCollider.enabled = true;
-	}
-	
-	void OnDisable () {
-		StopAllCoroutines();
-		CancelInvoke();
-		if (spEnemy) spEnemy.enabled = false;
-		if (spCollider) spCollider.enabled = false;
-		
-	}
-	
-	// Use this for initialization
-	void Start () {
-		isTakingDamage = false;
-		gameObject.Init();
-	}
-	
-	public void StartIdle () {
-	//	spEnemy.spanim.Play("slime_idle");
-    //  Debug.Log("move in finished.");
-	}
-	// Update is called once per frame
-	void Update () {
-	
-	}
 
     public void MoveToRandomLoc () {
         Vector3 targetPos = new Vector3(Random.Range(Game.instance.leftSpawnEntry.position.x, 

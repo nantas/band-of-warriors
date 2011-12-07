@@ -21,7 +21,6 @@ public class WarriorControl : MonoBehaviour {
 	[System.NonSerialized] public MoveDir charMoveState;
     [System.NonSerialized] public JumpState charJumpState;
     [System.NonSerialized] public HurtState charHurtState;
-	private bool isTakingDamage = false;
 	private float flashTime = 0.0f;
     private float stunTime = 0.1f;
 	  

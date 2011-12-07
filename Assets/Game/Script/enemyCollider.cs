@@ -3,26 +3,26 @@ using System.Collections;
 
 public class enemyCollider : MonoBehaviour {
 	
-	private Slime controller;
+	private Enemy controller;
 	
 	void Awake() {
-		controller = transform.parent.GetComponent<Slime>();
+		controller = transform.parent.GetComponent<Enemy>();
 	}
 
 	void OnTriggerEnter (Collider other) {
-        bool isSlimeOnLeft;
+        bool isEnemyOnLeft;
         if (transform.position.x < other.transform.position.x) {
-            isSlimeOnLeft = true;
+            isEnemyOnLeft = true;
         } else {
-            isSlimeOnLeft = false;
+            isEnemyOnLeft = false;
         }
 
 		if (other.tag == "player") {
-			other.SendMessage("TouchedEnemy", isSlimeOnLeft);
+			other.SendMessage("TouchedEnemy", isEnemyOnLeft);
 		}
 		if (other.tag == "player_weapon") {
 			other.SendMessage("AttackEnemy");
-			controller.SendMessage("OnDamaged", isSlimeOnLeft);
+			controller.SendMessage("OnDamaged", isEnemyOnLeft);
 		}
 	}
 	

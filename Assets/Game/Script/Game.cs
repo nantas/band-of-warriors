@@ -30,8 +30,10 @@ public class Game : MonoBehaviour {
     public Transform rightSpawnEntry;
 	
     public WarriorControl theplayer;
-	public exLayer enemyLayer;
+	public exLayer enemyLayerGround;
+    public exLayer enemyLayerAir;
 	public float groundPosY = -130;
+    public float flyPosY = 100;
 	
 	protected virtual void Init () {
 		theSpawner = GetComponent<Spawner>();
