@@ -143,6 +143,154 @@ public class FlymonPool {
     }
 }
 
+[System.Serializable]
+public class CoinPool {
+
+    public int size;
+    public GameObject prefab;
+
+    private Coin[] initCoins;
+    private int idx = 0;
+    private Coin[] coins;
+
+    // ------------------------------------------------------------------ 
+    // Desc: 
+    // ------------------------------------------------------------------ 
+
+    public void Init ( exLayer _layer ) {
+        initCoins = new Coin[size]; 
+        if ( prefab != null ) {
+            for ( int i = 0; i < size; ++i ) {
+                GameObject obj = GameObject.Instantiate(prefab, Vector3.zero, Quaternion.identity) as GameObject;
+                initCoins[i] = obj.GetComponent<Coin>();
+				if (obj.GetComponent<exLayer>()) {
+                	obj.GetComponent<exLayer>().parent = _layer;
+				} else {
+					Debug.LogError ("please add a layer component to coin prefab.");
+				}
+            }
+        }
+        Reset();
+    }
+
+    // ------------------------------------------------------------------ 
+    // Desc: 
+    // ------------------------------------------------------------------ 
+
+    public void Reset () {
+        coins = new Coin[size];
+        for ( int i = 0; i < size; ++i ) {
+            coins[i] = initCoins[i];
+            coins[i].enabled = false;
+        }
+        idx = size-1;
+    }
+
+    // ------------------------------------------------------------------ 
+    // Desc: 
+    // ------------------------------------------------------------------ 
+
+    public Coin Request ( Vector3 _pos, Quaternion _rot )  {
+        if ( idx < 0 )
+            Debug.LogError ("Error: the pool do not have enough free item.");
+
+        Coin result = coins[idx];
+        --idx; 
+
+        result.transform.position = new Vector3 ( _pos.x, _pos.y, result.transform.position.z );
+        result.transform.rotation = _rot;
+        result.enabled = true;
+        return result;
+    }
+
+    // ------------------------------------------------------------------ 
+    // Desc: 
+    // ------------------------------------------------------------------ 
+
+    public void Return ( Coin _coin ) {
+        ++idx;
+        coins[idx] = _coin;
+    }
+}
+
+[System.Serializable]
+public class ScorePool {
+
+    public int size;
+    public GameObject prefab;
+
+    private exSpriteBase[] initScores;
+    private int idx = 0;
+    private exSpriteBase[] scores;
+
+    // ------------------------------------------------------------------ 
+    // Desc: 
+    // ------------------------------------------------------------------ 
+
+    public void Init ( exLayer _layer ) {
+        initScores = new exSpriteBase[size]; 
+        if ( prefab != null ) {
+            for ( int i = 0; i < size; ++i ) {
+                GameObject obj = GameObject.Instantiate(prefab, Vector3.zero, Quaternion.identity) as GameObject;
+                initScores[i] = obj.GetComponent<exSpriteBase>();
+				if (obj.GetComponent<exLayer>()) {
+                	obj.GetComponent<exLayer>().parent = _layer;
+				} else {
+					Debug.LogError ("please add a layer component to score prefab.");
+				}
+            }
+        }
+        Reset();
+    }
+
+    // ------------------------------------------------------------------ 
+    // Desc: 
+    // ------------------------------------------------------------------ 
+
+    public void Reset () {
+        scores = new exSpriteBase[size];
+        for ( int i = 0; i < size; ++i ) {
+            scores[i] = initScores[i];
+            scores[i].enabled = false;
+        }
+        idx = size-1;
+    }
+
+    // ------------------------------------------------------------------ 
+    // Desc: 
+    // ------------------------------------------------------------------ 
+
+    public exSpriteBase Request ( Vector3 _pos, Quaternion _rot )  {
+        if ( idx < 0 )
+            Debug.LogError ("Error: the pool do not have enough free item.");
+
+        exSpriteBase result = scores[idx];
+        --idx; 
+
+        result.transform.position = new Vector3 ( _pos.x, _pos.y, result.transform.position.z );
+        result.transform.rotation = _rot;
+        result.enabled = true;
+        return result;
+    }
+
+    // ------------------------------------------------------------------ 
+    // Desc: 
+    // ------------------------------------------------------------------ 
+
+    public void Return ( exSpriteBase _score ) {
+        ++idx;
+        scores[idx] = _score;
+    }
+}
+
+
+
+
+
+// ------------------------------------------------------------------ 
+// Desc: 
+// ------------------------------------------------------------------ 
+
 
 public class Spawner : MonoBehaviour {
 	
@@ -156,6 +304,8 @@ public class Spawner : MonoBehaviour {
 
 	public SlimePool slimePool = new SlimePool();
     public FlymonPool flymonPool = new FlymonPool();
+    public CoinPool coinPool = new CoinPool();
+    public ScorePool scorePool = new ScorePool();
 	
 	//spawner locations
 	public SpawnLocation topSpawner;
