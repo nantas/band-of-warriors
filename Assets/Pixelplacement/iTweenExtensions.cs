@@ -564,6 +564,19 @@ public static class iTweenExtensions
 		iTween.MoveBy(go,iTween.Hash("amount",amount,"time",time,"delay",delay,"easeType",easeType.ToString(),"looptype",loopType.ToString()));
 	}
 	
+    //nantas override moveby functions
+    public static void MoveBy(this GameObject go,Vector3 amount,float time,float delay,
+                              EaseType easeType, string onCompleteCall, GameObject onCompleteGO, Object onCompleteParams ){
+		iTween.MoveBy(go,iTween.Hash("amount",amount,"time",time, "delay",delay,
+                                     "easeType",easeType.ToString(),"oncomplete", onCompleteCall, "oncompletetarget", onCompleteGO,
+                                     "oncompleteparams", onCompleteParams));
+	}
+
+    public static void MoveBy(this GameObject go,Vector3 amount,float time,float delay,
+                              EaseType easeType, string onCompleteCall, GameObject onCompleteGO ){
+		iTween.MoveBy(go,iTween.Hash("amount",amount,"time",time,"delay",delay,
+                                     "easeType",easeType.ToString(),"oncomplete", onCompleteCall, "oncompletetarget", onCompleteGO));
+	}
 	/// <summary>
 	/// Instantly changes a GameObject's position to a supplied destination then returns it to it's starting position over time.
 	/// </summary>
@@ -670,22 +683,20 @@ public static class iTweenExtensions
 	}
 	
 	/// <summary>
-	/// Changes a GameObject's position over time to a supplied destination.
-	/// </summary>
-	/// <param name="position">
-	/// A <see cref="Vector3"/>
-	/// </param>
-	/// <param name="time">
-	/// A <see cref="System.Single"/>
-	/// </param>
-	/// <param name="delay">
-	/// A <see cref="System.Single"/>
-	/// </param>
-	/// <param name="easeType">
-	/// A <see cref="EaseType"/>
-	/// </param>
-	public static void MoveTo(this GameObject go,Vector3 position,float time,float delay,EaseType easeType, string onCompleteCall, GameObject onCompleteGO){
-		iTween.MoveTo(go,iTween.Hash("position",position,"time",time,"delay",delay,"easeType",easeType.ToString(),"oncomplete", onCompleteCall, "oncompletetarget", onCompleteGO));
+	/// nantas override iTween functions
+
+
+	public static void MoveTo(this GameObject go,Vector3 position,float time,
+                              float delay,EaseType easeType, string onCompleteCall, GameObject onCompleteGO){
+		iTween.MoveTo(go,iTween.Hash("position",position,"time",time,
+                                     "delay",delay,"easeType",easeType.ToString(),"oncomplete", onCompleteCall, "oncompletetarget", onCompleteGO));
+		
+	}
+
+	public static void MoveTo(this GameObject go,Vector3 position,float time,
+                              float delay,EaseType easeType) {
+		iTween.MoveTo(go,iTween.Hash("position",position,"time",time,
+                                     "delay",delay,"easeType",easeType.ToString()));
 		
 	}
 	

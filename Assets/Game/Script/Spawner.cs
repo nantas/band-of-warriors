@@ -296,6 +296,8 @@ public class Spawner : MonoBehaviour {
 	
 	public int maxSlimeCount = 15;
     public int maxFlymonCount = 3;
+    public int maxCoinCount = 15;
+    [System.NonSerialized] public int aliveCoinCount = 0;
 
 	private int aliveSlimeCount = 0;
     private int totalSlimeSpawned = 0;
@@ -316,6 +318,8 @@ public class Spawner : MonoBehaviour {
 	void Awake () {
 		slimePool.Init(Game.instance.enemyLayerGround);
         flymonPool.Init(Game.instance.enemyLayerAir);
+        coinPool.Init(Game.instance.coinLayer);
+        scorePool.Init(Game.instance.scoreLayer);
 	}
 	
 	// Use this for initialization
@@ -330,24 +334,19 @@ public class Spawner : MonoBehaviour {
 	}
 	
 	void SpawnASlime () {
-		int spawnSelector = Random.Range(1,4);
-		switch (spawnSelector) {
-			case 1:
-				SpawnASlimeFrom (topSpawner);
-				break;
-			case 2:
-				SpawnASlimeFrom (botSpawner);
-				break;
-			case 3:
-				SpawnASlimeFrom (leftSpawner);
-				break;
-			case 4:
-				SpawnASlimeFrom (rightSpawner);
-				break;
-			default:
-				Debug.LogError("can't get a valid spawner");
-				break;
-		}
+		int spawnSelector = Random.Range(1,20);
+        if ( spawnSelector < 4 ) {
+			SpawnASlimeFrom (leftSpawner);
+        }
+        if ( spawnSelector >= 4 && spawnSelector <= 10 ) {
+			SpawnASlimeFrom (topSpawner);
+        }
+        if ( spawnSelector > 10 && spawnSelector <= 17 ) {
+			SpawnASlimeFrom (botSpawner);
+        }
+        if ( spawnSelector > 17 ) {
+			SpawnASlimeFrom (rightSpawner);
+        }
         totalSlimeSpawned += 1;
         if (totalSlimeSpawned > 15) {
             Invoke("SpawnASlime", Random.Range(0.5f, 1.0f));
@@ -379,6 +378,27 @@ public class Spawner : MonoBehaviour {
         if (aliveSlimeCount < 0) aliveSlimeCount = 0;
 		slimePool.Return(_slime);
 	}
+
+    public Coin SpawnCoinAt (Vector2 _pos) {
+        aliveCoinCount += 1;
+        return coinPool.Request(_pos, Quaternion.identity);
+    }
+
+    public void DestroyCoin (Coin _coin) {
+        aliveCoinCount -= 1;
+        if (aliveCoinCount < 0) aliveCoinCount = 0;
+        _coin.enabled = false;
+        coinPool.Return(_coin);
+    }
+
+    public exSpriteBase SpawnScoreAt (Vector2 _pos){
+        return scorePool.Request(_pos, Quaternion.identity); 
+    }
+
+    public void DestroyScore (exSpriteBase _score) {
+        _score.enabled = false;
+        scorePool.Return(_score);
+    }
 
 	void SpawnAFlymon () {
 		int spawnSelector = Random.Range(1,3);

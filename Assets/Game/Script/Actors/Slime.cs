@@ -57,7 +57,20 @@ public class Slime : Enemy {
 			float animTime = spEnemy.spanim.animations[1].length;
 			yield return new WaitForSeconds(animTime);
 			spawner.DestroySlime(this);
+            SpawnLoot();
 		}
 	}
 	
+    public void SpawnLoot () {
+        int lootSelector = Random.Range(1, 100);
+        Spawner spawner = Game.instance.theSpawner;
+        //spawn coin
+        if (lootSelector < 35) {
+            if (spawner.aliveCoinCount < spawner.maxCoinCount) {
+                Coin coin = spawner.SpawnCoinAt(new Vector2(transform.position.x, transform.position.y));
+                coin.PopUp();
+            }
+        }
+    }
+
 }

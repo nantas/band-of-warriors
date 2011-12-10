@@ -20,13 +20,13 @@ public class CameraFollow : MonoBehaviour {
     void Update() {
 
         if (target.position.x - dist2Left < Game.instance.leftBoundary.position.x) {
-            Debug.Log("reach left boundary!");
+            //Debug.Log("reach left boundary!");
             dampTargetX = Game.instance.leftBoundary.position.x + dist2Left;
          } else if (target.position.x - dist2Right > Game.instance.rightBoundary.position.x) {
-            Debug.Log("reach right boundary!");
+            //Debug.Log("reach right boundary!");
             dampTargetX = Game.instance.rightBoundary.position.x + dist2Right;
         } else {
-            Debug.Log("camera follow player!");
+            //Debug.Log("camera follow player!");
             dampTargetX = target.position.x;
         }
 

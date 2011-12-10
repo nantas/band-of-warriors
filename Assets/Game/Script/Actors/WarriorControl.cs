@@ -3,7 +3,8 @@ using System.Collections;
 
 public class WarriorControl : MonoBehaviour {
 
-	public float movementSpeed = 120.0f;
+	public float initMoveSpeed = 120.0f;
+    public float initJumpSpeed = 500.0f;
 	public exSprite[] allBodyParts;
     public enum JumpState {
         Ready2Jump,
@@ -23,6 +24,7 @@ public class WarriorControl : MonoBehaviour {
     [System.NonSerialized] public HurtState charHurtState;
 	private float flashTime = 0.0f;
     private float stunTime = 0.1f;
+    private Vector2 velocity;
 	  
 	void Awake () {
 		flashTime = allBodyParts[0].spanim.animations[0].length;
@@ -34,13 +36,14 @@ public class WarriorControl : MonoBehaviour {
 		charMoveState = MoveDir.Right;
         charJumpState = JumpState.Ground;
         charHurtState = HurtState.Hitable;
-		animation["walk"].speed = movementSpeed/120.0f;
+		animation["walk"].speed = initMoveSpeed/120.0f;
+        velocity = new Vector2 (initMoveSpeed, 0);
 		StartWalk();
 		
 	}
 	
 	// Update is called once per frame
-	void Update () {
+	void FixedUpdate () {
 		//handle input
 		if ( Input.GetButton("Right")) {
 			TurnRight();
@@ -57,9 +60,11 @@ public class WarriorControl : MonoBehaviour {
             if (!animation.IsPlaying("jump"))
                 animation.Play("jump");
             charJumpState = JumpState.InAir;
+            velocity.y = initJumpSpeed;
         }
-		//handle movement
-		float horizonDist = Time.deltaTime * movementSpeed;		
+		//handle horizontal movement
+		float horizonDist = Time.deltaTime * velocity.x;
+        float verticalDist = 0;
 		switch (charMoveState) {
 			case MoveDir.Right:
 				//don't need to change
@@ -74,13 +79,31 @@ public class WarriorControl : MonoBehaviour {
 				horizonDist = 0;
 				break;
 		}
+        //handle vertical movement
+        if (charJumpState == JumpState.InAir) {
+            velocity.y += Game.instance.gravity;
+            verticalDist = Time.deltaTime * velocity.y;
+        }
 		//move character
         if (charHurtState != HurtState.Stun){
-    		if ((transform.position.x + horizonDist < Game.instance.rightBoundary.position.x) 
+    		//horizontal
+            if ((transform.position.x + horizonDist < Game.instance.rightBoundary.position.x) 
 	    		&& (transform.position.x + horizonDist > Game.instance.leftBoundary.position.x) ) {
 		    	transform.Translate (horizonDist, 0, 0);
 		    }
+            //vertical
+            if ( charJumpState == JumpState.InAir ) {
+                transform.Translate (0, verticalDist, 0);
+            }
         }
+        //update air to ground state
+        if ( transform.position.y <= Game.instance.groundPosY ) {
+            transform.position = new Vector3 (transform.position.x, 
+                                              Game.instance.groundPosY, transform.position.z);
+            charJumpState = JumpState.Ground;
+            StartWalk();
+        }
+
 	
 	}
 	
@@ -136,12 +159,12 @@ public class WarriorControl : MonoBehaviour {
         }
     
 	}
-	
+
 	public void OnJumpFinish() {
-        animation.Stop();
-        charJumpState = JumpState.Ground;
-        transform.position = new Vector3(transform.position.x, Game.instance.groundPosY,
-                                         transform.position.z);
-		StartWalk();
+       // animation.Stop();
+       // charJumpState = JumpState.Ground;
+       // transform.position = new Vector3(transform.position.x, Game.instance.groundPosY,
+       //                                  transform.position.z);
+	   // StartWalk();
 	}
 }

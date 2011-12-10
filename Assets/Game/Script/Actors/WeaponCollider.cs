@@ -6,7 +6,7 @@ public class WeaponCollider : MonoBehaviour {
 	private WarriorControl controller;
 	
 	void Awake () {
-		controller = transform.parent.GetComponent<WarriorControl>();
+		controller = transform.root.GetComponent<WarriorControl>();
 	}
 	
 	void Update () {
@@ -16,6 +16,8 @@ public class WeaponCollider : MonoBehaviour {
 	
 	void AttackEnemy() {
 		//Debug.Log("attacking enemy!");
+        //play weapon flash white
+        controller.allBodyParts[2].spanim.Play("flash_white");
 	}
 	
 }
