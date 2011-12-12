@@ -348,10 +348,14 @@ public class Spawner : MonoBehaviour {
 			SpawnASlimeFrom (rightSpawner);
         }
         totalSlimeSpawned += 1;
-        if (totalSlimeSpawned > 15) {
-            Invoke("SpawnASlime", Random.Range(0.5f, 1.0f));
-        } else {
-            Invoke("SpawnASlime", Random.Range(1.2f, 1.5f));
+        if (totalFlymonSpawned <= 15) {
+            Invoke("SpawnASlime", Random.Range(2.0f, 3.0f));
+        } else if (totalFlymonSpawned > 15 && totalFlymonSpawned < 55) {
+            Invoke("SpawnASlime", Random.Range(1.5f, 2.5f));
+        } else if (totalFlymonSpawned >= 55 && totalFlymonSpawned < 150) {
+            Invoke("SpawnASlime", Random.Range(1.5f, 2.0f));
+        } else if (totalFlymonSpawned >= 150 ) {
+            Invoke("SpawnASlime", Random.Range(1.0f, 1.5f));
         }
 	}
 
@@ -417,10 +421,14 @@ public class Spawner : MonoBehaviour {
 				break;
 		}
         totalFlymonSpawned += 1;
-        if (totalFlymonSpawned > 15) {
-            Invoke("SpawnAFlymon", Random.Range(1.5f, 3.0f));
-        } else {
-            Invoke("SpawnAFlymon", Random.Range(2.5f, 4.0f));
+        if (totalFlymonSpawned <= 20) {
+            Invoke("SpawnAFlymon", Random.Range(3.5f, 5.5f));
+        } else if (totalFlymonSpawned > 20 && totalFlymonSpawned < 50) {
+            Invoke("SpawnAFlymon", Random.Range(2.5f, 3.5f));
+        } else if (totalFlymonSpawned >= 50 && totalFlymonSpawned < 100) {
+            Invoke("SpawnAFlymon", Random.Range(1.5f, 2.5f));
+        } else if (totalFlymonSpawned >= 100 ) {
+            Invoke("SpawnAFlymon", Random.Range(1.0f, 2.0f));
         }
 	}	
 

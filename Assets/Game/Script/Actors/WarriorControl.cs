@@ -129,6 +129,9 @@ public class WarriorControl : MonoBehaviour {
 			foreach (exSprite sprite in allBodyParts) {
 				sprite.spanim.Play("flash");
 			}
+            //handle damage
+            Game.instance.OnPlayerHPChange(1);
+
             if (charJumpState == JumpState.Ground) {
                 if (_isHurtFromLeft) {
                     //push player away a little bit: magic number

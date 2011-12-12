@@ -86,9 +86,11 @@ public class Coin : MonoBehaviour {
 
     public void ShowCoinScore (int _score) {
         Spawner spawner = Game.instance.theSpawner;
+        ScoreCounter scoreCounter = Game.instance.theScoreCounter;
         Vector2 scorePos = new Vector2(transform.position.x, transform.position.y);
         exSpriteFont score = spawner.SpawnScoreAt(scorePos) as exSpriteFont;
         score.text = "+" + _score + "g";
+        scoreCounter.OnScoreChange(1);
         //score.gameObject.Init();
         float moveTime = scoreMoveUpTime;
         Vector3 moveAmount = new Vector3 (0, scoreGoUpHeight, 0);
