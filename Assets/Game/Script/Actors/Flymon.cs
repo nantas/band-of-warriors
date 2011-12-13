@@ -3,8 +3,6 @@ using System.Collections;
 
 public class Flymon : Enemy {
 	
-    public float moveSpeed = 100.0f;
-
     public void MoveToRandomLoc () {
         Vector3 targetPos = new Vector3(Random.Range(Game.instance.leftSpawnEntry.position.x, 
                                                      Game.instance.rightSpawnEntry.position.x),
@@ -55,6 +53,7 @@ public class Flymon : Enemy {
 			float animTime = spEnemy.spanim.animations[1].length;
 			yield return new WaitForSeconds(animTime);
 			spawner.DestroyFlymon(this);
+            Game.instance.OnPlayerExpChange(expPerKill);
             SpawnLoot();
 		}
 	}

@@ -120,17 +120,22 @@ public class WarriorControl : MonoBehaviour {
 			transform.localScale = new Vector3(-1,1,1);
 		}
 	}
-	
+    
+    public void OnDamagePlayer (bool _isHurtFromLeft, int _damageAmount) {
+        if (charHurtState == HurtState.Hitable) {
+            Game.instance.OnPlayerHPChange(-_damageAmount);
+            StartCoroutine(OnPlayerHurt(_isHurtFromLeft));
+        }
+    }	
+
 	public IEnumerator OnPlayerHurt(bool _isHurtFromLeft) {
-		//Debug.Log("Calling OnPlayerHurt");
+		Debug.Log("Calling OnPlayerHurt");
 		if (charHurtState == HurtState.Hitable) {
 			charHurtState = HurtState.Stun;
 			//playing hurt flash effect
 			foreach (exSprite sprite in allBodyParts) {
 				sprite.spanim.Play("flash");
 			}
-            //handle damage
-            Game.instance.OnPlayerHPChange(1);
 
             if (charJumpState == JumpState.Ground) {
                 if (_isHurtFromLeft) {
@@ -162,6 +167,8 @@ public class WarriorControl : MonoBehaviour {
         }
     
 	}
+
+
 
 	public void OnJumpFinish() {
        // animation.Stop();

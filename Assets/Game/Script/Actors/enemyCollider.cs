@@ -18,7 +18,9 @@ public class enemyCollider : MonoBehaviour {
         }
 
 		if (other.tag == "player") {
-			other.SendMessage("TouchedEnemy", isEnemyOnLeft);
+			other.GetComponent<playerCollider>().TouchedEnemy(isEnemyOnLeft, 
+                                                              controller.attackPower);
+
 		}
 		if (other.tag == "player_weapon") {
 			other.SendMessage("AttackEnemy");

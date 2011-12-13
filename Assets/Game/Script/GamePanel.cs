@@ -23,6 +23,7 @@ public class GamePanel : MonoBehaviour {
 
     public exSpriteFont scoreDisplay; 
     public ProgressBar HPbar;
+    public ProgressBar EXPbar;
     public exSpriteFont playerLvlDisplay;
 
 
@@ -37,7 +38,9 @@ public class GamePanel : MonoBehaviour {
     protected virtual void Awake () {
         //ScoreCounter scoreCounter = Game.instance.scoreCounter;
         scoreDisplay.text = "$" + "0";
+        playerLvlDisplay.text = "lv" + (Game.instance.playerLvl+1);
         HPbar.ratio = 1.0f;
+        EXPbar.ratio = 0.0f;
     }
 
 }

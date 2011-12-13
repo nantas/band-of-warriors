@@ -5,6 +5,9 @@ public class Enemy : MonoBehaviour {
 	
 	public exSprite spEnemy;
 	public Collider spCollider;
+    public int expPerKill = 0;
+    public float moveSpeed = 100.0f;
+    public int attackPower = 0;
 	
 	protected bool isTakingDamage;
 	
