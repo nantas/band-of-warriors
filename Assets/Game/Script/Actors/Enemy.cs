@@ -33,10 +33,6 @@ public class Enemy : MonoBehaviour {
 		gameObject.Init();
 	}
 	
-	public void StartIdle () {
-	//	spEnemy.spanim.Play("slime_idle");
-    //  Debug.Log("move in finished.");
-	}
 	// Update is called once per frame
 	void Update () {
 	
