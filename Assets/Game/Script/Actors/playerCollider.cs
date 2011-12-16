@@ -13,7 +13,7 @@ public class playerCollider : MonoBehaviour {
         controller.OnDamagePlayer(_isHurtFromLeft, _damageAmount);
 	}
 	
-	void Update () {
+	void LateUpdate () {
 		//hack: force collision z index
 		transform.position = new Vector3(transform.position.x, transform.position.y, 200);
 		

@@ -5,7 +5,9 @@ public class WarriorControl : MonoBehaviour {
 
 	public float initMoveSpeed = 120.0f;
     public float initJumpSpeed = 500.0f;
+    public float dashDuration = 0.5f;
 	public exSprite[] allBodyParts;
+    public exSprite spFX;
     public enum JumpState {
         Ready2Jump,
         Ground,
@@ -19,9 +21,19 @@ public class WarriorControl : MonoBehaviour {
         Hitable
     }
 
+    public enum ActionState {
+        Free,
+        Jump,
+        Dash,
+        AirDash,
+        Recover
+    }
+
+
 	[System.NonSerialized] public MoveDir charMoveState;
     [System.NonSerialized] public JumpState charJumpState;
     [System.NonSerialized] public HurtState charHurtState;
+    [System.NonSerialized] public ActionState charActionState;
 	private float flashTime = 0.0f;
     private float stunTime = 0.1f;
     private Vector2 velocity;
@@ -36,6 +48,7 @@ public class WarriorControl : MonoBehaviour {
 		charMoveState = MoveDir.Right;
         charJumpState = JumpState.Ground;
         charHurtState = HurtState.Hitable;
+        charActionState = ActionState.Free;
 		animation["walk"].speed = initMoveSpeed/120.0f;
         velocity = new Vector2 (initMoveSpeed, 0);
 		StartWalk();
@@ -43,17 +56,18 @@ public class WarriorControl : MonoBehaviour {
 	}
 	
 	// Update is called once per frame
-	void FixedUpdate () {
+	void Update () {
 		//handle input
-		if ( Input.GetButton("Right")) {
+		if ( Input.GetButtonDown("Right") ) {
 			TurnRight();
 		}
-		if ( Input.GetButton("Left")) {
+		if ( Input.GetButtonDown("Left") ) {
 			TurnLeft();
 		}
-		if ( Input.GetButton("Jump") ) {
+		if ( Input.GetButtonDown("Jump") ) {
 			StartJump();
 		}
+            
 		
         //handle Jump
         if (charJumpState == JumpState.Ready2Jump) {
@@ -108,18 +122,56 @@ public class WarriorControl : MonoBehaviour {
 	}
 	
 	public void TurnRight() {
-		if (charMoveState != MoveDir.Right) {
-			charMoveState = MoveDir.Right;
-			transform.localScale = new Vector3(1,1,1);
-		}
+		if (charActionState == ActionState.Free || charActionState == ActionState.Jump) {
+            if (charMoveState != MoveDir.Right) {
+                Debug.Log("turning right!");
+	    		charMoveState = MoveDir.Right;
+		    	transform.localScale = new Vector3(1,1,1);
+		    } else {
+                if (charJumpState == JumpState.Ground) {
+                    //get into dash state
+                    Debug.Log("dashing right!");
+                    charActionState = ActionState.Dash;
+                    GoDash(charMoveState);
+                }
+            }
+        }
+
 	}
 	
 	public void TurnLeft() {
-		if (charMoveState != MoveDir.Left) {
-			charMoveState = MoveDir.Left;
-			transform.localScale = new Vector3(-1,1,1);
-		}
+        if (charActionState == ActionState.Free || charActionState == ActionState.Jump) {
+    		if (charMoveState != MoveDir.Left) {
+                Debug.Log("turning left!");
+	    		charMoveState = MoveDir.Left;
+		    	transform.localScale = new Vector3(-1,1,1);
+		    } else {
+                if (charJumpState == JumpState.Ground) {
+                    //get into dash state
+                    Debug.Log("dashing left!");
+                    GoDash(charMoveState);
+                }
+            }
+        }
 	}
+
+    public void GoDash(MoveDir _moveDir) {
+        charActionState = ActionState.Dash;
+        velocity.x = velocity.x + 275.0f;
+        animation.Play("lancer_dash");
+        spFX.spanim.Play("speedline");
+        Invoke("StopDash", dashDuration);
+    }
+
+    public void StopDash() {
+        charActionState = ActionState.Recover;
+        velocity.x = initMoveSpeed;
+        animation.Play("lancer_dash_recover");
+        float waitTime = animation["lancer_dash_recover"].length;
+        spFX.spanim.Stop();
+        Invoke("StartWalk", waitTime);
+    }
+        
     
     public void OnDamagePlayer (bool _isHurtFromLeft, int _damageAmount) {
         if (charHurtState == HurtState.Hitable) {
@@ -156,18 +208,20 @@ public class WarriorControl : MonoBehaviour {
 	}
 	
 	public void StartWalk() {
+        charActionState = ActionState.Free;
 		if (!animation.IsPlaying("walk")) {
 			animation.Play("walk");
 		}
 	}
 	
 	public void StartJump() {
-        if (charJumpState == JumpState.Ground) {
-            charJumpState = JumpState.Ready2Jump;
+        if (charActionState == ActionState.Free) {
+            charActionState = ActionState.Jump;
+            if (charJumpState == JumpState.Ground) {
+                charJumpState = JumpState.Ready2Jump;
+            }
         }
-    
 	}
-
 
 
 	public void OnJumpFinish() {
