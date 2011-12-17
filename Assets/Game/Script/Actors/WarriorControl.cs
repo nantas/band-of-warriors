@@ -31,9 +31,12 @@ public class WarriorControl : MonoBehaviour {
 
 
 	[System.NonSerialized] public MoveDir charMoveState;
-    [System.NonSerialized] public JumpState charJumpState;
-    [System.NonSerialized] public HurtState charHurtState;
-    [System.NonSerialized] public ActionState charActionState;
+    //[System.NonSerialized] public JumpState charJumpState;
+    //[System.NonSerialized] public HurtState charHurtState;
+    //[System.NonSerialized] public ActionState charActionState;
+    private ActionState charActionState;
+    private HurtState charHurtState;
+    private JumpState charJumpState;
 	private float flashTime = 0.0f;
     private float stunTime = 0.1f;
     private Vector2 velocity;
@@ -103,7 +106,7 @@ public class WarriorControl : MonoBehaviour {
     		//horizontal
             if ((transform.position.x + horizonDist < Game.instance.rightBoundary.position.x) 
 	    		&& (transform.position.x + horizonDist > Game.instance.leftBoundary.position.x) ) {
-		    	transform.Translate (horizonDist, 0, 0);
+		    	transform.Translate (horizonDist, 0, 0, Space.World);
 		    }
             //vertical
             if ( charJumpState == JumpState.InAir ) {
@@ -111,13 +114,14 @@ public class WarriorControl : MonoBehaviour {
             }
         }
         //update air to ground state
-        if ( transform.position.y <= Game.instance.groundPosY ) {
-            transform.position = new Vector3 (transform.position.x, 
+        if (charJumpState != JumpState.Ground) {
+            if ( transform.position.y <= Game.instance.groundPosY ) {
+                transform.position = new Vector3 (transform.position.x, 
                                               Game.instance.groundPosY, transform.position.z);
-            charJumpState = JumpState.Ground;
-            StartWalk();
+                charJumpState = JumpState.Ground;
+                StartWalk();
+            }
         }
-
 	
 	}
 	
@@ -126,7 +130,8 @@ public class WarriorControl : MonoBehaviour {
             if (charMoveState != MoveDir.Right) {
                 Debug.Log("turning right!");
 	    		charMoveState = MoveDir.Right;
-		    	transform.localScale = new Vector3(1,1,1);
+//		    	transform.localScale = new Vector3(1,1,1);
+                transform.localEulerAngles = new Vector3 (0, 0, 0);
 		    } else {
                 if (charJumpState == JumpState.Ground) {
                     //get into dash state
@@ -144,7 +149,8 @@ public class WarriorControl : MonoBehaviour {
     		if (charMoveState != MoveDir.Left) {
                 Debug.Log("turning left!");
 	    		charMoveState = MoveDir.Left;
-		    	transform.localScale = new Vector3(-1,1,1);
+//		    	transform.localScale = new Vector3(-1,1,1);
+                transform.localEulerAngles = new Vector3(0, 180, 0);
 		    } else {
                 if (charJumpState == JumpState.Ground) {
                     //get into dash state
@@ -158,7 +164,9 @@ public class WarriorControl : MonoBehaviour {
     public void GoDash(MoveDir _moveDir) {
         charActionState = ActionState.Dash;
         velocity.x = velocity.x + 275.0f;
-        animation.Play("lancer_dash");
+        if (!animation.IsPlaying("lancer_dash")) {
+            animation.Play("lancer_dash");
+        }
         spFX.spanim.Play("speedline");
         Invoke("StopDash", dashDuration);
     }
@@ -166,7 +174,9 @@ public class WarriorControl : MonoBehaviour {
     public void StopDash() {
         charActionState = ActionState.Recover;
         velocity.x = initMoveSpeed;
-        animation.Play("lancer_dash_recover");
+        if (!animation.IsPlaying("lancer_dash_recover")) {
+            animation.Play("lancer_dash_recover");
+        }
         float waitTime = animation["lancer_dash_recover"].length;
         spFX.spanim.Stop();
         Invoke("StartWalk", waitTime);
