@@ -20,17 +20,17 @@ public enum JumpState {
     Ready2Jump,
     Ground,
     InAir,
-    StunInAir
 }
 
 public enum HurtState {
     Invincible,
-    Stun,
+    Hurt,
     Hitable
 }
 
 public enum ActionState {
     Free,
+    Stun,    
     Jump,
     Dash,
     AirDash,
@@ -39,28 +39,24 @@ public enum ActionState {
 
 
 public class PlayerController: MonoBehaviour {
-    //temp variable from Game.instance
-    public float gravity = -90f;
-    public float leftBoundary = -300f;
-    public float rightBoundary = 300f;
-    public float groundPosY = -130f;
 
 	public float initMoveSpeed = 120.0f;
     public float initJumpSpeed = 500.0f;
+
     private PlayMakerFSM playerFSM;
+    [System.NonSerialized]public PlayerBase player; 
     public Vector2 velocity;
 
 
 	[System.NonSerialized] public MoveDir charMoveState;
-    //[System.NonSerialized] public JumpState charJumpState;
-    //[System.NonSerialized] public HurtState charHurtState;
-    //[System.NonSerialized] public ActionState charActionState;
-    public ActionState charActionState;
-    public HurtState charHurtState;
-    public JumpState charJumpState;
+    public ActionState charActionState = ActionState.Free;
+    public HurtState charHurtState = HurtState.Hitable;
+    public JumpState charJumpState = JumpState.Ground;
+    private ActionState lastActionState = ActionState.Free;
 
     void Awake () {
         playerFSM = GetComponent<PlayMakerFSM>();
+        player = transform.GetComponent<PlayerBase>();
         velocity = new Vector2(0, 0);
     }
     
@@ -70,14 +66,10 @@ public class PlayerController: MonoBehaviour {
     }
 
 	void Update () {
-		//handle input
-        Debug.Log("update.");
 		if ( Input.GetButtonDown("Right") ) {
-            Debug.Log("press right.");
 			TurnRight();
 		}
 		if ( Input.GetButtonDown("Left") ) {
-            Debug.Log("press left.");
 			TurnLeft();
 		}
 		if ( Input.GetButtonDown("Jump") ) {
@@ -88,7 +80,7 @@ public class PlayerController: MonoBehaviour {
         //handle Jump
         if (charJumpState == JumpState.Ready2Jump) {
             velocity.y = initJumpSpeed;
-            charJumpState = JumpState.InAir;
+            playerFSM.Fsm.Event("To_Jump");
         }
 		//handle horizontal movement
 		float horizonDist = Time.deltaTime * velocity.x;
@@ -109,14 +101,14 @@ public class PlayerController: MonoBehaviour {
 		}
         //handle vertical movement
         if (charJumpState == JumpState.InAir) {
-            velocity.y += gravity;
+            velocity.y += Game.instance.gravity;
             verticalDist = Time.deltaTime * velocity.y;
         }
 		//move character
-        if (charHurtState != HurtState.Stun){
+        if (charActionState != ActionState.Stun){
     		//horizontal
-            if ((transform.position.x + horizonDist < rightBoundary) 
-	    		&& (transform.position.x + horizonDist > leftBoundary) ) {
+            if ((transform.position.x + horizonDist < Game.instance.rightBoundary.position.x) 
+	    		&& (transform.position.x + horizonDist > Game.instance.leftBoundary.position.x) ) {
 		    	transform.Translate (horizonDist, 0, 0, Space.World);
 		    }
             //vertical
@@ -126,10 +118,9 @@ public class PlayerController: MonoBehaviour {
         }
         //update air to ground state
         if (charJumpState != JumpState.Ground) {
-            if ( transform.position.y <= groundPosY ) {
+            if ( transform.position.y <= Game.instance.groundPosY ) {
                 transform.position = new Vector3 (transform.position.x, 
-                                              groundPosY, transform.position.z);
-                charJumpState = JumpState.Ground;
+                                              Game.instance.groundPosY, transform.position.z);
                 playerFSM.Fsm.Event("To_Walk");
             }
         }
@@ -140,9 +131,15 @@ public class PlayerController: MonoBehaviour {
 	public void TurnRight() {
 		if (charActionState == ActionState.Free || charActionState == ActionState.Jump) {
             if (charMoveState != MoveDir.Right) {
-                Debug.Log("turning right!");
-	    		charMoveState = MoveDir.Right;
-                transform.localEulerAngles = new Vector3 (0, 0, 0);
+                if (charMoveState == MoveDir.Stop) {
+                    charMoveState = MoveDir.Right;
+                    transform.localEulerAngles = new Vector3 (0, 0, 0);
+                    velocity.x = initMoveSpeed;
+                    playerFSM.Fsm.Event("To_Walk");
+                } else {
+	    		    charMoveState = MoveDir.Right;
+                    transform.localEulerAngles = new Vector3 (0, 0, 0);
+                }
 		    } else {
                 if (charJumpState == JumpState.Ground) {
                     //get into dash state
@@ -156,11 +153,16 @@ public class PlayerController: MonoBehaviour {
 	
 	public void TurnLeft() {
         if (charActionState == ActionState.Free || charActionState == ActionState.Jump) {
-    		if (charMoveState != MoveDir.Left) {
-                Debug.Log("turning left!");
-	    		charMoveState = MoveDir.Left;
-//		    	transform.localScale = new Vector3(-1,1,1);
-                transform.localEulerAngles = new Vector3(0, 180, 0);
+            if (charMoveState != MoveDir.Left) {
+                if (charMoveState == MoveDir.Stop) {
+                    charMoveState = MoveDir.Left;
+                    transform.localEulerAngles = new Vector3 (0, 180, 0);
+                    velocity.x = initMoveSpeed;
+                    playerFSM.Fsm.Event("To_Walk");
+                } else {
+	    		    charMoveState = MoveDir.Left;
+                    transform.localEulerAngles = new Vector3 (0, 180, 0);
+                }
 		    } else {
                 if (charJumpState == JumpState.Ground) {
                     //get into dash state
@@ -179,10 +181,61 @@ public class PlayerController: MonoBehaviour {
 	public void StartJump() {
         if (charActionState == ActionState.Free) {
             if (charJumpState == JumpState.Ground) {
-                playerFSM.Fsm.Event("To_Jump");
+                charJumpState = JumpState.Ready2Jump;
             }
         }
 	}
+
+    public void StartDash() {
+        velocity.x = player.dashSpeed;
+        player.OnDashStart();
+    }
+
+    public void StopDash() {
+        velocity.x = initMoveSpeed;
+        player.OnDashStop();
+    }
+
+    public void OnDamagePlayer (bool _isHurtFromLeft, int _damageAmount) {
+        if (charHurtState == HurtState.Hitable) {
+            if ( charActionState == ActionState.Dash ) {
+                StopDash();
+            }
+            Game.instance.OnPlayerHPChange(-_damageAmount);
+            StartHurt(_isHurtFromLeft);
+        }
+    }	
+
+    public void StartHurt(bool _isHurtFromLeft) {
+        //playing hurt flash effect
+        player.OnHurtStart();
+        if (_isHurtFromLeft) {
+            transform.Translate(40.0f, 0, 0);
+        } else {
+            transform.Translate(-40.0f, 0, 0);
+        }
+        lastActionState = charActionState;
+        playerFSM.Fsm.Event("To_Hurt");
+    }
+
+    public void OnStunFinish() {
+        //this method is independent from FSM states
+        Debug.Log("stun finished.");
+        charHurtState = HurtState.Invincible;
+        if (lastActionState == ActionState.Free || lastActionState == ActionState.Dash
+            || lastActionState == ActionState.Recover) {
+            playerFSM.Fsm.Event("To_Walk");
+        } else if (lastActionState == ActionState.Jump || lastActionState == ActionState.AirDash ) {
+            playerFSM.Fsm.Event("To_Jump");
+        }
+        Invoke("OnInvincibleFinish", player.flashTime);
+    }
+
+    public void OnInvincibleFinish() {
+        //this method is independent from FSM states
+        charHurtState = HurtState.Hitable;
+    }
+        
 
 }
 

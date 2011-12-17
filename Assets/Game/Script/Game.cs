@@ -34,7 +34,7 @@ public class Game : MonoBehaviour {
     public Transform leftSpawnEntry;
     public Transform rightSpawnEntry;
     public int initPlayerHP = 100;	
-    public WarriorControl theplayer;
+    public PlayerBase thePlayer;
 	public exLayer enemyLayerGround;
     public exLayer enemyLayerAir;
     public exLayer coinLayer;

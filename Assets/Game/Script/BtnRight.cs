@@ -3,7 +3,7 @@ using System.Collections;
 
 public class BtnRight : MonoBehaviour {
 	
-	private WarriorControl player;
+	private PlayerBase player;
 
 	void Awake () {
 		exUIButton uiButton = GetComponent<exUIButton>();
@@ -22,8 +22,8 @@ public class BtnRight : MonoBehaviour {
 	
 	void OnButtonPress () {
 		Debug.Log("jump button pressed!");
-		player = Game.instance.theplayer;
-		player.TurnRight();
+		player = Game.instance.thePlayer;
+		player.playerController.TurnRight();
 	}
 	
 	void OnButtonRelease () {

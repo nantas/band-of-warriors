@@ -9,7 +9,6 @@
 
 using UnityEngine;
 using System.Collections;
-using System;
 
 namespace HutongGames.PlayMaker.Actions {
 	//Enemy Move Action
@@ -30,15 +29,49 @@ namespace HutongGames.PlayMaker.Actions {
         public override void OnEnter() {
             playerController = Fsm.GetOwnerDefaultTarget(gameObject)
                 .GetComponent<PlayerController>() as PlayerController;
-            playerController.charJumpState = (JumpState)Enum.Parse(typeof(JumpState), targetJumpState.Value, false);
-            playerController.charHurtState = (HurtState)Enum.Parse(typeof(HurtState), targetHurtState.Value, false);
-            playerController.charActionState = (ActionState)Enum.Parse(typeof(ActionState), targetActionState.Value, false);
+            if (!(targetJumpState.IsNone || string.IsNullOrEmpty(targetJumpState.Value))) {
+                playerController.charJumpState = (JumpState)System.Enum.Parse(typeof(JumpState), targetJumpState.Value, false);
+            }
+            if (!(targetHurtState.IsNone || string.IsNullOrEmpty(targetHurtState.Value))){
+                playerController.charHurtState = (HurtState)System.Enum.Parse(typeof(HurtState), targetHurtState.Value, false);
+            }
+            if (!(targetActionState.IsNone || string.IsNullOrEmpty(targetActionState.Value))) {
+                playerController.charActionState = (ActionState)System.Enum.Parse(typeof(ActionState), targetActionState.Value, false);
+            }
             Finish();
         }
 
 
     }
 
-	
+	[ActionCategory("BOW_Player")]
+	[Tooltip("Sets the value of a Float Variable to match the value of a variable from a script.")]
+	public class InitVariables : FsmStateAction
+	{
+		public FsmOwnerDefault gameObject;
+        [RequiredField]
+		[UIHint(UIHint.Variable)]
+		public FsmFloat floatDashDuration;
+        public FsmFloat floatStunDuration;
+        public FsmFloat floatFlashDuration;
+
+		public PlayerBase playerScript;
+
+		public override void Reset()
+		{
+			floatDashDuration = null;
+			playerScript = null;
+		}
+
+		public override void OnEnter()
+		{
+            GameObject go = Fsm.GetOwnerDefaultTarget(gameObject);
+            playerScript = go.GetComponent<PlayerBase>();
+            floatDashDuration.Value = (float) playerScript.dashDuration; 
+            floatStunDuration.Value = (float) playerScript.stunTime;
+            floatFlashDuration.Value = (float) playerScript.flashTime;
+		    Finish();		
+		}
+	}
 
 }

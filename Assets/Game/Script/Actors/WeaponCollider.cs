@@ -3,10 +3,10 @@ using System.Collections;
 
 public class WeaponCollider : MonoBehaviour {
 	
-	private WarriorControl controller;
+	private PlayerBase controller;
 	
 	void Awake () {
-		controller = transform.root.GetComponent<WarriorControl>();
+		controller = transform.root.GetComponent<PlayerBase>();
 	}
 	
 	void LateUpdate () {
@@ -17,7 +17,7 @@ public class WeaponCollider : MonoBehaviour {
 	void AttackEnemy() {
 		//Debug.Log("attacking enemy!");
         //play weapon flash white
-        controller.allBodyParts[2].spanim.Play("flash_white");
+        controller.allBodyParts[6].spanim.Play("flash_white");
 	}
 	
 }
