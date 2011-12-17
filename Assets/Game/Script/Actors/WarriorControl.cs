@@ -8,27 +8,7 @@ public class WarriorControl : MonoBehaviour {
     public float dashDuration = 0.5f;
 	public exSprite[] allBodyParts;
     public exSprite spFX;
-    public enum JumpState {
-        Ready2Jump,
-        Ground,
-        InAir,
-        StunInAir
-    }
-
-    public enum HurtState {
-        Invincible,
-        Stun,
-        Hitable
-    }
-
-    public enum ActionState {
-        Free,
-        Jump,
-        Dash,
-        AirDash,
-        Recover
-    }
-
+    public PlayMakerFSM lancerFSM;
 
 	[System.NonSerialized] public MoveDir charMoveState;
     //[System.NonSerialized] public JumpState charJumpState;
@@ -43,6 +23,7 @@ public class WarriorControl : MonoBehaviour {
 	  
 	void Awake () {
 		flashTime = allBodyParts[0].spanim.animations[0].length;
+        lancerFSM = transform.GetComponent<PlayMakerFSM>();
 	}
 	
 	// Use this for initialization
@@ -54,11 +35,26 @@ public class WarriorControl : MonoBehaviour {
         charActionState = ActionState.Free;
 		animation["walk"].speed = initMoveSpeed/120.0f;
         velocity = new Vector2 (initMoveSpeed, 0);
-		StartWalk();
+		//StartWalk();
 		
 	}
-	
+
+    /*
+    void Update () {
+        if (Input.GetButtonDown("Right")) {
+            lancerFSM.FsmVariables.GetFsmFloat("varHVelocity").Value = initMoveSpeed;
+        }
+        if (Input.GetButtonDown("Left")) {
+            lancerFSM.FsmVariables.GetFsmFloat("varHVelocity").Value = -initMoveSpeed;
+        }
+        if (Input.GetButtonDown("Jump")) {
+            lancerFSM.FsmVariables.GetFsmFloat("varVVelocity").Value = initJumpSpeed;
+        }
+        
+    }
+
 	// Update is called once per frame
+    
 	void Update () {
 		//handle input
 		if ( Input.GetButtonDown("Right") ) {
@@ -124,9 +120,10 @@ public class WarriorControl : MonoBehaviour {
         }
 	
 	}
+*/
 	
 	public void TurnRight() {
-		if (charActionState == ActionState.Free || charActionState == ActionState.Jump) {
+/*		if (charActionState == ActionState.Free || charActionState == ActionState.Jump) {
             if (charMoveState != MoveDir.Right) {
                 Debug.Log("turning right!");
 	    		charMoveState = MoveDir.Right;
@@ -141,11 +138,12 @@ public class WarriorControl : MonoBehaviour {
                 }
             }
         }
+        */
 
 	}
 	
 	public void TurnLeft() {
-        if (charActionState == ActionState.Free || charActionState == ActionState.Jump) {
+/*        if (charActionState == ActionState.Free || charActionState == ActionState.Jump) {
     		if (charMoveState != MoveDir.Left) {
                 Debug.Log("turning left!");
 	    		charMoveState = MoveDir.Left;
@@ -159,6 +157,7 @@ public class WarriorControl : MonoBehaviour {
                 }
             }
         }
+        */
 	}
 
     public void GoDash(MoveDir _moveDir) {
@@ -181,7 +180,7 @@ public class WarriorControl : MonoBehaviour {
         spFX.spanim.Stop();
         Invoke("StartWalk", waitTime);
     }
-        
+ 
     
     public void OnDamagePlayer (bool _isHurtFromLeft, int _damageAmount) {
         if (charHurtState == HurtState.Hitable) {
@@ -216,21 +215,26 @@ public class WarriorControl : MonoBehaviour {
 			charHurtState = HurtState.Hitable;	
 		}
 	}
-	
+
+    
 	public void StartWalk() {
+        /*
         charActionState = ActionState.Free;
 		if (!animation.IsPlaying("walk")) {
 			animation.Play("walk");
 		}
+        */
 	}
 	
 	public void StartJump() {
+        /*
         if (charActionState == ActionState.Free) {
             charActionState = ActionState.Jump;
             if (charJumpState == JumpState.Ground) {
                 charJumpState = JumpState.Ready2Jump;
             }
         }
+        */
 	}
 
 
