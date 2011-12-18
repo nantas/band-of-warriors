@@ -52,6 +52,7 @@ namespace HutongGames.PlayMaker.Actions {
         [RequiredField]
 		[UIHint(UIHint.Variable)]
 		public FsmFloat floatDashDuration;
+        public FsmFloat floatAirDashDuration;
         public FsmFloat floatStunDuration;
         public FsmFloat floatFlashDuration;
 
@@ -60,6 +61,7 @@ namespace HutongGames.PlayMaker.Actions {
 		public override void Reset()
 		{
 			floatDashDuration = null;
+            floatAirDashDuration = null;
 			playerScript = null;
 		}
 
@@ -68,6 +70,7 @@ namespace HutongGames.PlayMaker.Actions {
             GameObject go = Fsm.GetOwnerDefaultTarget(gameObject);
             playerScript = go.GetComponent<PlayerBase>();
             floatDashDuration.Value = (float) playerScript.dashDuration; 
+            floatAirDashDuration.Value = (float) playerScript.airDashDuration;
             floatStunDuration.Value = (float) playerScript.stunTime;
             floatFlashDuration.Value = (float) playerScript.flashTime;
 		    Finish();		

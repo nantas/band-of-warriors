@@ -4,6 +4,7 @@ using System.Collections;
 public class PlayerBase : MonoBehaviour {
 
     public float dashDuration = 0.5f;
+    public float airDashDuration = 0.4f;
     public float dashSpeed = 400f;
     public float stunTime = 0.1f;
 	public float flashTime = 0.4f;
@@ -32,6 +33,14 @@ public class PlayerBase : MonoBehaviour {
     }
 
     public void OnDashStop() {
+        spFX.spanim.Play("speedline_off");
+    }
+
+    public void OnAirDashStart() {
+        spFX.spanim.Play("speedline");
+    }
+
+    public void OnAirDashStop() {
         spFX.spanim.Play("speedline_off");
     }
  
