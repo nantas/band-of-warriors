@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections;
 
-public class enemyCollider : MonoBehaviour {
+public class EnemyCollider : MonoBehaviour {
 	
 	private Enemy controller;
 	
@@ -18,7 +18,7 @@ public class enemyCollider : MonoBehaviour {
         }
 
 		if (other.tag == "player") {
-			other.GetComponent<playerCollider>().TouchedEnemy(isEnemyOnLeft, 
+			other.GetComponent<PlayerCollider>().TouchedEnemy(isEnemyOnLeft, 
                                                               controller.attackPower);
 
 		}

@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections;
 
-public class playerCollider : MonoBehaviour {
+public class PlayerCollider : MonoBehaviour {
 	
 	private PlayerController controller;
 	
