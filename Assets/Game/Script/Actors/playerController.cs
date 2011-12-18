@@ -36,7 +36,8 @@ public enum ActionState {
     Dash,
     AirDash,
     Recover,
-    AirRecover
+    AirRecover,
+    Dead
 }
 
 
@@ -54,6 +55,7 @@ public class PlayerController: MonoBehaviour {
     public ActionState charActionState = ActionState.Free;
     public HurtState charHurtState = HurtState.Hitable;
     public JumpState charJumpState = JumpState.Ground;
+    public bool isAboutToDie = false;
     private ActionState lastActionState = ActionState.Free;
 
     void Awake () {
@@ -123,7 +125,16 @@ public class PlayerController: MonoBehaviour {
             if ( transform.position.y <= Game.instance.groundPosY ) {
                 transform.position = new Vector3 (transform.position.x, 
                                               Game.instance.groundPosY, transform.position.z);
-                playerFSM.Fsm.Event("To_Walk");
+                //handle gameover
+                if (charActionState != ActionState.Dead) {
+                    playerFSM.Fsm.Event("To_Walk");
+                } else {
+                    PlayerDead();
+                }
+            }
+        } else {
+            if (charActionState == ActionState.Dead) {
+                PlayerDead();
             }
         }
 	
@@ -245,6 +256,16 @@ public class PlayerController: MonoBehaviour {
     public void OnStunFinish() {
         //this method is independent from FSM states
         Debug.Log("stun finished.");
+        if (isAboutToDie == true) {
+            playerFSM.Fsm.Event("To_Dead");
+            return;
+        }
+        /*
+        if (charActionState == ActionState.Dead) {
+            playerFSM.Fsm.Event("To_Dead");
+            return;
+        }
+        */
         charHurtState = HurtState.Invincible;
         if (lastActionState == ActionState.Free || lastActionState == ActionState.Dash
             || lastActionState == ActionState.Recover) {
@@ -252,13 +273,20 @@ public class PlayerController: MonoBehaviour {
         } else if (lastActionState == ActionState.Jump || lastActionState == ActionState.AirDash 
                    || lastActionState == ActionState.AirRecover ) {
             playerFSM.Fsm.Event("To_Jump");
-        }
+        } 
         Invoke("OnInvincibleFinish", player.flashTime);
     }
 
     public void OnInvincibleFinish() {
         //this method is independent from FSM states
         charHurtState = HurtState.Hitable;
+    }
+
+    public void PlayerDead() {
+        velocity = new Vector2 (0, 0);
+        Game.instance.AcceptInput(false);
+        Game.instance.theGamePanel.ShowGameOver();
+        this.enabled = false;
     }
         
 

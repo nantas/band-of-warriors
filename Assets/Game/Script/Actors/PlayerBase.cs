@@ -51,4 +51,9 @@ public class PlayerBase : MonoBehaviour {
         }
 	}
 
+    public void OnPlayerNoHP() {
+        Debug.Log("player has no hp. go to dead state.");
+        playerController.isAboutToDie = true;
+    }
+
 }

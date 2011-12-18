@@ -57,6 +57,7 @@ public class Game : MonoBehaviour {
         playerHP = initPlayerHP;
         playerLvl = 1;
         currentExp = 0;
+        AcceptInput(true);
 	}
 	
 	// Update is called once per frame
@@ -69,6 +70,7 @@ public class Game : MonoBehaviour {
         if (playerHP <= 0) {
             playerHP = 0;
             //TODO: gameover
+            thePlayer.OnPlayerNoHP();
         } else if (playerHP > initPlayerHP) {
             playerHP = initPlayerHP;
         }
@@ -93,5 +95,10 @@ public class Game : MonoBehaviour {
     public void OnPlayerLvlUp() {
         theGamePanel.playerLvlDisplay.text = "lv" + playerLvl;
         OnPlayerHPChange(20);
+    }
+
+    public void AcceptInput ( bool _accept ) {
+        exUIPanel panelSelf = theGamePanel.GetComponent<exUIPanel>();
+        panelSelf.enabled = _accept;
     }
 }
