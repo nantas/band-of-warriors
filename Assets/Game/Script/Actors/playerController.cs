@@ -245,9 +245,17 @@ public class PlayerController: MonoBehaviour {
             player.OnAirDashStop();
         }
         if (_isHurtFromLeft) {
-            transform.Translate(40.0f, 0, 0);
+            transform.Translate(40.0f, 0, 0, Space.World);
+            if (transform.position.x > Game.instance.rightBoundary.position.x) {
+                transform.position = new Vector3(Game.instance.rightBoundary.position.x,
+                                                 transform.position.y, transform.position.z);
+            }
         } else {
-            transform.Translate(-40.0f, 0, 0);
+            transform.Translate(-40.0f, 0, 0, Space.World);
+            if (transform.position.x < Game.instance.leftBoundary.position.x) {
+                transform.position = new Vector3(Game.instance.leftBoundary.position.x,
+                                                 transform.position.y, transform.position.z);
+            }
         }
         lastActionState = charActionState;
         playerFSM.Fsm.Event("To_Hurt");

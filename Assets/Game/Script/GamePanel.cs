@@ -47,7 +47,7 @@ public class GamePanel : MonoBehaviour {
     public void ShowGameOver () {
         panelGameOver.enabled = true;
         Transform trans = panelGameOver.transform;
-        trans.position = new Vector3 (Game.instance.thePlayer.transform.position.x, 
+        trans.position = new Vector3 (Camera.main.transform.position.x, 
                                       0.0f, trans.position.z);
     }
 

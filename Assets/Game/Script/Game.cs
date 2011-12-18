@@ -35,6 +35,7 @@ public class Game : MonoBehaviour {
     public Transform rightSpawnEntry;
     public int initPlayerHP = 100;	
     public PlayerBase thePlayer;
+    public Camera mainCam;
 	public exLayer enemyLayerGround;
     public exLayer enemyLayerAir;
     public exLayer coinLayer;
@@ -98,6 +99,7 @@ public class Game : MonoBehaviour {
     }
 
     public void AcceptInput ( bool _accept ) {
+        mainCam.GetComponent<CameraFollow>().enabled = _accept;
         exUIPanel panelSelf = theGamePanel.GetComponent<exUIPanel>();
         panelSelf.enabled = _accept;
     }
