@@ -20,6 +20,7 @@ public enum JumpState {
     Ready2Jump,
     Ground,
     InAir,
+    NoGravity
 }
 
 public enum HurtState {
@@ -34,7 +35,8 @@ public enum ActionState {
     Jump,
     Dash,
     AirDash,
-    Recover
+    Recover,
+    AirRecover
 }
 
 
@@ -183,6 +185,10 @@ public class PlayerController: MonoBehaviour {
             if (charJumpState == JumpState.Ground) {
                 charJumpState = JumpState.Ready2Jump;
             }
+        } else if (charActionState == ActionState.Jump) {
+            if (charJumpState == JumpState.InAir) {
+                playerFSM.Fsm.Event("To_AirDash");
+            }
         }
 	}
 
@@ -194,6 +200,17 @@ public class PlayerController: MonoBehaviour {
     public void StopDash() {
         velocity.x = initMoveSpeed;
         player.OnDashStop();
+    }
+    
+    public void StartAirDash() {
+        velocity.y = 0;
+        velocity.x = player.dashSpeed;
+        player.OnAirDashStart();
+    }
+
+    public void StopAirDash() {
+        velocity.x = initMoveSpeed;
+        player.OnAirDashStop();
     }
 
     public void OnDamagePlayer (bool _isHurtFromLeft, int _damageAmount) {
@@ -209,6 +226,13 @@ public class PlayerController: MonoBehaviour {
     public void StartHurt(bool _isHurtFromLeft) {
         //playing hurt flash effect
         player.OnHurtStart();
+        if (charActionState == ActionState.Dash ) {
+            velocity.x = initMoveSpeed;
+            player.OnDashStop();
+        } else if (charActionState == ActionState.AirDash) {
+            velocity.x = initMoveSpeed;
+            player.OnAirDashStop();
+        }
         if (_isHurtFromLeft) {
             transform.Translate(40.0f, 0, 0);
         } else {
@@ -225,7 +249,8 @@ public class PlayerController: MonoBehaviour {
         if (lastActionState == ActionState.Free || lastActionState == ActionState.Dash
             || lastActionState == ActionState.Recover) {
             playerFSM.Fsm.Event("To_Walk");
-        } else if (lastActionState == ActionState.Jump || lastActionState == ActionState.AirDash ) {
+        } else if (lastActionState == ActionState.Jump || lastActionState == ActionState.AirDash 
+                   || lastActionState == ActionState.AirRecover ) {
             playerFSM.Fsm.Event("To_Jump");
         }
         Invoke("OnInvincibleFinish", player.flashTime);
