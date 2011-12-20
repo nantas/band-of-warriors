@@ -21,9 +21,11 @@ public class BtnRight : MonoBehaviour {
 	}
 	
 	void OnButtonPress () {
-		Debug.Log("jump button pressed!");
+		//Debug.Log("jump button pressed!");
 		player = Game.instance.thePlayer;
-		player.playerController.TurnRight();
+        if (player.playerController.isAcceptInput()) {
+    		player.playerController.TurnRight();
+        }
 	}
 	
 	void OnButtonRelease () {

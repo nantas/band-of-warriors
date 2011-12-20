@@ -21,9 +21,11 @@ public class BtnLeft : MonoBehaviour {
 	}
 	
 	void OnButtonPress () {
-		Debug.Log("jump button pressed!");
+		//Debug.Log("jump button pressed!");
 		player = Game.instance.thePlayer;
-		player.playerController.TurnLeft();
+        if (player.playerController.isAcceptInput()) {
+    		player.playerController.TurnLeft();
+        }
 	}
 	
 	void OnButtonRelease () {

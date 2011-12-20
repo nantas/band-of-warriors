@@ -36,6 +36,11 @@ public class LancerController: MonoBehaviour {
         charMoveDir = MoveDir.Stop;
     }
 
+    public bool isAcceptInput() {
+        return FSM_Control.FsmVariables.GetFsmBool("isAcceptInput").Value;
+    }
+
+
 	void Update () {
         //check if player can give input
         if ( FSM_Control.FsmVariables.GetFsmBool("isAcceptInput").Value == true ) {
