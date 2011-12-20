@@ -71,7 +71,7 @@ public class Game : MonoBehaviour {
         if (playerHP <= 0) {
             playerHP = 0;
             //TODO: gameover
-            thePlayer.OnPlayerNoHP();
+            thePlayer.playerController.FSM_Control.FsmVariables.GetFsmBool("isPlayerNoHP").Value = true;
         } else if (playerHP > initPlayerHP) {
             playerHP = initPlayerHP;
         }
