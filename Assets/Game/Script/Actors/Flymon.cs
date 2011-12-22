@@ -2,6 +2,12 @@ using UnityEngine;
 using System.Collections;
 
 public class Flymon : Enemy {
+    [System.NonSerialized]public Spawner_Flymon spawner;
+
+    public void SetSpawner (Spawner_Flymon _spawner) {
+        spawner = _spawner;
+    }
+
 	
     public void MoveToRandomLoc () {
         Vector3 targetPos = new Vector3(Random.Range(Game.instance.leftSpawnEntry.position.x, 
@@ -40,7 +46,6 @@ public class Flymon : Enemy {
 	public IEnumerator OnDamaged(bool _isHurtFromRight) {
 		if (!isTakingDamage) {
 			isTakingDamage = true;
-			Spawner spawner = Game.instance.theSpawner;
 			spCollider.enabled = false;
             iTween.Stop(gameObject);
             if (_isHurtFromRight) {
@@ -60,11 +65,12 @@ public class Flymon : Enemy {
 
     public void SpawnLoot () {
         int lootSelector = Random.Range(1, 100);
-        Spawner spawner = Game.instance.theSpawner;
+        Spawner commonSpawner = Game.instance.theSpawner;
         //spawn coin
         if (lootSelector < 55) {
-            if (spawner.aliveCoinCount < spawner.maxCoinCount) {
-                Coin coin = spawner.SpawnCoinAt(new Vector2(transform.position.x, transform.position.y));
+            if (commonSpawner.aliveCoinCount < commonSpawner.maxCoinCount) {
+                Coin coin = commonSpawner.SpawnCoinAt(new Vector2(transform.position.x, 
+                                                                  transform.position.y));
                 coin.PopUp();
             }
         }

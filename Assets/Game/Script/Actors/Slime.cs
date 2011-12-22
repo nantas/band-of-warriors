@@ -2,7 +2,12 @@ using UnityEngine;
 using System.Collections;
 
 public class Slime : Enemy {
-	
+	[System.NonSerialized]public Spawner_Slime spawner;
+
+    public void SetSpawner (Spawner_Slime _spawner) {
+        spawner = _spawner;
+    }
+
     public void MoveToRandomLoc () {
         Vector3 targetPos = new Vector3(Random.Range(Game.instance.leftSpawnEntry.position.x, 
                                                      Game.instance.rightSpawnEntry.position.x),
@@ -42,7 +47,6 @@ public class Slime : Enemy {
 	public IEnumerator OnDamaged(bool _isHurtFromRight) {
 		if (!isTakingDamage) {
 			isTakingDamage = true;
-			Spawner spawner = Game.instance.theSpawner;
 			spCollider.enabled = false;
             iTween.Stop(gameObject);
             if (_isHurtFromRight) {
@@ -62,11 +66,11 @@ public class Slime : Enemy {
 	
     public void SpawnLoot () {
         int lootSelector = Random.Range(1, 100);
-        Spawner spawner = Game.instance.theSpawner;
+        Spawner commonSpawner = Game.instance.theSpawner;
         //spawn coin
         if (lootSelector < 35) {
-            if (spawner.aliveCoinCount < spawner.maxCoinCount) {
-                Coin coin = spawner.SpawnCoinAt(new Vector2(transform.position.x, transform.position.y));
+            if (commonSpawner.aliveCoinCount < commonSpawner.maxCoinCount) {
+                Coin coin = commonSpawner.SpawnCoinAt(new Vector2(transform.position.x, transform.position.y));
                 coin.PopUp();
             }
         }
