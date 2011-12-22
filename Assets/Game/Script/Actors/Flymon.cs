@@ -12,7 +12,8 @@ public class Flymon : Enemy {
     public void MoveToRandomLoc () {
         Vector3 targetPos = new Vector3(Random.Range(Game.instance.leftSpawnEntry.position.x, 
                                                      Game.instance.rightSpawnEntry.position.x),
-                                        Game.instance.groundPosY, transform.position.z);
+                                        Random.Range(Game.instance.groundPosY, Game.instance.flyPosY),
+                                                     transform.position.z);
         float moveTime = Mathf.Abs((targetPos.x - transform.position.x))/moveSpeed;
         float delayTime = Random.Range(0.0f, 0.7f);
         GetFlipDirection(targetPos.x);
