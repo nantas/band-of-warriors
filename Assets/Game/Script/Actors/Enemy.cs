@@ -13,7 +13,7 @@ public class Enemy : MonoBehaviour {
 	
 	
 	
-	void OnEnable () {
+	protected virtual void OnEnable () {
 		isTakingDamage = false;
 		if (spEnemy) spEnemy.enabled = true;
 		if (spCollider) spCollider.enabled = true;
@@ -24,7 +24,6 @@ public class Enemy : MonoBehaviour {
 		CancelInvoke();
 		if (spEnemy) spEnemy.enabled = false;
 		if (spCollider) spCollider.enabled = false;
-		
 	}
 	
 	// Use this for initialization

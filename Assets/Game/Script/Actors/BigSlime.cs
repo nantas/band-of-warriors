@@ -2,10 +2,16 @@ using UnityEngine;
 using System.Collections;
 
 public class BigSlime : Enemy {
+    public int HP = 3;
+    public int hurtInvincibleTime = 0.5f;
 	[System.NonSerialized]public Spawner_BigSlime spawner;
 
     public void SetSpawner (Spawner_BigSlime _spawner) {
         spawner = _spawner;
+    }
+
+    void OnEnable() {
+        HP = 3;
     }
 
     public void MoveToRandomLoc () {
@@ -46,14 +52,27 @@ public class BigSlime : Enemy {
             } else {
                 transform.Translate(30.0f,0,0);
             }
+            HP -= 1;
             spEnemy.spanim.Play("big_slime_hurt");
-			float animTime = spEnemy.spanim.animations[1].length;
-			yield return new WaitForSeconds(animTime);
-			spawner.DestroySlime(this);
-            Game.instance.OnPlayerExpChange(expPerKill);
-            SpawnLoot();
+			yield return new WaitForSeconds(hurtInvincibleTime);
+            if (HP <= 0) {
+                OnDeath();
+            } else {
+                isTakingDamage = false;
+                spCollider.enabled = true;
+                MoveToRandomLoc();
+            }
 		}
 	}
+
+    public IEnumerator OnDeath() {
+            spEnemy.spanim.Play("big_slime_die");
+            float animTime = spEnemy.spanim.animations[2].length;
+            yield return new WaitForSeconds(animTime);
+            spawner.DestroySlime(this);
+            Game.instance.OnPlayerExpChange(expPerKill);
+            SpawnLoot();        
+    }
 	
     public void SpawnLoot () {
         int lootSelector = Random.Range(1, 100);

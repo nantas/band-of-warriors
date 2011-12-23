@@ -1,0 +1,306 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"ena",
+				"enabled"
+			],
+			[
+				"H",
+				"HP"
+			],
+			[
+				"Vec",
+				"Vector3"
+			],
+			[
+				"spawn",
+				"spawnPos"
+			],
+			[
+				"SpawnFas",
+				"SpawnFastSlimeAt"
+			],
+			[
+				"iden",
+				"identity"
+			],
+			[
+				"Re",
+				"Request"
+			],
+			[
+				"fastS",
+				"fastSlimePool"
+			]
+		]
+	},
+	"buffers":
+	[
+		{
+			"file": "Assets/Game/Script/Actors/BigSlime.cs",
+			"settings":
+			{
+				"buffer_size": 3036,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "Assets/Game/Script/Actors/Enemy.cs",
+			"settings":
+			{
+				"buffer_size": 750,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"contents": "Searching 34 files for \"virtual\"\n\nC:\\Users\\wnan\\bow\\Assets\\Game\\Script\\Game.cs:\n   48  \n   49  	\n   50: 	protected virtual void Init () {\n   51  		theSpawner = GetComponent<Spawner>();\n   52          theScoreCounter = GetComponent<ScoreCounter>();\n\nC:\\Users\\wnan\\bow\\Assets\\Game\\Script\\GamePanel.cs:\n   37      // ------------------------------------------------------------------ \n   38  \n   39:     protected virtual void Awake () {\n   40          //ScoreCounter scoreCounter = Game.instance.scoreCounter;\n   41          scoreDisplay.text = \"$\" + \"0\";\n\n2 matches across 2 files\n",
+			"settings":
+			{
+				"buffer_size": 580,
+				"line_ending": "Windows",
+				"name": "Find Results",
+				"scratch": true
+			}
+		}
+	],
+	"build_system": "",
+	"command_palette":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"console":
+	{
+		"height": 129.0
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"file_history":
+	[
+		"/C/Users/wnan/bow/Assets/Game/Script/GamePanel.cs",
+		"/C/Users/wnan/bow/Assets/Game/Script/Game.cs",
+		"/C/Users/wnan/bow/Assets/Game/Script/Actors/FastSlime.cs",
+		"/C/Users/wnan/bow/Assets/Game/Script/BtnRight.cs",
+		"/C/Users/wnan/bow/Assets/Game/Script/Spawner_BigSlime.cs",
+		"/C/Users/wnan/AppData/Roaming/Sublime Text 2/Packages/Default/Global.sublime-settings",
+		"/C/Users/wnan/AppData/Roaming/Sublime Text 2/Packages/Package Control/Package Control.sublime-settings",
+		"/C/Users/wnan/Documents/My Dropbox/exvimInstallGuide.txt",
+		"/C/exdev/tools/exvim/.vimrc"
+	],
+	"find":
+	{
+		"height": 32.0
+	},
+	"find_in_files":
+	{
+		"height": 88.0,
+		"where_history":
+		[
+			""
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"virtual",
+			"isTakingDamage",
+			"autocomplete"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"selected": 0,
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"file": "Assets/Game/Script/Actors/BigSlime.cs",
+					"settings":
+					{
+						"buffer_size": 3036,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								2388,
+								2388
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C#/C#.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 864.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "Assets/Game/Script/Actors/Enemy.cs",
+					"settings":
+					{
+						"buffer_size": 750,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								299,
+								299
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C#/C#.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"settings":
+					{
+						"buffer_size": 580,
+						"regions":
+						{
+							"match":
+							{
+								"flags": 112,
+								"regions":
+								[
+									[
+										115,
+										122
+									],
+									[
+										411,
+										418
+									]
+								],
+								"scope": ""
+							}
+						},
+						"selection":
+						[
+							[
+								118,
+								118
+							]
+						],
+						"settings":
+						{
+							"detect_indentation": false,
+							"output_tag": 1,
+							"result_base_dir": "",
+							"result_file_regex": "^([A-Za-z\\\\/<].*):$",
+							"result_line_regex": "^ +([0-9]+):",
+							"scroll_past_end": true,
+							"syntax": "Packages/Default/Find Results.hidden-tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				}
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 0.0
+	},
+	"input":
+	{
+		"height": 0.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"replace":
+	{
+		"height": 0.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"show_minimap": true,
+	"show_open_files": false,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 150.0,
+	"status_bar_visible": true
+}

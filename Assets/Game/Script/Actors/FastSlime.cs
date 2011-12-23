@@ -21,13 +21,21 @@ public class FastSlime : Enemy {
 	
 	public void GetIntoField () {
         spEnemy.spanim.Play("fast_slime_idle");
-		Vector3 targetPos = new Vector3(0, Game.instance.groundPosY, transform.position.z);
-		float moveTime = 0;
-		gameObject.MoveTo(targetPos, moveTime, 0.5f, EaseType.easeInOutQuad, "MoveToPlayer", gameObject);
+        Vector3 originPos = transform.position;
+        Vector3 peakPos = new Vector3(Random.Range(originPos.x-350, originPos.x+350),
+                                Random.Range(0, Game.instance.flyPosY), originPos.z);
+        Vector3 landPos = new Vector3(peakPos.x*2 - originPos.x, Game.instance.groundPosY,
+                                originPos.z);
+        Vector3[3] path = new Vector3[3];
+        path[0] = originPos;
+        path[1] = peakPos;
+        path[2] = landPos;
+		float moveTime = Vector3.Distance(peakPos, originPos)*2/moveSpeed;
+		gameObject.MoveTo(path, moveTime, 0.0f, EaseType.easeInOutQuad, "MoveToPlayer", gameObject);
 		
 	}
-	
-	public IEnumerator OnDamaged(bool _isHurtFromRight) {
+
+   	public IEnumerator OnDamaged(bool _isHurtFromRight) {
 		if (!isTakingDamage) {
 			isTakingDamage = true;
 			spCollider.enabled = false;

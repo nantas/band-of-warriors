@@ -155,7 +155,7 @@ public class FastSlimePool {
 
 public class Spawner_BigSlime : MonoBehaviour {
 	
-	public int maxBigSlimeCount = 3;
+	public int maxBigSlimeCount = 1;
     public int maxFastSlimeCount = 6;
 
 	private int aliveBigSlimeCount = 0;
@@ -178,11 +178,12 @@ public class Spawner_BigSlime : MonoBehaviour {
 	
 	// Use this for initialization
 	void Start () {
-		Invoke("SpawnASlime", 2.0f);
+		Invoke("SpawnABigSlime", 2.0f);
 	}
 	
 	
-	void SpawnASlime () {
+	void SpawnABigSlime () {
+        float maxRanTime = 6.0f;
 		if (aliveBigSlimeCount < maxBigSlimeCount) {
             int spawnSelector = Random.Range(1,2);
             if ( spawnSelector == 1 ) {
@@ -193,17 +194,16 @@ public class Spawner_BigSlime : MonoBehaviour {
             }
             //set new maxSlimeCount
             totalBigSlimeSpawned += 1;
-            if (totalBigSlimeSpawned >= 15 && totalBigSlimeSpawned < 30) {
-                maxBigSlimeCount = 5;
-            } else if (totalBigSlimeSpawned >= 30 && totalBigSlimeSpawned < 55) {
-                maxBigSlimeCount = 8;
-            } else if (totalBigSlimeSpawned >= 55 && totalBigSlimeSpawned < 90) {
-                maxBigSlimeCount = 11;
-            } else if (totalBigSlimeSpawned >= 90) {
-                maxBigSlimeCount = 15;
-            }
+            if (totalBigSlimeSpawned >= 5 && totalBigSlimeSpawned < 10) {
+                maxRanTime = 5.0f;
+            } else if (totalBigSlimeSpawned >= 10 && totalBigSlimeSpawned < 20) {
+                maxRanTime = 4.0f;
+            } else if (totalBigSlimeSpawned >= 20 && totalBigSlimeSpawned < 35) {
+                maxRanTime = 4.0f;
+                maxBigSlimeCount = 2;
+            } 
         }
-        Invoke("SpawnASlime", Random.Range(0.5f, 1.0f));
+        Invoke("SpawnABigSlime", Random.Range(3.5f, maxRanTime));
 	}
 
 
@@ -212,15 +212,28 @@ public class Spawner_BigSlime : MonoBehaviour {
 		float leftBorder = _spawner.transform.position.x - _spawner.width/2;
 		float rightBorder = _spawner.transform.position.x + _spawner.width/2;
 		Vector2 spawnPos = new Vector2(Random.Range(leftBorder,rightBorder), _spawner.transform.position.y);
-        BigSlime slime = SpawnSlimeAt (spawnPos);
+        BigSlime slime = SpawnBigSlimeAt (spawnPos);
         slime.SetSpawner(this);
         aliveBigSlimeCount += 1;
-        slime.GetIntoField(MoveDir.Left);
+        slime.GetIntoField(_spawner.moveDirection);
 	}
+
+    public void SpawnFastSlimeFrom (BigSlime _bigSlime, int _amount) {
+        Vector3 spawnPos = _bigSlime.transform.position;
+        for (int i = 0; i < _amount; i++ ) {
+            FastSlime slime = SpawnFastSlimeAt(spawnPos.x, spawnPos.y);
+            aliveFastSlimeCount += 1;
+            slime.GetIntoField();
+        }
+    }
 	
-	public BigSlime SpawnSlimeAt (Vector2 _pos) {
+	public BigSlime SpawnBigSlimeAt (Vector2 _pos) {
 		return bigSlimePool.Request(_pos, Quaternion.identity);
 	}
+
+    public FastSlime SpawnFastSlimeAt (Vector2 _pos) {
+        return fastSlimePool.Request(_pos, Quaternion.identity);
+    }
 	
 	public void DestroySlime (BigSlime _slime) {
 		_slime.enabled = false;
