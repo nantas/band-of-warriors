@@ -9,8 +9,7 @@ public class FastSlime : Enemy {
     }
 
     public void MoveToPlayer () {
-        Vector3 targetPos = new Vector3(Random.Range(Game.instance.leftSpawnEntry.position.x, 
-                                                     Game.instance.rightSpawnEntry.position.x),
+        Vector3 targetPos = new Vector3(Game.instance.thePlayer.transform.position.x, 
                                         Game.instance.groundPosY, transform.position.z);
         float moveTime = Mathf.Abs((targetPos.x - transform.position.x))/moveSpeed;
         float delayTime = Random.Range(0.0f, 0.7f);
@@ -22,16 +21,16 @@ public class FastSlime : Enemy {
 	public void GetIntoField () {
         spEnemy.spanim.Play("fast_slime_idle");
         Vector3 originPos = transform.position;
-        Vector3 peakPos = new Vector3(Random.Range(originPos.x-350, originPos.x+350),
-                                Random.Range(0, Game.instance.flyPosY), originPos.z);
+        Vector3 peakPos = new Vector3(Random.Range(originPos.x-100, originPos.x+100),
+                                Random.Range(0, Game.instance.flyPosY+100), originPos.z);
         Vector3 landPos = new Vector3(peakPos.x*2 - originPos.x, Game.instance.groundPosY,
                                 originPos.z);
-        Vector3[3] path = new Vector3[3];
+        Vector3[] path = new Vector3[3];
         path[0] = originPos;
         path[1] = peakPos;
         path[2] = landPos;
-		float moveTime = Vector3.Distance(peakPos, originPos)*2/moveSpeed;
-		gameObject.MoveTo(path, moveTime, 0.0f, EaseType.easeInOutQuad, "MoveToPlayer", gameObject);
+		float moveTime = Random.Range(0.7f, 1.2f);
+		gameObject.MoveTo(path, moveTime, 0.0f, EaseType.easeOutCubic, "MoveToPlayer", gameObject);
 		
 	}
 

@@ -100,14 +100,12 @@ public class Spawner_Flymon : MonoBehaviour {
 	
 	//spawner locations
 	[System.NonSerialized]public SpawnLocation topSpawner;
-	[System.NonSerialized]public SpawnLocation botSpawner;
 	[System.NonSerialized]public SpawnLocation leftSpawner;
 	[System.NonSerialized]public SpawnLocation rightSpawner;
 	
 	void Awake () {
         flymonPool.Init(Game.instance.enemyLayerAir);
         topSpawner = GameObject.Find("spawner_top").GetComponent<SpawnLocation>();
-        botSpawner = GameObject.Find("spawner_bot").GetComponent<SpawnLocation>();
         leftSpawner = GameObject.Find("spawner_left").GetComponent<SpawnLocation>();
         rightSpawner = GameObject.Find("spawner_right").GetComponent<SpawnLocation>();
 

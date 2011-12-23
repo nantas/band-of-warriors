@@ -172,6 +172,7 @@ public class Spawner_BigSlime : MonoBehaviour {
 	
 	void Awake () {
 		bigSlimePool.Init(Game.instance.enemyLayerGround);
+        fastSlimePool.Init(Game.instance.enemyLayerGround);
         leftSpawner = GameObject.Find("spawner_left").GetComponent<SpawnLocation>();
         rightSpawner = GameObject.Find("spawner_right").GetComponent<SpawnLocation>();
 	}
@@ -185,12 +186,12 @@ public class Spawner_BigSlime : MonoBehaviour {
 	void SpawnABigSlime () {
         float maxRanTime = 6.0f;
 		if (aliveBigSlimeCount < maxBigSlimeCount) {
-            int spawnSelector = Random.Range(1,2);
-            if ( spawnSelector == 1 ) {
-                SpawnASlimeFrom (leftSpawner);
-            }
-            if ( spawnSelector == 2 ) {
-                SpawnASlimeFrom (rightSpawner);
+            int spawnSelector = Random.Range(0,9);
+            Debug.Log(spawnSelector);
+            if ( spawnSelector < 5 ) {
+                SpawnABigSlimeFrom (leftSpawner);
+            } else if ( spawnSelector >= 5 ) {
+                SpawnABigSlimeFrom (rightSpawner);
             }
             //set new maxSlimeCount
             totalBigSlimeSpawned += 1;
@@ -208,7 +209,7 @@ public class Spawner_BigSlime : MonoBehaviour {
 
 
 
-	void SpawnASlimeFrom (SpawnLocation _spawner) {
+	void SpawnABigSlimeFrom (SpawnLocation _spawner) {
 		float leftBorder = _spawner.transform.position.x - _spawner.width/2;
 		float rightBorder = _spawner.transform.position.x + _spawner.width/2;
 		Vector2 spawnPos = new Vector2(Random.Range(leftBorder,rightBorder), _spawner.transform.position.y);
@@ -219,10 +220,12 @@ public class Spawner_BigSlime : MonoBehaviour {
 	}
 
     public void SpawnFastSlimeFrom (BigSlime _bigSlime, int _amount) {
-        Vector3 spawnPos = _bigSlime.transform.position;
+        Vector2 spawnPos = new Vector2(_bigSlime.transform.position.x,
+                                       _bigSlime.transform.position.y);
         for (int i = 0; i < _amount; i++ ) {
-            FastSlime slime = SpawnFastSlimeAt(spawnPos.x, spawnPos.y);
+            FastSlime slime = SpawnFastSlimeAt(spawnPos);
             aliveFastSlimeCount += 1;
+            slime.SetSpawner(this);
             slime.GetIntoField();
         }
     }

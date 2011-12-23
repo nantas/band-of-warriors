@@ -3,7 +3,7 @@ using System.Collections;
 
 public class BigSlime : Enemy {
     public int HP = 3;
-    public int hurtInvincibleTime = 0.5f;
+    public float hurtInvincibleTime = 0.5f;
 	[System.NonSerialized]public Spawner_BigSlime spawner;
 
     public void SetSpawner (Spawner_BigSlime _spawner) {
@@ -11,6 +11,9 @@ public class BigSlime : Enemy {
     }
 
     void OnEnable() {
+		isTakingDamage = false;
+		if (spEnemy) spEnemy.enabled = true;
+		if (spCollider) spCollider.enabled = true;
         HP = 3;
     }
 
@@ -48,18 +51,19 @@ public class BigSlime : Enemy {
             iTween.Stop(gameObject);
             if (_isHurtFromRight) {
                 //push slime a bit, hacked magic number
-                transform.Translate(-30.0f,0,0);
+                transform.Translate(-50.0f,0,0);
             } else {
-                transform.Translate(30.0f,0,0);
+                transform.Translate(50.0f,0,0);
             }
             HP -= 1;
             spEnemy.spanim.Play("big_slime_hurt");
 			yield return new WaitForSeconds(hurtInvincibleTime);
             if (HP <= 0) {
-                OnDeath();
+                StartCoroutine(OnDeath());
             } else {
                 isTakingDamage = false;
                 spCollider.enabled = true;
+                spEnemy.spanim.Play("big_slime_idle");
                 MoveToRandomLoc();
             }
 		}
@@ -67,10 +71,13 @@ public class BigSlime : Enemy {
 
     public IEnumerator OnDeath() {
             spEnemy.spanim.Play("big_slime_die");
-            float animTime = spEnemy.spanim.animations[2].length;
+//          float animTime = spEnemy.spanim.animations[2].length;
+            float animTime = 0.3f;
             yield return new WaitForSeconds(animTime);
-            spawner.DestroySlime(this);
             Game.instance.OnPlayerExpChange(expPerKill);
+            spawner.SpawnFastSlimeFrom(this, 3);
+            yield return new WaitForSeconds(0.1f);
+            spawner.DestroySlime(this);
             SpawnLoot();        
     }
 	

@@ -684,7 +684,11 @@ public static class iTweenExtensions
 	
 	/// <summary>
 	/// nantas override iTween functions
-
+	public static void MoveTo(this GameObject go,Vector3[] path,float time,float delay,
+                              EaseType easeType, string onCompleteCall, GameObject onCompleteGO){
+		iTween.MoveTo(go,iTween.Hash("path",path,"time",time,"delay",delay, "easeType", easeType.ToString(),
+                                     "oncomplete", onCompleteCall, "oncompletetarget", onCompleteGO));
+	}
 
 	public static void MoveTo(this GameObject go,Vector3 position,float time,
                               float delay,EaseType easeType, string onCompleteCall, GameObject onCompleteGO){
