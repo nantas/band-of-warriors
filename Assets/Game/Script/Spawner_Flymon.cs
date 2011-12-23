@@ -119,31 +119,36 @@ public class Spawner_Flymon : MonoBehaviour {
 	}
 	
 	void SpawnAFlymon () {
-		int spawnSelector = Random.Range(1,3);
-		switch (spawnSelector) {
-			case 1:
-				SpawnAFlymonFrom (topSpawner);
-				break;
-			case 2:
-				SpawnAFlymonFrom (leftSpawner);
-				break;
-			case 3:
-				SpawnAFlymonFrom (rightSpawner);
-				break;
-			default:
-				Debug.LogError("can't get a valid spawner");
-				break;
-		}
-        totalFlymonSpawned += 1;
-        if (totalFlymonSpawned <= 20) {
-            Invoke("SpawnAFlymon", Random.Range(3.5f, 5.5f));
-        } else if (totalFlymonSpawned > 20 && totalFlymonSpawned < 50) {
-            Invoke("SpawnAFlymon", Random.Range(2.5f, 3.5f));
-        } else if (totalFlymonSpawned >= 50 && totalFlymonSpawned < 100) {
-            Invoke("SpawnAFlymon", Random.Range(1.5f, 2.5f));
-        } else if (totalFlymonSpawned >= 100 ) {
-            Invoke("SpawnAFlymon", Random.Range(1.0f, 2.0f));
+        float maxRanTime = 3.0f;
+        if (aliveFlymonCount < maxFlymonCount) {
+            int spawnSelector = Random.Range(1,3);
+            switch (spawnSelector) {
+                case 1:
+                    SpawnAFlymonFrom (topSpawner);
+                    break;
+                case 2:
+                    SpawnAFlymonFrom (leftSpawner);
+                    break;
+                case 3:
+                    SpawnAFlymonFrom (rightSpawner);
+                    break;
+                default:
+                    Debug.LogError("can't get a valid spawner");
+                    break;
+            }
+            totalFlymonSpawned += 1;
+            if (totalFlymonSpawned >= 10 && totalFlymonSpawned < 25) {
+                maxFlymonCount = 3;
+                maxRanTime = 2.5f;
+            } else if (totalFlymonSpawned >= 25 && totalFlymonSpawned < 50) {
+                maxFlymonCount = 4;
+                maxRanTime = 2.0f;
+            } else if (totalFlymonSpawned >= 50 ) {
+                maxFlymonCount = 4;
+                maxRanTime = 1.5f;
+            }
         }
+        Invoke("SpawnAFlymon", Random.Range(1.0f, maxRanTime));
 	}	
 
     public Flymon SpawnFlymonAt (Vector2 _pos) {
@@ -154,12 +159,10 @@ public class Spawner_Flymon : MonoBehaviour {
        	float leftBorder = _spawner.transform.position.x - _spawner.width/2;
 		float rightBorder = _spawner.transform.position.x + _spawner.width/2;
 		Vector2 spawnPos = new Vector2(Random.Range(leftBorder,rightBorder), _spawner.transform.position.y);
-		if (aliveFlymonCount <= maxFlymonCount) {
-			Flymon flymon = SpawnFlymonAt (spawnPos);
-            flymon.SetSpawner(this);
-            aliveFlymonCount += 1;
-			flymon.GetIntoField();
-		}
+        Flymon flymon = SpawnFlymonAt (spawnPos);
+        flymon.SetSpawner(this);
+        aliveFlymonCount += 1;
+        flymon.GetIntoField();
 	}
 
 
