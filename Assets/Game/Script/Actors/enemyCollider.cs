@@ -23,7 +23,11 @@ public class EnemyCollider : MonoBehaviour {
 
 		}
 		if (other.tag == "player_weapon") {
-			other.SendMessage("AttackEnemy");
+            Vector2 collisionPos = new Vector2((this.transform.position.x + 
+                                                other.transform.position.x)/2, 
+                                               (this.transform.position.y +
+                                                other.transform.position.y)/2);
+			other.SendMessage("AttackEnemy",collisionPos);
 			controller.SendMessage("OnDamaged", isEnemyOnLeft);
 		}
 	}

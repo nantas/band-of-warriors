@@ -25,6 +25,7 @@ public class Game : MonoBehaviour {
 	
 	[System.NonSerialized] public Spawner theSpawner;
     [System.NonSerialized] public ScoreCounter theScoreCounter;
+    [System.NonSerialized] public LevelManager theLevelManager;
     [System.NonSerialized] public int playerHP;
     [System.NonSerialized] public int playerLvl;
     [System.NonSerialized] public int currentExp;
@@ -40,6 +41,7 @@ public class Game : MonoBehaviour {
     public exLayer enemyLayerAir;
     public exLayer coinLayer;
     public exLayer scoreLayer;
+    public exLayer fxLayer;
 	public float groundPosY = -130;
     public float flyPosY = 100;
     public float gravity = -300.0f;
@@ -50,7 +52,7 @@ public class Game : MonoBehaviour {
 	protected virtual void Init () {
 		theSpawner = GetComponent<Spawner>();
         theScoreCounter = GetComponent<ScoreCounter>();
-		
+        theLevelManager = GameObject.Find("LevelManager").GetComponent<LevelManager>();
 	}
 
 	// Use this for initialization
@@ -85,6 +87,7 @@ public class Game : MonoBehaviour {
             int extraExp = currentExp - expReqForLvl[playerLvl-1];
             //TODO:put the level handle into on level change function
             playerLvl += 1;
+            theLevelManager.OnPlayerLevelChanged();
             currentExp = 0;
             OnPlayerLvlUp();
             OnPlayerExpChange(extraExp);
@@ -95,7 +98,7 @@ public class Game : MonoBehaviour {
 
     public void OnPlayerLvlUp() {
         theGamePanel.playerLvlDisplay.text = "lv" + playerLvl;
-        OnPlayerHPChange(20);
+        OnPlayerHPChange(40);
     }
 
     public void AcceptInput ( bool _accept ) {

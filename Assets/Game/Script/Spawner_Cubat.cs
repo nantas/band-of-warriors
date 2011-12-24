@@ -92,9 +92,9 @@ public class CubatPool {
 public class Spawner_Cubat : MonoBehaviour {
 	
     public int maxCubatCount = 3;
+    public float maxRanTime = 3.0f;
 
     private int aliveCubatCount = 0;
-    private int totalCubatSpawned = 0;
 
     public CubatPool cubatPool = new CubatPool();
 	
@@ -116,8 +116,7 @@ public class Spawner_Cubat : MonoBehaviour {
         Invoke("SpawnACubat", 5.0f);
 	}
 	
-	void SpawnACubat () {
-        float maxRanTime = 3.0f;
+	public void SpawnACubat () {
         if (aliveCubatCount < maxCubatCount) {
             int spawnSelector = Random.Range(1,3);
             switch (spawnSelector) {
@@ -133,17 +132,6 @@ public class Spawner_Cubat : MonoBehaviour {
                 default:
                     Debug.LogError("can't get a valid spawner");
                     break;
-            }
-            totalCubatSpawned += 1;
-            if (totalCubatSpawned >= 10 && totalCubatSpawned < 25) {
-                maxCubatCount = 3;
-                maxRanTime = 2.5f;
-            } else if (totalCubatSpawned >= 25 && totalCubatSpawned < 50) {
-                maxCubatCount = 4;
-                maxRanTime = 2.0f;
-            } else if (totalCubatSpawned >= 50 ) {
-                maxCubatCount = 4;
-                maxRanTime = 1.5f;
             }
         }
         Invoke("SpawnACubat", Random.Range(1.0f, maxRanTime));

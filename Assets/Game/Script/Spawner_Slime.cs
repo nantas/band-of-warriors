@@ -84,60 +84,43 @@ public class SlimePool {
 public class Spawner_Slime : MonoBehaviour {
 	
 	public int maxSlimeCount = 3;
-
+    public float maxRanTime = 1.5f;
 	private int aliveSlimeCount = 0;
-    private int totalSlimeSpawned = 0;
 
 	public SlimePool slimePool = new SlimePool();
 	
 	//spawner locations
 	[System.NonSerialized]public SpawnLocation topSpawner;
-	[System.NonSerialized]public SpawnLocation botSpawner;
 	[System.NonSerialized]public SpawnLocation leftSpawner;
 	[System.NonSerialized]public SpawnLocation rightSpawner;
 	
 	void Awake () {
 		slimePool.Init(Game.instance.enemyLayerGround);
         topSpawner = GameObject.Find("spawner_top").GetComponent<SpawnLocation>();
-        botSpawner = GameObject.Find("spawner_bot").GetComponent<SpawnLocation>();
         leftSpawner = GameObject.Find("spawner_left").GetComponent<SpawnLocation>();
         rightSpawner = GameObject.Find("spawner_right").GetComponent<SpawnLocation>();
 	}
 	
 	// Use this for initialization
 	void Start () {
-		Invoke("SpawnASlime", 2.0f);
+		//Invoke("SpawnASlime", 2.0f);
 	}
 	
 	
-	void SpawnASlime () {
+	public void SpawnASlime () {
 		if (aliveSlimeCount < maxSlimeCount) {
             int spawnSelector = Random.Range(1,20);
-            if ( spawnSelector < 4 ) {
+            if ( spawnSelector < 5 ) {
                 SpawnASlimeFrom (leftSpawner);
             }
-            if ( spawnSelector >= 4 && spawnSelector <= 10 ) {
+            if ( spawnSelector >= 5 && spawnSelector <= 15 ) {
                 SpawnASlimeFrom (topSpawner);
             }
-            if ( spawnSelector > 10 && spawnSelector <= 17 ) {
-                SpawnASlimeFrom (botSpawner);
-            }
-            if ( spawnSelector > 17 ) {
+            if ( spawnSelector > 15 ) {
                 SpawnASlimeFrom (rightSpawner);
             }
-            //set new maxSlimeCount
-            totalSlimeSpawned += 1;
-            if (totalSlimeSpawned >= 15 && totalSlimeSpawned < 30) {
-                maxSlimeCount = 5;
-            } else if (totalSlimeSpawned >= 30 && totalSlimeSpawned < 55) {
-                maxSlimeCount = 8;
-            } else if (totalSlimeSpawned >= 55 && totalSlimeSpawned < 90) {
-                maxSlimeCount = 11;
-            } else if (totalSlimeSpawned >= 90) {
-                maxSlimeCount = 15;
-            }
         }
-        Invoke("SpawnASlime", Random.Range(0.5f, 1.0f));
+        Invoke("SpawnASlime", Random.Range(0.5f, maxRanTime));
 	}
 
 

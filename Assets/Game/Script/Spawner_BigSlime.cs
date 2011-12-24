@@ -157,11 +157,10 @@ public class Spawner_BigSlime : MonoBehaviour {
 	
 	public int maxBigSlimeCount = 1;
     public int maxFastSlimeCount = 6;
+    public float maxRanTime = 6.0f;
 
 	private int aliveBigSlimeCount = 0;
-    private int totalBigSlimeSpawned = 0;
     private int aliveFastSlimeCount = 0;
-    private int totalFastSlimeSpawned = 0;
 
 	public BigSlimePool bigSlimePool = new BigSlimePool();
     public FastSlimePool fastSlimePool = new FastSlimePool();
@@ -183,8 +182,7 @@ public class Spawner_BigSlime : MonoBehaviour {
 	}
 	
 	
-	void SpawnABigSlime () {
-        float maxRanTime = 6.0f;
+	public void SpawnABigSlime () {
 		if (aliveBigSlimeCount < maxBigSlimeCount) {
             int spawnSelector = Random.Range(0,9);
             Debug.Log(spawnSelector);
@@ -193,16 +191,6 @@ public class Spawner_BigSlime : MonoBehaviour {
             } else if ( spawnSelector >= 5 ) {
                 SpawnABigSlimeFrom (rightSpawner);
             }
-            //set new maxSlimeCount
-            totalBigSlimeSpawned += 1;
-            if (totalBigSlimeSpawned >= 5 && totalBigSlimeSpawned < 10) {
-                maxRanTime = 5.0f;
-            } else if (totalBigSlimeSpawned >= 10 && totalBigSlimeSpawned < 20) {
-                maxRanTime = 4.0f;
-            } else if (totalBigSlimeSpawned >= 20 && totalBigSlimeSpawned < 35) {
-                maxRanTime = 4.0f;
-                maxBigSlimeCount = 2;
-            } 
         }
         Invoke("SpawnABigSlime", Random.Range(3.5f, maxRanTime));
 	}

@@ -92,9 +92,9 @@ public class FlymonPool {
 public class Spawner_Flymon : MonoBehaviour {
 	
     public int maxFlymonCount = 3;
+    public float maxRanTime = 2.5f;
 
     private int aliveFlymonCount = 0;
-    private int totalFlymonSpawned = 0;
 
     public FlymonPool flymonPool = new FlymonPool();
 	
@@ -113,11 +113,10 @@ public class Spawner_Flymon : MonoBehaviour {
 	
 	// Use this for initialization
 	void Start () {
-        Invoke("SpawnAFlymon", 5.0f);
+        //Invoke("SpawnAFlymon", 5.0f);
 	}
 	
-	void SpawnAFlymon () {
-        float maxRanTime = 3.0f;
+	public void SpawnAFlymon () {
         if (aliveFlymonCount < maxFlymonCount) {
             int spawnSelector = Random.Range(1,3);
             switch (spawnSelector) {
@@ -133,17 +132,6 @@ public class Spawner_Flymon : MonoBehaviour {
                 default:
                     Debug.LogError("can't get a valid spawner");
                     break;
-            }
-            totalFlymonSpawned += 1;
-            if (totalFlymonSpawned >= 10 && totalFlymonSpawned < 25) {
-                maxFlymonCount = 3;
-                maxRanTime = 2.5f;
-            } else if (totalFlymonSpawned >= 25 && totalFlymonSpawned < 50) {
-                maxFlymonCount = 4;
-                maxRanTime = 2.0f;
-            } else if (totalFlymonSpawned >= 50 ) {
-                maxFlymonCount = 4;
-                maxRanTime = 1.5f;
             }
         }
         Invoke("SpawnAFlymon", Random.Range(1.0f, maxRanTime));

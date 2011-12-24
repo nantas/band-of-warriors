@@ -22,11 +22,11 @@ using System.Collections;
 public class GamePanel : MonoBehaviour {
 
     public exSpriteFont scoreDisplay; 
+    public exSpriteFont levelUpText; 
     public ProgressBar HPbar;
     public ProgressBar EXPbar;
     public exSpriteFont playerLvlDisplay;
     public exUIPanel panelGameOver;
-
 
     ///////////////////////////////////////////////////////////////////////////////
     // functions
@@ -49,6 +49,10 @@ public class GamePanel : MonoBehaviour {
         Transform trans = panelGameOver.transform;
         trans.position = new Vector3 (Camera.main.transform.position.x, 
                                       0.0f, trans.position.z);
+    }
+
+    public void ShowLevelUpText() {
+        levelUpText.animation.Play("txt_levelUp");
     }
 
 
