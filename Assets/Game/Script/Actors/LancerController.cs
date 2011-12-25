@@ -8,18 +8,30 @@
 using UnityEngine;
 using System.Collections;
 
+[System.Serializable]
+public class ComboEffect {
+    public int reqComboHit;
+    public float newMoveSpeed;
+    public float newDashSpeed;
+    public float chanceToGetMoreLoot;
+}
+
 public class LancerController: MonoBehaviour {
 
 	public float initMoveSpeed = 250.0f;
     public float initJumpSpeed = 1250.0f;
     public float dashSpeed = 450.0f;
+    public ComboEffect[] comboEffect;
 
     [System.NonSerialized]public PlayerBase player; 
 	[System.NonSerialized]public MoveDir charMoveDir;
     [System.NonSerialized]public PlayMakerFSM FSM_Control;
     [System.NonSerialized]public PlayMakerFSM FSM_Hit;
+    [System.NonSerialized]public int comboLevel;
+    [System.NonSerialized]public int curAddLootChance;
 
     private Vector2 velocity;
+    
 
     void Awake () {
         PlayMakerFSM[] fsms = GetComponents<PlayMakerFSM>();
@@ -33,12 +45,41 @@ public class LancerController: MonoBehaviour {
         }
         player = transform.GetComponent<PlayerBase>();
         velocity = new Vector2(0, 0);
+        comboLevel = 0;
         charMoveDir = MoveDir.Stop;
     }
 
     public bool isAcceptInput() {
         return FSM_Control.FsmVariables.GetFsmBool("isAcceptInput").Value;
     }
+
+    public void OnComboHitUpdate(int _comboHit) {
+        if (_comboHit >= comboEffect[comboLevel].reqComboHit) {
+            comboLevel += 1;
+            OnComboEffectUp();
+        }
+        if (_comboHit == 0) {
+            comboLevel = 0;
+            OnComboEffectDown();
+        }
+    }
+
+    public void OnComboEffectUp() {
+        initMoveSpeed = comboEffect[comboLevel].newMoveSpeed;
+        dashSpeed = comboEffect[comboLevel].newDashSpeed;
+        velocity.x = initMoveSpeed;
+        curAddLootChance = (int) comboEffect[comboLevel].chanceToGetMoreLoot * 100;
+        //TODO add emitter effect control
+    }
+
+    public void OnComboEffectDown() {
+        initMoveSpeed = comboEffect[comboLevel].newMoveSpeed;
+        dashSpeed = comboEffect[comboLevel].newDashSpeed;
+        velocity.x = initMoveSpeed;
+        curAddLootChance = 0;
+        //TODO add emitter effect control
+    }
+        
 
 
 	void Update () {
@@ -172,6 +213,7 @@ public class LancerController: MonoBehaviour {
         if ( FSM_Hit.FsmVariables.GetFsmBool("isAcceptDamage").Value == true ) {
             Game.instance.OnPlayerHPChange(-_damageAmount);
             StartHurt(_isHurtFromLeft);
+            Game.instance.theGamePanel.OnComboEnd();
             FSM_Control.Fsm.Event("To_Stun_Ctrl");
         }
     }	

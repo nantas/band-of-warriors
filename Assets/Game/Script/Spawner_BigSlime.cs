@@ -192,7 +192,7 @@ public class Spawner_BigSlime : MonoBehaviour {
                 SpawnABigSlimeFrom (rightSpawner);
             }
         }
-        Invoke("SpawnABigSlime", Random.Range(3.5f, maxRanTime));
+        Invoke("SpawnABigSlime", Random.Range(4.5f, maxRanTime));
 	}
 
 

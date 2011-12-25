@@ -25,7 +25,7 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="0.7"
-     inkscape:cx="28.728509"
+     inkscape:cx="575.87137"
      inkscape:cy="571.75825"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
@@ -119,5 +119,26 @@
        inkscape:export-filename="/Users/nantas/projects/BOW/PSD/fxhit.png"
        inkscape:export-xdpi="43.060001"
        inkscape:export-ydpi="43.060001" />
+    <path
+       sodipodi:type="star"
+       style="opacity:0.73706863;fill:#ffccaa;fill-opacity:1;stroke:#fff6d5;stroke-width:5.78120708;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none"
+       id="path3044"
+       sodipodi:sides="5"
+       sodipodi:cx="552.85712"
+       sodipodi:cy="300.93362"
+       sodipodi:r1="27.105236"
+       sodipodi:r2="13.481702"
+       sodipodi:arg1="1.2490458"
+       sodipodi:arg2="1.8773643"
+       inkscape:flatsided="false"
+       inkscape:rounded="0"
+       inkscape:randomized="0"
+       d="m 561.42854,326.64791 -12.64004,-12.86117 -17.7384,3.24495 8.3257,-15.99572 -8.56759,-15.86748 17.78562,2.97527 12.44333,-13.05159 2.66641,17.83454 16.258,7.80115 -16.13769,8.04708 z"
+       inkscape:transform-center-x="-2.5753797"
+       inkscape:transform-center-y="-0.065864482"
+       transform="matrix(1.0188335,0,0,1.0358398,-9.4922839,-9.3545562)"
+       inkscape:export-filename="/Users/nantas/projects/BOW/PSD/fx_star.png"
+       inkscape:export-xdpi="24.120001"
+       inkscape:export-ydpi="24.120001" />
   </g>
 </svg>
