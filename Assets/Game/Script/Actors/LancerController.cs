@@ -28,7 +28,7 @@ public class LancerController: MonoBehaviour {
     [System.NonSerialized]public PlayMakerFSM FSM_Control;
     [System.NonSerialized]public PlayMakerFSM FSM_Hit;
     [System.NonSerialized]public int comboLevel;
-    [System.NonSerialized]public int curAddLootChance;
+    public int curAddLootChance;
 
     private Vector2 velocity;
     
@@ -68,8 +68,9 @@ public class LancerController: MonoBehaviour {
         initMoveSpeed = comboEffect[comboLevel].newMoveSpeed;
         dashSpeed = comboEffect[comboLevel].newDashSpeed;
         velocity.x = initMoveSpeed;
-        curAddLootChance = (int) comboEffect[comboLevel].chanceToGetMoreLoot * 100;
+        curAddLootChance = (int) (comboEffect[comboLevel].chanceToGetMoreLoot * 100);
         //TODO add emitter effect control
+        player.OnComboTrailUp(comboLevel);
     }
 
     public void OnComboEffectDown() {
@@ -78,6 +79,7 @@ public class LancerController: MonoBehaviour {
         velocity.x = initMoveSpeed;
         curAddLootChance = 0;
         //TODO add emitter effect control
+        player.OnComboTrailEnd();
     }
         
 

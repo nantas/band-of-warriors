@@ -71,6 +71,7 @@ public class GamePanel : MonoBehaviour {
         if (comboDisplay.enabled == true) {
             comboDisplay.transform.Translate(0, 800, 0);
             comboDisplay.enabled = false;
+            Game.instance.thePlayer.playerController.OnComboHitUpdate(0);
         }
     }
 

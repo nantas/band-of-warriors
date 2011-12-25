@@ -29,7 +29,6 @@ public class Coin : MonoBehaviour {
 		StopAllCoroutines();
 		CancelInvoke();
         iTween.Stop(gameObject);
-        score = 1;
 		if (spCoin) spCoin.enabled = false;
 		if (spCollider) spCollider.enabled = false;
 		

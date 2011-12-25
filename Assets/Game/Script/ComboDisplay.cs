@@ -39,7 +39,6 @@ public class ComboDisplay : MonoBehaviour {
 
     void OnDisable() {
         comboHit = 0;
-        Game.instance.thePlayer.playerController.OnComboHitUpdate(comboHit);
     }
 
     public void HitAnEnemy() {
