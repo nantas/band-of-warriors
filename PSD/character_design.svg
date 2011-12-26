@@ -1,0 +1,788 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="744.09448819"
+   height="1052.3622047"
+   id="svg2"
+   version="1.1"
+   inkscape:version="0.48.0 r9654"
+   sodipodi:docname="character_design.svg">
+  <defs
+     id="defs4" />
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="0.35"
+     inkscape:cx="821.32841"
+     inkscape:cy="607.76475"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     inkscape:window-width="1433"
+     inkscape:window-height="884"
+     inkscape:window-x="40"
+     inkscape:window-y="0"
+     inkscape:window-maximized="0"
+     inkscape:snap-bbox="false">
+    <inkscape:grid
+       type="xygrid"
+       id="grid2987" />
+  </sodipodi:namedview>
+  <metadata
+     id="metadata7">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <rect
+       style="fill:#0169c9;fill-opacity:1;stroke:#000000;stroke-width:3.95284677;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       id="rect3774"
+       width="120"
+       height="100"
+       x="-200"
+       y="252.36218"
+       inkscape:export-filename="C:\Users\nantas\band_of_warriors\PSD\path3778.png"
+       inkscape:export-xdpi="21.612713"
+       inkscape:export-ydpi="21.612713" />
+    <g
+       id="g3767"
+       inkscape:export-filename="C:\Users\nantas\band_of_warriors\PSD\path3778.png"
+       inkscape:export-xdpi="21.612713"
+       inkscape:export-ydpi="21.612713"
+       transform="translate(-379.89847,-259.5939)">
+      <rect
+         y="362.36218"
+         x="160"
+         height="130.00003"
+         width="160"
+         id="rect2989"
+         style="fill:#ffccaa;fill-opacity:1;stroke:#000000;stroke-width:5;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
+      <path
+         d="m 230,407.36218 c 0,8.28427 -4.47715,15 -10,15 -5.52285,0 -10,-6.71573 -10,-15 0,-8.28427 4.47715,-15 10,-15 5.52285,0 10,6.71573 10,15 z"
+         sodipodi:ry="15"
+         sodipodi:rx="10"
+         sodipodi:cy="407.36218"
+         sodipodi:cx="220"
+         id="path2991"
+         style="fill:#000000;fill-opacity:1;stroke:#000000;stroke-opacity:1"
+         sodipodi:type="arc" />
+      <path
+         transform="translate(0,-10)"
+         d="m 300,417.36218 c 0,8.28427 -4.47715,15 -10,15 -5.52285,0 -10,-6.71573 -10,-15 0,-8.28427 4.47715,-15 10,-15 5.52285,0 10,6.71573 10,15 z"
+         sodipodi:ry="15"
+         sodipodi:rx="10"
+         sodipodi:cy="417.36218"
+         sodipodi:cx="290"
+         id="path2993"
+         style="fill:#000000;fill-opacity:1;stroke:#000000;stroke-opacity:1"
+         sodipodi:type="arc" />
+      <path
+         sodipodi:nodetypes="ccccccccccccccc"
+         inkscape:connector-curvature="0"
+         id="path2995"
+         d="m 180,452.36218 30,20 0,50 -70,-30 c 0,-50 0,-100 0,-150 17.5251,-22.57529 27.80801,-23.42404 40,-30 l 120,0 30,30 0,110 10,20 0,50 -30,-30 0,-120 -130,0 c 0,30 0,59.87927 0,80 z"
+         style="fill:#0169c9;stroke:#000000;stroke-width:5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
+      <rect
+         y="462.36218"
+         x="220"
+         height="20"
+         width="70"
+         id="rect3765"
+         style="fill:#800000;fill-opacity:1;stroke:#000000;stroke-width:5;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
+    </g>
+    <path
+       sodipodi:type="arc"
+       style="fill:#ffccaa;fill-opacity:1;stroke:#000000;stroke-width:5;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       id="path3780"
+       sodipodi:cx="370"
+       sodipodi:cy="582.36218"
+       sodipodi:rx="30"
+       sodipodi:ry="30"
+       d="m 400,582.36218 a 30,30 0 1 1 -60,0 30,30 0 1 1 60,0 z"
+       inkscape:export-filename="C:\Users\nantas\band_of_warriors\PSD\path3778.png"
+       inkscape:export-xdpi="21.612713"
+       inkscape:export-ydpi="21.612713"
+       transform="translate(-380,-260)" />
+    <path
+       style="fill:#1f1c24;fill-opacity:1;stroke:#000000;stroke-width:4.54627895;stroke-miterlimit:4;stroke-opacity:1"
+       d="m -150,432.36218 c -9,0 -25.11775,0 -45,0 -19.88225,0 -27,0 -45,0 0,-15.21997 9,-45.93034 45,-45.93034 27,0 45,30.71037 45,45.93034 z"
+       id="path3784"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="cscsc"
+       inkscape:export-filename="C:\Users\nantas\band_of_warriors\PSD\path3778.png"
+       inkscape:export-xdpi="21.612713"
+       inkscape:export-ydpi="21.612713" />
+    <path
+       sodipodi:nodetypes="cscsc"
+       inkscape:connector-curvature="0"
+       id="path3787"
+       d="m -30,432.36218 c -9,0 -25.11775,0 -45,0 -19.88225,0 -27,0 -45,0 0,-14.74671 9,-44.50213 45,-44.50213 27,0 45,29.75542 45,44.50213 z"
+       style="fill:#1f1c24;fill-opacity:1;stroke:#000000;stroke-width:4.47503757;stroke-miterlimit:4;stroke-opacity:1"
+       inkscape:export-filename="C:\Users\nantas\band_of_warriors\PSD\path3778.png"
+       inkscape:export-xdpi="21.612713"
+       inkscape:export-ydpi="21.612713" />
+    <g
+       id="g3794"
+       transform="translate(-223.85797,-516.55834)"
+       inkscape:export-filename="C:\Users\nantas\band_of_warriors\PSD\path3778.png"
+       inkscape:export-xdpi="21.612713"
+       inkscape:export-ydpi="21.612713">
+      <path
+         sodipodi:nodetypes="cccc"
+         inkscape:connector-curvature="0"
+         id="rect3789"
+         d="m 140,772.36218 440,70 -440,70 z"
+         style="fill:#c8b7b7;fill-opacity:1;stroke:#000000;stroke-width:5.40061712;stroke-miterlimit:4;stroke-opacity:1" />
+      <rect
+         y="832.36218"
+         x="-160"
+         height="20"
+         width="300"
+         id="rect3791"
+         style="fill:#1f1c24;fill-opacity:1;stroke:#000000;stroke-width:5;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
+    </g>
+    <path
+       sodipodi:type="arc"
+       style="fill:#ffccaa;fill-opacity:1;stroke:#000000;stroke-width:5;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       id="path3778"
+       sodipodi:cx="110"
+       sodipodi:cy="582.36218"
+       sodipodi:rx="30"
+       sodipodi:ry="30"
+       d="m 140,582.36218 a 30,30 0 1 1 -60,0 30,30 0 1 1 60,0 z"
+       inkscape:export-xdpi="21.612713"
+       inkscape:export-ydpi="21.612713"
+       transform="translate(-380,-260)" />
+    <path
+       inkscape:transform-center-x="-5.4524758"
+       transform="matrix(1.0780298,1.4047916,1.4047916,-1.0780298,-1024.5172,1861.3461)"
+       inkscape:transform-center-y="-9.151345"
+       sodipodi:end="3.5563898"
+       sodipodi:start="0"
+       d="m -80,802.36218 a 50,50 0 1 1 -95.7599,-20.15021 L -130,802.36218 z"
+       sodipodi:ry="50"
+       sodipodi:rx="50"
+       sodipodi:cy="802.36218"
+       sodipodi:cx="-130"
+       id="path3801"
+       style="fill:#916f6f;fill-opacity:1;stroke:#000000;stroke-width:5;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       sodipodi:type="arc"
+       inkscape:export-filename="C:\Users\nantas\band_of_warriors\PSD\path4000.png"
+       inkscape:export-xdpi="21.612713"
+       inkscape:export-ydpi="21.612713" />
+    <g
+       id="g3978"
+       transform="matrix(1.0846017,0,0,1.0846017,511.57367,568.3939)"
+       inkscape:export-filename="C:\Users\nantas\band_of_warriors\PSD\path4000.png"
+       inkscape:export-xdpi="21.612713"
+       inkscape:export-ydpi="21.612713">
+      <path
+         transform="matrix(1.2257572,0,0,1.2257572,-396.67041,-723.8241)"
+         sodipodi:type="arc"
+         style="fill:#c87137;fill-opacity:1;stroke:#000000;stroke-width:4;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+         id="path3854"
+         sodipodi:cx="-112.5"
+         sodipodi:cy="662.36218"
+         sodipodi:rx="12.5"
+         sodipodi:ry="15"
+         d="m -100,662.36218 c 0,8.28427 -5.59644,15 -12.5,15 -6.90356,0 -12.5,-6.71573 -12.5,-15 0,-8.28427 5.59644,-15 12.5,-15 6.90356,0 12.5,6.71573 12.5,15 z" />
+      <g
+         transform="matrix(1.050649,0,0,1.1491474,-554.9682,-667.71795)"
+         id="g3834">
+        <path
+           style="fill:#aad400;fill-opacity:1;stroke:#000000;stroke-width:4.67707157;stroke-miterlimit:4;stroke-opacity:1"
+           d="m 20.000004,672.36218 c 0,44.18278 -31.340069,60 -70.000002,60 -38.659934,0 -70.000002,-15.81722 -70.000002,-60 0,-80 31.340068,-100 70.000002,-100 38.659933,0 70.000002,20 70.000002,100 z"
+           id="path3793"
+           inkscape:connector-curvature="0"
+           sodipodi:nodetypes="sssss" />
+        <path
+           sodipodi:nodetypes="scscs"
+           inkscape:connector-curvature="0"
+           id="path3818"
+           d="m 20.000004,672.36218 c 0,44.18278 -19.67340414,60.00001 -58.333337,60.00001 23.333335,-21.33334 23.333335,-47.73491 23.333335,-74.66667 0,-21.33334 0,-53.33334 -23.333335,-85.33334 35.0000022,0 58.333337,20 58.333337,100 z"
+           style="fill:#c87137;fill-opacity:1;stroke:#000000;stroke-width:4.67707157;stroke-miterlimit:4;stroke-opacity:1" />
+        <g
+           id="g3885"
+           transform="matrix(0.80000008,0,0,1,20.333339,2.1333334)">
+          <rect
+             style="fill:#d38d5f;fill-opacity:1;stroke:#000000;stroke-width:2.23109341;stroke-miterlimit:4;stroke-dasharray:none"
+             id="rect3846"
+             width="46.666668"
+             height="10.666667"
+             x="-73.333336"
+             y="657.69574" />
+          <path
+             style="fill:none;stroke:#000000;stroke-width:4;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+             d="m -40,672.36218 10,-10"
+             id="path3848"
+             inkscape:connector-curvature="0"
+             transform="matrix(1.1666667,0,0,1.0666667,8.3333366,-48.824159)" />
+          <path
+             style="fill:none;stroke:#000000;stroke-width:4;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+             d="m -60,672.36218 -10,-10"
+             id="path3850"
+             inkscape:connector-curvature="0"
+             transform="matrix(1.1666667,0,0,1.0666667,8.3333366,-48.824159)" />
+        </g>
+      </g>
+      <path
+         d="m -100,662.36218 c 0,8.28427 -5.59644,15 -12.5,15 -6.90356,0 -12.5,-6.71573 -12.5,-15 0,-8.28427 5.59644,-15 12.5,-15 6.90356,0 12.5,6.71573 12.5,15 z"
+         sodipodi:ry="15"
+         sodipodi:rx="12.5"
+         sodipodi:cy="662.36218"
+         sodipodi:cx="-112.5"
+         id="path3852"
+         style="fill:#c56f36;fill-opacity:1;stroke:#000000;stroke-width:4;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+         sodipodi:type="arc"
+         transform="matrix(1.2257572,0,0,1.4300501,-546.21279,-856.07556)" />
+      <path
+         transform="matrix(0.85803004,0,0,0.85803004,-439.57191,-474.12676)"
+         d="m -190,622.36218 c 0,5.52285 -4.47715,10 -10,10 -5.52285,0 -10,-4.47715 -10,-10 0,-5.52284 4.47715,-10 10,-10 5.52285,0 10,4.47716 10,10 z"
+         sodipodi:ry="10"
+         sodipodi:rx="10"
+         sodipodi:cy="622.36218"
+         sodipodi:cx="-200"
+         id="path3820"
+         style="fill:#fff6d5;fill-opacity:1;stroke:#000000;stroke-width:5;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+         sodipodi:type="arc" />
+      <g
+         transform="matrix(0.85803004,0,0,1.2257572,-546.21279,-718.92107)"
+         id="g3830">
+        <rect
+           style="fill:#ffb380;fill-opacity:1;stroke:#000000;stroke-width:5.27046299;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+           id="rect3826"
+           width="100"
+           height="20"
+           x="-100"
+           y="682.36218" />
+        <path
+           style="fill:none;stroke:#000000;stroke-width:5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+           d="m -90,692.36218 80,0"
+           id="path3828"
+           inkscape:connector-curvature="0" />
+      </g>
+      <path
+         sodipodi:type="arc"
+         style="fill:#fff6d5;fill-opacity:1;stroke:#000000;stroke-width:5;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+         id="path3840"
+         sodipodi:cx="-200"
+         sodipodi:cy="622.36218"
+         sodipodi:rx="10"
+         sodipodi:ry="10"
+         d="m -190,622.36218 c 0,5.52285 -4.47715,10 -10,10 -5.52285,0 -10,-4.47715 -10,-10 0,-5.52284 4.47715,-10 10,-10 5.52285,0 10,4.47716 10,10 z"
+         transform="matrix(0.85803004,0,0,0.85803004,-388.09011,-474.12676)" />
+      <path
+         inkscape:connector-curvature="0"
+         id="path3842"
+         d="m -575.63096,39.040829 31.86969,0"
+         style="fill:none;stroke:#000000;stroke-width:9.21997448;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
+      <path
+         style="fill:none;stroke:#000000;stroke-width:9.21997448;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+         d="m -634.46731,39.040829 36.77272,0"
+         id="path3844"
+         inkscape:connector-curvature="0" />
+      <path
+         transform="matrix(1.2257572,0,0,1.4300501,-546.21279,-856.07556)"
+         sodipodi:type="arc"
+         style="fill:#c56f36;fill-opacity:1;stroke:#000000;stroke-width:4;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+         id="path3899"
+         sodipodi:cx="-112.5"
+         sodipodi:cy="662.36218"
+         sodipodi:rx="12.5"
+         sodipodi:ry="15"
+         d="m -100,662.36218 c 0,8.28427 -5.59644,15 -12.5,15 -6.90356,0 -12.5,-6.71573 -12.5,-15 0,-8.28427 5.59644,-15 12.5,-15 6.90356,0 12.5,6.71573 12.5,15 z" />
+    </g>
+    <g
+       id="g3890"
+       transform="matrix(1.1011304,0,0,0.91972769,514.45268,633.6458)"
+       inkscape:export-filename="C:\Users\nantas\band_of_warriors\PSD\path4000.png"
+       inkscape:export-xdpi="21.612713"
+       inkscape:export-ydpi="21.612713">
+      <path
+         transform="matrix(1.4324324,0,0,1.4324324,-525.4054,-959.99447)"
+         d="m 0,777.36218 c 0,8.28427 -22.385763,15 -50,15 -27.614237,0 -50,-6.71573 -50,-15 0,-8.28427 22.385763,-15 50,-15 27.614237,0 50,6.71573 50,15 z"
+         sodipodi:ry="15"
+         sodipodi:rx="50"
+         sodipodi:cy="777.36218"
+         sodipodi:cx="-50"
+         id="path3856"
+         style="fill:#c8b7b7;fill-opacity:1;stroke:#000000;stroke-width:4;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+         sodipodi:type="arc" />
+      <path
+         sodipodi:nodetypes="ccccc"
+         inkscape:connector-curvature="0"
+         id="rect3796"
+         d="m -711.62162,152.0919 229.18919,0 -50.93093,171.89191 -127.32733,0 z"
+         style="fill:#c8b7b7;fill-opacity:1;stroke:#000000;stroke-width:6.75255108;stroke-miterlimit:4;stroke-opacity:1" />
+      <path
+         inkscape:connector-curvature="0"
+         id="path3875"
+         d="m -640,252.36218 c 0,0 64.45946,-57.2973 128.91892,0"
+         style="fill:none;stroke:#000000;stroke-width:6.20261478;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:3.5999999;stroke-opacity:1;stroke-dasharray:none" />
+      <path
+         inkscape:connector-curvature="0"
+         id="path3877"
+         d="m -668.64865,152.0919 42.97297,171.89191"
+         style="fill:none;stroke:#000000;stroke-width:7.1621623;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
+      <path
+         inkscape:connector-curvature="0"
+         id="path3879"
+         d="m -640,252.36218 c 0,0 -28.64865,-28.64865 -42.97297,0"
+         style="fill:none;stroke:#000000;stroke-width:5.72972965;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
+    </g>
+    <path
+       sodipodi:type="arc"
+       style="fill:#916f6f;fill-opacity:1;stroke:#000000;stroke-width:5;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       id="path3883"
+       sodipodi:cx="-130"
+       sodipodi:cy="802.36218"
+       sodipodi:rx="50"
+       sodipodi:ry="50"
+       d="m -80,802.36218 a 50,50 0 1 1 -95.7599,-20.15021 L -130,802.36218 z"
+       sodipodi:start="0"
+       sodipodi:end="3.5563898"
+       inkscape:transform-center-y="-9.1513424"
+       transform="matrix(-1.0780298,1.4047916,-1.4047916,-1.0780298,711.62596,1860.5675)"
+       inkscape:transform-center-x="5.4525172"
+       inkscape:export-filename="C:\Users\nantas\band_of_warriors\PSD\path4000.png"
+       inkscape:export-xdpi="21.612713"
+       inkscape:export-ydpi="21.612713" />
+    <g
+       id="g3969"
+       transform="matrix(1.2906818,-0.33691729,0.32282031,1.3470436,332.18651,-131.71283)"
+       inkscape:transform-center-x="-360.19715"
+       inkscape:transform-center-y="-130.48749"
+       inkscape:export-filename="C:\Users\nantas\band_of_warriors\PSD\path4000.png"
+       inkscape:export-xdpi="21.612713"
+       inkscape:export-ydpi="21.612713">
+      <rect
+         style="fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:4.36950731;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+         id="rect3901"
+         width="335.09433"
+         height="28.284903"
+         x="-661.65881"
+         y="614.51978"
+         transform="matrix(0.99999862,0.00166165,0.00198274,0.99999803,0,0)" />
+      <path
+         style="fill:#e3dedb;stroke:#2b2200;stroke-width:7.16519451;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+         d="m -146.5432,601.31304 92.219753,20.16703 -90.199443,21.32195 z"
+         id="path3907"
+         inkscape:connector-curvature="0"
+         sodipodi:nodetypes="cccc" />
+      <rect
+         style="fill:#917c6f;fill-opacity:1;stroke:#241f1c;stroke-width:4.00000048;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+         id="rect3909"
+         width="13.571428"
+         height="63.571434"
+         x="-154.14285"
+         y="589.36218" />
+      <path
+         style="fill:#808080;fill-opacity:1;stroke:#000000;stroke-width:5;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1"
+         d="m -339.41126,500.85951 c 72.79667,0 113.65387,0 185.86807,0 l 0,246.47723 c -67.80972,0 -115.60168,0 -185.86807,0 0,0 14.01168,-78.96207 14.14214,-120.24878 0.13454,-42.57962 -14.14214,-126.22845 -14.14214,-126.22845 z"
+         id="rect3903"
+         inkscape:connector-curvature="0"
+         sodipodi:nodetypes="ccccsc" />
+      <rect
+         style="fill:#e3dedb;fill-opacity:1;stroke:#2b2200;stroke-width:4.62068272;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+         id="rect3912"
+         width="209.10159"
+         height="26.743662"
+         x="-352.54327"
+         y="736.16412" />
+      <rect
+         y="477.70721"
+         x="-352.54327"
+         height="26.743662"
+         width="209.10159"
+         id="rect3914"
+         style="fill:#e3dedb;fill-opacity:1;stroke:#2b2200;stroke-width:4.62068272;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
+      <path
+         sodipodi:type="star"
+         style="fill:#ffe680;fill-opacity:1;stroke:#fff6d5;stroke-width:4;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+         id="path3905"
+         sodipodi:sides="5"
+         sodipodi:cx="-288.90363"
+         sodipodi:cy="607.89508"
+         sodipodi:r1="48.57143"
+         sodipodi:r2="24.285713"
+         sodipodi:arg1="1.2753555"
+         sodipodi:arg2="1.903674"
+         inkscape:flatsided="false"
+         inkscape:rounded="0"
+         inkscape:randomized="0"
+         d="m -274.76149,654.3621 -22.07783,-23.51445 -31.88691,4.8565 15.54115,-28.26363 -14.4724,-28.82551 31.68279,6.04656 22.94246,-22.67164 4.0399,32.00062 28.65163,14.81366 -29.186,13.7309 z"
+         transform="translate(38.385799,16.162441)"
+         inkscape:transform-center-x="-4.3701477"
+         inkscape:transform-center-y="0.28095941" />
+    </g>
+    <path
+       transform="matrix(1.6261824,0,0,1.6261824,269.68998,-584.72115)"
+       d="m -170,894.86218 a 27.5,27.5 0 1 1 -55,0 27.5,27.5 0 1 1 55,0 z"
+       sodipodi:ry="27.5"
+       sodipodi:rx="27.5"
+       sodipodi:cy="894.86218"
+       sodipodi:cx="-197.5"
+       id="path3816"
+       style="fill:#c56f36;fill-opacity:1;stroke:#000000;stroke-width:5;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       sodipodi:type="arc"
+       inkscape:export-filename="C:\Users\nantas\band_of_warriors\PSD\path4000.png"
+       inkscape:export-xdpi="21.612713"
+       inkscape:export-ydpi="21.612713" />
+    <path
+       sodipodi:type="arc"
+       style="fill:#c56f36;fill-opacity:1;stroke:#000000;stroke-width:5;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       id="path3897"
+       sodipodi:cx="-197.5"
+       sodipodi:cy="894.86218"
+       sodipodi:rx="27.5"
+       sodipodi:ry="27.5"
+       d="m -170,894.86218 a 27.5,27.5 0 1 1 -55,0 27.5,27.5 0 1 1 55,0 z"
+       transform="matrix(1.6261824,0,0,1.6261824,195.51857,-574.12524)"
+       inkscape:export-filename="C:\Users\nantas\band_of_warriors\PSD\path4000.png"
+       inkscape:export-xdpi="21.612713"
+       inkscape:export-ydpi="21.612713" />
+    <path
+       style="fill:#483737;fill-opacity:1;stroke:#2b2200;stroke-width:6.91963816;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       d="m -242.35769,959.06236 74.20826,0 15.14455,93.89614 -128.72862,0 z"
+       id="rect3997"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="ccccc"
+       inkscape:export-filename="C:\Users\nantas\band_of_warriors\PSD\path4000.png"
+       inkscape:export-xdpi="21.612713"
+       inkscape:export-ydpi="21.612713" />
+    <path
+       sodipodi:nodetypes="ccccc"
+       inkscape:connector-curvature="0"
+       id="path4000"
+       d="m -40.93527,959.06236 -74.20826,0 -15.14454,93.89614 128.7286178,0 z"
+       style="fill:#483737;fill-opacity:1;stroke:#2b2200;stroke-width:6.91963816;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       inkscape:export-xdpi="21.612713"
+       inkscape:export-ydpi="21.612713" />
+    <g
+       transform="matrix(1.0846017,0,0,1.0846017,1863.0022,342.67962)"
+       id="g4004"
+       inkscape:export-filename="C:\Users\nantas\band_of_warriors\PSD\hammer.png"
+       inkscape:export-xdpi="21.586826"
+       inkscape:export-ydpi="21.586826">
+      <path
+         d="m -100,662.36218 c 0,8.28427 -5.59644,15 -12.5,15 -6.90356,0 -12.5,-6.71573 -12.5,-15 0,-8.28427 5.59644,-15 12.5,-15 6.90356,0 12.5,6.71573 12.5,15 z"
+         sodipodi:ry="15"
+         sodipodi:rx="12.5"
+         sodipodi:cy="662.36218"
+         sodipodi:cx="-112.5"
+         id="path4006"
+         style="fill:#c87137;fill-opacity:1;stroke:#000000;stroke-width:4;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+         sodipodi:type="arc"
+         transform="matrix(1.2257572,0,0,1.2257572,-396.67041,-723.8241)" />
+      <g
+         id="g4008"
+         transform="matrix(1.050649,0,0,1.1491474,-554.9682,-667.71795)">
+        <path
+           sodipodi:nodetypes="sssss"
+           inkscape:connector-curvature="0"
+           id="path4010"
+           d="m 20.000004,672.36218 c 0,44.18278 -31.340069,60 -70.000002,60 -38.659934,0 -70.000002,-15.81722 -70.000002,-60 0,-80 31.340068,-100 70.000002,-100 38.659933,0 70.000002,20 70.000002,100 z"
+           style="fill:#aad400;fill-opacity:1;stroke:#000000;stroke-width:4.67707157;stroke-miterlimit:4;stroke-opacity:1" />
+        <path
+           style="fill:#c87137;fill-opacity:1;stroke:#000000;stroke-width:4.67707157;stroke-miterlimit:4;stroke-opacity:1"
+           d="m 20.000004,672.36218 c 0,44.18278 -19.67340414,60.00001 -58.333337,60.00001 23.333335,-21.33334 23.333335,-47.73491 23.333335,-74.66667 0,-21.33334 0,-53.33334 -23.333335,-85.33334 35.0000022,0 58.333337,20 58.333337,100 z"
+           id="path4012"
+           inkscape:connector-curvature="0"
+           sodipodi:nodetypes="scscs" />
+        <g
+           transform="matrix(0.80000008,0,0,1,20.333339,2.1333334)"
+           id="g4014">
+          <rect
+             y="657.69574"
+             x="-73.333336"
+             height="10.666667"
+             width="46.666668"
+             id="rect4016"
+             style="fill:#d38d5f;fill-opacity:1;stroke:#000000;stroke-width:2.23109341;stroke-miterlimit:4;stroke-dasharray:none" />
+          <path
+             transform="matrix(1.1666667,0,0,1.0666667,8.3333366,-48.824159)"
+             inkscape:connector-curvature="0"
+             id="path4018"
+             d="m -40,672.36218 10,-10"
+             style="fill:none;stroke:#000000;stroke-width:4;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
+          <path
+             transform="matrix(1.1666667,0,0,1.0666667,8.3333366,-48.824159)"
+             inkscape:connector-curvature="0"
+             id="path4020"
+             d="m -60,672.36218 -10,-10"
+             style="fill:none;stroke:#000000;stroke-width:4;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
+        </g>
+      </g>
+      <path
+         transform="matrix(1.2257572,0,0,1.4300501,-546.21279,-856.07556)"
+         sodipodi:type="arc"
+         style="fill:#c56f36;fill-opacity:1;stroke:#000000;stroke-width:4;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+         id="path4022"
+         sodipodi:cx="-112.5"
+         sodipodi:cy="662.36218"
+         sodipodi:rx="12.5"
+         sodipodi:ry="15"
+         d="m -100,662.36218 c 0,8.28427 -5.59644,15 -12.5,15 -6.90356,0 -12.5,-6.71573 -12.5,-15 0,-8.28427 5.59644,-15 12.5,-15 6.90356,0 12.5,6.71573 12.5,15 z" />
+      <path
+         sodipodi:type="arc"
+         style="fill:#fff6d5;fill-opacity:1;stroke:#000000;stroke-width:5;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+         id="path4024"
+         sodipodi:cx="-200"
+         sodipodi:cy="622.36218"
+         sodipodi:rx="10"
+         sodipodi:ry="10"
+         d="m -190,622.36218 c 0,5.52285 -4.47715,10 -10,10 -5.52285,0 -10,-4.47715 -10,-10 0,-5.52284 4.47715,-10 10,-10 5.52285,0 10,4.47716 10,10 z"
+         transform="matrix(0.85803004,0,0,0.85803004,-439.57191,-474.12676)" />
+      <g
+         id="g4026"
+         transform="matrix(0.85803004,0,0,1.2257572,-546.21279,-718.92107)">
+        <rect
+           y="682.36218"
+           x="-100"
+           height="20"
+           width="100"
+           id="rect4028"
+           style="fill:#ffb380;fill-opacity:1;stroke:#000000;stroke-width:5.27046299;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
+        <path
+           inkscape:connector-curvature="0"
+           id="path4030"
+           d="m -90,692.36218 80,0"
+           style="fill:none;stroke:#000000;stroke-width:5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
+      </g>
+      <path
+         transform="matrix(0.85803004,0,0,0.85803004,-388.09011,-474.12676)"
+         d="m -190,622.36218 c 0,5.52285 -4.47715,10 -10,10 -5.52285,0 -10,-4.47715 -10,-10 0,-5.52284 4.47715,-10 10,-10 5.52285,0 10,4.47716 10,10 z"
+         sodipodi:ry="10"
+         sodipodi:rx="10"
+         sodipodi:cy="622.36218"
+         sodipodi:cx="-200"
+         id="path4032"
+         style="fill:#fff6d5;fill-opacity:1;stroke:#000000;stroke-width:5;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+         sodipodi:type="arc" />
+      <path
+         style="fill:none;stroke:#000000;stroke-width:9.21997452;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+         d="m -575.63096,39.040829 31.86969,0"
+         id="path4034"
+         inkscape:connector-curvature="0" />
+      <path
+         inkscape:connector-curvature="0"
+         id="path4036"
+         d="m -634.46731,39.040829 36.77272,0"
+         style="fill:none;stroke:#000000;stroke-width:9.21997452;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
+      <path
+         d="m -100,662.36218 c 0,8.28427 -5.59644,15 -12.5,15 -6.90356,0 -12.5,-6.71573 -12.5,-15 0,-8.28427 5.59644,-15 12.5,-15 6.90356,0 12.5,6.71573 12.5,15 z"
+         sodipodi:ry="15"
+         sodipodi:rx="12.5"
+         sodipodi:cy="662.36218"
+         sodipodi:cx="-112.5"
+         id="path4038"
+         style="fill:#c56f36;fill-opacity:1;stroke:#000000;stroke-width:4;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+         sodipodi:type="arc"
+         transform="matrix(1.2257572,0,0,1.4300501,-546.21279,-856.07556)" />
+    </g>
+    <g
+       id="g4078"
+       transform="translate(347.14286,-177.14285)"
+       inkscape:export-filename="C:\Users\nantas\band_of_warriors\PSD\hammer.png"
+       inkscape:export-xdpi="21.586826"
+       inkscape:export-ydpi="21.586826">
+      <path
+         inkscape:transform-center-x="-5.4524758"
+         transform="matrix(1.0780298,1.4047916,1.4047916,-1.0780298,-15.945772,1887.0604)"
+         inkscape:transform-center-y="-9.151345"
+         sodipodi:end="3.5563898"
+         sodipodi:start="0"
+         d="m -80,802.36218 c 0,27.61424 -22.38576,50 -50,50 -27.61424,0 -50,-22.38576 -50,-50 0,-6.93817 1.44398,-13.80041 4.2401,-20.15021 L -130,802.36218 z"
+         sodipodi:ry="50"
+         sodipodi:rx="50"
+         sodipodi:cy="802.36218"
+         sodipodi:cx="-130"
+         id="path4002"
+         style="fill:#916f6f;fill-opacity:1;stroke:#000000;stroke-width:5;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+         sodipodi:type="arc" />
+      <g
+         id="g4040"
+         transform="matrix(1.1011304,0,0,0.91972769,1523.0241,659.36009)">
+        <path
+           transform="matrix(1.4324324,0,0,1.4324324,-525.4054,-959.99447)"
+           d="m 0,777.36218 c 0,8.28427 -22.385763,15 -50,15 -27.614237,0 -50,-6.71573 -50,-15 0,-8.28427 22.385763,-15 50,-15 27.614237,0 50,6.71573 50,15 z"
+           sodipodi:ry="15"
+           sodipodi:rx="50"
+           sodipodi:cy="777.36218"
+           sodipodi:cx="-50"
+           id="path4042"
+           style="fill:#c8b7b7;fill-opacity:1;stroke:#000000;stroke-width:4;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+           sodipodi:type="arc" />
+        <path
+           sodipodi:nodetypes="ccccc"
+           inkscape:connector-curvature="0"
+           id="path4044"
+           d="m -711.62162,152.0919 229.18919,0 -50.93093,171.89191 -127.32733,0 z"
+           style="fill:#c8b7b7;fill-opacity:1;stroke:#000000;stroke-width:6.75255108;stroke-miterlimit:4;stroke-opacity:1" />
+        <path
+           inkscape:connector-curvature="0"
+           id="path4046"
+           d="m -640,252.36218 c 0,0 64.45946,-57.2973 128.91892,0"
+           style="fill:none;stroke:#000000;stroke-width:6.20261478;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:3.5999999;stroke-opacity:1;stroke-dasharray:none" />
+        <path
+           inkscape:connector-curvature="0"
+           id="path4048"
+           d="m -668.64865,152.0919 42.97297,171.89191"
+           style="fill:none;stroke:#000000;stroke-width:7.1621623;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
+        <path
+           inkscape:connector-curvature="0"
+           id="path4050"
+           d="m -640,252.36218 c 0,0 -28.64865,-28.64865 -42.97297,0"
+           style="fill:none;stroke:#000000;stroke-width:5.72972965;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
+      </g>
+      <path
+         sodipodi:type="arc"
+         style="fill:#916f6f;fill-opacity:1;stroke:#000000;stroke-width:5;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+         id="path4052"
+         sodipodi:cx="-130"
+         sodipodi:cy="802.36218"
+         sodipodi:rx="50"
+         sodipodi:ry="50"
+         d="m -80,802.36218 c 0,27.61424 -22.38576,50 -50,50 -27.61424,0 -50,-22.38576 -50,-50 0,-6.93817 1.44398,-13.80041 4.2401,-20.15021 L -130,802.36218 z"
+         sodipodi:start="0"
+         sodipodi:end="3.5563898"
+         inkscape:transform-center-y="-9.1513424"
+         transform="matrix(-1.0780298,1.4047916,-1.4047916,-1.0780298,1720.1974,1886.2818)"
+         inkscape:transform-center-x="5.4525172" />
+    </g>
+    <g
+       inkscape:transform-center-y="-0.93244373"
+       inkscape:transform-center-x="-372.85322"
+       transform="matrix(1.3339271,-0.00336159,-0.02438535,1.384971,1684.9871,-814.39374)"
+       id="g4054"
+       inkscape:export-filename="C:\Users\nantas\band_of_warriors\PSD\hammer.png"
+       inkscape:export-xdpi="21.586826"
+       inkscape:export-ydpi="21.586826">
+      <rect
+         transform="matrix(0.99999862,0.00166165,0.00198274,0.99999803,0,0)"
+         y="614.51978"
+         x="-661.65881"
+         height="28.284903"
+         width="335.09433"
+         id="rect4056"
+         style="fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:4.36950731;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
+      <path
+         sodipodi:nodetypes="cccc"
+         inkscape:connector-curvature="0"
+         id="path4058"
+         d="m -146.5432,601.31304 92.219753,20.16703 -90.199443,21.32195 z"
+         style="fill:#e3dedb;stroke:#2b2200;stroke-width:7.16519451;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
+      <rect
+         y="589.36218"
+         x="-154.14285"
+         height="63.571434"
+         width="13.571428"
+         id="rect4060"
+         style="fill:#917c6f;fill-opacity:1;stroke:#241f1c;stroke-width:4.00000048;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
+      <path
+         sodipodi:nodetypes="ccccsc"
+         inkscape:connector-curvature="0"
+         id="path4062"
+         d="m -339.41126,500.85951 c 72.79667,0 113.65387,0 185.86807,0 l 0,246.47723 c -67.80972,0 -115.60168,0 -185.86807,0 0,0 14.01168,-78.96207 14.14214,-120.24878 0.13454,-42.57962 -14.14214,-126.22845 -14.14214,-126.22845 z"
+         style="fill:#808080;fill-opacity:1;stroke:#000000;stroke-width:5;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1" />
+      <rect
+         y="736.16412"
+         x="-352.54327"
+         height="26.743662"
+         width="209.10159"
+         id="rect4064"
+         style="fill:#e3dedb;fill-opacity:1;stroke:#2b2200;stroke-width:4.62068272;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
+      <rect
+         style="fill:#e3dedb;fill-opacity:1;stroke:#2b2200;stroke-width:4.62068272;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+         id="rect4066"
+         width="209.10159"
+         height="26.743662"
+         x="-352.54327"
+         y="477.70721" />
+      <path
+         inkscape:transform-center-y="0.28095941"
+         inkscape:transform-center-x="-4.3701477"
+         transform="translate(38.385799,16.162441)"
+         d="m -274.76149,654.3621 -22.07783,-23.51445 -31.88691,4.8565 15.54115,-28.26363 -14.4724,-28.82551 31.68279,6.04656 22.94246,-22.67164 4.0399,32.00062 28.65163,14.81366 -29.186,13.7309 z"
+         inkscape:randomized="0"
+         inkscape:rounded="0"
+         inkscape:flatsided="false"
+         sodipodi:arg2="1.903674"
+         sodipodi:arg1="1.2753555"
+         sodipodi:r2="24.285713"
+         sodipodi:r1="48.57143"
+         sodipodi:cy="607.89508"
+         sodipodi:cx="-288.90363"
+         sodipodi:sides="5"
+         id="path4068"
+         style="fill:#ffe680;fill-opacity:1;stroke:#fff6d5;stroke-width:4;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+         sodipodi:type="star" />
+    </g>
+    <path
+       sodipodi:type="arc"
+       style="fill:#c56f36;fill-opacity:1;stroke:#000000;stroke-width:5;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       id="path4070"
+       sodipodi:cx="-197.5"
+       sodipodi:cy="894.86218"
+       sodipodi:rx="27.5"
+       sodipodi:ry="27.5"
+       d="m -170,894.86218 a 27.5,27.5 0 1 1 -55,0 27.5,27.5 0 1 1 55,0 z"
+       transform="matrix(1.6261824,0,0,1.6261824,1865.4042,-773.29257)"
+       inkscape:export-filename="C:\Users\nantas\band_of_warriors\PSD\hammer.png"
+       inkscape:export-xdpi="21.586826"
+       inkscape:export-ydpi="21.586826" />
+    <path
+       transform="matrix(1.6261824,0,0,1.6261824,1204.09,-761.26809)"
+       d="m -170,894.86218 a 27.5,27.5 0 1 1 -55,0 27.5,27.5 0 1 1 55,0 z"
+       sodipodi:ry="27.5"
+       sodipodi:rx="27.5"
+       sodipodi:cy="894.86218"
+       sodipodi:cx="-197.5"
+       id="path4072"
+       style="fill:#c56f36;fill-opacity:1;stroke:#000000;stroke-width:5;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       sodipodi:type="arc"
+       inkscape:export-filename="C:\Users\nantas\band_of_warriors\PSD\hammer.png"
+       inkscape:export-xdpi="21.586826"
+       inkscape:export-ydpi="21.586826" />
+    <path
+       sodipodi:nodetypes="ccccc"
+       inkscape:connector-curvature="0"
+       id="path4074"
+       d="m 1084.7852,834.77669 74.2083,0 15.1446,93.8961 -128.7287,0 z"
+       style="fill:#483737;fill-opacity:1;stroke:#2b2200;stroke-width:6.91963816;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       inkscape:export-filename="C:\Users\nantas\band_of_warriors\PSD\hammer.png"
+       inkscape:export-xdpi="21.586826"
+       inkscape:export-ydpi="21.586826" />
+    <path
+       style="fill:#483737;fill-opacity:1;stroke:#2b2200;stroke-width:6.91963816;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       d="m 1336.2077,831.91959 -74.2083,0 -15.1445,93.8961 128.7286,0 z"
+       id="path4076"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="ccccc"
+       inkscape:export-filename="C:\Users\nantas\band_of_warriors\PSD\hammer.png"
+       inkscape:export-xdpi="21.586826"
+       inkscape:export-ydpi="21.586826" />
+  </g>
+</svg>
