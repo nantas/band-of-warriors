@@ -58,7 +58,7 @@ public class ProgressBar : MonoBehaviour {
     void Awake () {
         clipPlane = GetComponent<exSoftClip>();
         if (clipPlane) {
-            Debug.Log(clipPlane);
+            //Debug.Log(clipPlane);
         }
         totalWidth = clipPlane.width;
         clipPlane.width = totalWidth * ratio_;

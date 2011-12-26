@@ -6,14 +6,13 @@ public class PlayerBase : MonoBehaviour {
 	public exSprite[] allBodyParts;
     public exSprite spFX;
     public ParticleEmitter fxComboTrail;
-    public PlayMakerFSM lancerFSM;
     
 
 	[System.NonSerialized] public MoveDir charMoveState;
-    [System.NonSerialized] public LancerController playerController;
+    [System.NonSerialized] public WarriorController playerController;
 	  
 	void Awake () {
-        playerController = transform.GetComponent<LancerController>();
+        playerController = transform.GetComponent<WarriorController>();
 		animation["walk"].speed = playerController.initMoveSpeed/120.0f;
 	}
 	

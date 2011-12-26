@@ -16,42 +16,11 @@ public class ComboEffect {
     public float chanceToGetMoreLoot;
 }
 
-public class LancerController: MonoBehaviour {
+public class LancerController: WarriorController {
 
-	public float initMoveSpeed = 250.0f;
-    public float initJumpSpeed = 1250.0f;
-    public float dashSpeed = 450.0f;
+
+    public float dashSpeed = 600.0f;
     public ComboEffect[] comboEffect;
-
-    [System.NonSerialized]public PlayerBase player; 
-	[System.NonSerialized]public MoveDir charMoveDir;
-    [System.NonSerialized]public PlayMakerFSM FSM_Control;
-    [System.NonSerialized]public PlayMakerFSM FSM_Hit;
-    [System.NonSerialized]public int comboLevel;
-    public int curAddLootChance;
-
-    private Vector2 velocity;
-    
-
-    void Awake () {
-        PlayMakerFSM[] fsms = GetComponents<PlayMakerFSM>();
-        foreach (PlayMakerFSM fsm in fsms) {
-            if (fsm.FsmName == "FSM_Control") {
-                FSM_Control = fsm;
-            }
-            if (fsm.FsmName == "FSM_Hit") {
-                FSM_Hit = fsm;
-            }
-        }
-        player = transform.GetComponent<PlayerBase>();
-        velocity = new Vector2(0, 0);
-        comboLevel = 0;
-        charMoveDir = MoveDir.Stop;
-    }
-
-    public bool isAcceptInput() {
-        return FSM_Control.FsmVariables.GetFsmBool("isAcceptInput").Value;
-    }
 
     public void OnComboHitUpdate(int _comboHit) {
         if (_comboHit >= comboEffect[comboLevel].reqComboHit) {
@@ -159,7 +128,7 @@ public class LancerController: MonoBehaviour {
 
     }
 
-	public void TurnRight() {
+	public override void TurnRight() {
         if (charMoveDir == MoveDir.Stop) {
             charMoveDir = MoveDir.Right;
             transform.localEulerAngles = new Vector3 (0, 0, 0);
@@ -177,7 +146,7 @@ public class LancerController: MonoBehaviour {
         }
 	}
 	
-	public void TurnLeft() {
+	public override void TurnLeft() {
         if (charMoveDir == MoveDir.Left) {
             if ( FSM_Control.FsmVariables.GetFsmBool("isAffectedByGravity").Value == false ) {
                 //get into dash state
@@ -197,7 +166,7 @@ public class LancerController: MonoBehaviour {
         }
 	}
 
-	public void StartJump() {
+	public override void StartJump() {
         if ( FSM_Control.FsmVariables.GetFsmBool("isAffectedByGravity").Value == false ) {
             velocity.y = initJumpSpeed;
             FSM_Control.Fsm.Event("To_Jump");           
@@ -211,7 +180,7 @@ public class LancerController: MonoBehaviour {
         velocity.x = initMoveSpeed;
     }
 
-    public void OnDamagePlayer (bool _isHurtFromLeft, int _damageAmount) {
+    public override void OnDamagePlayer (bool _isHurtFromLeft, int _damageAmount) {
         if ( FSM_Hit.FsmVariables.GetFsmBool("isAcceptDamage").Value == true ) {
             Game.instance.OnPlayerHPChange(-_damageAmount);
             StartHurt(_isHurtFromLeft);

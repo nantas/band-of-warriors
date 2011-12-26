@@ -3,10 +3,10 @@ using System.Collections;
 
 public class PlayerCollider : MonoBehaviour {
 	
-	private LancerController controller;
+	private WarriorController controller;
 	
 	void Awake () {
-        controller = transform.root.GetComponent<LancerController>();
+        controller = transform.root.GetComponent<WarriorController>();
 	}
 	public void TouchedEnemy (bool _isHurtFromLeft, int _damageAmount) {
         controller.OnDamagePlayer(_isHurtFromLeft, _damageAmount);

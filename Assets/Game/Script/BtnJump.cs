@@ -3,7 +3,7 @@ using System.Collections;
 
 public class BtnJump : MonoBehaviour {
 	
-	private PlayerBase player;
+	private WarriorController playerControl;
 
 	void Awake () {
 		exUIButton uiButton = GetComponent<exUIButton>();
@@ -22,9 +22,9 @@ public class BtnJump : MonoBehaviour {
 	
 	void OnButtonPress () {
 		//Debug.Log("jump button pressed!");
-		player = Game.instance.thePlayer;
-        if (player.playerController.isAcceptInput()) {
-    		player.playerController.StartJump();
+		playerControl = Game.instance.thePlayer.GetComponent<WarriorController>();;
+        if (playerControl.isAcceptInput()) {
+    		playerControl.StartJump();
         }
 	}
 	

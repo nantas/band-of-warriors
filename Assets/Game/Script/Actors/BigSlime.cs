@@ -10,7 +10,7 @@ public class BigSlime : Enemy {
         spawner = _spawner;
     }
 
-    void OnEnable() {
+    protected override void OnEnable() {
 		isTakingDamage = false;
 		if (spEnemy) spEnemy.enabled = true;
 		if (spCollider) spCollider.enabled = true;

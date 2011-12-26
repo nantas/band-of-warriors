@@ -45,7 +45,7 @@ public class ComboDisplay : MonoBehaviour {
         ratio += addPerHit;
         if (ratio > 1.0f) ratio = 1.0f;
         comboHit += 1;
-        Game.instance.thePlayer.playerController.OnComboHitUpdate(comboHit);
+        Game.instance.thePlayer.playerController.SendMessage("OnComboHitUpdate",comboHit);
         comboText.text = "combo x" + comboHit;
     }
 
