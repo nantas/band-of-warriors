@@ -81,10 +81,8 @@ public class SlimePool {
     }
 }
 
-public class Spawner_Slime : MonoBehaviour {
+public class Spawner_Slime : SpawnerEnemy {
 	
-	public int maxSlimeCount = 3;
-    public float maxRanTime = 1.5f;
 	private int aliveSlimeCount = 0;
 
 	public SlimePool slimePool = new SlimePool();
@@ -95,7 +93,6 @@ public class Spawner_Slime : MonoBehaviour {
 	[System.NonSerialized]public SpawnLocation rightSpawner;
 	
 	void Awake () {
-		slimePool.Init(Game.instance.enemyLayerGround);
         topSpawner = GameObject.Find("spawner_top").GetComponent<SpawnLocation>();
         leftSpawner = GameObject.Find("spawner_left").GetComponent<SpawnLocation>();
         rightSpawner = GameObject.Find("spawner_right").GetComponent<SpawnLocation>();
@@ -103,12 +100,12 @@ public class Spawner_Slime : MonoBehaviour {
 	
 	// Use this for initialization
 	void Start () {
-		//Invoke("SpawnASlime", 2.0f);
+		slimePool.Init(Game.instance.enemyLayerGround);
 	}
 	
 	
-	public void SpawnASlime () {
-		if (aliveSlimeCount < maxSlimeCount) {
+	public override void SpawnAnEnemy () {
+		if (aliveSlimeCount < maxEnemyCount) {
             int spawnSelector = Random.Range(1,20);
             if ( spawnSelector < 5 ) {
                 SpawnASlimeFrom (leftSpawner);
@@ -120,7 +117,7 @@ public class Spawner_Slime : MonoBehaviour {
                 SpawnASlimeFrom (rightSpawner);
             }
         }
-        Invoke("SpawnASlime", Random.Range(0.5f, maxRanTime));
+        Invoke("SpawnAnEnemy", Random.Range(minSpawnTime, maxSpawnTime));
 	}
 
 
@@ -139,7 +136,7 @@ public class Spawner_Slime : MonoBehaviour {
 		return slimePool.Request(_pos, Quaternion.identity);
 	}
 	
-	public void DestroySlime (Slime _slime) {
+	public void DestroyEnemy (Slime _slime) {
 		_slime.enabled = false;
         aliveSlimeCount -= 1;
         if (aliveSlimeCount < 0) aliveSlimeCount = 0;

@@ -26,6 +26,7 @@ public class GamePanel : MonoBehaviour {
     public exSpriteFont curCharName;
     public exSpriteFont curCharClass;
     public ComboDisplay comboDisplay;
+    public exSpriteFont stageDisplay;
     public ProgressBar HPbar;
     public ProgressBar EXPbar;
     public exSpriteFont playerLvlDisplay;
@@ -65,6 +66,10 @@ public class GamePanel : MonoBehaviour {
 
     public void ShowLevelUpText() {
         levelUpText.animation.Play("txt_levelUp");
+    }
+
+    public void OnStageUpdate(int _section) {
+        stageDisplay.text = "stage 1 - " + (_section + 1);
     }
     
     public void OnComboUpdate() {

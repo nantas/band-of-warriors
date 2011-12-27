@@ -89,10 +89,8 @@ public class CubatPool {
 // 
 ///////////////////////////////////////////////////////////////////////////////
 
-public class Spawner_Cubat : MonoBehaviour {
+public class Spawner_Cubat : SpawnerEnemy {
 	
-    public int maxCubatCount = 3;
-    public float maxRanTime = 3.0f;
 
     private int aliveCubatCount = 0;
 
@@ -104,7 +102,6 @@ public class Spawner_Cubat : MonoBehaviour {
 	[System.NonSerialized]public SpawnLocation rightSpawner;
 	
 	void Awake () {
-        cubatPool.Init(Game.instance.enemyLayerAir);
         topSpawner = GameObject.Find("spawner_top").GetComponent<SpawnLocation>();
         leftSpawner = GameObject.Find("spawner_left").GetComponent<SpawnLocation>();
         rightSpawner = GameObject.Find("spawner_right").GetComponent<SpawnLocation>();
@@ -113,11 +110,11 @@ public class Spawner_Cubat : MonoBehaviour {
 	
 	// Use this for initialization
 	void Start () {
-        Invoke("SpawnACubat", 5.0f);
+        cubatPool.Init(Game.instance.enemyLayerAir);
 	}
 	
-	public void SpawnACubat () {
-        if (aliveCubatCount < maxCubatCount) {
+	public override void SpawnAnEnemy () {
+        if (aliveCubatCount < maxEnemyCount) {
             int spawnSelector = Random.Range(1,3);
             switch (spawnSelector) {
                 case 1:
@@ -134,7 +131,7 @@ public class Spawner_Cubat : MonoBehaviour {
                     break;
             }
         }
-        Invoke("SpawnACubat", Random.Range(1.0f, maxRanTime));
+        Invoke("SpawnAnEnemy", Random.Range(minSpawnTime, maxSpawnTime));
 	}	
 
     public Cubat SpawnCubatAt (Vector2 _pos) {
@@ -152,7 +149,7 @@ public class Spawner_Cubat : MonoBehaviour {
 	}
 
 
-    public void DestroyCubat (Cubat _cubat) {
+    public void DestroyEnemy (Cubat _cubat) {
         _cubat.enabled = false;
         aliveCubatCount -= 1;
         if (aliveCubatCount < 0) aliveCubatCount = 0;

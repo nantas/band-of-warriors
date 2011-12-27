@@ -89,11 +89,8 @@ public class FlymonPool {
 // 
 ///////////////////////////////////////////////////////////////////////////////
 
-public class Spawner_Flymon : MonoBehaviour {
+public class Spawner_Flymon : SpawnerEnemy {
 	
-    public int maxFlymonCount = 3;
-    public float maxRanTime = 2.5f;
-
     private int aliveFlymonCount = 0;
 
     public FlymonPool flymonPool = new FlymonPool();
@@ -104,7 +101,6 @@ public class Spawner_Flymon : MonoBehaviour {
 	[System.NonSerialized]public SpawnLocation rightSpawner;
 	
 	void Awake () {
-        flymonPool.Init(Game.instance.enemyLayerAir);
         topSpawner = GameObject.Find("spawner_top").GetComponent<SpawnLocation>();
         leftSpawner = GameObject.Find("spawner_left").GetComponent<SpawnLocation>();
         rightSpawner = GameObject.Find("spawner_right").GetComponent<SpawnLocation>();
@@ -113,11 +109,11 @@ public class Spawner_Flymon : MonoBehaviour {
 	
 	// Use this for initialization
 	void Start () {
-        //Invoke("SpawnAFlymon", 5.0f);
+        flymonPool.Init(Game.instance.enemyLayerAir);
 	}
 	
-	public void SpawnAFlymon () {
-        if (aliveFlymonCount < maxFlymonCount) {
+	public override void SpawnAnEnemy () {
+        if (aliveFlymonCount < maxEnemyCount) {
             int spawnSelector = Random.Range(1,3);
             switch (spawnSelector) {
                 case 1:
@@ -134,7 +130,7 @@ public class Spawner_Flymon : MonoBehaviour {
                     break;
             }
         }
-        Invoke("SpawnAFlymon", Random.Range(1.0f, maxRanTime));
+        Invoke("SpawnAnEnemy", Random.Range(minSpawnTime, maxSpawnTime));
 	}	
 
     public Flymon SpawnFlymonAt (Vector2 _pos) {
@@ -152,7 +148,7 @@ public class Spawner_Flymon : MonoBehaviour {
 	}
 
 
-    public void DestroyFlymon (Flymon _flymon) {
+    public void DestroyEnemy (Flymon _flymon) {
         _flymon.enabled = false;
         aliveFlymonCount -= 1;
         if (aliveFlymonCount < 0) aliveFlymonCount = 0;

@@ -2,11 +2,6 @@ using UnityEngine;
 using System.Collections;
 
 public class FastSlime : Enemy {
-	[System.NonSerialized]public Spawner_BigSlime spawner;
-
-    public void SetSpawner (Spawner_BigSlime _spawner) {
-        spawner = _spawner;
-    }
 
     public void MoveToPlayer () {
         Vector3 targetPos = new Vector3(Game.instance.thePlayer.transform.position.x, 
@@ -48,11 +43,17 @@ public class FastSlime : Enemy {
             spEnemy.spanim.Play("fast_slime_hurt");
 			float animTime = spEnemy.spanim.animations[1].length;
 			yield return new WaitForSeconds(animTime);
-			spawner.DestroyFastSlime(this);
-            Game.instance.OnPlayerExpChange(expPerKill);
-            SpawnLoot();
+            OnEnemyDie();
 		}
 	}
+
+    public void OnEnemyDie() {
+        Spawner_BigSlime thisSpawner = spawner.GetComponent<Spawner_BigSlime>() as Spawner_BigSlime;
+        thisSpawner.DestroyEnemy(this);
+        spawner.levelManager.OnEnemyKilled(enemyType);
+        Game.instance.OnPlayerExpChange(expPerKill);
+        SpawnLoot();
+    }
 	
     public void SpawnLoot () {
         int lootSelector = Random.Range(1, 100);

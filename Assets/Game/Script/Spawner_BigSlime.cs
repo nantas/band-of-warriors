@@ -153,12 +153,8 @@ public class FastSlimePool {
 }
 
 
-public class Spawner_BigSlime : MonoBehaviour {
+public class Spawner_BigSlime : SpawnerEnemy {
 	
-	public int maxBigSlimeCount = 1;
-    public int maxFastSlimeCount = 6;
-    public float maxRanTime = 6.0f;
-
 	private int aliveBigSlimeCount = 0;
     private int aliveFastSlimeCount = 0;
 
@@ -170,7 +166,6 @@ public class Spawner_BigSlime : MonoBehaviour {
 	[System.NonSerialized]public SpawnLocation rightSpawner;
 	
 	void Awake () {
-		bigSlimePool.Init(Game.instance.enemyLayerGround);
         fastSlimePool.Init(Game.instance.enemyLayerGround);
         leftSpawner = GameObject.Find("spawner_left").GetComponent<SpawnLocation>();
         rightSpawner = GameObject.Find("spawner_right").GetComponent<SpawnLocation>();
@@ -178,12 +173,12 @@ public class Spawner_BigSlime : MonoBehaviour {
 	
 	// Use this for initialization
 	void Start () {
-		Invoke("SpawnABigSlime", 2.0f);
+		bigSlimePool.Init(Game.instance.enemyLayerGround);
 	}
 	
 	
-	public void SpawnABigSlime () {
-		if (aliveBigSlimeCount < maxBigSlimeCount) {
+	public override void SpawnAnEnemy () {
+		if (aliveBigSlimeCount < maxEnemyCount) {
             int spawnSelector = Random.Range(0,9);
             if ( spawnSelector < 5 ) {
                 SpawnABigSlimeFrom (leftSpawner);
@@ -191,7 +186,7 @@ public class Spawner_BigSlime : MonoBehaviour {
                 SpawnABigSlimeFrom (rightSpawner);
             }
         }
-        Invoke("SpawnABigSlime", Random.Range(4.5f, maxRanTime));
+        Invoke("SpawnAnEnemy", Random.Range(minSpawnTime, maxSpawnTime));
 	}
 
 
@@ -225,14 +220,14 @@ public class Spawner_BigSlime : MonoBehaviour {
         return fastSlimePool.Request(_pos, Quaternion.identity);
     }
 	
-	public void DestroySlime (BigSlime _slime) {
+	public void DestroyEnemy (BigSlime _slime) {
 		_slime.enabled = false;
         aliveBigSlimeCount -= 1;
         if (aliveBigSlimeCount < 0) aliveBigSlimeCount = 0;
 		bigSlimePool.Return(_slime);
 	}
 
-    public void DestroyFastSlime (FastSlime _slime) {
+    public void DestroyEnemy (FastSlime _slime) {
         _slime.enabled = false;
         aliveFastSlimeCount -= 1;
         if (aliveFastSlimeCount <0) aliveFastSlimeCount = 0;

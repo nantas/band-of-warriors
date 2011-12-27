@@ -7,11 +7,13 @@ public enum EnemyClass {
 	FastSlime,
 	Flymon,
 	Cubat,
-	Lurker
+	Lurker,
+    AnyEnemy
 }
 
 public class Enemy : MonoBehaviour {
 	
+    public EnemyClass enemyType;
 	public exSprite spEnemy;
 	public Collider spCollider;
     public int expPerKill = 0;
@@ -19,7 +21,12 @@ public class Enemy : MonoBehaviour {
     public int attackPower = 0;
 	
 	protected bool isTakingDamage;
+
+	[System.NonSerialized]public SpawnerEnemy spawner;
 	
+    public void SetSpawner (SpawnerEnemy _spawner) {
+        spawner = _spawner;
+    }
 	
 	
 	protected virtual void OnEnable () {
@@ -45,6 +52,8 @@ public class Enemy : MonoBehaviour {
 	void Update () {
 	
 	}
+
+
 
 
 }

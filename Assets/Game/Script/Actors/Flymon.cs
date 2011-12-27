@@ -2,12 +2,6 @@ using UnityEngine;
 using System.Collections;
 
 public class Flymon : Enemy {
-    [System.NonSerialized]public Spawner_Flymon spawner;
-
-    public void SetSpawner (Spawner_Flymon _spawner) {
-        spawner = _spawner;
-    }
-
 	
     public void MoveToRandomLoc () {
         Vector3 targetPos = new Vector3(Random.Range(Game.instance.leftSpawnEntry.position.x, 
@@ -59,11 +53,17 @@ public class Flymon : Enemy {
             spEnemy.spanim.Play("flymon_hurt");
 			float animTime = spEnemy.spanim.animations[1].length;
 			yield return new WaitForSeconds(animTime);
-			spawner.DestroyFlymon(this);
-            Game.instance.OnPlayerExpChange(expPerKill);
-            SpawnLoot();
+            OnEnemyDie();
 		}
 	}
+
+    public void OnEnemyDie() {
+        Spawner_Flymon thisSpawner = spawner.GetComponent<Spawner_Flymon>() as Spawner_Flymon;
+        thisSpawner.DestroyEnemy(this);
+        spawner.levelManager.OnEnemyKilled(enemyType);
+        Game.instance.OnPlayerExpChange(expPerKill);
+        SpawnLoot();
+    }
 
     public void SpawnLoot () {
         int lootSelector = Random.Range(1, 100);

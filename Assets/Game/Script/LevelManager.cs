@@ -9,151 +9,111 @@ using UnityEngine;
 using System.Collections;
 
 public class LevelManager : MonoBehaviour {
-
+    
     [System.Serializable]
     public class SpawnerInfo {
-        EnemyClass enemyType;
-        Spawner_Enemy enemySpawner;
-        float minSpawnInterval;
-        int maxAliveCount;
+        public EnemyClass enemyType;
+        public int maxAliveCount;
+        public float minSpawnInterval;
+        public float maxSpawnInterval;
+    }
+
+    [System.Serializable]
+    public class LevelInfo {
+        public SpawnerInfo[] spawnerInfo;
+        public EnemyClass targetEnemy;
+        public int targetKillNum;
     }
 
     public Spawner commonSpawner;
-    [System.NonSerialized]public Spawner_Slime slimeSpawner;
-    [System.NonSerialized]public Spawner_Flymon flymonSpawner;
-    [System.NonSerialized]public Spawner_BigSlime bigSlimeSpawner;
-    [System.NonSerialized]public Spawner_Cubat cubatSpawner;
+    public GameObject spawnerContainer;
+    public LevelInfo[] levelInfos;
+    [System.NonSerialized]public int currentLevel = 0;
+    [System.NonSerialized]public int currentKillNum = 0;
+
     [System.NonSerialized]public PlayMakerFSM FSM_Level;
 
     void Awake () {
-        slimeSpawner = GetComponent<Spawner_Slime>();
-        flymonSpawner = GetComponent<Spawner_Flymon>();
-        bigSlimeSpawner = GetComponent<Spawner_BigSlime>();
-        cubatSpawner = GetComponent<Spawner_Cubat>();
-        FSM_Level = GetComponent<PlayMakerFSM>();
+        Init();
+        Invoke("StartLevel", 2.0f);
     }
 
-    public int GetMaxSlimeCount() {
-        return FSM_Level.FsmVariables.GetFsmInt("maxSlimeCount").Value;
+    public void Init () {
+        SpawnerEnemy[] spawners;
+        spawners = spawnerContainer.transform.GetComponentsInChildren<SpawnerEnemy>();
+        foreach (SpawnerEnemy spawner in spawners) {
+            spawner.levelManager = this;
+        }
     }
 
-    public int GetMaxFlymonCount() {
-        return FSM_Level.FsmVariables.GetFsmInt("maxFlymonCount").Value;
+    public void OnEnemyKilled (EnemyClass _killedType) {
+        if (currentLevel < levelInfos.Length) {
+            EnemyClass targetType = levelInfos[currentLevel].targetEnemy;
+            int targetNumber = levelInfos[currentLevel].targetKillNum;
+            if ( _killedType == targetType || targetType == EnemyClass.AnyEnemy ) {
+                currentKillNum += 1;
+                if (currentKillNum >= targetNumber) {
+                    GoLevelUp();
+                }
+            }
+        }
     }
 
-    public int GetMaxBigSlimeCount() {
-        return FSM_Level.FsmVariables.GetFsmInt("maxBigSlimeCount").Value;
+    public void GoLevelUp() {
+        currentLevel += 1;
+        if (currentLevel < levelInfos.Length) {
+            currentKillNum = 0;
+            CancelAllSpawn();
+            StartLevel();
+        } else {
+            CancelAllSpawn();
+            LevelComplete();
+        }
     }
 
-    public int GetMaxCubatCount() {
-        return FSM_Level.FsmVariables.GetFsmInt("maxCubatCount").Value;
+    public void StartLevel() {
+        Game.instance.theGamePanel.OnStageUpdate(currentLevel);
+        SpawnerInfo[] spawnerInfos = levelInfos[currentLevel].spawnerInfo;
+        if ( spawnerInfos == null ) {
+            Debug.LogError("no available spawn info in LevelInfo class!");
+        } else {
+            foreach (SpawnerInfo spawnerInfo in spawnerInfos) {
+                SpawnerEnemy spawnerA = GetSpawnerFromEnemyType(spawnerInfo.enemyType);
+                spawnerA.maxEnemyCount = spawnerInfo.maxAliveCount;
+                spawnerA.minSpawnTime = spawnerInfo.minSpawnInterval;
+                spawnerA.maxSpawnTime = spawnerInfo.maxSpawnInterval;
+                spawnerA.SpawnAnEnemy();
+            }
+        }
     }
 
-    public void GetAllMaxCount() {
-        slimeSpawner.maxSlimeCount = GetMaxSlimeCount();
-        flymonSpawner.maxFlymonCount = GetMaxFlymonCount();
-        bigSlimeSpawner.maxBigSlimeCount = GetMaxBigSlimeCount();
-        cubatSpawner.maxCubatCount = GetMaxCubatCount();
+    public SpawnerEnemy GetSpawnerFromEnemyType (EnemyClass _enemyType) {
+        if (_enemyType == EnemyClass.Slime) {
+            return spawnerContainer.GetComponentInChildren<Spawner_Slime>();
+        } else
+        if (_enemyType == EnemyClass.Flymon) {
+            return spawnerContainer.GetComponentInChildren<Spawner_Flymon>();
+        } else
+        if (_enemyType == EnemyClass.BigSlime || _enemyType == EnemyClass.FastSlime ) {
+            return spawnerContainer.GetComponentInChildren<Spawner_BigSlime>();
+        } else
+        if (_enemyType == EnemyClass.Cubat) {
+            return spawnerContainer.GetComponentInChildren<Spawner_Cubat>();
+        } else {
+            Debug.LogError("invalid enemy type, can't get spawner.");
+            return null;
+        }
     }
-
-
-    public void OnPlayerLevelChanged() {
-        FSM_Level.FsmVariables.GetFsmInt("playerLevel").Value = Game.instance.playerLvl;
-        //TODO: display level up on game panel
-        Game.instance.theGamePanel.ShowLevelUpText();
-    }
-
 
     public void CancelAllSpawn() {
-        slimeSpawner.CancelInvoke();
-        flymonSpawner.CancelInvoke();
-        bigSlimeSpawner.CancelInvoke();
-        cubatSpawner.CancelInvoke();
+        SpawnerEnemy[] spawners = spawnerContainer.GetComponentsInChildren<SpawnerEnemy>();
+        foreach ( SpawnerEnemy spawner in spawners ) {
+            spawner.CancelInvoke();
+        }
     }
 
-    public void StartLevel01() {
-        CancelAllSpawn();
-        slimeSpawner.maxSlimeCount = GetMaxSlimeCount();
-        slimeSpawner.SpawnASlime();
-    }
-
-    public void StartLevel02() {
-        CancelAllSpawn();
-        slimeSpawner.maxSlimeCount = GetMaxSlimeCount();
-        flymonSpawner.maxFlymonCount = GetMaxFlymonCount();
-        slimeSpawner.SpawnASlime();
-        flymonSpawner.SpawnAFlymon();
-    }
-
-    public void StartLevel03() {
-        CancelAllSpawn();
-        slimeSpawner.maxSlimeCount = GetMaxSlimeCount();
-        flymonSpawner.maxFlymonCount = GetMaxFlymonCount();
-        slimeSpawner.SpawnASlime();
-        flymonSpawner.SpawnAFlymon();
-    }
-
-    public void StartLevel04() {
-        CancelAllSpawn();
-        slimeSpawner.maxSlimeCount = GetMaxSlimeCount();
-        flymonSpawner.maxFlymonCount = GetMaxFlymonCount();
-        slimeSpawner.SpawnASlime();
-        flymonSpawner.SpawnAFlymon();
-    }
-
-    public void StartLevel05() {
-        CancelAllSpawn();
-        GetAllMaxCount();
-        slimeSpawner.SpawnASlime();
-        flymonSpawner.SpawnAFlymon();
-        bigSlimeSpawner.SpawnABigSlime();
-    }
-
-    public void StartLevel06() {
-        CancelAllSpawn();
-        GetAllMaxCount();
-        slimeSpawner.SpawnASlime();
-        flymonSpawner.SpawnAFlymon();
-        bigSlimeSpawner.SpawnABigSlime();
-    }
-
-    public void StartLevel07() {
-        CancelAllSpawn();
-        GetAllMaxCount();
-        slimeSpawner.SpawnASlime();
-        bigSlimeSpawner.SpawnABigSlime();
-        cubatSpawner.SpawnACubat();
-    }
-
-    public void StartLevel08() {
-        CancelAllSpawn();
-        GetAllMaxCount();
-        slimeSpawner.SpawnASlime();
-        bigSlimeSpawner.SpawnABigSlime();
-        cubatSpawner.SpawnACubat();
-    }
-
-    public void StartLevel09() {
-        CancelAllSpawn();
-        GetAllMaxCount();
-        slimeSpawner.SpawnASlime();
-        flymonSpawner.SpawnAFlymon();
-        bigSlimeSpawner.SpawnABigSlime();
-        cubatSpawner.SpawnACubat();
-    }
-
-    public void StartLevel10() {
-        CancelAllSpawn();
-        GetAllMaxCount();
-        slimeSpawner.SpawnASlime();
-        flymonSpawner.SpawnAFlymon();
-        bigSlimeSpawner.SpawnABigSlime();
-        cubatSpawner.SpawnACubat();
-    }
-
-
-    public void QuestComplete() {
-        Debug.Log("QuestComplete");
+    public void LevelComplete() {
+        Debug.Log("LevelComplete");
     }
 
 }

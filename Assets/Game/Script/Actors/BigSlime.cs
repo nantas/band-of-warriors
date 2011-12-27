@@ -4,11 +4,6 @@ using System.Collections;
 public class BigSlime : Enemy {
     public int HP = 3;
     public float hurtInvincibleTime = 0.5f;
-	[System.NonSerialized]public Spawner_BigSlime spawner;
-
-    public void SetSpawner (Spawner_BigSlime _spawner) {
-        spawner = _spawner;
-    }
 
     protected override void OnEnable() {
 		isTakingDamage = false;
@@ -75,11 +70,14 @@ public class BigSlime : Enemy {
             float animTime = 0.3f;
             yield return new WaitForSeconds(animTime);
             Game.instance.OnPlayerExpChange(expPerKill);
-            spawner.SpawnFastSlimeFrom(this, 3);
+            Spawner_BigSlime thisSpawner = spawner.GetComponent<Spawner_BigSlime>() as Spawner_BigSlime;
+            thisSpawner.SpawnFastSlimeFrom(this, 3);
             yield return new WaitForSeconds(0.1f);
-            spawner.DestroySlime(this);
-            SpawnLoot();        
+            thisSpawner.DestroyEnemy(this);
+            spawner.levelManager.OnEnemyKilled(enemyType);
+            SpawnLoot();    
     }
+
 	
     public void SpawnLoot () {
         int lootSelector = Random.Range(1, 100);

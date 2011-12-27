@@ -37,7 +37,6 @@ public class Game : MonoBehaviour {
     public Transform rightSpawnEntry;
     public int initPlayerHP = 100;	
     public PlayerBase thePlayer;
-    public Camera mainCam;
 	public exLayer enemyLayerGround;
     public exLayer enemyLayerAir;
     public exLayer coinLayer;
@@ -53,7 +52,7 @@ public class Game : MonoBehaviour {
 	protected virtual void Init () {
 		theSpawner = GetComponent<Spawner>();
         theScoreCounter = GetComponent<ScoreCounter>();
-        theLevelManager = GameObject.Find("LevelManager").GetComponent<LevelManager>();
+        theLevelManager = GameObject.FindWithTag("levelManager").GetComponent<LevelManager>();
 	}
 
 	// Use this for initialization
@@ -89,7 +88,7 @@ public class Game : MonoBehaviour {
             int extraExp = currentExp - expReqForLvl[playerLvl-1];
             //TODO:put the level handle into on level change function
             playerLvl += 1;
-            theLevelManager.OnPlayerLevelChanged();
+            Game.instance.theGamePanel.ShowLevelUpText();
             currentExp = 0;
             OnPlayerLvlUp();
             OnPlayerExpChange(extraExp);
@@ -104,7 +103,7 @@ public class Game : MonoBehaviour {
     }
 
     public void AcceptInput ( bool _accept ) {
-        mainCam.GetComponent<CameraFollow>().enabled = _accept;
+        Camera.main.GetComponent<CameraFollow>().enabled = _accept;
         exUIPanel panelSelf = theGamePanel.GetComponent<exUIPanel>();
         panelSelf.enabled = _accept;
     }

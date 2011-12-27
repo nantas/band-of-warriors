@@ -2,11 +2,9 @@ using UnityEngine;
 using System.Collections;
 
 public class Slime : Enemy {
-	[System.NonSerialized]public Spawner_Slime spawner;
 
-    public void SetSpawner (Spawner_Slime _spawner) {
-        spawner = _spawner;
-    }
+
+
 
     public void MoveToRandomLoc () {
         Vector3 targetPos = new Vector3(Random.Range(Game.instance.leftSpawnEntry.position.x, 
@@ -58,11 +56,17 @@ public class Slime : Enemy {
             spEnemy.spanim.Play("slime_hurt");
 			float animTime = spEnemy.spanim.animations[1].length;
 			yield return new WaitForSeconds(animTime);
-			spawner.DestroySlime(this);
-            Game.instance.OnPlayerExpChange(expPerKill);
-            SpawnLoot();
+            OnEnemyDie();
 		}
 	}
+
+    public void OnEnemyDie() {
+        Spawner_Slime thisSpawner = spawner.GetComponent<Spawner_Slime>() as Spawner_Slime;
+        thisSpawner.DestroyEnemy(this);
+        spawner.levelManager.OnEnemyKilled(enemyType);
+        Game.instance.OnPlayerExpChange(expPerKill);
+        SpawnLoot();
+    }
 	
     public void SpawnLoot () {
         int lootSelector = Random.Range(1, 100);

@@ -2,12 +2,6 @@ using UnityEngine;
 using System.Collections;
 
 public class Cubat : Enemy {
-    [System.NonSerialized]public Spawner_Cubat spawner;
-
-    public void SetSpawner (Spawner_Cubat _spawner) {
-        spawner = _spawner;
-    }
-
 	
     public void MoveToNearPlayer () {
         float playerX = Game.instance.thePlayer.transform.position.x;
@@ -75,11 +69,17 @@ public class Cubat : Enemy {
             spEnemy.spanim.Play("cubat_hurt");
 			float animTime = spEnemy.spanim.animations[1].length;
 			yield return new WaitForSeconds(animTime);
-			spawner.DestroyCubat(this);
-            Game.instance.OnPlayerExpChange(expPerKill);
-            SpawnLoot();
+            OnEnemyDie();
 		}
 	}
+
+    public void OnEnemyDie() {
+        Spawner_Cubat thisSpawner = spawner.GetComponent<Spawner_Cubat>() as Spawner_Cubat;
+        thisSpawner.DestroyEnemy(this);
+        spawner.levelManager.OnEnemyKilled(enemyType);
+        Game.instance.OnPlayerExpChange(expPerKill);
+        SpawnLoot();
+    }
 
     public void SpawnLoot () {
         int lootSelector = Random.Range(1, 100);

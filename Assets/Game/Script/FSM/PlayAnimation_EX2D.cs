@@ -76,7 +76,7 @@ namespace HutongGames.PlayMaker.Actions
             //If we have to stop the animation on the exit
             if (stopOnExit)
             {
-                Debug.Log("stop!");
+                //Debug.Log("stop!");
                 StopAnimation();
             }
         }
