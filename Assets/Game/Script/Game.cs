@@ -29,6 +29,7 @@ public class Game : MonoBehaviour {
     [System.NonSerialized] public int playerHP;
     [System.NonSerialized] public int playerLvl;
     [System.NonSerialized] public int currentExp;
+    [System.NonSerialized] public int curCharIndex;
     public GamePanel theGamePanel;
 	public Transform leftBoundary;
 	public Transform rightBoundary;
@@ -60,6 +61,7 @@ public class Game : MonoBehaviour {
         playerHP = initPlayerHP;
         playerLvl = 1;
         currentExp = 0;
+        curCharIndex = 1;
         AcceptInput(true);
 	}
 	

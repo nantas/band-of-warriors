@@ -23,6 +23,8 @@ public class GamePanel : MonoBehaviour {
 
     public exSpriteFont scoreDisplay; 
     public exSpriteFont levelUpText; 
+    public exSpriteFont curCharName;
+    public exSpriteFont curCharClass;
     public ComboDisplay comboDisplay;
     public ProgressBar HPbar;
     public ProgressBar EXPbar;
@@ -54,6 +56,12 @@ public class GamePanel : MonoBehaviour {
         trans.position = new Vector3 (Camera.main.transform.position.x, 
                                       0.0f, trans.position.z);
     }
+
+    public void ChangeNameDisplay() {
+        curCharName.text = Game.instance.thePlayer.playerController.charName;
+        curCharClass.text = Game.instance.thePlayer.playerController.charClass;
+    }
+
 
     public void ShowLevelUpText() {
         levelUpText.animation.Play("txt_levelUp");

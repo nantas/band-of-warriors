@@ -18,13 +18,14 @@ using System.Collections;
 ///
 ///////////////////////////////////////////////////////////////////////////////
 
-public class BtnLoadPuzzle : MonoBehaviour {
+public class BtnCharSelect : MonoBehaviour {
 
     // ------------------------------------------------------------------ 
     // Desc: 
     // ------------------------------------------------------------------ 
 
-	public int patternIndex;
+	public int charIndex;
+    public PlayerBase nextChar;
 
     // ------------------------------------------------------------------ 
     // Desc: 
@@ -32,14 +33,32 @@ public class BtnLoadPuzzle : MonoBehaviour {
 
 	void Awake () {
         exUIButton uiButton = GetComponent<exUIButton>();
-        uiButton.OnButtonRelease += OnButtonRelease;
+        uiButton.OnButtonPress += OnButtonPress;
 	}
 
     // ------------------------------------------------------------------ 
     // Desc: 
     // ------------------------------------------------------------------ 
 
-    void OnButtonRelease () {
+    void OnButtonPress () {
+        if (charIndex != Game.instance.curCharIndex && 
+            Game.instance.thePlayer.playerController.FSM_Control.ActiveStateName == "Walk") {
+            Game.instance.curCharIndex = charIndex;
+            Vector3 ringOutPos = nextChar.transform.position;
+            nextChar.transform.position = Game.instance.thePlayer.transform.position;
+            Game.instance.thePlayer.transform.position = ringOutPos;
+            MoveDir curMoveDir = Game.instance.thePlayer.playerController.charMoveDir;
+            Game.instance.thePlayer.playerController.FSM_Control.Fsm.Event("To_Idle");
+            Game.instance.thePlayer.playerController.enabled = false;
+            //switch
+            Game.instance.thePlayer = nextChar;
+            Camera.main.GetComponent<CameraFollow>().target = nextChar.transform;
+            Game.instance.thePlayer.playerController.enabled = true;
+            Game.instance.thePlayer.playerController.charMoveDir = curMoveDir;
+            Game.instance.thePlayer.playerController.GetFaceDirection();
+            Game.instance.theGamePanel.ChangeNameDisplay();
+            Game.instance.thePlayer.playerController.FSM_Control.Fsm.Event("To_Walk");
+         }
     }
 	
 }

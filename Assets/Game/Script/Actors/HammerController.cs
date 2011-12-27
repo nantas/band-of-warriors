@@ -32,6 +32,10 @@ public class HammerController: WarriorController {
         }
     }
 
+    void Start () {
+		animation["uppercut"].speed = 2.0f;
+    }
+
     public void OnComboEffectUp() {
         initMoveSpeed = comboEffect[comboLevel].newMoveSpeed;
         attackPower = comboEffect[comboLevel].newAttackPower;
@@ -52,7 +56,7 @@ public class HammerController: WarriorController {
         
 
 
-	void Update () {
+	void LateUpdate () {
         //check if player can give input
         if ( FSM_Control.FsmVariables.GetFsmBool("isAcceptInput").Value == true ) {
             //handle Input
@@ -87,7 +91,11 @@ public class HammerController: WarriorController {
 		}
         //prepare vertical movement
         if ( FSM_Control.FsmVariables.GetFsmBool("isAffectedByGravity").Value == true ) {
-            velocity.y += Game.instance.gravity;
+            if ( FSM_Control.ActiveStateName == "AirAttack") {
+                velocity.y += Game.instance.gravity * 2;
+            } else {
+                velocity.y += Game.instance.gravity;
+            }
             verticalDist = Time.deltaTime * velocity.y;
         }
 		//move character
@@ -115,13 +123,17 @@ public class HammerController: WarriorController {
             if ( transform.position.y <= Game.instance.groundPosY ) {
                 transform.position = new Vector3 (transform.position.x, 
                                               Game.instance.groundPosY, transform.position.z);
-                //handle gameover
-                if (FSM_Control.FsmVariables.GetFsmBool("isPlayerNoHP").Value == false) {
-                    FSM_Control.Fsm.Event("To_Walk");
-                } else {
-                    //player dead
+                if (FSM_Control.FsmVariables.GetFsmBool("isPlayerNoHP").Value == true ) {
+                    //handle gameover
                     PlayerDead();
-                }
+                } else if (FSM_Control.ActiveStateName == "AirAttack") {
+                    velocity.y = initJumpSpeed/2 + 350;
+                    transform.Translate(0, velocity.y * Time.deltaTime, 0);
+                    FSM_Control.Fsm.Event("To_AirAttack_Recover");
+                } else {
+                    //Debug.Log("air recover to walk?");
+                    FSM_Control.Fsm.Event("To_Walk");
+                } 
             }
         } 
 
@@ -170,7 +182,8 @@ public class HammerController: WarriorController {
             velocity.y = initJumpSpeed;
             FSM_Control.Fsm.Event("To_Jump");           
         } else  {
-            velocity.x = 0;
+            //velocity.x = 0;
+            velocity.y = initJumpSpeed;
             FSM_Control.Fsm.Event("To_AirAttack");
         }
 	}
@@ -183,6 +196,8 @@ public class HammerController: WarriorController {
             FSM_Control.Fsm.Event("To_Stun_Ctrl");
         }
     }	
+    
+
 
     //push player back
     public void StartHurt(bool _isHurtFromLeft) {
@@ -205,15 +220,18 @@ public class HammerController: WarriorController {
         string prevStateName = FSM_Control.FsmVariables.GetFsmString("PrevStateName").Value;
         if ( prevStateName == "Idle" ) {
 			FSM_Control.Fsm.Event("To_Idle");
-        } else if ( prevStateName == "Walk" || prevStateName == "Dash" || prevStateName == "Dash_Recover" ) {
+        } else if ( prevStateName == "Walk" || prevStateName == "Charge_Start" ) {
             FSM_Control.Fsm.Event("To_Walk");
-        } else if ( prevStateName == "Jump" || prevStateName == "AirDash" || prevStateName == "Jump_NoMove" ) {	
+        } else if ( prevStateName == "Uppercut" ) {
+            FSM_Control.Fsm.Event("To_Walk" );
+        } else if ( prevStateName == "Jump" || prevStateName == "AirAttack" || 
+                    prevStateName == "AirAttack_Recover" || prevStateName == "Jump_NoMove" ) {	
             FSM_Control.Fsm.Event("To_JumpNoMove");
 		}
     }
 
     public void OnPlayerNoHP() {
-        Debug.Log("player has no hp. go to dead state.");
+        //Debug.Log("player has no hp. go to dead state.");
         if ( FSM_Control.FsmVariables.GetFsmBool("isAffectedByGravity").Value == true ) {
             Debug.Log("goto dead in air state");
             FSM_Control.Fsm.Event("To_DeadDrop");

@@ -69,8 +69,10 @@ namespace HutongGames.PlayMaker.Actions
 			}
 
 			float time = blendTime.Value;
-			if (time == 0)
+			if (time == 0) {
+                //go.animation.Rewind(animName.Value);
 				go.animation.Play(animName.Value, playMode);
+            }
 			else
 				go.animation.CrossFade(animName.Value, time, playMode);
 		}

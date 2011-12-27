@@ -185,7 +185,6 @@ public class Spawner_BigSlime : MonoBehaviour {
 	public void SpawnABigSlime () {
 		if (aliveBigSlimeCount < maxBigSlimeCount) {
             int spawnSelector = Random.Range(0,9);
-            Debug.Log(spawnSelector);
             if ( spawnSelector < 5 ) {
                 SpawnABigSlimeFrom (leftSpawner);
             } else if ( spawnSelector >= 5 ) {

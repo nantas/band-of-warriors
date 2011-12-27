@@ -40,6 +40,8 @@ namespace HutongGames.PlayMaker.Actions
 			}
 
 			go.animation.Stop(animName.Value);
+            go.animation.Rewind();
+
 		}
 		/*
 			public override string ErrorCheck()

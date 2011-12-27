@@ -12,6 +12,8 @@ public class WarriorController : MonoBehaviour {
 
 	public float initMoveSpeed = 175.0f;
     public float initJumpSpeed = 1200.0f;
+    public string charName;
+    public string charClass;
     [System.NonSerialized]public PlayerBase player; 
 	[System.NonSerialized]public MoveDir charMoveDir;
     [System.NonSerialized]public PlayMakerFSM FSM_Control;
@@ -41,6 +43,19 @@ public class WarriorController : MonoBehaviour {
     public bool isAcceptInput() {
         return FSM_Control.FsmVariables.GetFsmBool("isAcceptInput").Value;
     }
+
+    public void GetFaceDirection() {
+        if (Game.instance.thePlayer.playerController.charMoveDir == MoveDir.Left){
+            transform.localEulerAngles = new Vector3 (0, 180, 0);
+            velocity.x = initMoveSpeed;
+        } else {
+            transform.localEulerAngles = new Vector3 (0, 0, 0);
+            velocity.x = initMoveSpeed;
+        }
+    }
+
+
+       
 
     public virtual void OnComboHitUpdate(){
     }
