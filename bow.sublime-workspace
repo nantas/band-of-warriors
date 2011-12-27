@@ -43,7 +43,7 @@
 			"file": "Assets/Game/Script/Actors/BigSlime.cs",
 			"settings":
 			{
-				"buffer_size": 3036,
+				"buffer_size": 3652,
 				"line_ending": "Windows"
 			}
 		},
@@ -51,7 +51,7 @@
 			"file": "Assets/Game/Script/Actors/Enemy.cs",
 			"settings":
 			{
-				"buffer_size": 750,
+				"buffer_size": 834,
 				"line_ending": "Windows"
 			}
 		},
@@ -63,6 +63,14 @@
 				"line_ending": "Windows",
 				"name": "Find Results",
 				"scratch": true
+			}
+		},
+		{
+			"file": "Assets/Game/Script/LevelManager.cs",
+			"settings":
+			{
+				"buffer_size": 4758,
+				"line_ending": "Windows"
 			}
 		}
 	],
@@ -106,7 +114,7 @@
 	},
 	"find_in_files":
 	{
-		"height": 88.0,
+		"height": 0.0,
 		"where_history":
 		[
 			""
@@ -137,7 +145,7 @@
 	"groups":
 	[
 		{
-			"selected": 0,
+			"selected": 3,
 			"sheets":
 			[
 				{
@@ -145,15 +153,15 @@
 					"file": "Assets/Game/Script/Actors/BigSlime.cs",
 					"settings":
 					{
-						"buffer_size": 3036,
+						"buffer_size": 3652,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								2388,
-								2388
+								0,
+								0
 							]
 						],
 						"settings":
@@ -173,15 +181,15 @@
 					"file": "Assets/Game/Script/Actors/Enemy.cs",
 					"settings":
 					{
-						"buffer_size": 750,
+						"buffer_size": 834,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								299,
-								299
+								126,
+								126
 							]
 						],
 						"settings":
@@ -235,6 +243,34 @@
 							"result_line_regex": "^ +([0-9]+):",
 							"scroll_past_end": true,
 							"syntax": "Packages/Default/Find Results.hidden-tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "Assets/Game/Script/LevelManager.cs",
+					"settings":
+					{
+						"buffer_size": 4758,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								601,
+								601
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C#/C#.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
 						"translation.y": 0.0,

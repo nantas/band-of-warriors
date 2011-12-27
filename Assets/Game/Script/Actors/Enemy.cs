@@ -1,6 +1,15 @@
 using UnityEngine;
 using System.Collections;
 
+public enum EnemyClass {
+	Slime,
+	BigSlime,
+	FastSlime,
+	Flymon,
+	Cubat,
+	Lurker
+}
+
 public class Enemy : MonoBehaviour {
 	
 	public exSprite spEnemy;

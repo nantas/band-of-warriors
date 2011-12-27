@@ -10,6 +10,14 @@ using System.Collections;
 
 public class LevelManager : MonoBehaviour {
 
+    [System.Serializable]
+    public class SpawnerInfo {
+        EnemyClass enemyType;
+        Spawner_Enemy enemySpawner;
+        float minSpawnInterval;
+        int maxAliveCount;
+    }
+
     public Spawner commonSpawner;
     [System.NonSerialized]public Spawner_Slime slimeSpawner;
     [System.NonSerialized]public Spawner_Flymon flymonSpawner;
