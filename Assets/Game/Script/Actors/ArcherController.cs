@@ -29,6 +29,7 @@ public class ArcherController: WarriorController {
 
     void Start() {
         arrowSpawner = GetComponent<Spawner_Arrow>();
+		animation["double_jump"].speed = 1.5f;
     }
 
 
@@ -128,7 +129,6 @@ public class ArcherController: WarriorController {
                                               Game.instance.groundPosY, transform.position.z);
                 //handle gameover
                 if (FSM_Control.FsmVariables.GetFsmBool("isPlayerNoHP").Value == false) {
-                    CancelInvoke("DownShoot");
                     FSM_Control.Fsm.Event("To_Walk");
                 } else {
                     //player dead
@@ -154,6 +154,10 @@ public class ArcherController: WarriorController {
                     //get into dash state
                     FSM_Control.Fsm.Event("To_Shoot");
                 }
+            } else if (FSM_Control.ActiveStateName == "Jump" ) {
+                if (arrowSpawner.aliveArrowCount < maxArrowCount) {
+                    FSM_Control.Fsm.Event("To_ShootInAir");
+                }
             }
         }
 	}
@@ -164,6 +168,10 @@ public class ArcherController: WarriorController {
                 //get to shoot state
                 if (arrowSpawner.aliveArrowCount < maxArrowCount) {
                     FSM_Control.Fsm.Event("To_Shoot");
+                }
+            } else if (FSM_Control.ActiveStateName == "Jump" ) {
+                if (arrowSpawner.aliveArrowCount < maxArrowCount) {
+                    FSM_Control.Fsm.Event("To_ShootInAir");
                 }
             }
         }
@@ -184,7 +192,7 @@ public class ArcherController: WarriorController {
             velocity.y = initJumpSpeed;
             FSM_Control.Fsm.Event("To_Jump");           
         } else  {
-            FSM_Control.Fsm.Event("To_JumpAttack");
+            FSM_Control.Fsm.Event("To_DoubleJump");
         }
 	}
 
@@ -204,7 +212,14 @@ public class ArcherController: WarriorController {
         Invoke("DownShoot", 0.3f);
     }
 
+    public void DoubleJump() {
+        velocity.y = initJumpSpeed+100;
+        velocity.x = initMoveSpeed + 100;
+    }
 
+    public void StopDoubleJump() {
+        velocity.x = initMoveSpeed;
+    }
 
     public void ShootArrow(bool _isArrowAffectedByGravity) {
         Vector2 pos = new Vector2(shootAnchor.position.x, shootAnchor.position.y);

@@ -29,8 +29,11 @@ public class GamePanel : MonoBehaviour {
     public exSpriteFont stageDisplay;
     public ProgressBar HPbar;
     public ProgressBar EXPbar;
+    public exSprite missionTargetIcon;
+    public exSpriteFont missionInfoText;
     public exSpriteFont playerLvlDisplay;
     public exUIPanel panelGameOver;
+    public exSprite[] charSlots;
 
     ///////////////////////////////////////////////////////////////////////////////
     // functions
@@ -88,6 +91,21 @@ public class GamePanel : MonoBehaviour {
                                                                  SendMessageOptions.DontRequireReceiver);
         }
     }
+
+    public void SlotUpdate(int _charIndex) {
+        foreach (exSprite slot in charSlots) {
+            slot.spanim.Play("slot_inactive");
+        }
+        charSlots[_charIndex-1].spanim.Play("slot_active");
+    }
+
+    public void OnMissionUpdate(EnemyClass _targetType, int _numToKill) {
+        if (_numToKill < 0) _numToKill = 0;
+        string iconName = _targetType.ToString().ToLower();
+        missionTargetIcon.spanim.Play(iconName);
+        missionInfoText.text = "to kill: " + _numToKill;
+    }
+
 
 
 }

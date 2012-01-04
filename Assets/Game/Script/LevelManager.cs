@@ -52,6 +52,8 @@ public class LevelManager : MonoBehaviour {
             int targetNumber = levelInfos[currentLevel].targetKillNum;
             if ( _killedType == targetType || targetType == EnemyClass.AnyEnemy ) {
                 currentKillNum += 1;
+                Game.instance.theGamePanel.OnMissionUpdate(targetType, 
+                                                   (targetNumber-currentKillNum));
                 if (currentKillNum >= targetNumber) {
                     GoLevelUp();
                 }
@@ -73,6 +75,8 @@ public class LevelManager : MonoBehaviour {
 
     public void StartLevel() {
         Game.instance.theGamePanel.OnStageUpdate(currentLevel);
+        Game.instance.theGamePanel.OnMissionUpdate(levelInfos[currentLevel].targetEnemy, 
+                                  (levelInfos[currentLevel].targetKillNum-currentKillNum));
         SpawnerInfo[] spawnerInfos = levelInfos[currentLevel].spawnerInfo;
         if ( spawnerInfos == null ) {
             Debug.LogError("no available spawn info in LevelInfo class!");

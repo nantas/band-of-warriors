@@ -43,6 +43,8 @@ public class BtnCharSelect : MonoBehaviour {
     void OnButtonPress () {
         if (charIndex != Game.instance.curCharIndex && 
             Game.instance.thePlayer.playerController.FSM_Control.ActiveStateName == "Walk") {
+            //handle slot color change
+            Game.instance.theGamePanel.SlotUpdate(charIndex);
             //switch character index
             Game.instance.curCharIndex = charIndex;
             Vector3 ringOutPos = nextChar.transform.position;
