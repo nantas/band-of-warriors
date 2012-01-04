@@ -43,6 +43,7 @@ public class BtnCharSelect : MonoBehaviour {
     void OnButtonPress () {
         if (charIndex != Game.instance.curCharIndex && 
             Game.instance.thePlayer.playerController.FSM_Control.ActiveStateName == "Walk") {
+            //switch character index
             Game.instance.curCharIndex = charIndex;
             Vector3 ringOutPos = nextChar.transform.position;
             nextChar.transform.position = Game.instance.thePlayer.transform.position;

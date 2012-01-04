@@ -21,6 +21,7 @@ public class HammerController: WarriorController {
     public int attackPower = 2;
     public ComboEffectHam[] comboEffect;
 
+
     public void OnComboHitUpdate(int _comboHit) {
         if (_comboHit >= comboEffect[comboLevel].reqComboHit) {
             comboLevel += 1;
@@ -143,11 +144,13 @@ public class HammerController: WarriorController {
         if (charMoveDir == MoveDir.Stop) {
             charMoveDir = MoveDir.Right;
             transform.localEulerAngles = new Vector3 (0, 0, 0);
+            layer.Dirty();
             velocity.x = initMoveSpeed;
             FSM_Control.Fsm.Event("To_Walk");
         } else if (charMoveDir == MoveDir.Left) {
             charMoveDir = MoveDir.Right;
             transform.localEulerAngles = new Vector3 (0, 0, 0);
+            layer.Dirty();
         } else if (charMoveDir == MoveDir.Right) {
             if ( FSM_Control.FsmVariables.GetFsmBool("isAffectedByGravity").Value == false ) {
             //get into uppercut
@@ -168,12 +171,14 @@ public class HammerController: WarriorController {
         if (charMoveDir == MoveDir.Stop) {
             charMoveDir = MoveDir.Left;
             transform.localEulerAngles = new Vector3 (0, 180, 0);
+            layer.Dirty();
             velocity.x = initMoveSpeed;
             FSM_Control.Fsm.Event("To_Walk");
         } 
         if (charMoveDir == MoveDir.Right) {
             charMoveDir = MoveDir.Left;
             transform.localEulerAngles = new Vector3 (0, 180, 0);
+            layer.Dirty();
         }
 	}
 

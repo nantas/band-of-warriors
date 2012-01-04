@@ -19,6 +19,7 @@ public class WarriorController : MonoBehaviour {
     [System.NonSerialized]public PlayMakerFSM FSM_Control;
     [System.NonSerialized]public PlayMakerFSM FSM_Hit;
     [System.NonSerialized]public int comboLevel;
+    protected exLayer layer;
     public int curAddLootChance;
 
     protected Vector2 velocity;
@@ -35,6 +36,7 @@ public class WarriorController : MonoBehaviour {
             }
         }
         player = transform.GetComponent<PlayerBase>();
+        layer = GetComponent<exLayer>();
         velocity = new Vector2(0, 0);
         comboLevel = 0;
         charMoveDir = MoveDir.Stop;

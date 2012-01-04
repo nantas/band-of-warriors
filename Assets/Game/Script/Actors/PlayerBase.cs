@@ -25,7 +25,9 @@ public class PlayerBase : MonoBehaviour {
 	public void OnHurtStart() {
         //playing hurt flash effect
         foreach (exSprite sprite in allBodyParts) {
-            sprite.spanim.Play("flash");
+            if (sprite) {
+                sprite.spanim.Play("flash");
+            }
         }
 	}
 

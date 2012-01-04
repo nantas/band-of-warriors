@@ -3,6 +3,7 @@ using System.Collections;
 
 public class WeaponCollider : MonoBehaviour {
 	
+    public exSprite spWeapon;
 	private PlayerBase controller;
     private Spawner commonSpawner;
 	
@@ -20,7 +21,7 @@ public class WeaponCollider : MonoBehaviour {
 		//Debug.Log("attacking enemy!");
         Game.instance.theGamePanel.OnComboUpdate();
         //play weapon flash white
-        controller.allBodyParts[6].spanim.Play("flash_white");
+        spWeapon.spanim.Play("flash_white");
         exSprite fx = commonSpawner.SpawnHitFXAt(_pos) as exSprite;
         fx.spanim.Play("hitFX");
 	    float animTime = fx.spanim.animations[0].length;

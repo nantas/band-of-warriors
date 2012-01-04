@@ -35,7 +35,7 @@ public class ArrowPool {
 				if (obj.GetComponent<exLayer>()) {
                 	obj.GetComponent<exLayer>().parent = _layer;
 				} else {
-					Debug.LogError ("please add a layer component to coin prefab.");
+					Debug.LogError ("please add a layer component to arrow prefab.");
 				}
             }
         }
@@ -78,6 +78,8 @@ public class ArrowPool {
 
     public void Return ( Arrow _arrow ) {
         ++idx;
+        if ( idx >= size )
+            idx = size - 1;
         arrows[idx] = _arrow;
     }
 }
@@ -92,11 +94,11 @@ public class ArrowPool {
 
 public class Spawner_Arrow : MonoBehaviour {
 
-    public int maxArrowCount = 3;
-    [System.NonSerialized]public int aliveArrowCount = 0;
+    public int aliveArrowCount = 0;
     public ArrowPool arrowPool = new ArrowPool();
 
 	void Awake () {
+        //Debug.Log("init arrows.");
         arrowPool.Init(Game.instance.fxLayer);
 	}
 

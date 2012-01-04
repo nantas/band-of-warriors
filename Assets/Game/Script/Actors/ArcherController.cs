@@ -23,7 +23,13 @@ public class ArcherController: WarriorController {
     public float charge2Speed = 150.0f;
     public float charge3Speed = 100.0f;
     public int maxArrowCount = 3;
+    public Transform shootAnchor;
+    [System.NonSerialized]public Spawner_Arrow arrowSpawner;
     public ComboEffectArcher[] comboEffect;
+
+    void Start() {
+        arrowSpawner = GetComponent<Spawner_Arrow>();
+    }
 
 
     public void OnComboHitUpdate(int _comboHit) {
@@ -122,6 +128,7 @@ public class ArcherController: WarriorController {
                                               Game.instance.groundPosY, transform.position.z);
                 //handle gameover
                 if (FSM_Control.FsmVariables.GetFsmBool("isPlayerNoHP").Value == false) {
+                    CancelInvoke("DownShoot");
                     FSM_Control.Fsm.Event("To_Walk");
                 } else {
                     //player dead
@@ -143,9 +150,10 @@ public class ArcherController: WarriorController {
             transform.localEulerAngles = new Vector3 (0, 0, 0);
         } else if (charMoveDir == MoveDir.Right) {
             if ( FSM_Control.FsmVariables.GetFsmBool("isAffectedByGravity").Value == false ) {
-            //get into dash state
-            velocity.x = dashSpeed;
-            FSM_Control.Fsm.Event("To_Dash");
+                if (arrowSpawner.aliveArrowCount < maxArrowCount) {
+                    //get into dash state
+                    FSM_Control.Fsm.Event("To_Shoot");
+                }
             }
         }
 	}
@@ -153,9 +161,10 @@ public class ArcherController: WarriorController {
 	public override void TurnLeft() {
         if (charMoveDir == MoveDir.Left) {
             if ( FSM_Control.FsmVariables.GetFsmBool("isAffectedByGravity").Value == false ) {
-                //get into dash state
-                velocity.x = dashSpeed;
-                FSM_Control.Fsm.Event("To_Dash");
+                //get to shoot state
+                if (arrowSpawner.aliveArrowCount < maxArrowCount) {
+                    FSM_Control.Fsm.Event("To_Shoot");
+                }
             }
         }
         if (charMoveDir == MoveDir.Stop) {
@@ -175,14 +184,37 @@ public class ArcherController: WarriorController {
             velocity.y = initJumpSpeed;
             FSM_Control.Fsm.Event("To_Jump");           
         } else  {
-            velocity.x = dashSpeed;
-            FSM_Control.Fsm.Event("To_AirDash");
+            FSM_Control.Fsm.Event("To_JumpAttack");
         }
 	}
 
-    public void StopDash() {
-        velocity.x = initMoveSpeed;
+    public void HorizontalShoot() {
+        ShootArrow(false);
     }
+
+    public void DownShoot() {
+        if (arrowSpawner.aliveArrowCount < maxArrowCount) {
+            ShootArrow(false);
+        }
+    }
+
+    public void JumpAttack() {
+        Invoke("DownShoot", 0.05f);
+        Invoke("DownShoot", 0.15f);
+        Invoke("DownShoot", 0.3f);
+    }
+
+
+
+    public void ShootArrow(bool _isArrowAffectedByGravity) {
+        Vector2 pos = new Vector2(shootAnchor.position.x, shootAnchor.position.y);
+        Arrow arrow = arrowSpawner.SpawnArrowAt(pos);
+        arrow.controller = this;
+        arrow.SetSpawner(arrowSpawner);
+        arrow.LaunchArrowAt(shootAnchor, _isArrowAffectedByGravity);
+    }   
+
+
 
     public override void OnDamagePlayer (bool _isHurtFromLeft, int _damageAmount) {
         if ( FSM_Hit.FsmVariables.GetFsmBool("isAcceptDamage").Value == true ) {
@@ -214,9 +246,9 @@ public class ArcherController: WarriorController {
         string prevStateName = FSM_Control.FsmVariables.GetFsmString("PrevStateName").Value;
         if ( prevStateName == "Idle" ) {
 			FSM_Control.Fsm.Event("To_Idle");
-        } else if ( prevStateName == "Walk" || prevStateName == "Dash" || prevStateName == "Dash_Recover" ) {
+        } else if ( prevStateName == "Walk" || prevStateName.Contains("Shoot") || prevStateName.Contains("Charge") ) {
             FSM_Control.Fsm.Event("To_Walk");
-        } else if ( prevStateName == "Jump" || prevStateName == "AirDash" || prevStateName == "Jump_NoMove" ) {	
+        } else if ( prevStateName.Contains("Jump")) {	
             FSM_Control.Fsm.Event("To_JumpNoMove");
 		}
     }
