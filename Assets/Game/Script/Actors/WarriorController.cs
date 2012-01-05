@@ -8,18 +8,30 @@
 using UnityEngine;
 using System.Collections;
 
+public enum BtnHoldState {
+    Left,
+    Right,
+    Jump,
+    None
+}
+
 public class WarriorController : MonoBehaviour {
 
 	public float initMoveSpeed = 175.0f;
     public float initJumpSpeed = 1200.0f;
     public string charName;
     public string charClass;
+
+
     [System.NonSerialized]public PlayerBase player; 
 	[System.NonSerialized]public MoveDir charMoveDir;
     [System.NonSerialized]public PlayMakerFSM FSM_Control;
     [System.NonSerialized]public PlayMakerFSM FSM_Hit;
+    [System.NonSerialized]public PlayMakerFSM FSM_Charge;
     [System.NonSerialized]public int comboLevel;
     protected exLayer layer;
+    protected BtnHoldState downButton;
+    protected float lastBtnDownTime;
     public int curAddLootChance;
 
     protected Vector2 velocity;
@@ -34,12 +46,16 @@ public class WarriorController : MonoBehaviour {
             if (fsm.FsmName == "FSM_Hit") {
                 FSM_Hit = fsm;
             }
+            if (fsm.FsmName == "FSM_Charge") {
+                FSM_Charge = fsm;
+            }
         }
         player = transform.GetComponent<PlayerBase>();
         layer = GetComponent<exLayer>();
         velocity = new Vector2(0, 0);
         comboLevel = 0;
         charMoveDir = MoveDir.Stop;
+        downButton = BtnHoldState.None;
     }
 
     public bool isAcceptInput() {
@@ -72,6 +88,9 @@ public class WarriorController : MonoBehaviour {
     }
 
     public virtual void TurnRight(){
+    }
+
+    public virtual void ReleaseCharge(BtnHoldState _upButton) {
     }
 
 

@@ -19,8 +19,8 @@ public class ComboEffectArcher {
 
 public class ArcherController: WarriorController {
 
-    public float charge1Speed = 200.0f;
-    public float charge2Speed = 150.0f;
+    public float charge1Speed = 180.0f;
+    public float charge2Speed = 130.0f;
     public float charge3Speed = 100.0f;
     public int maxArrowCount = 3;
     public Transform shootAnchor;
@@ -63,11 +63,44 @@ public class ArcherController: WarriorController {
     }
         
 
+    public override void ReleaseCharge(BtnHoldState _upButton) {
+        if (FSM_Charge.ActiveStateName == "Charge_Prepare") {
+            FSM_Charge.Fsm.Event("To_StopCharge");
+            downButton = BtnHoldState.None;
+            return;
+        }
+        if (FSM_Charge.ActiveStateName == "Charge_Up") {
+            if (_upButton == downButton) {
+                FSM_Control.Fsm.Event("To_ShootUp");
+            } 
+            FSM_Charge.Fsm.Event("To_StopCharge");
+            downButton = BtnHoldState.None;
+            return;
+        }
+        if (FSM_Charge.ActiveStateName == "Charge_Para") {
+            if (_upButton == downButton) {
+                FSM_Control.Fsm.Event("To_ShootPara");
+            }
+            FSM_Charge.Fsm.Event("To_StopCharge");
+            downButton = BtnHoldState.None;
+            return;
+        }
+        if (FSM_Charge.ActiveStateName == "Charge_Power") {
+            if (_upButton == downButton) {
+                FSM_Control.Fsm.Event("To_ShootPower");
+            }
+            FSM_Charge.Fsm.Event("To_StopCharge");
+            downButton = BtnHoldState.None;
+            return;
+        }
+
+    
+    }
 
 	void Update () {
         //check if player can give input
         if ( FSM_Control.FsmVariables.GetFsmBool("isAcceptInput").Value == true ) {
-            //handle Input
+            //handle Input button down
             if ( Input.GetButtonDown("Right") ) {
                 TurnRight();
             }
@@ -77,6 +110,17 @@ public class ArcherController: WarriorController {
             if ( Input.GetButtonDown("Jump") ) {
                 StartJump();
             }
+
+        }
+        //handle input button up
+        if ( Input.GetButtonUp("Right")) {
+            ReleaseCharge(BtnHoldState.Right);
+        }
+        if ( Input.GetButtonUp("Left")) {
+            ReleaseCharge(BtnHoldState.Left);
+        }
+        if ( Input.GetButtonUp("Jump")) {
+            ReleaseCharge(BtnHoldState.Jump);
         }
 
 		//handle movement
@@ -136,10 +180,12 @@ public class ArcherController: WarriorController {
                 }
             }
         } 
-
     }
 
 	public override void TurnRight() {
+        downButton = BtnHoldState.Right;
+        FSM_Charge.Fsm.Event("To_ChargePrepare");
+        lastBtnDownTime = Time.time;
         if (charMoveDir == MoveDir.Stop) {
             charMoveDir = MoveDir.Right;
             transform.localEulerAngles = new Vector3 (0, 0, 0);
@@ -163,6 +209,9 @@ public class ArcherController: WarriorController {
 	}
 	
 	public override void TurnLeft() {
+        downButton = BtnHoldState.Left;
+        FSM_Charge.Fsm.Event("To_ChargePrepare");
+        lastBtnDownTime = Time.time;
         if (charMoveDir == MoveDir.Left) {
             if ( FSM_Control.FsmVariables.GetFsmBool("isAffectedByGravity").Value == false ) {
                 //get to shoot state
@@ -188,6 +237,7 @@ public class ArcherController: WarriorController {
 	}
 
 	public override void StartJump() {
+        downButton = BtnHoldState.Jump;
         if ( FSM_Control.FsmVariables.GetFsmBool("isAffectedByGravity").Value == false ) {
             velocity.y = initJumpSpeed;
             FSM_Control.Fsm.Event("To_Jump");           
@@ -196,21 +246,71 @@ public class ArcherController: WarriorController {
         }
 	}
 
+    public void Charge1MoveSpeed() {
+        initMoveSpeed = charge1Speed;
+        velocity.x = initMoveSpeed;
+    }
+
+    public void Charge2MoveSpeed() {
+        initMoveSpeed = charge2Speed;
+        velocity.x = initMoveSpeed;
+    }
+
+    public void Charge3MoveSpeed() {
+        initMoveSpeed = charge3Speed;
+        velocity.x = initMoveSpeed;
+    }
+
+    public void RestoreMoveSpeed() {
+        initMoveSpeed = 200.0f;
+        velocity.x = initMoveSpeed;
+    }
+
     public void HorizontalShoot() {
         ShootArrow(false);
     }
 
-    public void DownShoot() {
+    public void UpShoot() {
         if (arrowSpawner.aliveArrowCount < maxArrowCount) {
-            ShootArrow(false);
+            Vector2 pos = new Vector2(shootAnchor.position.x, shootAnchor.position.y);
+            Arrow arrow = arrowSpawner.SpawnArrowAt(pos);
+            arrow.controller = this;
+            arrow.SetSpawner(arrowSpawner);
+            arrow.fxArrow.emit = true;
+            arrow.initSpeed = 1050.0f;
+            arrow.arrowGravity = -50f;
+            arrow.LaunchArrowAt(shootAnchor, true);
         }
     }
 
-    public void JumpAttack() {
-        Invoke("DownShoot", 0.05f);
-        Invoke("DownShoot", 0.15f);
-        Invoke("DownShoot", 0.3f);
+    public void ParaShoot() {
+        if (arrowSpawner.aliveArrowCount < maxArrowCount) {
+            Vector2 pos = new Vector2(shootAnchor.position.x, shootAnchor.position.y);
+            Arrow arrow = arrowSpawner.SpawnArrowAt(pos);
+            arrow.controller = this;
+            arrow.SetSpawner(arrowSpawner);
+            arrow.fxArrow.emit = true;
+            arrow.initSpeed = 900.0f;
+            arrow.arrowGravity = -25.0f;
+            arrow.LaunchArrowAt(shootAnchor, true);
+        }
     }
+
+
+    public void PowerShoot() {
+        Vector2 pos = new Vector2(shootAnchor.position.x, shootAnchor.position.y);
+        Arrow arrow = arrowSpawner.SpawnArrowAt(pos);
+        arrow.controller = this;
+        arrow.SetSpawner(arrowSpawner);
+        arrow.spCollider.radius = 30.0f;
+        arrow.spCollider.height = 100.0f;
+        arrow.spArrow.scale = new Vector2 (2, 2);
+        arrow.fxArrow.emit = true;
+        arrow.initSpeed = 1000.0f;
+        arrow.isPenetrating = true;
+        arrow.LaunchArrowAt(shootAnchor, false);
+    }
+
 
     public void DoubleJump() {
         velocity.y = initJumpSpeed+100;
@@ -236,6 +336,7 @@ public class ArcherController: WarriorController {
             Game.instance.OnPlayerHPChange(-_damageAmount);
             StartHurt(_isHurtFromLeft);
             Game.instance.theGamePanel.OnComboEnd();
+            ReleaseCharge(BtnHoldState.None);
             FSM_Control.Fsm.Event("To_Stun_Ctrl");
         }
     }	

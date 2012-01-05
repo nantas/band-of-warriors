@@ -3,7 +3,6 @@ using System.Collections;
 
 public class BtnLeft : MonoBehaviour {
 	
-	private PlayerBase player;
 
 	void Awake () {
 		exUIButton uiButton = GetComponent<exUIButton>();
@@ -12,6 +11,7 @@ public class BtnLeft : MonoBehaviour {
 	}
 	// Use this for initialization
 	void Start () {
+
 	
 	}
 	
@@ -22,13 +22,11 @@ public class BtnLeft : MonoBehaviour {
 	
 	void OnButtonPress () {
 		//Debug.Log("jump button pressed!");
-		player = Game.instance.thePlayer;
-        if (player.playerController.isAcceptInput()) {
-    		player.playerController.TurnLeft();
+        if (Game.instance.thePlayer.playerController.isAcceptInput()) {
+    		Game.instance.thePlayer.playerController.TurnLeft();
         }
 	}
-	
 	void OnButtonRelease () {
-		
-	}
+        Game.instance.thePlayer.playerController.ReleaseCharge(BtnHoldState.Left);
+	}	
 }

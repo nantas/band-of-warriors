@@ -24,7 +24,9 @@ public class ArrowCollider : MonoBehaviour {
         spArrow.spanim.Play("arrow_hit");
         exSprite fx = commonSpawner.SpawnHitFXAt(_pos) as exSprite;
         fx.spanim.Play("hitFX");
-        arrow.spawner.DestroyArrow(arrow);
+        if (arrow.isPenetrating == false) {
+            arrow.spawner.DestroyArrow(arrow);
+        }
 	    float animTime = fx.spanim.animations[0].length;
         yield return new WaitForSeconds(animTime);
         commonSpawner.DestroyHitFX(fx);
