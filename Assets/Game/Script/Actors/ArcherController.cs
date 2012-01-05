@@ -189,11 +189,13 @@ public class ArcherController: WarriorController {
         if (charMoveDir == MoveDir.Stop) {
             charMoveDir = MoveDir.Right;
             transform.localEulerAngles = new Vector3 (0, 0, 0);
+            layer.Dirty();
             velocity.x = initMoveSpeed;
             FSM_Control.Fsm.Event("To_Walk");
         } else if (charMoveDir == MoveDir.Left) {
             charMoveDir = MoveDir.Right;
             transform.localEulerAngles = new Vector3 (0, 0, 0);
+            layer.Dirty();
         } else if (charMoveDir == MoveDir.Right) {
             if ( FSM_Control.FsmVariables.GetFsmBool("isAffectedByGravity").Value == false ) {
                 if (arrowSpawner.aliveArrowCount < maxArrowCount) {
@@ -227,12 +229,14 @@ public class ArcherController: WarriorController {
         if (charMoveDir == MoveDir.Stop) {
             charMoveDir = MoveDir.Left;
             transform.localEulerAngles = new Vector3 (0, 180, 0);
+            layer.Dirty(); 
             velocity.x = initMoveSpeed;
             FSM_Control.Fsm.Event("To_Walk");
         } 
         if (charMoveDir == MoveDir.Right) {
             charMoveDir = MoveDir.Left;
             transform.localEulerAngles = new Vector3 (0, 180, 0);
+            layer.Dirty();
         }
 	}
 
