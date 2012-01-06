@@ -43,7 +43,7 @@
 			"file": "Assets/Game/Script/Actors/BigSlime.cs",
 			"settings":
 			{
-				"buffer_size": 3652,
+				"buffer_size": 3673,
 				"line_ending": "Windows"
 			}
 		},
@@ -51,7 +51,7 @@
 			"file": "Assets/Game/Script/Actors/Enemy.cs",
 			"settings":
 			{
-				"buffer_size": 834,
+				"buffer_size": 1023,
 				"line_ending": "Windows"
 			}
 		},
@@ -69,7 +69,7 @@
 			"file": "Assets/Game/Script/LevelManager.cs",
 			"settings":
 			{
-				"buffer_size": 4758,
+				"buffer_size": 4387,
 				"line_ending": "Windows"
 			}
 		}
@@ -98,6 +98,7 @@
 	},
 	"file_history":
 	[
+		"/C/Users/wnan/Documents/My Dropbox/top10movies",
 		"/C/Users/wnan/bow/Assets/Game/Script/GamePanel.cs",
 		"/C/Users/wnan/bow/Assets/Game/Script/Game.cs",
 		"/C/Users/wnan/bow/Assets/Game/Script/Actors/FastSlime.cs",
@@ -153,7 +154,7 @@
 					"file": "Assets/Game/Script/Actors/BigSlime.cs",
 					"settings":
 					{
-						"buffer_size": 3652,
+						"buffer_size": 3673,
 						"regions":
 						{
 						},
@@ -181,15 +182,15 @@
 					"file": "Assets/Game/Script/Actors/Enemy.cs",
 					"settings":
 					{
-						"buffer_size": 834,
+						"buffer_size": 1023,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								126,
-								126
+								0,
+								0
 							]
 						],
 						"settings":
@@ -255,15 +256,15 @@
 					"file": "Assets/Game/Script/LevelManager.cs",
 					"settings":
 					{
-						"buffer_size": 4758,
+						"buffer_size": 4387,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								601,
-								601
+								0,
+								0
 							]
 						],
 						"settings":
