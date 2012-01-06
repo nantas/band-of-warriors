@@ -72,6 +72,14 @@
 				"buffer_size": 4387,
 				"line_ending": "Windows"
 			}
+		},
+		{
+			"file": "Assets/Game/Script/PlayerPrefsX",
+			"settings":
+			{
+				"buffer_size": 8076,
+				"line_ending": "Windows"
+			}
 		}
 	],
 	"build_system": "",
@@ -98,6 +106,7 @@
 	},
 	"file_history":
 	[
+		"/C/Users/wnan/bow/.gitignore",
 		"/C/Users/wnan/Documents/My Dropbox/top10movies",
 		"/C/Users/wnan/bow/Assets/Game/Script/GamePanel.cs",
 		"/C/Users/wnan/bow/Assets/Game/Script/Game.cs",
@@ -146,7 +155,7 @@
 	"groups":
 	[
 		{
-			"selected": 3,
+			"selected": 4,
 			"sheets":
 			[
 				{
@@ -275,6 +284,34 @@
 						},
 						"translation.x": 0.0,
 						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "Assets/Game/Script/PlayerPrefsX",
+					"settings":
+					{
+						"buffer_size": 8076,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								8076,
+								8076
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Text/Plain text.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 96.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
