@@ -55,7 +55,20 @@ public class HammerController: WarriorController {
         player.OnComboTrailEnd();
     }
         
-
+    public override void ReleaseCharge(BtnHoldState _upButton) {
+        if (FSM_Charge.ActiveStateName == "Charge_Loop_Armor") {
+            if (_upButton == downButton) {
+                FSM_Control.Fsm.Event("To_ChargeRelease");
+                FSM_Charge.Fsm.Event("To_ChargeRelease");
+            } 
+            FSM_Charge.Fsm.Event("To_StopCharge");
+            downButton = BtnHoldState.None;
+            return;
+        } else {
+            downButton = BtnHoldState.None;
+            FSM_Charge.Fsm.Event("To_StopCharge");
+        }
+    }
 
 	void LateUpdate () {
         //check if player can give input
@@ -71,7 +84,16 @@ public class HammerController: WarriorController {
                 StartJump();
             }
         }
-
+              //handle input button up
+        if ( Input.GetButtonUp("Right")) {
+            ReleaseCharge(BtnHoldState.Right);
+        }
+        if ( Input.GetButtonUp("Left")) {
+            ReleaseCharge(BtnHoldState.Left);
+        }
+        if ( Input.GetButtonUp("Jump")) {
+            ReleaseCharge(BtnHoldState.Jump);
+        } 
 		//handle movement
 		float horizonDist = Time.deltaTime * velocity.x;
         float verticalDist = 0;
@@ -141,6 +163,8 @@ public class HammerController: WarriorController {
     }
 
 	public override void TurnRight() {
+        downButton = BtnHoldState.Right;
+        FSM_Charge.Fsm.Event("To_ChargePrepare");   
         if (charMoveDir == MoveDir.Stop) {
             charMoveDir = MoveDir.Right;
             transform.localEulerAngles = new Vector3 (0, 0, 0);
@@ -161,6 +185,8 @@ public class HammerController: WarriorController {
 	}
 	
 	public override void TurnLeft() {
+        downButton = BtnHoldState.Left;
+        FSM_Charge.Fsm.Event("To_ChargePrepare");   
         if (charMoveDir == MoveDir.Left) {
             if ( FSM_Control.FsmVariables.GetFsmBool("isAffectedByGravity").Value == false ) {
                 //get into dash state
@@ -183,6 +209,7 @@ public class HammerController: WarriorController {
 	}
 
 	public override void StartJump() {
+        downButton = BtnHoldState.Jump;
         if ( FSM_Control.FsmVariables.GetFsmBool("isAffectedByGravity").Value == false ) {
             velocity.y = initJumpSpeed;
             FSM_Control.Fsm.Event("To_Jump");           
@@ -195,10 +222,15 @@ public class HammerController: WarriorController {
 
     public override void OnDamagePlayer (bool _isHurtFromLeft, int _damageAmount) {
         if ( FSM_Hit.FsmVariables.GetFsmBool("isAcceptDamage").Value == true ) {
-            Game.instance.OnPlayerHPChange(-_damageAmount);
-            StartHurt(_isHurtFromLeft);
-            Game.instance.theGamePanel.OnComboEnd();
-            FSM_Control.Fsm.Event("To_Stun_Ctrl");
+            if (FSM_Charge.ActiveStateName.Contains("Armor") || FSM_Control.ActiveStateName.Contains("Armor")) {
+                Game.instance.OnPlayerHPChange(-_damageAmount);
+                player.OnHurtStart();
+            } else {
+                Game.instance.OnPlayerHPChange(-_damageAmount);
+                StartHurt(_isHurtFromLeft);
+                Game.instance.theGamePanel.OnComboEnd();
+                FSM_Control.Fsm.Event("To_Stun_Ctrl");
+            }
         }
     }	
     

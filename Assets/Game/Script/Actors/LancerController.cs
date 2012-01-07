@@ -20,6 +20,7 @@ public class LancerController: WarriorController {
 
 
     public float dashSpeed = 600.0f;
+    public float chargeSpeedModifier = 1.3f;
     public ComboEffect[] comboEffect;
 
     public void OnComboHitUpdate(int _comboHit) {
@@ -54,7 +55,21 @@ public class LancerController: WarriorController {
         player.OnComboTrailEnd();
     }
         
-
+    public override void ReleaseCharge(BtnHoldState _upButton) {
+        if (FSM_Charge.ActiveStateName == "Charge_Prepare") {
+            FSM_Charge.Fsm.Event("To_StopCharge");
+            downButton = BtnHoldState.None;
+            return;
+        }
+        if (FSM_Charge.ActiveStateName == "Charge") {
+            if (_upButton == downButton) {
+                FSM_Control.Fsm.Event("To_ChargeRelease");
+            } 
+            FSM_Charge.Fsm.Event("To_StopCharge");
+            downButton = BtnHoldState.None;
+            return;
+        }
+    }
 
 	void Update () {
         //check if player can give input
@@ -70,6 +85,16 @@ public class LancerController: WarriorController {
                 StartJump();
             }
         }
+              //handle input button up
+        if ( Input.GetButtonUp("Right")) {
+            ReleaseCharge(BtnHoldState.Right);
+        }
+        if ( Input.GetButtonUp("Left")) {
+            ReleaseCharge(BtnHoldState.Left);
+        }
+        if ( Input.GetButtonUp("Jump")) {
+            ReleaseCharge(BtnHoldState.Jump);
+        } 
 
 		//handle movement
 		float horizonDist = Time.deltaTime * velocity.x;
@@ -132,6 +157,8 @@ public class LancerController: WarriorController {
     }
 
 	public override void TurnRight() {
+        downButton = BtnHoldState.Right;
+        FSM_Charge.Fsm.Event("To_ChargePrepare");       
         if (charMoveDir == MoveDir.Stop) {
             charMoveDir = MoveDir.Right;
             transform.localEulerAngles = new Vector3 (0, 0, 0);
@@ -147,17 +174,25 @@ public class LancerController: WarriorController {
             //get into dash state
             velocity.x = dashSpeed;
             FSM_Control.Fsm.Event("To_Dash");
+            } else if (FSM_Control.ActiveStateName == "Jump") {
+                velocity.x = dashSpeed;
+                FSM_Control.Fsm.Event("To_AirDash");
             }
         }
 	}
 	
 	public override void TurnLeft() {
+        downButton = BtnHoldState.Left;
+        FSM_Charge.Fsm.Event("To_ChargePrepare");
         if (charMoveDir == MoveDir.Left) {
             if ( FSM_Control.FsmVariables.GetFsmBool("isAffectedByGravity").Value == false ) {
                 //get into dash state
                 velocity.x = dashSpeed;
                 FSM_Control.Fsm.Event("To_Dash");
-            }
+            } else if (FSM_Control.ActiveStateName == "Jump") {
+                velocity.x = dashSpeed;
+                FSM_Control.Fsm.Event("To_AirDash");
+            } 
         }
         if (charMoveDir == MoveDir.Stop) {
             charMoveDir = MoveDir.Left;
@@ -174,6 +209,7 @@ public class LancerController: WarriorController {
 	}
 
 	public override void StartJump() {
+        downButton = BtnHoldState.Jump;
         if ( FSM_Control.FsmVariables.GetFsmBool("isAffectedByGravity").Value == false ) {
             velocity.y = initJumpSpeed;
             FSM_Control.Fsm.Event("To_Jump");           
@@ -184,6 +220,16 @@ public class LancerController: WarriorController {
 	}
 
     public void StopDash() {
+        velocity.x = initMoveSpeed;
+    }
+
+    public void ChargeMoveSpeed() {
+        initMoveSpeed = initMoveSpeed*chargeSpeedModifier;
+        velocity.x = initMoveSpeed;
+    }
+
+    public void RestoreMoveSpeed() {
+        initMoveSpeed = comboEffect[comboLevel].newMoveSpeed;
         velocity.x = initMoveSpeed;
     }
 
@@ -217,7 +263,8 @@ public class LancerController: WarriorController {
         string prevStateName = FSM_Control.FsmVariables.GetFsmString("PrevStateName").Value;
         if ( prevStateName == "Idle" ) {
 			FSM_Control.Fsm.Event("To_Idle");
-        } else if ( prevStateName == "Walk" || prevStateName == "Dash" || prevStateName == "Dash_Recover" ) {
+        } else if ( prevStateName == "Walk" || prevStateName == "Dash" || prevStateName == "Dash_Recover 
+                    || prevStateName == "Charge_Release" ) {
             FSM_Control.Fsm.Event("To_Walk");
         } else if ( prevStateName == "Jump" || prevStateName == "AirDash" || prevStateName == "Jump_NoMove" ) {	
             FSM_Control.Fsm.Event("To_JumpNoMove");
