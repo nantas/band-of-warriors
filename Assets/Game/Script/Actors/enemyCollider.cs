@@ -17,7 +17,7 @@ public class EnemyCollider : MonoBehaviour {
             isEnemyOnLeft = false;
         }
 
-		if (other.tag == "player") {
+		if (other.tag == "player" && transform.root.gameObject.tag != "itemCarrier") {
 			other.GetComponent<PlayerCollider>().TouchedEnemy(isEnemyOnLeft, 
                                                               controller.attackPower);
 

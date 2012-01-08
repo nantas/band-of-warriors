@@ -26,6 +26,7 @@ public class Game : MonoBehaviour {
 	[System.NonSerialized] public Spawner theSpawner;
     [System.NonSerialized] public ScoreCounter theScoreCounter;
     [System.NonSerialized] public LevelManager theLevelManager;
+    [System.NonSerialized] public ItemCarrier theItemCarrier;
     [System.NonSerialized] public int playerHP;
     [System.NonSerialized] public int playerLvl;
     [System.NonSerialized] public int currentExp;
@@ -53,6 +54,7 @@ public class Game : MonoBehaviour {
 		theSpawner = GetComponent<Spawner>();
         theScoreCounter = GetComponent<ScoreCounter>();
         theLevelManager = GameObject.FindWithTag("levelManager").GetComponent<LevelManager>();
+        theItemCarrier = GameObject.FindWithTag("itemCarrier").GetComponent<ItemCarrier>();
 	}
 
 	// Use this for initialization
@@ -99,7 +101,7 @@ public class Game : MonoBehaviour {
 
     public void OnPlayerLvlUp() {
         theGamePanel.playerLvlDisplay.text = "lv" + playerLvl;
-        OnPlayerHPChange(40);
+        //OnPlayerHPChange(40);
     }
 
     public void AcceptInput ( bool _accept ) {

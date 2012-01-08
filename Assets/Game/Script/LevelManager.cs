@@ -31,11 +31,10 @@ public class LevelManager : MonoBehaviour {
     [System.NonSerialized]public int currentLevel = 0;
     [System.NonSerialized]public int currentKillNum = 0;
 
-    [System.NonSerialized]public PlayMakerFSM FSM_Level;
-
     void Awake () {
         Init();
         Invoke("StartLevel", 2.0f);
+        Invoke("HealthPackTimer", 35.0f);
     }
 
     public void Init () {
@@ -43,6 +42,13 @@ public class LevelManager : MonoBehaviour {
         spawners = spawnerContainer.transform.GetComponentsInChildren<SpawnerEnemy>();
         foreach (SpawnerEnemy spawner in spawners) {
             spawner.levelManager = this;
+        }
+    }
+
+    public void HealthPackTimer() {
+        ItemCarrier itemCarrier = Game.instance.theItemCarrier;
+        if (itemCarrier.moveDir == MoveDir.Stop) {
+            itemCarrier.SpawnItemCarrier();
         }
     }
 

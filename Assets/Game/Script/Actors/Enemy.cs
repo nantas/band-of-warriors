@@ -43,7 +43,7 @@ public class Enemy : MonoBehaviour {
 	}
 	
 	// Use this for initialization
-	void Start () {
+	void Awake () {
 		isTakingDamage = false;
 		gameObject.Init();
 	}

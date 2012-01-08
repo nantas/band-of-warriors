@@ -23,9 +23,12 @@ public class ArcherController: WarriorController {
     public float charge2Speed = 130.0f;
     public float charge3Speed = 100.0f;
     public int maxArrowCount = 3;
+    public int maxJumpCount = 2;
     public Transform shootAnchor;
     [System.NonSerialized]public Spawner_Arrow arrowSpawner;
     public ComboEffectArcher[] comboEffect;
+
+    private int currentJumpCount = 0;
 
     void Start() {
         arrowSpawner = GetComponent<Spawner_Arrow>();
@@ -174,6 +177,8 @@ public class ArcherController: WarriorController {
                 //handle gameover
                 if (FSM_Control.FsmVariables.GetFsmBool("isPlayerNoHP").Value == false) {
                     FSM_Control.Fsm.Event("To_Walk");
+                    //reset jump count
+                    currentJumpCount = 0;
                 } else {
                     //player dead
                     PlayerDead();
@@ -246,7 +251,10 @@ public class ArcherController: WarriorController {
             velocity.y = initJumpSpeed;
             FSM_Control.Fsm.Event("To_Jump");           
         } else  {
-            FSM_Control.Fsm.Event("To_DoubleJump");
+            if (currentJumpCount < maxJumpCount) {
+                FSM_Control.Fsm.Event("To_DoubleJump");
+                currentJumpCount += 1;
+            }
         }
 	}
 

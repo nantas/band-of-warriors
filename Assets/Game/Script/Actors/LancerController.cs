@@ -239,6 +239,7 @@ public class LancerController: WarriorController {
             StartHurt(_isHurtFromLeft);
             Game.instance.theGamePanel.OnComboEnd();
             FSM_Control.Fsm.Event("To_Stun_Ctrl");
+            FSM_Charge.Fsm.Event("To_StopCharge");
         }
     }	
 
@@ -263,7 +264,7 @@ public class LancerController: WarriorController {
         string prevStateName = FSM_Control.FsmVariables.GetFsmString("PrevStateName").Value;
         if ( prevStateName == "Idle" ) {
 			FSM_Control.Fsm.Event("To_Idle");
-        } else if ( prevStateName == "Walk" || prevStateName == "Dash" || prevStateName == "Dash_Recover 
+        } else if ( prevStateName == "Walk" || prevStateName == "Dash" || prevStateName == "Dash_Recover" 
                     || prevStateName == "Charge_Release" ) {
             FSM_Control.Fsm.Event("To_Walk");
         } else if ( prevStateName == "Jump" || prevStateName == "AirDash" || prevStateName == "Jump_NoMove" ) {	

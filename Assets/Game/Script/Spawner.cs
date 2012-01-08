@@ -144,6 +144,76 @@ public class HitFXPool {
     }
 }
 
+[System.Serializable]
+public class ItemPool {
+
+    public int size;
+    public GameObject prefab;
+
+    private Item[] initItems;
+    private int idx = 0;
+    private Item[] items;
+
+    // ------------------------------------------------------------------ 
+    // Desc: 
+    // ------------------------------------------------------------------ 
+
+    public void Init ( exLayer _layer ) {
+        initItems = new Item[size]; 
+        if ( prefab != null ) {
+            for ( int i = 0; i < size; ++i ) {
+                GameObject obj = GameObject.Instantiate(prefab, Vector3.zero, Quaternion.identity) as GameObject;
+                initItems[i] = obj.GetComponent<Item>();
+				if (obj.GetComponent<exLayer>()) {
+                	obj.GetComponent<exLayer>().parent = _layer;
+				} else {
+					Debug.LogError ("please add a layer component to coin prefab.");
+				}
+            }
+        }
+        Reset();
+    }
+
+    // ------------------------------------------------------------------ 
+    // Desc: 
+    // ------------------------------------------------------------------ 
+
+    public void Reset () {
+        items = new Item[size];
+        for ( int i = 0; i < size; ++i ) {
+            items[i] = initItems[i];
+            items[i].enabled = false;
+        }
+        idx = size-1;
+    }
+
+    // ------------------------------------------------------------------ 
+    // Desc: 
+    // ------------------------------------------------------------------ 
+
+    public Item Request ( Vector3 _pos, Quaternion _rot )  {
+        if ( idx < 0 )
+            Debug.LogError ("Error: the pool do not have enough free item.");
+
+        Item result = items[idx];
+        --idx; 
+
+        result.transform.position = new Vector3 ( _pos.x, _pos.y, result.transform.position.z );
+        result.transform.rotation = _rot;
+        result.enabled = true;
+        return result;
+    }
+
+    // ------------------------------------------------------------------ 
+    // Desc: 
+    // ------------------------------------------------------------------ 
+
+    public void Return ( Item _item ) {
+        ++idx;
+        items[idx] = _item;
+    }
+}
+
 
 [System.Serializable]
 public class ScorePool {
@@ -228,6 +298,7 @@ public class Spawner : MonoBehaviour {
     public CoinPool coinPool = new CoinPool();
     public ScorePool scorePool = new ScorePool();
     public HitFXPool hitFXPool = new HitFXPool();
+    public ItemPool itemPool = new ItemPool();
 	
 	//spawner locations
 	public SpawnLocation topSpawner;
@@ -239,6 +310,7 @@ public class Spawner : MonoBehaviour {
         coinPool.Init(Game.instance.coinLayer);
         scorePool.Init(Game.instance.scoreLayer);
         hitFXPool.Init(Game.instance.fxLayer);
+        itemPool.Init(Game.instance.coinLayer);
 	}
 	
 	// Use this for initialization
@@ -255,6 +327,15 @@ public class Spawner : MonoBehaviour {
         if (aliveCoinCount < 0) aliveCoinCount = 0;
         _coin.enabled = false;
         coinPool.Return(_coin);
+    }
+
+    public HealthPack SpawnHealthPackAt (Vector2 _pos) {
+        return itemPool.Request(_pos, Quaternion.identity) as HealthPack;
+    }
+
+    public void DestroyHealthPack(HealthPack _hp) {
+        _hp.enabled = false;
+        itemPool.Return(_hp);
     }
 
     public exSpriteBase SpawnScoreAt (Vector2 _pos){

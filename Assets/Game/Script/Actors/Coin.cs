@@ -1,13 +1,16 @@
 using UnityEngine;
 using System.Collections;
 
-public class Coin : MonoBehaviour {
+public class Coin : Item {
 	
 	public exSprite spCoin;
 	public Collider spCollider;
     public int score = 1;
+    //how much the score pop up when coin is picked up. 
     public float scoreGoUpHeight = 100.0f;
+    //coin move time 
     public float coinMoveUpTime = 0.2f;
+    //score move time 
     public float scoreMoveUpTime = 0.1f;
     public enum PickUpState {
         Disabled,
@@ -16,7 +19,9 @@ public class Coin : MonoBehaviour {
         Stop
     }
 
+    //the ground height for coin when it drops down and stop moving
     public float coinStayHeight = -100.0f;
+    //the height coin go up to when it pops up
     public float coinJumpHeight = 100.0f; 
     private PickUpState coinState;
 
@@ -77,7 +82,7 @@ public class Coin : MonoBehaviour {
         Game.instance.theSpawner.DestroyCoin(this);
     }
 
-    public void OnPickedUp (bool _isPlayerOnRight) {
+    public override void OnPickedUp () {
         Spawner spawner = Game.instance.theSpawner;
 		spCollider.enabled = false;
         spawner.DestroyCoin(this);

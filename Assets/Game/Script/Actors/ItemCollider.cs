@@ -1,12 +1,12 @@
 using UnityEngine;
 using System.Collections;
 
-public class CoinCollider : MonoBehaviour {
+public class ItemCollider : MonoBehaviour {
 	
-	private Coin controller;
+	private Item controller;
 	
 	void Awake() {
-		controller = transform.parent.GetComponent<Coin>();
+		controller = transform.root.GetComponent<Item>();
 	}
 
 	void OnTriggerEnter (Collider other) {
@@ -18,7 +18,7 @@ public class CoinCollider : MonoBehaviour {
         }
 
 		if (other.tag == "player") {
-			controller.SendMessage("OnPickedUp", isPlayerOnRight);
+			controller.OnPickedUp();
         }
 	}
 	
