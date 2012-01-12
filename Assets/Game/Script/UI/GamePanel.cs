@@ -33,7 +33,7 @@ public class GamePanel : MonoBehaviour {
     public exSpriteFont missionInfoText;
     public exSpriteFont playerLvlDisplay;
     public exUIPanel panelGameOver;
-    public exSprite[] charSlots;
+    //public exSprite[] charSlots;
 
     ///////////////////////////////////////////////////////////////////////////////
     // functions
@@ -92,12 +92,14 @@ public class GamePanel : MonoBehaviour {
         }
     }
 
+    /*
     public void SlotUpdate(int _charIndex) {
         foreach (exSprite slot in charSlots) {
             slot.spanim.Play("slot_inactive");
         }
         charSlots[_charIndex-1].spanim.Play("slot_active");
     }
+    */
 
     public void OnMissionUpdate(EnemyClass _targetType, int _numToKill) {
         if (_numToKill < 0) _numToKill = 0;
