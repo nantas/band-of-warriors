@@ -74,9 +74,9 @@ public class Flymon : Enemy {
                 Coin coin = commonSpawner.SpawnCoinAt(new Vector2(transform.position.x, 
                                                                   transform.position.y));
                 if (lootSelector < 5 + Game.instance.thePlayer.playerController.curAddLootChance/2) {
-                    coin.score = 3;
+                    coin.score = 15;
                 } else {
-                    coin.score = 2;
+                    coin.score = 10;
                 }
                 coin.PopUp();
             }

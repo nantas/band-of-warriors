@@ -76,9 +76,9 @@ public class Slime : Enemy {
             if (commonSpawner.aliveCoinCount < commonSpawner.maxCoinCount) {
                 Coin coin = commonSpawner.SpawnCoinAt(new Vector2(transform.position.x, transform.position.y));
                 if (lootSelector < 5 + Game.instance.thePlayer.playerController.curAddLootChance/2) {
-                    coin.score = 2;
+                    coin.score = 10;
                 } else {
-                    coin.score = 1;
+                    coin.score = 5;
                 }
                 coin.PopUp();
             }

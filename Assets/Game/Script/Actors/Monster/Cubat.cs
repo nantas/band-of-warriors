@@ -90,9 +90,9 @@ public class Cubat : Enemy {
                 Coin coin = commonSpawner.SpawnCoinAt(new Vector2(transform.position.x, 
                                                                   transform.position.y));
                 if (lootSelector < 15 + Game.instance.thePlayer.playerController.curAddLootChance/2) {
-                    coin.score = 10;
+                    coin.score = 30;
                 } else {
-                    coin.score = 3;
+                    coin.score = 20;
                 }
                 coin.PopUp();
             }

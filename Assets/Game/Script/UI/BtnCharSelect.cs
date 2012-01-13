@@ -26,6 +26,7 @@ public class BtnCharSelect : MonoBehaviour {
 
 	public int charIndex;
     public PlayerBase nextChar;
+    public exUIPanel charSelectPanel;
 
     // ------------------------------------------------------------------ 
     // Desc: 
@@ -41,27 +42,39 @@ public class BtnCharSelect : MonoBehaviour {
     // ------------------------------------------------------------------ 
 
     void OnButtonPress () {
-        if (charIndex != Game.instance.curCharIndex && 
-            Game.instance.thePlayer.playerController.FSM_Control.ActiveStateName == "Walk") {
-            //handle slot color change
-            //Game.instance.theGamePanel.SlotUpdate(charIndex);
+        if (charIndex != Game.instance.curCharIndex) {
+            //handle portrait change
+            Game.instance.theGamePanel.SlotUpdate(charIndex);
             //switch character index
             Game.instance.curCharIndex = charIndex;
-            Vector3 ringOutPos = nextChar.transform.position;
-            nextChar.transform.position = Game.instance.thePlayer.transform.position;
-            Game.instance.thePlayer.transform.position = ringOutPos;
-            MoveDir curMoveDir = Game.instance.thePlayer.playerController.charMoveDir;
-            Game.instance.thePlayer.playerController.FSM_Control.Fsm.Event("To_Idle");
-            Game.instance.thePlayer.playerController.enabled = false;
-            //switch
-            Game.instance.thePlayer = nextChar;
-            Camera.main.GetComponent<CameraFollow>().target = nextChar.transform;
-            Game.instance.thePlayer.playerController.enabled = true;
-            Game.instance.thePlayer.playerController.charMoveDir = curMoveDir;
-            Game.instance.thePlayer.playerController.GetFaceDirection();
-            Game.instance.theGamePanel.ChangeNameDisplay();
-            Game.instance.thePlayer.playerController.FSM_Control.Fsm.Event("To_Walk");
-         }
+            SwitchCharacter();
+
+        }
+        charSelectPanel.transform.position 
+            = new Vector3 ( charSelectPanel.transform.position.x, 1500.0f, charSelectPanel.transform.position.z );
+        charSelectPanel.enabled = false;
+        Time.timeScale = 1.0f;
+    }
+
+    void SwitchCharacter() {
+        //switch position
+        Vector3 ringOutPos = nextChar.transform.position;
+        nextChar.transform.position = new Vector3(Game.instance.thePlayer.transform.position.x,
+                                                  Game.instance.groundPosY, 
+                                                  Game.instance.thePlayer.transform.position.z);
+        Game.instance.thePlayer.transform.position = ringOutPos;
+        MoveDir curMoveDir = Game.instance.thePlayer.playerController.charMoveDir;
+        Game.instance.thePlayer.playerController.FSM_Control.Fsm.Event("To_Idle");
+        Game.instance.thePlayer.playerController.enabled = false;
+        //switch
+        Game.instance.thePlayer = nextChar;
+        Camera.main.GetComponent<CameraFollow>().target = nextChar.transform;
+        Game.instance.thePlayer.playerController.enabled = true;
+        Game.instance.thePlayer.playerController.charMoveDir = curMoveDir;
+        Game.instance.thePlayer.playerController.GetFaceDirection();
+        Game.instance.thePlayer.playerController.charMoveDir = MoveDir.Stop;
+        Game.instance.theGamePanel.ChangeNameDisplay();
+        Game.instance.thePlayer.playerController.FSM_Control.Fsm.Event("To_Idle");
     }
 	
 }

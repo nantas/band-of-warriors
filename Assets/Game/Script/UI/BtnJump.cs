@@ -21,8 +21,10 @@ public class BtnJump : MonoBehaviour {
 	}
 	
 	void OnButtonPress () {
-		//Debug.Log("jump button pressed!");
+		Debug.Log("jump button pressed!");
 		playerControl = Game.instance.thePlayer.GetComponent<WarriorController>();;
+        Debug.Log(playerControl.gameObject);
+        Debug.Log(playerControl.isAcceptInput());
         if (playerControl.isAcceptInput()) {
     		playerControl.StartJump();
         }

@@ -87,9 +87,9 @@ public class BigSlime : Enemy {
             if (commonSpawner.aliveCoinCount < commonSpawner.maxCoinCount) {
                 Coin coin = commonSpawner.SpawnCoinAt(new Vector2(transform.position.x, transform.position.y));
                 if (lootSelector < 15 + Game.instance.thePlayer.playerController.curAddLootChance/2 ) {
-                    coin.score = 5;
+                    coin.score = 25;
                 } else {
-                    coin.score = 2;
+                    coin.score = 15;
                 }
                 coin.PopUp();
             }

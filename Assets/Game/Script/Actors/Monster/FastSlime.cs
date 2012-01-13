@@ -63,9 +63,9 @@ public class FastSlime : Enemy {
             if (commonSpawner.aliveCoinCount < commonSpawner.maxCoinCount) {
                 Coin coin = commonSpawner.SpawnCoinAt(new Vector2(transform.position.x, transform.position.y));
                 if (lootSelector < 10 + Game.instance.thePlayer.playerController.curAddLootChance/2) {
-                    coin.score = 3;
+                    coin.score = 10;
                 } else {
-                    coin.score = 1;
+                    coin.score = 5;
                 }
                 coin.PopUp();
             }

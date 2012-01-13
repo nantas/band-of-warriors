@@ -225,7 +225,7 @@ public class ArcherController: WarriorController {
                 if (arrowSpawner.aliveArrowCount < maxArrowCount) {
                     FSM_Control.Fsm.Event("To_Shoot");
                 }
-            } else if (FSM_Control.ActiveStateName == "Jump" ) {
+            } else if (FSM_Control.ActiveStateName == "Jump"  ) {
                 if (arrowSpawner.aliveArrowCount < maxArrowCount) {
                     FSM_Control.Fsm.Event("To_ShootInAir");
                 }
@@ -374,7 +374,9 @@ public class ArcherController: WarriorController {
         string prevStateName = FSM_Control.FsmVariables.GetFsmString("PrevStateName").Value;
         if ( prevStateName == "Idle" ) {
 			FSM_Control.Fsm.Event("To_Idle");
-        } else if ( prevStateName == "Walk" || prevStateName.Contains("Shoot") || prevStateName.Contains("Charge") ) {
+        } else if ( prevStateName == "Walk" || 
+                    (prevStateName.Contains("Shoot") && prevStateName != "Shoot_InAir")
+                    || prevStateName.Contains("Charge") ) {
             FSM_Control.Fsm.Event("To_Walk");
         } else if ( prevStateName.Contains("Jump")) {	
             FSM_Control.Fsm.Event("To_JumpNoMove");
