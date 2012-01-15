@@ -28,7 +28,6 @@ public class Game : MonoBehaviour {
     [System.NonSerialized] public LevelManager theLevelManager;
     [System.NonSerialized] public ItemCarrier theItemCarrier;
     [System.NonSerialized] public int playerHP;
-    [System.NonSerialized] public int playerLvl;
     [System.NonSerialized] public int currentExp;
     [System.NonSerialized] public int curCharIndex;
     public GamePanel theGamePanel;
@@ -60,7 +59,6 @@ public class Game : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         playerHP = initPlayerHP;
-        playerLvl = 1;
         currentExp = 0;
         curCharIndex = 1;
         AcceptInput(true);
@@ -84,24 +82,15 @@ public class Game : MonoBehaviour {
     }
 
     public void OnPlayerExpChange(int _amount) {
-        //TODO: add level up table and logic
-        currentExp += _amount;
-        if ( currentExp >= expReqForLvl[playerLvl-1] ) {
-            int extraExp = currentExp - expReqForLvl[playerLvl-1];
-            //TODO:put the level handle into on level change function
-            playerLvl += 1;
-            Game.instance.theGamePanel.ShowLevelUpText();
-            currentExp = 0;
-            OnPlayerLvlUp();
-            OnPlayerExpChange(extraExp);
-        } else {
-            theGamePanel.EXPbar.ratio = ((float)currentExp)/((float)expReqForLvl[playerLvl-1]);
-        }
+        CharacterBuild charBuild = thePlayer.GetComponent<CharacterBuild>();
+        charBuild.OnPlayerExpChange(_amount);
+
     }
 
-    public void OnPlayerLvlUp() {
-        theGamePanel.playerLvlDisplay.text = "lv" + playerLvl;
-        //OnPlayerHPChange(40);
+    public void OnExpDisplayUpdate() {
+        CharacterBuild charBuild = thePlayer.GetComponent<CharacterBuild>();
+        currentExp = charBuild.curExp;
+        theGamePanel.EXPbar.ratio = ((float)currentExp)/((float)expReqForLvl[charBuild.charLevel-1]);
     }
 
     public void AcceptInput ( bool _accept ) {

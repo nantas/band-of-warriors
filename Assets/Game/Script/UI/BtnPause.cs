@@ -44,6 +44,7 @@ public class BtnPause : MonoBehaviour {
         Time.timeScale = 0;
         pausePanel.transform.position 
             = new Vector3 ( Camera.main.transform.position.x , 0, pausePanel.transform.position.z );
+        Game.instance.AcceptInput(false);
         pausePanel.enabled = true;
     }
 }

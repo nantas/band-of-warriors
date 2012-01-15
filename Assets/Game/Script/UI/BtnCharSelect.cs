@@ -53,6 +53,7 @@ public class BtnCharSelect : MonoBehaviour {
         charSelectPanel.transform.position 
             = new Vector3 ( charSelectPanel.transform.position.x, 1500.0f, charSelectPanel.transform.position.z );
         charSelectPanel.enabled = false;
+        Game.instance.AcceptInput(true);
         Time.timeScale = 1.0f;
     }
 
@@ -75,6 +76,7 @@ public class BtnCharSelect : MonoBehaviour {
         Game.instance.thePlayer.playerController.charMoveDir = MoveDir.Stop;
         Game.instance.theGamePanel.ChangeNameDisplay();
         Game.instance.thePlayer.playerController.FSM_Control.Fsm.Event("To_Idle");
+        Game.instance.OnExpDisplayUpdate();
     }
 	
 }

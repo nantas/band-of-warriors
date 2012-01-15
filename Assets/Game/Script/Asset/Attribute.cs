@@ -1,7 +1,7 @@
 // ======================================================================================
-// File         : BtnResume.cs
+// File         : Attribute.cs
 // Author       : Wang Nan 
-// Last Change  : 10/31/2011 | 16:20:54 PM | Monday,October
+// Last Change  : 10/03/2011 | 15:36:48 PM | Monday,October
 // Description  : 
 // ======================================================================================
 
@@ -13,40 +13,23 @@ using UnityEngine;
 using System.Collections;
 
 ///////////////////////////////////////////////////////////////////////////////
-//
+// defines
 ///////////////////////////////////////////////////////////////////////////////
 
-public class BtnResume : MonoBehaviour {
-
-    ///////////////////////////////////////////////////////////////////////////////
-    // serialize properties
-    ///////////////////////////////////////////////////////////////////////////////
-    public exUIPanel pausePanel;
+public class Attribute : ScriptableObject {
 
     ///////////////////////////////////////////////////////////////////////////////
     //
     ///////////////////////////////////////////////////////////////////////////////
 
-    // ------------------------------------------------------------------ 
-    // Desc: 
-    // ------------------------------------------------------------------ 
+    public string name = "Attribute";
+    public string description = "Description of the Attribute.";
+    public float[] modifiers;
 
-	void Awake () {
-        exUIButton uiButton = GetComponent<exUIButton>();
-        uiButton.OnButtonPress += OnButtonPress;
-	}
+    ///////////////////////////////////////////////////////////////////////////////
+    //
+    ///////////////////////////////////////////////////////////////////////////////
 
-    // ------------------------------------------------------------------ 
-    // Desc: 
-    // ------------------------------------------------------------------ 
-
-    void OnButtonPress () {
-        Time.timeScale = 1.0f;
-        pausePanel.transform.position 
-            = new Vector3 ( pausePanel.transform.position.x, 1500.0f, pausePanel.transform.position.z );
-        pausePanel.enabled = false;
-        Game.instance.AcceptInput(true);
-    }
 }
 
 

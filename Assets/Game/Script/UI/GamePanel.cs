@@ -33,6 +33,7 @@ public class GamePanel : MonoBehaviour {
     public exSpriteFont missionInfoText;
     public exSpriteFont playerLvlDisplay;
     public exUIPanel panelGameOver;
+    public LevelUpPanel panelLevelUp;
     public exSprite charPortrait;
 
     ///////////////////////////////////////////////////////////////////////////////
@@ -46,7 +47,8 @@ public class GamePanel : MonoBehaviour {
     protected virtual void Awake () {
         //ScoreCounter scoreCounter = Game.instance.scoreCounter;
         scoreDisplay.text = "$" + "0";
-        playerLvlDisplay.text = "lv" + (Game.instance.playerLvl+1);
+        playerLvlDisplay.text = "lv" + 
+            (Game.instance.thePlayer.GetComponent<CharacterBuild>().charLevel+1);
         //hide combo display
         comboDisplay.transform.Translate(0, 800, 0);
         comboDisplay.enabled = false;

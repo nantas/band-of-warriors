@@ -44,6 +44,7 @@ public class BtnCallCharSelect : MonoBehaviour {
         Time.timeScale = 0;
         charSelectPanel.transform.position 
             = new Vector3 ( Camera.main.transform.position.x , 0, charSelectPanel.transform.position.z );
+        Game.instance.AcceptInput(false);
         charSelectPanel.enabled = true;
     }
 }
