@@ -23,7 +23,7 @@ public class Slime : Enemy {
 		float moveTime = 0;
 		if (moveDir == MoveDir.Down) {
 			targetPos.x = transform.position.x;
-			moveTime = 2.0f;
+			moveTime = 3.0f;
 		}
 		if (moveDir == MoveDir.Up) {
 			targetPos.x = transform.position.x;
@@ -31,11 +31,11 @@ public class Slime : Enemy {
 		}
 		if (moveDir == MoveDir.Left) {
 			targetPos.x = Game.instance.rightSpawnEntry.position.x - 30;
-			moveTime = 0.7f;
+			moveTime = 1.0f;
 		}
 		if (moveDir == MoveDir.Right) {
 			targetPos.x = Game.instance.leftSpawnEntry.position.x + 30;
-			moveTime = 0.7f;
+			moveTime = 1.0f;
 		}
 		gameObject.MoveTo(targetPos, moveTime, 0, EaseType.easeInOutQuad, "MoveToRandomLoc", gameObject);
 //		gameObject.MoveTo(targetPos, moveTime, 0);		

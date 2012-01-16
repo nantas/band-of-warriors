@@ -1,3 +1,11 @@
+// ======================================================================================
+// File         : Spawner.cs
+// Author       : nantas 
+// Last Change  : 01/16/2012 | 01:08:17 AM | Monday,January
+// Description  : Spawner for regular actors like coin, score and hit fx. 
+// ======================================================================================
+
+
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;

@@ -10,6 +10,7 @@ public class EnemyCollider : MonoBehaviour {
 	}
 
 	void OnTriggerEnter (Collider other) {
+        //check if the collide is from left or right 
         bool isEnemyOnLeft;
         if (transform.position.x < other.transform.position.x) {
             isEnemyOnLeft = true;
@@ -17,11 +18,13 @@ public class EnemyCollider : MonoBehaviour {
             isEnemyOnLeft = false;
         }
 
+        //when collide with player body, send message to player collider.
 		if (other.tag == "player" && transform.root.gameObject.tag != "itemCarrier") {
 			other.GetComponent<PlayerCollider>().TouchedEnemy(isEnemyOnLeft, 
                                                               controller.attackPower);
 
 		}
+        //when collide with player weapon, push back and trigger damage.
 		if (other.tag == "player_weapon") {
             Vector2 collisionPos = new Vector2((this.transform.position.x + 
                                                 other.transform.position.x)/2, 

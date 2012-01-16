@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections;
 
+//global enum defines enemy types, used to spawn enemy and track mission objective.
 public enum EnemyClass {
 	Slime,
 	BigSlime,

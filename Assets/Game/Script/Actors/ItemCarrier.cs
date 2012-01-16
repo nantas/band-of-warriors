@@ -3,9 +3,13 @@ using System.Collections;
 
 public class ItemCarrier : Enemy {
 
+    //trail particle effect.
     public ParticleEmitter fx;
+    //the time to finish movement in a single tween.
     public float moveTimePerWave;
+    //store the starting position of each tween.
     private Vector3 originPos;
+    //move direction of the item carrier.
     [System.NonSerialized]public MoveDir moveDir;
 
     void Start () {
@@ -13,8 +17,9 @@ public class ItemCarrier : Enemy {
         moveDir = MoveDir.Stop;
     }
 
-	
+	//start from left and move toward right.
     public void WaveMoveRight () {
+        //get position of each waypoint in path.
         Vector3 startPos = transform.position;
         Vector3 peakPos = new Vector3(startPos.x + 100.0f, startPos.y + 150.0f,
                                 startPos.z);
@@ -32,7 +37,9 @@ public class ItemCarrier : Enemy {
 		
     }
 
+    //move from right to left.
     public void WaveMoveLeft () {
+        //compile path.
         Vector3 startPos = transform.position;
         Vector3 peakPos = new Vector3(startPos.x - 100.0f, startPos.y + 150.0f,
                                 startPos.z);
@@ -53,6 +60,8 @@ public class ItemCarrier : Enemy {
 	public void SpawnItemCarrier () {
         spCollider.enabled = true;
         fx.emit = true;
+        //roll dice to decide spawn from left or right.
+        //starting location will be fixed, not related to camera.
         int dirSelector = Random.Range(1,10);
         if (dirSelector > 5) {
             //spawn carrier from the left
@@ -70,6 +79,7 @@ public class ItemCarrier : Enemy {
 		
 	}
 
+    //check out of bounds.
     void LateUpdate () {
         if (transform.position.x < Game.instance.leftBoundary.position.x 
             && moveDir == MoveDir.Left) {
@@ -83,6 +93,7 @@ public class ItemCarrier : Enemy {
         }
     }
 
+    //if out of bound, reset postion and wait to spawn again.
     void OnOutOfBound() {
         transform.position = originPos;
         moveDir = MoveDir.Stop;
@@ -98,6 +109,7 @@ public class ItemCarrier : Enemy {
             OnEnemyDie();
 	}
 
+    //when it's hit by player, reset postiion and wait to spawn again.
     public void OnEnemyDie() {
         SpawnLoot();
         transform.position = originPos;

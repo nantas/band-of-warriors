@@ -10,6 +10,7 @@ public class ItemCollider : MonoBehaviour {
 	}
 
 	void OnTriggerEnter (Collider other) {
+        //not using collide direction at the moment.
         bool isPlayerOnRight;
         if (transform.position.x < other.transform.position.x) {
             isPlayerOnRight = true;

@@ -3,12 +3,13 @@ using System.Collections;
 
 public class PlayerBase : MonoBehaviour {
 
+    //array to store reference for player sprites 
 	public exSprite[] allBodyParts;
+    //sprite fx such as speedline and weapon slash.
     public exSprite spFX;
+    //display trail fx when player has lv up the combo.
     public ParticleEmitter fxComboTrail;
     
-
-	[System.NonSerialized] public MoveDir charMoveState;
     [System.NonSerialized] public WarriorController playerController;
 	  
 	void Awake () {
@@ -31,6 +32,7 @@ public class PlayerBase : MonoBehaviour {
         }
 	}
 
+    //change particle display according to combo level.
     public void OnComboTrailUp (int _lvl) {
         if (_lvl == 1) {
             fxComboTrail.emit = true;

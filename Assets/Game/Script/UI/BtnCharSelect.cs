@@ -47,6 +47,7 @@ public class BtnCharSelect : MonoBehaviour {
             Game.instance.theGamePanel.SlotUpdate(charIndex);
             //switch character index
             Game.instance.curCharIndex = charIndex;
+            //start switching character
             SwitchCharacter();
 
         }
@@ -64,18 +65,23 @@ public class BtnCharSelect : MonoBehaviour {
                                                   Game.instance.groundPosY, 
                                                   Game.instance.thePlayer.transform.position.z);
         Game.instance.thePlayer.transform.position = ringOutPos;
+        //get the move direction.
         MoveDir curMoveDir = Game.instance.thePlayer.playerController.charMoveDir;
+        //send the old character state to idle and disable the controller.
         Game.instance.thePlayer.playerController.FSM_Control.Fsm.Event("To_Idle");
         Game.instance.thePlayer.playerController.enabled = false;
-        //switch
+        //switch reference in game class to the new character
         Game.instance.thePlayer = nextChar;
+        //switch camera target
         Camera.main.GetComponent<CameraFollow>().target = nextChar.transform;
+        //enable control for the new character, and set its state to idle.
         Game.instance.thePlayer.playerController.enabled = true;
         Game.instance.thePlayer.playerController.charMoveDir = curMoveDir;
         Game.instance.thePlayer.playerController.GetFaceDirection();
         Game.instance.thePlayer.playerController.charMoveDir = MoveDir.Stop;
-        Game.instance.theGamePanel.ChangeNameDisplay();
         Game.instance.thePlayer.playerController.FSM_Control.Fsm.Event("To_Idle");
+        //update name display and exp bar display
+        Game.instance.theGamePanel.ChangeNameDisplay();
         Game.instance.OnExpDisplayUpdate();
     }
 	

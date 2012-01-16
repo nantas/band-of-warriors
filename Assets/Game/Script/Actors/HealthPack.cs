@@ -5,13 +5,15 @@ public class HealthPack : Item {
 	
 	public exSprite spItem;
 	public Collider spCollider;
+    //health amount to recover.
     public int healthAmount = 30;
     public float itemGoUpHeight = 100.0f;
     public float itemMoveUpTime = 0.2f;
-    public float scoreMoveUpTime = 0.1f;
-
+    //the height it will stay on the ground.
     public float itemStayHeight = -100.0f;
+    //how high up the item will jump up after spawned.
     public float itemJumpHeight = 100.0f; 
+    //healing particle effect.
     public ParticleEmitter fxHeal;
 
     private Spawner spawner;
@@ -66,7 +68,6 @@ public class HealthPack : Item {
     }
 
     public void ItemDisappear () {
-        //TODO: add coin blink animation
         spItem.spanim.Stop();
         spawner.DestroyHealthPack(this);
     }
@@ -78,7 +79,6 @@ public class HealthPack : Item {
     }
 
     public void ShowHealEffect () {
-        //TODO add particle effect 
         fxHeal.Emit();
         spawner.DestroyHealthPack(this);
     }

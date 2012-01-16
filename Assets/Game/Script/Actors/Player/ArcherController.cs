@@ -11,27 +11,35 @@ using System.Collections;
 
 [System.Serializable]
 public class ComboEffectArcher {
+    //the hit number required to get next combo level.
     public int reqComboHit;
     public float newMoveSpeed;
+    //max arrow allowed to be on the field.
     public int newMaxArrowCount;
+    //chance to get more loot.
     public float chanceToGetMoreLoot;
 }
 
 public class ArcherController: WarriorController {
 
+    //when in charge, change move speed.
     public float charge1Speed = 180.0f;
     public float charge2Speed = 130.0f;
     public float charge3Speed = 100.0f;
     public int maxArrowCount = 3;
+    //how many jump in the air can perform.
     public int maxJumpCount = 2;
+    //the bone anchor for arrow launch position and direction.
     public Transform shootAnchor;
     [System.NonSerialized]public Spawner_Arrow arrowSpawner;
     public ComboEffectArcher[] comboEffect;
 
+    //current jump in the air count before player reaches ground.
     private int currentJumpCount = 0;
 
     void Start() {
         arrowSpawner = GetComponent<Spawner_Arrow>();
+        //speed up double jump animation.
 		animation["double_jump"].speed = 1.5f;
     }
 
@@ -66,7 +74,9 @@ public class ArcherController: WarriorController {
     }
         
 
+    //when a button is released, check if it's charged up enough.
     public override void ReleaseCharge(BtnHoldState _upButton) {
+        //if charge is not ready, stop charge.
         if (FSM_Charge.ActiveStateName == "Charge_Prepare") {
             FSM_Charge.Fsm.Event("To_StopCharge");
             downButton = BtnHoldState.None;
@@ -163,7 +173,7 @@ public class ArcherController: WarriorController {
                                                    transform.position.y, transform.position.z);
 		    }
 
-            //vertical
+            //vertical movement
             if ( FSM_Control.FsmVariables.GetFsmBool("isAffectedByGravity").Value == true  ) {
                 transform.Translate (0, verticalDist, 0);
             }
@@ -187,26 +197,33 @@ public class ArcherController: WarriorController {
         } 
     }
 
+    //handles player input when accepted.
 	public override void TurnRight() {
         downButton = BtnHoldState.Right;
+        //if player moves toward the same direction, enter charge state.
         FSM_Charge.Fsm.Event("To_ChargePrepare");
-        lastBtnDownTime = Time.time;
+        //if player in idle state, start moving.
         if (charMoveDir == MoveDir.Stop) {
             charMoveDir = MoveDir.Right;
+            //turn the prefab toward right, and update layer order. 
             transform.localEulerAngles = new Vector3 (0, 0, 0);
             layer.Dirty();
+            //set velocity to initMoveSpeed and enter walk state.
             velocity.x = initMoveSpeed;
             FSM_Control.Fsm.Event("To_Walk");
+            //if player moves toward left, turn around to the right.
         } else if (charMoveDir == MoveDir.Left) {
             charMoveDir = MoveDir.Right;
             transform.localEulerAngles = new Vector3 (0, 0, 0);
             layer.Dirty();
         } else if (charMoveDir == MoveDir.Right) {
+            //if player is not in the air, do shoot
             if ( FSM_Control.FsmVariables.GetFsmBool("isAffectedByGravity").Value == false ) {
                 if (arrowSpawner.aliveArrowCount < maxArrowCount) {
                     //get into dash state
                     FSM_Control.Fsm.Event("To_Shoot");
                 }
+                //if player is in the air, do shoot in the air.
             } else if (FSM_Control.ActiveStateName == "Jump" ) {
                 if (arrowSpawner.aliveArrowCount < maxArrowCount) {
                     FSM_Control.Fsm.Event("To_ShootInAir");
@@ -218,7 +235,6 @@ public class ArcherController: WarriorController {
 	public override void TurnLeft() {
         downButton = BtnHoldState.Left;
         FSM_Charge.Fsm.Event("To_ChargePrepare");
-        lastBtnDownTime = Time.time;
         if (charMoveDir == MoveDir.Left) {
             if ( FSM_Control.FsmVariables.GetFsmBool("isAffectedByGravity").Value == false ) {
                 //get to shoot state
@@ -247,10 +263,12 @@ public class ArcherController: WarriorController {
 
 	public override void StartJump() {
         downButton = BtnHoldState.Jump;
+        //if player is on the ground, start jump.
         if ( FSM_Control.FsmVariables.GetFsmBool("isAffectedByGravity").Value == false ) {
             velocity.y = initJumpSpeed;
             FSM_Control.Fsm.Event("To_Jump");           
         } else  {
+            //if player is in the air, do double jump if jump count allows.
             if (currentJumpCount < maxJumpCount) {
                 FSM_Control.Fsm.Event("To_DoubleJump");
                 currentJumpCount += 1;
@@ -258,6 +276,7 @@ public class ArcherController: WarriorController {
         }
 	}
 
+    //update movespeed in charge state.
     public void Charge1MoveSpeed() {
         initMoveSpeed = charge1Speed;
         velocity.x = initMoveSpeed;
@@ -278,10 +297,12 @@ public class ArcherController: WarriorController {
         velocity.x = initMoveSpeed;
     }
 
+    //shoot arrow without gravity.
     public void HorizontalShoot() {
         ShootArrow(false);
     }
 
+    //shoot arrow upwards, with override gravity and initial speed.
     public void UpShoot() {
         if (arrowSpawner.aliveArrowCount < maxArrowCount) {
             Vector2 pos = new Vector2(shootAnchor.position.x, shootAnchor.position.y);
@@ -295,6 +316,7 @@ public class ArcherController: WarriorController {
         }
     }
 
+    //shoot arrow in parabola, with override gravity and initial speed.
     public void ParaShoot() {
         if (arrowSpawner.aliveArrowCount < maxArrowCount) {
             Vector2 pos = new Vector2(shootAnchor.position.x, shootAnchor.position.y);
@@ -309,6 +331,7 @@ public class ArcherController: WarriorController {
     }
 
 
+    //shoot arrow horizontally with penetrating property and enlarged hit box.
     public void PowerShoot() {
         Vector2 pos = new Vector2(shootAnchor.position.x, shootAnchor.position.y);
         Arrow arrow = arrowSpawner.SpawnArrowAt(pos);
@@ -324,15 +347,18 @@ public class ArcherController: WarriorController {
     }
 
 
+    //jump in the air with magic number speed.
     public void DoubleJump() {
         velocity.y = initJumpSpeed+100;
         velocity.x = initMoveSpeed + 100;
     }
 
+    //restore horizontal movespeed at the end of double jump.
     public void StopDoubleJump() {
         velocity.x = initMoveSpeed;
     }
 
+    //launch an arrow from shootAnchor. you can choose to give arrow gravity or not.
     public void ShootArrow(bool _isArrowAffectedByGravity) {
         Vector2 pos = new Vector2(shootAnchor.position.x, shootAnchor.position.y);
         Arrow arrow = arrowSpawner.SpawnArrowAt(pos);
@@ -341,8 +367,7 @@ public class ArcherController: WarriorController {
         arrow.LaunchArrowAt(shootAnchor, _isArrowAffectedByGravity);
     }   
 
-
-
+    //when player body collide with enemy
     public override void OnDamagePlayer (bool _isHurtFromLeft, int _damageAmount) {
         if ( FSM_Hit.FsmVariables.GetFsmBool("isAcceptDamage").Value == true ) {
             Game.instance.OnPlayerHPChange(-_damageAmount);
@@ -370,6 +395,7 @@ public class ArcherController: WarriorController {
         }
     }
 
+    //when player gets out of stun state, go back to a proper state according to where he was.
     public void OnStunExit() {
         string prevStateName = FSM_Control.FsmVariables.GetFsmString("PrevStateName").Value;
         if ( prevStateName == "Idle" ) {

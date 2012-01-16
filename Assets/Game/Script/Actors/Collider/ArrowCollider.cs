@@ -24,6 +24,7 @@ public class ArrowCollider : MonoBehaviour {
         spArrow.spanim.Play("arrow_hit");
         exSprite fx = commonSpawner.SpawnHitFXAt(_pos) as exSprite;
         fx.spanim.Play("hitFX");
+        //only destroy arrow if it's not power shot
         if (arrow.isPenetrating == false) {
             arrow.spawner.DestroyArrow(arrow);
         }

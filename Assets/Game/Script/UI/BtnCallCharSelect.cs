@@ -41,6 +41,7 @@ public class BtnCallCharSelect : MonoBehaviour {
     // ------------------------------------------------------------------ 
 
     void OnButtonPress () {
+        //TODO need better pause method.
         Time.timeScale = 0;
         charSelectPanel.transform.position 
             = new Vector3 ( Camera.main.transform.position.x , 0, charSelectPanel.transform.position.z );

@@ -8,6 +8,7 @@
 using UnityEngine;
 using System.Collections;
 
+//check which button was previously pressed.
 public enum BtnHoldState {
     Left,
     Right,
@@ -17,27 +18,38 @@ public enum BtnHoldState {
 
 public class WarriorController : MonoBehaviour {
 
+    //horizontal move speed for character.
 	public float initMoveSpeed = 175.0f;
+    //vertical jump speed 
     public float initJumpSpeed = 1200.0f;
+    //display name for character.
     public string charName;
+    //display class name for character.
     public string charClass;
 
-
+    //the visual part of the player.
     [System.NonSerialized]public PlayerBase player; 
+    //which direction the player is going to.
 	[System.NonSerialized]public MoveDir charMoveDir;
+    //playmaker state machine reference.
     [System.NonSerialized]public PlayMakerFSM FSM_Control;
     [System.NonSerialized]public PlayMakerFSM FSM_Hit;
     [System.NonSerialized]public PlayMakerFSM FSM_Charge;
+    //current combo level for the character.
     [System.NonSerialized]public int comboLevel;
-    protected exLayer layer;
-    protected BtnHoldState downButton;
-    protected float lastBtnDownTime;
+    //helper variable to compute loot drop rate easier.
     public int curAddLootChance;
-
+    //reference to the prefab exLayer component, to fix layer order when prefab flips.
+    protected exLayer layer;
+    //the last pressed button. to check charge states.
+    protected BtnHoldState downButton;
+    
+    //velocity of the player. this is the main thing that handles movement.
     protected Vector2 velocity;
 
 
     protected virtual void Awake () {
+        //get the reference of playmaker fsms.
         PlayMakerFSM[] fsms = GetComponents<PlayMakerFSM>();
         foreach (PlayMakerFSM fsm in fsms) {
             if (fsm.FsmName == "FSM_Control") {
@@ -50,6 +62,7 @@ public class WarriorController : MonoBehaviour {
                 FSM_Charge = fsm;
             }
         }
+        //initialize key variables.
         player = transform.GetComponent<PlayerBase>();
         layer = GetComponent<exLayer>();
         velocity = new Vector2(0, 0);
@@ -58,10 +71,12 @@ public class WarriorController : MonoBehaviour {
         downButton = BtnHoldState.None;
     }
 
+    //check if player is able to accept input, depending on fsm variable set.
     public bool isAcceptInput() {
         return FSM_Control.FsmVariables.GetFsmBool("isAcceptInput").Value;
     }
 
+    //flip player without a button input. this is used in menu actions.
     public void GetFaceDirection() {
         if (Game.instance.thePlayer.playerController.charMoveDir == MoveDir.Left){
             transform.localEulerAngles = new Vector3 (0, 180, 0);
@@ -74,7 +89,7 @@ public class WarriorController : MonoBehaviour {
 
 
        
-
+    //virtual functions that will be override by child class.
     public virtual void OnComboHitUpdate(){
     }
 

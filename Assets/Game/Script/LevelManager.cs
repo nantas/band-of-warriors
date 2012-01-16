@@ -10,6 +10,8 @@ using System.Collections;
 
 public class LevelManager : MonoBehaviour {
     
+    //SpawnerInfo is the spawner needed for a certain type of enemy
+    //also it will contains information of max alive and spawn interval.
     [System.Serializable]
     public class SpawnerInfo {
         public EnemyClass enemyType;
@@ -18,6 +20,9 @@ public class LevelManager : MonoBehaviour {
         public float maxSpawnInterval;
     }
 
+    //LevelInfo contains information about in a certain level,
+    //which SpawnerInfo are used and what's the mission for the level.
+    //usually kill certain numbers of a certain enemy.
     [System.Serializable]
     public class LevelInfo {
         public SpawnerInfo[] spawnerInfo;
@@ -80,14 +85,17 @@ public class LevelManager : MonoBehaviour {
     }
 
     public void StartLevel() {
+        //update hud display.
         Game.instance.theGamePanel.OnStageUpdate(currentLevel);
         Game.instance.theGamePanel.OnMissionUpdate(levelInfos[currentLevel].targetEnemy, 
                                   (levelInfos[currentLevel].targetKillNum-currentKillNum));
+        //get SpawnerInfo for the current level.
         SpawnerInfo[] spawnerInfos = levelInfos[currentLevel].spawnerInfo;
         if ( spawnerInfos == null ) {
             Debug.LogError("no available spawn info in LevelInfo class!");
         } else {
             foreach (SpawnerInfo spawnerInfo in spawnerInfos) {
+                //invoke spawn for each enemy spawner 
                 SpawnerEnemy spawnerA = GetSpawnerFromEnemyType(spawnerInfo.enemyType);
                 spawnerA.maxEnemyCount = spawnerInfo.maxAliveCount;
                 spawnerA.minSpawnTime = spawnerInfo.minSpawnInterval;
@@ -97,6 +105,7 @@ public class LevelManager : MonoBehaviour {
         }
     }
 
+    //input EnemyClass, output Spawner for the enemy.
     public SpawnerEnemy GetSpawnerFromEnemyType (EnemyClass _enemyType) {
         if (_enemyType == EnemyClass.Slime) {
             return spawnerContainer.GetComponentInChildren<Spawner_Slime>();
@@ -123,6 +132,7 @@ public class LevelManager : MonoBehaviour {
     }
 
     public void LevelComplete() {
+        //TODO level complete display
         Debug.Log("LevelComplete");
     }
 

@@ -9,6 +9,7 @@ public class BowCollider : MonoBehaviour {
 	private PlayerBase controller;
     private Spawner commonSpawner;
     private Collider collider;
+    //this is the bow's durability, when it reaches maxHitBeforeBreak it will not collide with enemy anymore
     private int curHit = 0;
 	
 	void Awake () {
@@ -23,9 +24,11 @@ public class BowCollider : MonoBehaviour {
 	}
 
     void Start () {
+        //invoke a timer to recover durability over time.
         InvokeRepeating("HitReduceTimer", 0, timePerHitRecover);
     }
 
+    //reduce hit number over time.
     void HitReduceTimer() {
         curHit -= 1;
         if ( curHit < 0 )
@@ -37,7 +40,9 @@ public class BowCollider : MonoBehaviour {
         Game.instance.theGamePanel.OnComboUpdate();
         //play weapon flash white
         spWeapon.spanim.Play("flash_white");
+        //increase hit number when collide with enemy.
         curHit += 1;
+        //when hit number reaches limit, bow will temporarily break. and recover after 3 seconds.
         if (curHit > maxHitBeforeBreak) {
             spWeapon.spanim.Play("broken");
             collider.enabled = false;
@@ -50,6 +55,7 @@ public class BowCollider : MonoBehaviour {
         commonSpawner.DestroyHitFX(fx);
 	}
 
+    //reset hit number when recovers.
     void WeaponRecover() {
         spWeapon.spanim.Stop();
         collider.enabled = true;

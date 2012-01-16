@@ -13,7 +13,9 @@ using UnityEngine;
 using System.Collections;
 
 ///////////////////////////////////////////////////////////////////////////////
-// defines
+//Attribute asset class, create different attribute and put them into the available
+//attribute list in CharacterBuild class. 
+//When player level up, he will choose from the list to learn.
 ///////////////////////////////////////////////////////////////////////////////
 
 public class Attribute : ScriptableObject {

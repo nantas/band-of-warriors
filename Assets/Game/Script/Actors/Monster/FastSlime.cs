@@ -13,6 +13,7 @@ public class FastSlime : Enemy {
                           "MoveToPlayer", gameObject);
     }
 	
+    //use a set of waypoint to move them up and down.
 	public void GetIntoField () {
         spEnemy.spanim.Play("fast_slime_idle");
         Vector3 originPos = transform.position;

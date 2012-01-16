@@ -3,6 +3,7 @@ using System.Collections;
 
 public class Cubat : Enemy {
 	
+    //fly to a position to get ready for the pounce.
     public void MoveToNearPlayer () {
         float playerX = Game.instance.thePlayer.transform.position.x;
         float targetX = Random.Range(playerX - 150, playerX + 150);
@@ -11,6 +12,7 @@ public class Cubat : Enemy {
                                                      transform.position.z);
         float dist = Vector3.Distance(targetPos, transform.position);
         float moveTime = Mathf.Abs(dist)/moveSpeed;
+        //magic number.
         float delayTime = Random.Range(0.0f, 0.7f);
         GetFlipDirection(targetPos.x);
         //start moving
@@ -18,8 +20,10 @@ public class Cubat : Enemy {
                           "MoveToPlayer", gameObject);
     }
 
+    //dash to player after a short delay.
     public void MoveToPlayer () {
         Vector3 playerPos = Game.instance.thePlayer.transform.position;
+        //magic number.
         float moveTime = Random.Range(0.5f, 0.7f);
         float delayTime = Random.Range(0.3f, 0.5f);
         GetFlipDirection(playerPos.x);
@@ -46,6 +50,7 @@ public class Cubat : Enemy {
                           EaseType.easeInOutQuad, "MoveToNearPlayer", gameObject);	
 	}
 
+    //turn sprite around according to which direction it's heading toward.
     public void GetFlipDirection (float _targetPosX) {
 
         if (_targetPosX < transform.position.x) {

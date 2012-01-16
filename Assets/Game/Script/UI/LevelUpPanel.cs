@@ -10,6 +10,7 @@ using System.Collections;
 
 public class LevelUpPanel: MonoBehaviour {
 
+    //reference of attribute select slots.
     public BtnAttributeSelect[] attributeSlot;
 
 }

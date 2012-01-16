@@ -12,12 +12,14 @@ using System.Collections;
 public class ComboEffectHam {
     public int reqComboHit;
     public float newMoveSpeed;
+    //increase attack damage
     public int newAttackPower;
     public float chanceToGetMoreLoot;
 }
 
 public class HammerController: WarriorController {
 
+    //initial attack damage. not in use yet.
     public int attackPower = 2;
     public ComboEffectHam[] comboEffect;
 
@@ -34,6 +36,7 @@ public class HammerController: WarriorController {
     }
 
     void Start () {
+        //changed uppercut animation speed.
 		animation["uppercut"].speed = 2.0f;
     }
 
@@ -56,6 +59,7 @@ public class HammerController: WarriorController {
     }
         
     public override void ReleaseCharge(BtnHoldState _upButton) {
+        //only enters charge release state when it's already in charge loop state.
         if (FSM_Charge.ActiveStateName == "Charge_Loop_Armor") {
             if (_upButton == downButton) {
                 FSM_Control.Fsm.Event("To_ChargeRelease");
@@ -150,6 +154,7 @@ public class HammerController: WarriorController {
                     //handle gameover
                     PlayerDead();
                 } else if (FSM_Control.ActiveStateName == "AirAttack") {
+                    //handles AirAttack landing specificaly
                     velocity.y = initJumpSpeed/2 + 350;
                     transform.Translate(0, velocity.y * Time.deltaTime, 0);
                     FSM_Control.Fsm.Event("To_AirAttack_Recover");
@@ -214,7 +219,6 @@ public class HammerController: WarriorController {
             velocity.y = initJumpSpeed;
             FSM_Control.Fsm.Event("To_Jump");           
         } else  {
-            //velocity.x = 0;
             velocity.y = initJumpSpeed;
             FSM_Control.Fsm.Event("To_AirAttack");
         }

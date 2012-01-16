@@ -12,6 +12,7 @@ using System.Collections;
 public class ComboEffect {
     public int reqComboHit;
     public float newMoveSpeed;
+    //increase dash speed with combo lv up.
     public float newDashSpeed;
     public float chanceToGetMoreLoot;
 }
@@ -20,6 +21,7 @@ public class LancerController: WarriorController {
 
 
     public float dashSpeed = 600.0f;
+    //when in charge state, lancer speed will go up, this is a multiplier.
     public float chargeSpeedModifier = 1.3f;
     public ComboEffect[] comboEffect;
 

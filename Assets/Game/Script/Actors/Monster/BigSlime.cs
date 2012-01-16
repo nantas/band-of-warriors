@@ -12,17 +12,19 @@ public class BigSlime : Enemy {
         HP = 3;
     }
 
+    //move to random position along ground height.
     public void MoveToRandomLoc () {
         Vector3 targetPos = new Vector3(Random.Range(Game.instance.leftSpawnEntry.position.x, 
                                                      Game.instance.rightSpawnEntry.position.x),
                                         Game.instance.groundPosY, transform.position.z);
         float moveTime = Mathf.Abs((targetPos.x - transform.position.x))/moveSpeed;
         float delayTime = Random.Range(0.0f, 0.7f);
-        //start moving
+        //start moving, and repeating after reach the position.
         gameObject.MoveTo(targetPos, moveTime, delayTime, EaseType.linear, 
                           "MoveToRandomLoc", gameObject);
     }
 	
+    //after spawn, move into the camera view.
 	public void GetIntoField (MoveDir moveDir) {
         spEnemy.spanim.Play("big_slime_idle");
 		Vector3 targetPos = new Vector3(0, Game.instance.groundPosY, transform.position.z);
@@ -56,6 +58,7 @@ public class BigSlime : Enemy {
             if (HP <= 0) {
                 StartCoroutine(OnDeath());
             } else {
+                //if hp is not 0, go back to random move.
                 isTakingDamage = false;
                 spCollider.enabled = true;
                 spEnemy.spanim.Play("big_slime_idle");
@@ -67,10 +70,12 @@ public class BigSlime : Enemy {
     public IEnumerator OnDeath() {
             spEnemy.spanim.Play("big_slime_die");
 //          float animTime = spEnemy.spanim.animations[2].length;
+            //magic number animation time.
             float animTime = 0.3f;
             yield return new WaitForSeconds(animTime);
             Game.instance.OnPlayerExpChange(expPerKill);
             Spawner_BigSlime thisSpawner = spawner.GetComponent<Spawner_BigSlime>() as Spawner_BigSlime;
+            //explodes and spawn fast slime.
             thisSpawner.SpawnFastSlimeFrom(this, 3);
             yield return new WaitForSeconds(0.1f);
             thisSpawner.DestroyEnemy(this);
@@ -82,10 +87,11 @@ public class BigSlime : Enemy {
     public void SpawnLoot () {
         int lootSelector = Random.Range(1, 100);
         Spawner commonSpawner = Game.instance.theSpawner;
-        //spawn coin
+        //when selector < 35, spawn coin
         if (lootSelector < 35 + Game.instance.thePlayer.playerController.curAddLootChance) {
             if (commonSpawner.aliveCoinCount < commonSpawner.maxCoinCount) {
                 Coin coin = commonSpawner.SpawnCoinAt(new Vector2(transform.position.x, transform.position.y));
+                //when selector < a certain amount, give coin a bigger score.
                 if (lootSelector < 15 + Game.instance.thePlayer.playerController.curAddLootChance/2 ) {
                     coin.score = 25;
                 } else {
