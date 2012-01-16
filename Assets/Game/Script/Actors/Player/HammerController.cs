@@ -41,18 +41,19 @@ public class HammerController: WarriorController {
     }
 
     public void OnComboEffectUp() {
-        initMoveSpeed = comboEffect[comboLevel].newMoveSpeed;
+        moveSpeed += comboEffect[comboLevel].newMoveSpeed;
         attackPower = comboEffect[comboLevel].newAttackPower;
-        velocity.x = initMoveSpeed;
+        velocity.x = moveSpeed;
         curAddLootChance = (int) (comboEffect[comboLevel].chanceToGetMoreLoot * 100);
         //TODO add emitter effect control
         player.OnComboTrailUp(comboLevel);
     }
 
     public void OnComboEffectDown() {
-        initMoveSpeed = comboEffect[comboLevel].newMoveSpeed;
+        //restore moveSpeed
+        Game.instance.OnPlayerAttributeUpdate();
         attackPower = comboEffect[comboLevel].newAttackPower;
-        velocity.x = initMoveSpeed;
+        velocity.x = moveSpeed;
         curAddLootChance = 0;
         //TODO add emitter effect control
         player.OnComboTrailEnd();
@@ -155,7 +156,7 @@ public class HammerController: WarriorController {
                     PlayerDead();
                 } else if (FSM_Control.ActiveStateName == "AirAttack") {
                     //handles AirAttack landing specificaly
-                    velocity.y = initJumpSpeed/2 + 350;
+                    velocity.y = jumpSpeed/2 + 350;
                     transform.Translate(0, velocity.y * Time.deltaTime, 0);
                     FSM_Control.Fsm.Event("To_AirAttack_Recover");
                 } else {
@@ -174,7 +175,7 @@ public class HammerController: WarriorController {
             charMoveDir = MoveDir.Right;
             transform.localEulerAngles = new Vector3 (0, 0, 0);
             layer.Dirty();
-            velocity.x = initMoveSpeed;
+            velocity.x = moveSpeed;
             FSM_Control.Fsm.Event("To_Walk");
         } else if (charMoveDir == MoveDir.Left) {
             charMoveDir = MoveDir.Right;
@@ -183,7 +184,7 @@ public class HammerController: WarriorController {
         } else if (charMoveDir == MoveDir.Right) {
             if ( FSM_Control.FsmVariables.GetFsmBool("isAffectedByGravity").Value == false ) {
             //get into uppercut
-            velocity.x = initMoveSpeed;
+            velocity.x = moveSpeed;
             FSM_Control.Fsm.Event("To_Uppercut");
             }
         }
@@ -195,7 +196,7 @@ public class HammerController: WarriorController {
         if (charMoveDir == MoveDir.Left) {
             if ( FSM_Control.FsmVariables.GetFsmBool("isAffectedByGravity").Value == false ) {
                 //get into dash state
-                velocity.x = initMoveSpeed;
+                velocity.x = moveSpeed;
                 FSM_Control.Fsm.Event("To_Uppercut");
             }
         }
@@ -203,7 +204,7 @@ public class HammerController: WarriorController {
             charMoveDir = MoveDir.Left;
             transform.localEulerAngles = new Vector3 (0, 180, 0);
             layer.Dirty();
-            velocity.x = initMoveSpeed;
+            velocity.x = moveSpeed;
             FSM_Control.Fsm.Event("To_Walk");
         } 
         if (charMoveDir == MoveDir.Right) {
@@ -216,10 +217,10 @@ public class HammerController: WarriorController {
 	public override void StartJump() {
         downButton = BtnHoldState.Jump;
         if ( FSM_Control.FsmVariables.GetFsmBool("isAffectedByGravity").Value == false ) {
-            velocity.y = initJumpSpeed;
+            velocity.y = jumpSpeed;
             FSM_Control.Fsm.Event("To_Jump");           
         } else  {
-            velocity.y = initJumpSpeed;
+            velocity.y = jumpSpeed;
             FSM_Control.Fsm.Event("To_AirAttack");
         }
 	}

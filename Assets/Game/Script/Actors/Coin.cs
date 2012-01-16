@@ -84,7 +84,11 @@ public class Coin : Item {
         Spawner spawner = Game.instance.theSpawner;
 		spCollider.enabled = false;
         spawner.DestroyCoin(this);
-        ShowCoinScore (score);
+        //ATTR: att_goldBoost multiplier
+        float goldBoostMultiplier = Game.instance.thePlayer
+            .charBuild.GetAttributeEffectMultiplier("att_goldBoost");
+        int goldAfterBoost = Mathf.FloorToInt(score * goldBoostMultiplier);
+        ShowCoinScore (goldAfterBoost);
     }
 
     public void ShowCoinScore (int _score) {

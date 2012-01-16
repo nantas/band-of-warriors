@@ -36,22 +36,20 @@ public class LancerController: WarriorController {
         }
     }
 
-    void Start() {
-    }
-
     public void OnComboEffectUp() {
-        initMoveSpeed = comboEffect[comboLevel].newMoveSpeed;
+        moveSpeed += comboEffect[comboLevel].newMoveSpeed;
         dashSpeed = comboEffect[comboLevel].newDashSpeed;
-        velocity.x = initMoveSpeed;
+        velocity.x = moveSpeed;
         curAddLootChance = (int) (comboEffect[comboLevel].chanceToGetMoreLoot * 100);
         //TODO add emitter effect control
         player.OnComboTrailUp(comboLevel);
     }
 
     public void OnComboEffectDown() {
-        initMoveSpeed = comboEffect[comboLevel].newMoveSpeed;
+        //restore moveSpeed
+        Game.instance.OnPlayerAttributeUpdate();
         dashSpeed = comboEffect[comboLevel].newDashSpeed;
-        velocity.x = initMoveSpeed;
+        velocity.x = moveSpeed;
         curAddLootChance = 0;
         //TODO add emitter effect control
         player.OnComboTrailEnd();
@@ -165,7 +163,7 @@ public class LancerController: WarriorController {
             charMoveDir = MoveDir.Right;
             transform.localEulerAngles = new Vector3 (0, 0, 0);
             layer.Dirty();
-            velocity.x = initMoveSpeed;
+            velocity.x = moveSpeed;
             FSM_Control.Fsm.Event("To_Walk");
         } else if (charMoveDir == MoveDir.Left) {
             charMoveDir = MoveDir.Right;
@@ -200,7 +198,7 @@ public class LancerController: WarriorController {
             charMoveDir = MoveDir.Left;
             transform.localEulerAngles = new Vector3 (0, 180, 0);
             layer.Dirty();
-            velocity.x = initMoveSpeed;
+            velocity.x = moveSpeed;
             FSM_Control.Fsm.Event("To_Walk");
         } 
         if (charMoveDir == MoveDir.Right) {
@@ -213,7 +211,7 @@ public class LancerController: WarriorController {
 	public override void StartJump() {
         downButton = BtnHoldState.Jump;
         if ( FSM_Control.FsmVariables.GetFsmBool("isAffectedByGravity").Value == false ) {
-            velocity.y = initJumpSpeed;
+            velocity.y = jumpSpeed;
             FSM_Control.Fsm.Event("To_Jump");           
         } else  {
             velocity.x = dashSpeed;
@@ -222,17 +220,17 @@ public class LancerController: WarriorController {
 	}
 
     public void StopDash() {
-        velocity.x = initMoveSpeed;
+        velocity.x = moveSpeed;
     }
 
     public void ChargeMoveSpeed() {
-        initMoveSpeed = initMoveSpeed*chargeSpeedModifier;
-        velocity.x = initMoveSpeed;
+        moveSpeed = moveSpeed * chargeSpeedModifier;
+        velocity.x = moveSpeed;
     }
 
     public void RestoreMoveSpeed() {
-        initMoveSpeed = comboEffect[comboLevel].newMoveSpeed;
-        velocity.x = initMoveSpeed;
+        moveSpeed = initMoveSpeedStatic + comboEffect[comboLevel].newMoveSpeed;
+        velocity.x = moveSpeed;
     }
 
     public override void OnDamagePlayer (bool _isHurtFromLeft, int _damageAmount) {

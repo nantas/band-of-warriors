@@ -9,7 +9,11 @@ public class PlayerCollider : MonoBehaviour {
         controller = transform.root.GetComponent<WarriorController>();
 	}
 	public void TouchedEnemy (bool _isHurtFromLeft, int _damageAmount) {
-        controller.OnDamagePlayer(_isHurtFromLeft, _damageAmount);
+        //ATTR: att_defBoost multiplier
+        float defBoostMultiplier = Game.instance.thePlayer
+            .charBuild.GetAttributeEffectMultiplier("att_defBoost");        
+        int amountAfterDef = Mathf.FloorToInt(_damageAmount * (2.0f - defBoostMultiplier));
+        controller.OnDamagePlayer(_isHurtFromLeft, amountAfterDef);
 	}
 	
 	void LateUpdate () {

@@ -4,12 +4,12 @@ using System.Collections;
 public class BowCollider : MonoBehaviour {
 	
     public exSprite spWeapon;
-    public int maxHitBeforeBreak = 2;
-    public float timePerHitRecover = 1.0f;
 	private PlayerBase controller;
     private Spawner commonSpawner;
     private Collider collider;
     //this is the bow's durability, when it reaches maxHitBeforeBreak it will not collide with enemy anymore
+    public int maxHitBeforeBreak = 2;
+    public float timePerHitRecover = 1.0f;
     private int curHit = 0;
 	
 	void Awake () {

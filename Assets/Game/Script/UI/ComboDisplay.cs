@@ -42,7 +42,10 @@ public class ComboDisplay : MonoBehaviour {
     }
 
     public void HitAnEnemy() {
-        ratio += addPerHit;
+        //ATTR: att_comboGain multiplier
+        float comboBoostMultiplier = Game.instance.thePlayer
+            .charBuild.GetAttributeEffectMultiplier("att_comboGain");
+        ratio += addPerHit * comboBoostMultiplier;
         if (ratio > 1.0f) ratio = 1.0f;
         comboHit += 1;
         Game.instance.thePlayer.playerController.SendMessage("OnComboHitUpdate",comboHit);

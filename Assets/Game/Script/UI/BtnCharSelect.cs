@@ -83,6 +83,8 @@ public class BtnCharSelect : MonoBehaviour {
         //update name display and exp bar display
         Game.instance.theGamePanel.ChangeNameDisplay();
         Game.instance.OnExpDisplayUpdate();
+        //update attribute and related variable
+        Game.instance.OnPlayerAttributeUpdate();
     }
 	
 }

@@ -19,9 +19,9 @@ public enum BtnHoldState {
 public class WarriorController : MonoBehaviour {
 
     //horizontal move speed for character.
-	public float initMoveSpeed = 175.0f;
+	public float moveSpeed = 175.0f;
     //vertical jump speed 
-    public float initJumpSpeed = 1200.0f;
+    public float jumpSpeed = 1200.0f;
     //display name for character.
     public string charName;
     //display class name for character.
@@ -37,6 +37,10 @@ public class WarriorController : MonoBehaviour {
     [System.NonSerialized]public PlayMakerFSM FSM_Charge;
     //current combo level for the character.
     [System.NonSerialized]public int comboLevel;
+    //variable to store initial value of character attributes
+    [System.NonSerialized]public float initInvincibleDuration;
+    [System.NonSerialized]public float initJumpSpeedStatic;
+    [System.NonSerialized]public float initMoveSpeedStatic;
     //helper variable to compute loot drop rate easier.
     public int curAddLootChance;
     //reference to the prefab exLayer component, to fix layer order when prefab flips.
@@ -69,6 +73,10 @@ public class WarriorController : MonoBehaviour {
         comboLevel = 0;
         charMoveDir = MoveDir.Stop;
         downButton = BtnHoldState.None;
+        initJumpSpeedStatic = jumpSpeed;
+        initMoveSpeedStatic = moveSpeed;
+        initInvincibleDuration = FSM_Hit.FsmVariables.GetFsmFloat("varInvincibleDuration").Value;
+ 
     }
 
     //check if player is able to accept input, depending on fsm variable set.
@@ -80,10 +88,10 @@ public class WarriorController : MonoBehaviour {
     public void GetFaceDirection() {
         if (Game.instance.thePlayer.playerController.charMoveDir == MoveDir.Left){
             transform.localEulerAngles = new Vector3 (0, 180, 0);
-            velocity.x = initMoveSpeed;
+            velocity.x = moveSpeed;
         } else {
             transform.localEulerAngles = new Vector3 (0, 0, 0);
-            velocity.x = initMoveSpeed;
+            velocity.x = moveSpeed;
         }
     }
 

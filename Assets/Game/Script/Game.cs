@@ -41,7 +41,7 @@ public class Game : MonoBehaviour {
     public Transform leftSpawnEntry;
     public Transform rightSpawnEntry;
     //player hp
-    public int initPlayerHP = 100;	
+    public int maxPlayerHP = 100;	
     //reference for player class
     public PlayerBase thePlayer;
     //layers
@@ -57,6 +57,8 @@ public class Game : MonoBehaviour {
     //a exp table, to determin how much exp need for each level of character.
     public int[] expReqForLvl;
 
+    private int initPlayerHP;
+
 
 	
 	protected virtual void Init () {
@@ -64,11 +66,12 @@ public class Game : MonoBehaviour {
         theScoreCounter = GetComponent<ScoreCounter>();
         theLevelManager = GameObject.FindWithTag("levelManager").GetComponent<LevelManager>();
         theItemCarrier = GameObject.FindWithTag("itemCarrier").GetComponent<ItemCarrier>();
+        initPlayerHP = maxPlayerHP;
 	}
 
 	// Use this for initialization
 	void Start () {
-        playerHP = initPlayerHP;
+        playerHP = maxPlayerHP;
         currentExp = 0;
         curCharIndex = 1;
         AcceptInput(true);
@@ -85,15 +88,44 @@ public class Game : MonoBehaviour {
             playerHP = 0;
             //TODO: gameover
             thePlayer.playerController.FSM_Control.FsmVariables.GetFsmBool("isPlayerNoHP").Value = true;
-        } else if (playerHP > initPlayerHP) {
-            playerHP = initPlayerHP;
+        } else if (playerHP > maxPlayerHP) {
+            playerHP = maxPlayerHP;
         }
-        theGamePanel.HPbar.ratio = ((float)playerHP)/((float)initPlayerHP);
+        theGamePanel.HPbar.ratio = ((float)playerHP)/((float)maxPlayerHP);
+    }
+
+    public void OnPlayerAttributeUpdate() {
+        //ATTR: att_hpBoost multiplier
+        float maxHPBoost = thePlayer.charBuild.GetAttributeEffectMultiplier("att_hpBoost");        
+        maxPlayerHP = Mathf.FloorToInt(initPlayerHP * maxHPBoost);
+
+        //ATTR: att_invinBoost multiplier
+        float invinTimeBoost = thePlayer.charBuild.GetAttributeEffectMultiplier("att_invinBoost");
+        thePlayer.playerController.FSM_Hit.FsmVariables.GetFsmFloat("varInvincibleDuration").Value
+            = thePlayer.playerController.initInvincibleDuration * invinTimeBoost;
+
+        //ATTR: att_jumpBoost multiplier
+        float jumpHeightBoost = thePlayer.charBuild.GetAttributeEffectMultiplier("att_jumpBoost");
+        thePlayer.playerController.jumpSpeed = thePlayer.playerController.initJumpSpeedStatic * jumpHeightBoost;
+
+        //ATTR: att_speedBoost multiplier
+        float speedBoost = thePlayer.charBuild.GetAttributeEffectMultiplier("att_speedBoost");
+        thePlayer.playerController.moveSpeed = thePlayer.playerController.initMoveSpeedStatic * speedBoost;
+
     }
 
     public void OnPlayerExpChange(int _amount) {
-        CharacterBuild charBuild = thePlayer.GetComponent<CharacterBuild>();
-        charBuild.OnPlayerExpChange(_amount);
+        CharacterBuild charBuild = thePlayer.charBuild;
+        //ATTR: att_expBoost multiplier
+        float expBoostMultiplier = charBuild.GetAttributeEffectMultiplier("att_expBoost");        
+        int expAfterBoost = Mathf.FloorToInt(_amount * expBoostMultiplier);
+        charBuild.OnPlayerExpChange(expAfterBoost);
+
+        //ATTR: att_leech multiplier
+        float leechChanceMultiplier = charBuild.GetAttributeEffectMultiplier("att_leech") - 1.0f;
+        if (Random.Range(0.0f, 1.0f) < leechChanceMultiplier) {
+            OnPlayerHPChange(Mathf.FloorToInt(maxPlayerHP/10));
+        }
 
     }
 

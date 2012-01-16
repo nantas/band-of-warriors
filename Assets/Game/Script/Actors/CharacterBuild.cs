@@ -198,17 +198,45 @@ public class CharacterBuild : MonoBehaviour {
         newAttInfo.id = _id;
         newAttInfo.modifierLv = 0;
         charAttributes.Add(newAttInfo);
+        //update dictionary
+        UpdateAttributeEffectDictionary(_id);
     }
 
     //level up an existing attribute
     public void UpgradeAttributeAtIndex(int _index) {
         AttributeInfo targetAttInfo = charAttributes[_index];
         targetAttInfo.modifierLv += 1;
+        //get updated attribute id and update dictionary
+        int targetId = targetAttInfo.id;
+        UpdateAttributeEffectDictionary(targetId);
     }
 
     //update attribute effect dictionary
     public void UpdateAttributeEffectDictionary(int _id) {
-        //add dictionary keypair or update value for linked variable
+        //add dictionary keypair or update value for linked variable according to id
+        //get the modifierLv for the attribute with id 
+        int attLevel = charAttributes[isAttributeLearned(_id)].modifierLv;
+        //get the value of current modifierLv.
+        float effectValue = attributes[_id].modifiers[attLevel];
+        //get the linked variable name
+        string varName = attributes[_id].linkedVar;
+        //update the dictionary
+        if (attEffectDic.ContainsKey(varName)) {
+            attEffectDic[varName] = effectValue;
+        } else {
+            attEffectDic.Add(varName, effectValue);
+        }
+    }
+
+    //get the multiplier value of a certain key, this can be multiplied with the default
+    //variable directly.
+    public float GetAttributeEffectMultiplier(string _varName) {
+        if (attEffectDic.ContainsKey(_varName)) {
+            float multiplier = 1 + attEffectDic[_varName]/100;
+            return multiplier;
+        } else {
+            return 1.0f;
+        }
     }
 
 }

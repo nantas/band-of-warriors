@@ -22,10 +22,10 @@ public class ComboEffectArcher {
 
 public class ArcherController: WarriorController {
 
-    //when in charge, change move speed.
-    public float charge1Speed = 180.0f;
-    public float charge2Speed = 130.0f;
-    public float charge3Speed = 100.0f;
+    //when in charge, the move speed difference.
+    public float charge1Speed = -75.0f;
+    public float charge2Speed = -100.0f;
+    public float charge3Speed = -150.0f;
     public int maxArrowCount = 3;
     //how many jump in the air can perform.
     public int maxJumpCount = 2;
@@ -56,18 +56,19 @@ public class ArcherController: WarriorController {
     }
 
     public void OnComboEffectUp() {
-        initMoveSpeed = comboEffect[comboLevel].newMoveSpeed;
+        moveSpeed += comboEffect[comboLevel].newMoveSpeed;
         maxArrowCount = comboEffect[comboLevel].newMaxArrowCount;
-        velocity.x = initMoveSpeed;
+        velocity.x = moveSpeed;
         curAddLootChance = (int) (comboEffect[comboLevel].chanceToGetMoreLoot * 100);
         //TODO add emitter effect control
         player.OnComboTrailUp(comboLevel);
     }
 
     public void OnComboEffectDown() {
-        initMoveSpeed = comboEffect[comboLevel].newMoveSpeed;
+        //restore moveSpeed
+        Game.instance.OnPlayerAttributeUpdate();
         maxArrowCount = comboEffect[comboLevel].newMaxArrowCount;
-        velocity.x = initMoveSpeed;
+        velocity.x = moveSpeed;
         curAddLootChance = 0;
         //TODO add emitter effect control
         player.OnComboTrailEnd();
@@ -209,7 +210,7 @@ public class ArcherController: WarriorController {
             transform.localEulerAngles = new Vector3 (0, 0, 0);
             layer.Dirty();
             //set velocity to initMoveSpeed and enter walk state.
-            velocity.x = initMoveSpeed;
+            velocity.x = moveSpeed;
             FSM_Control.Fsm.Event("To_Walk");
             //if player moves toward left, turn around to the right.
         } else if (charMoveDir == MoveDir.Left) {
@@ -251,7 +252,7 @@ public class ArcherController: WarriorController {
             charMoveDir = MoveDir.Left;
             transform.localEulerAngles = new Vector3 (0, 180, 0);
             layer.Dirty(); 
-            velocity.x = initMoveSpeed;
+            velocity.x = moveSpeed;
             FSM_Control.Fsm.Event("To_Walk");
         } 
         if (charMoveDir == MoveDir.Right) {
@@ -265,7 +266,7 @@ public class ArcherController: WarriorController {
         downButton = BtnHoldState.Jump;
         //if player is on the ground, start jump.
         if ( FSM_Control.FsmVariables.GetFsmBool("isAffectedByGravity").Value == false ) {
-            velocity.y = initJumpSpeed;
+            velocity.y = jumpSpeed;
             FSM_Control.Fsm.Event("To_Jump");           
         } else  {
             //if player is in the air, do double jump if jump count allows.
@@ -276,25 +277,21 @@ public class ArcherController: WarriorController {
         }
 	}
 
-    //update movespeed in charge state.
+    //update moveSpeed in charge state.
     public void Charge1MoveSpeed() {
-        initMoveSpeed = charge1Speed;
-        velocity.x = initMoveSpeed;
+        velocity.x = moveSpeed + charge1Speed;
     }
 
     public void Charge2MoveSpeed() {
-        initMoveSpeed = charge2Speed;
-        velocity.x = initMoveSpeed;
+        velocity.x = moveSpeed + charge2Speed;
     }
 
     public void Charge3MoveSpeed() {
-        initMoveSpeed = charge3Speed;
-        velocity.x = initMoveSpeed;
+        velocity.x = moveSpeed + charge3Speed;
     }
 
     public void RestoreMoveSpeed() {
-        initMoveSpeed = 200.0f;
-        velocity.x = initMoveSpeed;
+        velocity.x = moveSpeed;
     }
 
     //shoot arrow without gravity.
@@ -349,13 +346,13 @@ public class ArcherController: WarriorController {
 
     //jump in the air with magic number speed.
     public void DoubleJump() {
-        velocity.y = initJumpSpeed+100;
-        velocity.x = initMoveSpeed + 100;
+        velocity.y = initJumpSpeedStatic + 100;
+        velocity.x = moveSpeed + 100;
     }
 
     //restore horizontal movespeed at the end of double jump.
     public void StopDoubleJump() {
-        velocity.x = initMoveSpeed;
+        velocity.x = moveSpeed;
     }
 
     //launch an arrow from shootAnchor. you can choose to give arrow gravity or not.

@@ -15,6 +15,7 @@ public class ScoreCounter : MonoBehaviour {
     }
 
     public void OnScoreChange (int _amount) {
+
         playerGold += _amount;
         Game.instance.theGamePanel.scoreDisplay.text = "$" + playerGold;
     }

@@ -11,10 +11,12 @@ public class PlayerBase : MonoBehaviour {
     public ParticleEmitter fxComboTrail;
     
     [System.NonSerialized] public WarriorController playerController;
+    [System.NonSerialized] public CharacterBuild charBuild;
 	  
 	void Awake () {
         playerController = transform.GetComponent<WarriorController>();
-		animation["walk"].speed = playerController.initMoveSpeed/120.0f;
+        charBuild = transform.GetComponent<CharacterBuild>();
+		animation["walk"].speed = playerController.moveSpeed/120.0f;
 	}
 	
 	// Use this for initialization

@@ -38,7 +38,7 @@ public class BtnAttributeSelect : MonoBehaviour {
     // ------------------------------------------------------------------ 
 
     void OnButtonPress () {
-        CharacterBuild charBuild = Game.instance.thePlayer.GetComponent<CharacterBuild>();
+        CharacterBuild charBuild = Game.instance.thePlayer.charBuild;
         //check if it's a new attribute or existing one.
         int targetAttributeIndex = charBuild.isAttributeLearned(attId);
         //if it's new
@@ -50,6 +50,8 @@ public class BtnAttributeSelect : MonoBehaviour {
         }
         attributeSelectPanel.transform.position 
             = new Vector3 ( attributeSelectPanel.transform.position.x, 1500.0f, attributeSelectPanel.transform.position.z );
+        //HACK update player attribute related variables
+        Game.instance.OnPlayerAttributeUpdate();
         //disable LevelUpPanel and enable game panel.
         attributeSelectPanel.enabled = false;
         Game.instance.AcceptInput(true);
