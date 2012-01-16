@@ -44,7 +44,9 @@ public class CharacterBuild : MonoBehaviour {
     //current experience, will reset to 0 after level up.
     [System.NonSerialized] public int curExp = 0;
     //this is the list contains all the attributes character already learned.
-    public List<AttributeInfo> charAttributes = new List<AttributeInfo>();  
+    public List<AttributeInfo> charAttributes = new List<AttributeInfo>(); 
+    //dictionary to store the value of attribute affected variable name and their value
+    public Dictionary<string, float> attEffectDic = new Dictionary<string, float>(); 
 
     //when player gets experience.
     public void OnPlayerExpChange(int _amount) {
@@ -202,6 +204,11 @@ public class CharacterBuild : MonoBehaviour {
     public void UpgradeAttributeAtIndex(int _index) {
         AttributeInfo targetAttInfo = charAttributes[_index];
         targetAttInfo.modifierLv += 1;
+    }
+
+    //update attribute effect dictionary
+    public void UpdateAttributeEffectDictionary(int _id) {
+        //add dictionary keypair or update value for linked variable
     }
 
 }

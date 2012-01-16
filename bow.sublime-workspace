@@ -40,44 +40,18 @@
 	"buffers":
 	[
 		{
-			"file": "Assets/Game/Script/Actors/BigSlime.cs",
+			"file": "Assets/Game/Script/Actors/CharacterBuild.cs",
 			"settings":
 			{
-				"buffer_size": 3673,
+				"buffer_size": 9482,
 				"line_ending": "Windows"
 			}
 		},
 		{
-			"file": "Assets/Game/Script/Actors/Enemy.cs",
+			"file": "Assets/Game/Script/Asset/Attribute.cs",
 			"settings":
 			{
-				"buffer_size": 1023,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"contents": "Searching 34 files for \"virtual\"\n\nC:\\Users\\wnan\\bow\\Assets\\Game\\Script\\Game.cs:\n   48  \n   49  	\n   50: 	protected virtual void Init () {\n   51  		theSpawner = GetComponent<Spawner>();\n   52          theScoreCounter = GetComponent<ScoreCounter>();\n\nC:\\Users\\wnan\\bow\\Assets\\Game\\Script\\GamePanel.cs:\n   37      // ------------------------------------------------------------------ \n   38  \n   39:     protected virtual void Awake () {\n   40          //ScoreCounter scoreCounter = Game.instance.scoreCounter;\n   41          scoreDisplay.text = \"$\" + \"0\";\n\n2 matches across 2 files\n",
-			"settings":
-			{
-				"buffer_size": 580,
-				"line_ending": "Windows",
-				"name": "Find Results",
-				"scratch": true
-			}
-		},
-		{
-			"file": "Assets/Game/Script/LevelManager.cs",
-			"settings":
-			{
-				"buffer_size": 4387,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "Assets/Game/Script/PlayerPrefsX",
-			"settings":
-			{
-				"buffer_size": 8076,
+				"buffer_size": 1560,
 				"line_ending": "Windows"
 			}
 		}
@@ -106,6 +80,11 @@
 	},
 	"file_history":
 	[
+		"/C/Users/wnan/Documents/My Dropbox/exvimInstallGuide.txt",
+		"/C/Users/wnan/bow/Assets/Game/Script/Actors/BigSlime.cs",
+		"/C/Users/wnan/bow/Assets/Game/Script/Actors/Enemy.cs",
+		"/C/Users/wnan/bow/Assets/Game/Script/LevelManager.cs",
+		"/C/Users/wnan/bow/Assets/Game/Script/PlayerPrefsX",
 		"/C/Users/wnan/bow/.gitignore",
 		"/C/Users/wnan/Documents/My Dropbox/top10movies",
 		"/C/Users/wnan/bow/Assets/Game/Script/GamePanel.cs",
@@ -115,7 +94,6 @@
 		"/C/Users/wnan/bow/Assets/Game/Script/Spawner_BigSlime.cs",
 		"/C/Users/wnan/AppData/Roaming/Sublime Text 2/Packages/Default/Global.sublime-settings",
 		"/C/Users/wnan/AppData/Roaming/Sublime Text 2/Packages/Package Control/Package Control.sublime-settings",
-		"/C/Users/wnan/Documents/My Dropbox/exvimInstallGuide.txt",
 		"/C/exdev/tools/exvim/.vimrc"
 	],
 	"find":
@@ -155,23 +133,23 @@
 	"groups":
 	[
 		{
-			"selected": 4,
+			"selected": 0,
 			"sheets":
 			[
 				{
 					"buffer": 0,
-					"file": "Assets/Game/Script/Actors/BigSlime.cs",
+					"file": "Assets/Game/Script/Actors/CharacterBuild.cs",
 					"settings":
 					{
-						"buffer_size": 3673,
+						"buffer_size": 9482,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								0,
-								0
+								9472,
+								9472
 							]
 						],
 						"settings":
@@ -181,137 +159,33 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 864.0,
+						"translation.y": 1392.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
 				},
 				{
 					"buffer": 1,
-					"file": "Assets/Game/Script/Actors/Enemy.cs",
+					"file": "Assets/Game/Script/Asset/Attribute.cs",
 					"settings":
 					{
-						"buffer_size": 1023,
+						"buffer_size": 1560,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								0,
-								0
+								1332,
+								1332
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/C#/C#.tmLanguage",
-							"translate_tabs_to_spaces": false
+							"syntax": "Packages/C#/C#.tmLanguage"
 						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 2,
-					"settings":
-					{
-						"buffer_size": 580,
-						"regions":
-						{
-							"match":
-							{
-								"flags": 112,
-								"regions":
-								[
-									[
-										115,
-										122
-									],
-									[
-										411,
-										418
-									]
-								],
-								"scope": ""
-							}
-						},
-						"selection":
-						[
-							[
-								118,
-								118
-							]
-						],
-						"settings":
-						{
-							"detect_indentation": false,
-							"output_tag": 1,
-							"result_base_dir": "",
-							"result_file_regex": "^([A-Za-z\\\\/<].*):$",
-							"result_line_regex": "^ +([0-9]+):",
-							"scroll_past_end": true,
-							"syntax": "Packages/Default/Find Results.hidden-tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 3,
-					"file": "Assets/Game/Script/LevelManager.cs",
-					"settings":
-					{
-						"buffer_size": 4387,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								0,
-								0
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/C#/C#.tmLanguage",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 4,
-					"file": "Assets/Game/Script/PlayerPrefsX",
-					"settings":
-					{
-						"buffer_size": 8076,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								8076,
-								8076
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Text/Plain text.tmLanguage",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 96.0,
+						"translation.y": 288.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
