@@ -31,7 +31,7 @@ public class EnemyCollider : MonoBehaviour {
                                                (this.transform.position.y +
                                                 other.transform.position.y)/2);
 			other.SendMessage("AttackEnemy",collisionPos);
-			controller.StartCoroutine(OnDamaged, isEnemyOnLeft);
+			controller.SendMessage("OnDamaged", isEnemyOnLeft);
 		}
 	}
 	

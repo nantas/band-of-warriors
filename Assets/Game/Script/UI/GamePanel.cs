@@ -48,7 +48,7 @@ public class GamePanel : MonoBehaviour {
         //ScoreCounter scoreCounter = Game.instance.scoreCounter;
         scoreDisplay.text = "$" + "0";
         playerLvlDisplay.text = "lv" + 
-            (Game.instance.thePlayer.GetComponent<CharacterBuild>().charLevel+1);
+             Game.instance.thePlayer.GetComponent<CharacterBuild>().charLevel;
         //hide combo display
         comboDisplay.transform.Translate(0, 800, 0);
         comboDisplay.enabled = false;
@@ -63,13 +63,19 @@ public class GamePanel : MonoBehaviour {
                                       0.0f, trans.position.z);
     }
 
-    public void ChangeNameDisplay() {
+    public void UpdateCharacterInfo() {
         curCharName.text = Game.instance.thePlayer.playerController.charName;
         curCharClass.text = Game.instance.thePlayer.playerController.charClass;
+        playerLvlDisplay.text = "lv" + Game.instance.thePlayer.charBuild.charLevel;
     }
 
 
     public void ShowLevelUpText() {
+        levelUpText.animation.Play("txt_levelUp");
+    }
+
+    public void ShowLevelCompleteText() {
+        levelUpText.text = "mission complete!";
         levelUpText.animation.Play("txt_levelUp");
     }
 

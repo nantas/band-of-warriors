@@ -115,6 +115,11 @@ public class Game : MonoBehaviour {
         //ATTR: att_lootDropBoost multiplier
         float lootDropBoost = thePlayer.charBuild.GetAttributeEffectMultiplier("att_lootDropBoost");
         thePlayer.playerController.lootChanceBoostAttribute = lootDropBoost - 1.0f;
+
+        //ATTR: att_damageBoost multiplier
+        float damageBoost = thePlayer.charBuild.GetAttributeEffectMultiplier("att_damageBoost");
+        thePlayer.playerController.attackPower = Mathf
+            .FloorToInt(thePlayer.playerController.initAttackPowerStatic * damageBoost);
     }
 
     public void OnPlayerExpChange(int _amount) {
@@ -127,7 +132,7 @@ public class Game : MonoBehaviour {
         //ATTR: att_leech multiplier
         float leechChanceMultiplier = charBuild.GetAttributeEffectMultiplier("att_leech") - 1.0f;
         if (Random.Range(0.0f, 1.0f) < leechChanceMultiplier) {
-            OnPlayerHPChange(Mathf.FloorToInt(maxPlayerHP/10));
+            OnPlayerHPChange(Mathf.FloorToInt(maxPlayerHP/20));
         }
 
     }

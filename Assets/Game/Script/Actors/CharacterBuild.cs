@@ -71,9 +71,11 @@ public class CharacterBuild : MonoBehaviour {
     //when character level up, handle hud display and call up the LevelUpPanel.
     public IEnumerator OnPlayerLvlUp() {
         Game.instance.theGamePanel.ShowLevelUpText();
-        Game.instance.theGamePanel.playerLvlDisplay.text = "lv" + charLevel;
-        Game.instance.OnPlayerHPChange(20); 
-        yield return new WaitForSeconds(1.0f);
+        Game.instance.theGamePanel.UpdateCharacterInfo();
+        if (Game.instance.theLevelManager.currentLevel < 5) {
+            Game.instance.OnPlayerHPChange(20); 
+        }
+        yield return new WaitForSeconds(0.8f);
         //randomly pick 3 attribute for player to choose from.
         GetAttributeCandidate();
     }

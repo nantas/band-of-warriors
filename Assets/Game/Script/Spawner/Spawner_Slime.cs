@@ -107,13 +107,13 @@ public class Spawner_Slime : SpawnerEnemy {
 	public override void SpawnAnEnemy () {
 		if (aliveSlimeCount < maxEnemyCount) {
             int spawnSelector = Random.Range(1,20);
-            if ( spawnSelector < 5 ) {
+            if ( spawnSelector < 7 ) {
                 SpawnASlimeFrom (leftSpawner);
             }
-            if ( spawnSelector >= 5 && spawnSelector <= 15 ) {
+            if ( spawnSelector >= 7 && spawnSelector <= 13 ) {
                 SpawnASlimeFrom (topSpawner);
             }
-            if ( spawnSelector > 15 ) {
+            if ( spawnSelector > 13 ) {
                 SpawnASlimeFrom (rightSpawner);
             }
         }

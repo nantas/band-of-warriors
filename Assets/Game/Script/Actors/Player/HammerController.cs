@@ -40,7 +40,7 @@ public class HammerController: WarriorController {
 
     public void OnComboEffectUp() {
         moveSpeed += comboEffect[comboLevel].newMoveSpeed;
-        attackPower = comboEffect[comboLevel].newAttackPower;
+        attackPower += comboEffect[comboLevel].newAttackPower;
         velocity.x = moveSpeed;
         lootChanceBoostCombo = comboEffect[comboLevel].chanceToGetMoreLoot;
         //TODO add emitter effect control
@@ -48,9 +48,8 @@ public class HammerController: WarriorController {
     }
 
     public void OnComboEffectDown() {
-        //restore moveSpeed
+        //restore moveSpeed and attackPower
         Game.instance.OnPlayerAttributeUpdate();
-        attackPower = comboEffect[comboLevel].newAttackPower;
         velocity.x = moveSpeed;
         lootChanceBoostCombo = 0;
         //TODO add emitter effect control

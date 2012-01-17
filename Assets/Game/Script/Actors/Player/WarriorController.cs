@@ -45,8 +45,8 @@ public class WarriorController : MonoBehaviour {
     [System.NonSerialized]public float initMoveSpeedStatic;
     [System.NonSerialized]public int initAttackPowerStatic;
     //helper variable to compute loot drop rate easier.
-    public float lootChanceBoostCombo;
-    public float lootChanceBoostAttribute;
+    [System.NonSerialized]public float lootChanceBoostCombo;
+    [System.NonSerialized]public float lootChanceBoostAttribute;
     //reference to the prefab exLayer component, to fix layer order when prefab flips.
     protected exLayer layer;
     //the last pressed button. to check charge states.

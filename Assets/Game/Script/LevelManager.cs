@@ -133,6 +133,8 @@ public class LevelManager : MonoBehaviour {
 
     public void LevelComplete() {
         //TODO level complete display
+        CancelAllSpawn();
+        Game.instance.theGamePanel.ShowLevelCompleteText();
         Debug.Log("LevelComplete");
     }
 

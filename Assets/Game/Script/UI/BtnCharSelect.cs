@@ -81,7 +81,7 @@ public class BtnCharSelect : MonoBehaviour {
         Game.instance.thePlayer.playerController.charMoveDir = MoveDir.Stop;
         Game.instance.thePlayer.playerController.FSM_Control.Fsm.Event("To_Idle");
         //update name display and exp bar display
-        Game.instance.theGamePanel.ChangeNameDisplay();
+        Game.instance.theGamePanel.UpdateCharacterInfo();
         Game.instance.OnExpDisplayUpdate();
         //update attribute and related variable
         Game.instance.OnPlayerAttributeUpdate();

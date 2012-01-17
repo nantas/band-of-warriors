@@ -2,14 +2,13 @@ using UnityEngine;
 using System.Collections;
 
 public class BigSlime : Enemy {
-    public int HP = 3;
     public float hurtInvincibleTime = 0.5f;
 
     protected override void OnEnable() {
 		isTakingDamage = false;
 		if (spEnemy) spEnemy.enabled = true;
 		if (spCollider) spCollider.enabled = true;
-        HP = 3;
+        enemyHp = initEnemyHpStatic;
     }
 
     //move to random position along ground height.
@@ -52,10 +51,12 @@ public class BigSlime : Enemy {
             } else {
                 transform.Translate(50.0f,0,0);
             }
-            HP -= 1;
+            //player damage 
+            int damageAmount = Game.instance.thePlayer.playerController.attackPower;
+            enemyHp -= damageAmount;
             spEnemy.spanim.Play("big_slime_hurt");
 			yield return new WaitForSeconds(hurtInvincibleTime);
-            if (HP <= 0) {
+            if (enemyHp <= 0) {
                 StartCoroutine(OnDeath());
             } else {
                 //if hp is not 0, go back to random move.
