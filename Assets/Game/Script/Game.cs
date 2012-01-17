@@ -112,6 +112,9 @@ public class Game : MonoBehaviour {
         float speedBoost = thePlayer.charBuild.GetAttributeEffectMultiplier("att_speedBoost");
         thePlayer.playerController.moveSpeed = thePlayer.playerController.initMoveSpeedStatic * speedBoost;
 
+        //ATTR: att_lootDropBoost multiplier
+        float lootDropBoost = thePlayer.charBuild.GetAttributeEffectMultiplier("att_lootDropBoost");
+        thePlayer.playerController.lootChanceBoostAttribute = lootDropBoost - 1.0f;
     }
 
     public void OnPlayerExpChange(int _amount) {

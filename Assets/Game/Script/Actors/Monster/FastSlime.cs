@@ -57,19 +57,18 @@ public class FastSlime : Enemy {
     }
 	
     public void SpawnLoot () {
-        int lootSelector = Random.Range(1, 100);
         Spawner commonSpawner = Game.instance.theSpawner;
         //spawn coin
-        if (lootSelector < 35 + Game.instance.thePlayer.playerController.curAddLootChance) {
+        if (isEnemyDroppingLoot()) {
             if (commonSpawner.aliveCoinCount < commonSpawner.maxCoinCount) {
                 Coin coin = commonSpawner.SpawnCoinAt(new Vector2(transform.position.x, transform.position.y));
-                if (lootSelector < 10 + Game.instance.thePlayer.playerController.curAddLootChance/2) {
-                    coin.score = 10;
+                if (isLootWithBonus()) {
+                    coin.score = 15;
                 } else {
-                    coin.score = 5;
+                    coin.score = 8;
                 }
                 coin.PopUp();
-            }
+            }            
         }
     }
 

@@ -87,20 +87,18 @@ public class Cubat : Enemy {
     }
 
     public void SpawnLoot () {
-        int lootSelector = Random.Range(1, 100);
         Spawner commonSpawner = Game.instance.theSpawner;
         //spawn coin
-        if (lootSelector < 45 + Game.instance.thePlayer.playerController.curAddLootChance) {
+        if (isEnemyDroppingLoot()) {
             if (commonSpawner.aliveCoinCount < commonSpawner.maxCoinCount) {
-                Coin coin = commonSpawner.SpawnCoinAt(new Vector2(transform.position.x, 
-                                                                  transform.position.y));
-                if (lootSelector < 15 + Game.instance.thePlayer.playerController.curAddLootChance/2) {
-                    coin.score = 30;
+                Coin coin = commonSpawner.SpawnCoinAt(new Vector2(transform.position.x, transform.position.y));
+                if (isLootWithBonus()) {
+                    coin.score = 35;
                 } else {
                     coin.score = 20;
                 }
                 coin.PopUp();
-            }
+            }            
         }
     }
 	

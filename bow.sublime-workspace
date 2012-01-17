@@ -4,6 +4,18 @@
 		"selected_items":
 		[
 			[
+				"this",
+				"thisLootDropChance"
+			],
+			[
+				"loo",
+				"lootDropRate"
+			],
+			[
+				"loot",
+				"lootDropRate"
+			],
+			[
 				"ena",
 				"enabled"
 			],
@@ -39,22 +51,6 @@
 	},
 	"buffers":
 	[
-		{
-			"file": "Assets/Game/Script/Actors/CharacterBuild.cs",
-			"settings":
-			{
-				"buffer_size": 9482,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "Assets/Game/Script/Asset/Attribute.cs",
-			"settings":
-			{
-				"buffer_size": 1560,
-				"line_ending": "Windows"
-			}
-		}
 	],
 	"build_system": "",
 	"command_palette":
@@ -80,6 +76,26 @@
 	},
 	"file_history":
 	[
+		"/C/Users/wnan/bow/Assets/Game/Script/Actors/Player/HammerController.cs",
+		"/C/Users/wnan/bow/Assets/Game/Script/Actors/Player/WarriorController.cs",
+		"/C/Users/wnan/bow/Assets/Game/Script/Actors/Monster/Slime.cs",
+		"/C/Users/wnan/bow/Assets/Game/Script/Actors/Collider/EnemyCollider.cs",
+		"/C/Users/wnan/bow/Assets/Game/Script/Actors/CharacterBuild.cs",
+		"/C/Users/wnan/bow/Assets/Game/Script/Actors/Monster/Enemy.cs",
+		"/C/Users/wnan/bow/Assets/Game/Script/Game.cs",
+		"/C/Users/wnan/bow/Assets/Game/Script/Actors/Player/LancerController.cs",
+		"/C/Users/wnan/bow/Assets/Game/Script/Actors/Player/ArcherController.cs",
+		"/C/Users/wnan/bow/Assets/Game/Script/Actors/Monster/Flymon.cs",
+		"/C/Users/wnan/bow/Assets/Game/Script/Actors/Monster/FastSlime.cs",
+		"/C/Users/wnan/bow/Assets/Game/Script/Actors/Monster/Cubat.cs",
+		"/C/Users/wnan/bow/Assets/Game/Script/Actors/Monster/BigSlime.cs",
+		"/C/exdev/tools/exvim/vimfiles/after/syntax/c.vim",
+		"/C/exdev/tools/exvim/vimfiles/colors/ex.vim",
+		"/C/exdev/tools/exvim/vimfiles/after/syntax/vim.vim",
+		"/C/exdev/tools/exvim/vimfiles/after/syntax/help.vim",
+		"/C/exdev/tools/exvim/vimfiles/after/syntax/cs.vim",
+		"/C/exdev/tools/exvim/vimfiles/syntax/snippet.vim",
+		"/C/Users/wnan/bow/Assets/Game/Script/Asset/Attribute.cs",
 		"/C/Users/wnan/Documents/My Dropbox/exvimInstallGuide.txt",
 		"/C/Users/wnan/bow/Assets/Game/Script/Actors/BigSlime.cs",
 		"/C/Users/wnan/bow/Assets/Game/Script/Actors/Enemy.cs",
@@ -88,7 +104,6 @@
 		"/C/Users/wnan/bow/.gitignore",
 		"/C/Users/wnan/Documents/My Dropbox/top10movies",
 		"/C/Users/wnan/bow/Assets/Game/Script/GamePanel.cs",
-		"/C/Users/wnan/bow/Assets/Game/Script/Game.cs",
 		"/C/Users/wnan/bow/Assets/Game/Script/Actors/FastSlime.cs",
 		"/C/Users/wnan/bow/Assets/Game/Script/BtnRight.cs",
 		"/C/Users/wnan/bow/Assets/Game/Script/Spawner_BigSlime.cs",
@@ -113,6 +128,11 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"curAdd",
+			"lootChanceBoostCombo",
+			"curAddLoot",
+			"curadd",
+			"todo",
 			"virtual",
 			"isTakingDamage",
 			"autocomplete"
@@ -133,63 +153,8 @@
 	"groups":
 	[
 		{
-			"selected": 0,
 			"sheets":
 			[
-				{
-					"buffer": 0,
-					"file": "Assets/Game/Script/Actors/CharacterBuild.cs",
-					"settings":
-					{
-						"buffer_size": 9482,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								9472,
-								9472
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/C#/C#.tmLanguage",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 1392.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 1,
-					"file": "Assets/Game/Script/Asset/Attribute.cs",
-					"settings":
-					{
-						"buffer_size": 1560,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								1332,
-								1332
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/C#/C#.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 288.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				}
 			]
 		}
 	],

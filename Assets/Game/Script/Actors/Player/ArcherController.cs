@@ -59,7 +59,7 @@ public class ArcherController: WarriorController {
         moveSpeed += comboEffect[comboLevel].newMoveSpeed;
         maxArrowCount = comboEffect[comboLevel].newMaxArrowCount;
         velocity.x = moveSpeed;
-        curAddLootChance = (int) (comboEffect[comboLevel].chanceToGetMoreLoot * 100);
+        lootChanceBoostCombo = comboEffect[comboLevel].chanceToGetMoreLoot;
         //TODO add emitter effect control
         player.OnComboTrailUp(comboLevel);
     }
@@ -69,7 +69,7 @@ public class ArcherController: WarriorController {
         Game.instance.OnPlayerAttributeUpdate();
         maxArrowCount = comboEffect[comboLevel].newMaxArrowCount;
         velocity.x = moveSpeed;
-        curAddLootChance = 0;
+        lootChanceBoostCombo = 0.0f;
         //TODO add emitter effect control
         player.OnComboTrailEnd();
     }

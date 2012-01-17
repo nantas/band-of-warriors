@@ -26,6 +26,8 @@ public class WarriorController : MonoBehaviour {
     public string charName;
     //display class name for character.
     public string charClass;
+    //attack damage for each time player weapon touches an enemy. 
+    public int attackPower = 10;
 
     //the visual part of the player.
     [System.NonSerialized]public PlayerBase player; 
@@ -41,8 +43,10 @@ public class WarriorController : MonoBehaviour {
     [System.NonSerialized]public float initInvincibleDuration;
     [System.NonSerialized]public float initJumpSpeedStatic;
     [System.NonSerialized]public float initMoveSpeedStatic;
+    [System.NonSerialized]public int initAttackPowerStatic;
     //helper variable to compute loot drop rate easier.
-    public int curAddLootChance;
+    public float lootChanceBoostCombo;
+    public float lootChanceBoostAttribute;
     //reference to the prefab exLayer component, to fix layer order when prefab flips.
     protected exLayer layer;
     //the last pressed button. to check charge states.
@@ -75,6 +79,7 @@ public class WarriorController : MonoBehaviour {
         downButton = BtnHoldState.None;
         initJumpSpeedStatic = jumpSpeed;
         initMoveSpeedStatic = moveSpeed;
+        initAttackPowerStatic = attackPower;
         initInvincibleDuration = FSM_Hit.FsmVariables.GetFsmFloat("varInvincibleDuration").Value;
  
     }

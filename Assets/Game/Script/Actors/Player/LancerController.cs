@@ -40,7 +40,7 @@ public class LancerController: WarriorController {
         moveSpeed += comboEffect[comboLevel].newMoveSpeed;
         dashSpeed = comboEffect[comboLevel].newDashSpeed;
         velocity.x = moveSpeed;
-        curAddLootChance = (int) (comboEffect[comboLevel].chanceToGetMoreLoot * 100);
+        lootChanceBoostCombo = comboEffect[comboLevel].chanceToGetMoreLoot;
         //TODO add emitter effect control
         player.OnComboTrailUp(comboLevel);
     }
@@ -50,7 +50,7 @@ public class LancerController: WarriorController {
         Game.instance.OnPlayerAttributeUpdate();
         dashSpeed = comboEffect[comboLevel].newDashSpeed;
         velocity.x = moveSpeed;
-        curAddLootChance = 0;
+        lootChanceBoostCombo = 0;
         //TODO add emitter effect control
         player.OnComboTrailEnd();
     }

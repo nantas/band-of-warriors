@@ -19,8 +19,6 @@ public class ComboEffectHam {
 
 public class HammerController: WarriorController {
 
-    //initial attack damage. not in use yet.
-    public int attackPower = 2;
     public ComboEffectHam[] comboEffect;
 
 
@@ -44,7 +42,7 @@ public class HammerController: WarriorController {
         moveSpeed += comboEffect[comboLevel].newMoveSpeed;
         attackPower = comboEffect[comboLevel].newAttackPower;
         velocity.x = moveSpeed;
-        curAddLootChance = (int) (comboEffect[comboLevel].chanceToGetMoreLoot * 100);
+        lootChanceBoostCombo = comboEffect[comboLevel].chanceToGetMoreLoot;
         //TODO add emitter effect control
         player.OnComboTrailUp(comboLevel);
     }
@@ -54,7 +52,7 @@ public class HammerController: WarriorController {
         Game.instance.OnPlayerAttributeUpdate();
         attackPower = comboEffect[comboLevel].newAttackPower;
         velocity.x = moveSpeed;
-        curAddLootChance = 0;
+        lootChanceBoostCombo = 0;
         //TODO add emitter effect control
         player.OnComboTrailEnd();
     }

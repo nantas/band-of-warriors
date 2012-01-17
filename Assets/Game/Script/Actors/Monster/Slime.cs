@@ -69,19 +69,18 @@ public class Slime : Enemy {
     }
 	
     public void SpawnLoot () {
-        int lootSelector = Random.Range(1, 100);
         Spawner commonSpawner = Game.instance.theSpawner;
         //spawn coin
-        if (lootSelector < 30 + Game.instance.thePlayer.playerController.curAddLootChance) {
+        if (isEnemyDroppingLoot()) {
             if (commonSpawner.aliveCoinCount < commonSpawner.maxCoinCount) {
                 Coin coin = commonSpawner.SpawnCoinAt(new Vector2(transform.position.x, transform.position.y));
-                if (lootSelector < 5 + Game.instance.thePlayer.playerController.curAddLootChance/2) {
+                if (isLootWithBonus()) {
                     coin.score = 10;
                 } else {
                     coin.score = 5;
                 }
                 coin.PopUp();
-            }
+            }            
         }
     }
 
