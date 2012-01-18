@@ -52,6 +52,8 @@ public class BtnAttributeSelect : MonoBehaviour {
             = new Vector3 ( attributeSelectPanel.transform.position.x, 1500.0f, attributeSelectPanel.transform.position.z );
         //HACK update player attribute related variables
         Game.instance.OnPlayerAttributeUpdate();
+        //HACK update character specific attribute related variables 
+        Game.instance.thePlayer.playerController.OnCharacterAttributeUpdate();
         //disable LevelUpPanel and enable game panel.
         attributeSelectPanel.enabled = false;
         Game.instance.AcceptInput(true);

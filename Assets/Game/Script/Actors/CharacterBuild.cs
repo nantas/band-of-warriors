@@ -234,8 +234,12 @@ public class CharacterBuild : MonoBehaviour {
     //variable directly.
     public float GetAttributeEffectMultiplier(string _varName) {
         if (attEffectDic.ContainsKey(_varName)) {
-            float multiplier = 1 + attEffectDic[_varName]/100;
-            return multiplier;
+            if (_varName == "att_jumpCountBoost") {
+                return attEffectDic[_varName];
+            } else {
+                float multiplier = 1 + attEffectDic[_varName]/100;
+                return multiplier;
+            }
         } else {
             return 1.0f;
         }

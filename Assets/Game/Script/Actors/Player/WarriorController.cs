@@ -121,5 +121,8 @@ public class WarriorController : MonoBehaviour {
     public virtual void ReleaseCharge(BtnHoldState _upButton) {
     }
 
+    public virtual void OnCharacterAttributeUpdate() {
+    }
+
 
 }

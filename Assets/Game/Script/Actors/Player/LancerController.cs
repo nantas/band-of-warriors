@@ -21,9 +21,15 @@ public class LancerController: WarriorController {
 
 
     public float dashSpeed = 600.0f;
-    //when in charge state, lancer speed will go up, this is a multiplier.
-    public float chargeSpeedModifier = 1.3f;
+    public float airDashSpeed = 600.0f;
+    //when in charge state, lancer speed will go up till reach dash speed, this is the acceleration.
+    public float chargeAcceleration = 150.0f;
     public ComboEffect[] comboEffect;
+    public float initDashSpeedStatic;
+
+    void Start() {
+        initDashSpeedStatic = dashSpeed;
+    }
 
     public void OnComboHitUpdate(int _comboHit) {
         if (_comboHit >= comboEffect[comboLevel].reqComboHit) {
@@ -48,7 +54,7 @@ public class LancerController: WarriorController {
     public void OnComboEffectDown() {
         //restore moveSpeed
         Game.instance.OnPlayerAttributeUpdate();
-        dashSpeed = comboEffect[comboLevel].newDashSpeed;
+        dashSpeed = initDashSpeedStatic;
         velocity.x = moveSpeed;
         lootChanceBoostCombo = 0;
         //TODO add emitter effect control
@@ -61,11 +67,15 @@ public class LancerController: WarriorController {
             downButton = BtnHoldState.None;
             return;
         }
+        if (FSM_Charge.ActiveStateName == "Charge_SpeedUp") {
+            FSM_Charge.Fsm.Event("To_ChargeRecover");
+            downButton = BtnHoldState.None;
+        }
         if (FSM_Charge.ActiveStateName == "Charge") {
             if (_upButton == downButton) {
                 FSM_Control.Fsm.Event("To_ChargeRelease");
             } 
-            FSM_Charge.Fsm.Event("To_StopCharge");
+            FSM_Charge.Fsm.Event("To_ChargeRelease");
             downButton = BtnHoldState.None;
             return;
         }
@@ -95,6 +105,15 @@ public class LancerController: WarriorController {
         if ( Input.GetButtonUp("Jump")) {
             ReleaseCharge(BtnHoldState.Jump);
         } 
+        
+        //check if it's accelerating
+        if ( FSM_Charge.FsmVariables.GetFsmBool("isAccelerating").Value ) {
+            velocity.x += chargeAcceleration * Time.deltaTime;
+            //make the dashSpeed to be the threshold
+            if (velocity.x > dashSpeed) {
+                velocity.x = dashSpeed;
+            }
+        }
 
 		//handle movement
 		float horizonDist = Time.deltaTime * velocity.x;
@@ -171,11 +190,13 @@ public class LancerController: WarriorController {
             layer.Dirty();
         } else if (charMoveDir == MoveDir.Right) {
             if ( FSM_Control.FsmVariables.GetFsmBool("isAffectedByGravity").Value == false ) {
-            //get into dash state
-            velocity.x = dashSpeed;
-            FSM_Control.Fsm.Event("To_Dash");
-            } else if (FSM_Control.ActiveStateName == "Jump") {
+                if (FSM_Control.ActiveStateName != "Dash_Recover") {
+                //get into dash state
                 velocity.x = dashSpeed;
+                FSM_Control.Fsm.Event("To_Dash");
+                }
+            } else if (FSM_Control.ActiveStateName == "Jump") {
+                velocity.x = airDashSpeed;
                 FSM_Control.Fsm.Event("To_AirDash");
             }
         }
@@ -186,11 +207,13 @@ public class LancerController: WarriorController {
         FSM_Charge.Fsm.Event("To_ChargePrepare");
         if (charMoveDir == MoveDir.Left) {
             if ( FSM_Control.FsmVariables.GetFsmBool("isAffectedByGravity").Value == false ) {
-                //get into dash state
-                velocity.x = dashSpeed;
-                FSM_Control.Fsm.Event("To_Dash");
+                if (FSM_Control.ActiveStateName != "Dash_Recover") {
+                    //get into dash state
+                    velocity.x = dashSpeed;
+                    FSM_Control.Fsm.Event("To_Dash");
+                }
             } else if (FSM_Control.ActiveStateName == "Jump") {
-                velocity.x = dashSpeed;
+                velocity.x = airDashSpeed;
                 FSM_Control.Fsm.Event("To_AirDash");
             } 
         }
@@ -214,17 +237,12 @@ public class LancerController: WarriorController {
             velocity.y = jumpSpeed;
             FSM_Control.Fsm.Event("To_Jump");           
         } else  {
-            velocity.x = dashSpeed;
+            velocity.x = airDashSpeed;
             FSM_Control.Fsm.Event("To_AirDash");
         }
 	}
 
     public void StopDash() {
-        velocity.x = moveSpeed;
-    }
-
-    public void ChargeMoveSpeed() {
-        moveSpeed = moveSpeed * chargeSpeedModifier;
         velocity.x = moveSpeed;
     }
 
@@ -288,6 +306,17 @@ public class LancerController: WarriorController {
         Game.instance.AcceptInput(false);
         Game.instance.theGamePanel.ShowGameOver();
         this.enabled = false;
+    }
+
+    public override void OnCharacterAttributeUpdate() {
+        Debug.Log("enters lancer attribute update.");
+        //ATTR: att_dashSpeedBoost multiplier
+        float dashSpeedBoost = player.charBuild.GetAttributeEffectMultiplier("att_dashSpeedBoost");
+        dashSpeed = initDashSpeedStatic * dashSpeedBoost;
+
+        //ATTR: att_airDashSpeedBoost multiplier
+        float airDashSpeedBoost = player.charBuild.GetAttributeEffectMultiplier("att_airDashSpeedBoost");
+        airDashSpeed = initDashSpeedStatic * airDashSpeedBoost;
     }
 
 }

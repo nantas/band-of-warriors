@@ -28,11 +28,17 @@ public class ArcherController: WarriorController {
     public float charge3Speed = -150.0f;
     public int maxArrowCount = 3;
     //how many jump in the air can perform.
-    public int maxJumpCount = 2;
+    public int maxJumpCount = 1;
     //the bone anchor for arrow launch position and direction.
     public Transform shootAnchor;
-    [System.NonSerialized]public Spawner_Arrow arrowSpawner;
     public ComboEffectArcher[] comboEffect;
+    
+    [System.NonSerialized]public Spawner_Arrow arrowSpawner;
+    [System.NonSerialized]public float initChargeTime1Static;
+    [System.NonSerialized]public float initChargeTime2Static;
+    [System.NonSerialized]public float initChargeTime3Static;
+    [System.NonSerialized]public int initMaxJumpCountStatic;
+    
 
     //current jump in the air count before player reaches ground.
     private int currentJumpCount = 0;
@@ -41,6 +47,10 @@ public class ArcherController: WarriorController {
         arrowSpawner = GetComponent<Spawner_Arrow>();
         //speed up double jump animation.
 		animation["double_jump"].speed = 1.5f;
+        initChargeTime1Static = FSM_Charge.FsmVariables.GetFsmFloat("chargeTime1").Value;  
+        initChargeTime2Static = FSM_Charge.FsmVariables.GetFsmFloat("chargeTime2").Value; 
+        initChargeTime3Static = FSM_Charge.FsmVariables.GetFsmFloat("chargeTime3").Value; 
+        initMaxJumpCountStatic = maxJumpCount;
     }
 
 
@@ -268,6 +278,7 @@ public class ArcherController: WarriorController {
         if ( FSM_Control.FsmVariables.GetFsmBool("isAffectedByGravity").Value == false ) {
             velocity.y = jumpSpeed;
             FSM_Control.Fsm.Event("To_Jump");           
+            currentJumpCount += 1;
         } else  {
             //if player is in the air, do double jump if jump count allows.
             if (currentJumpCount < maxJumpCount) {
@@ -422,6 +433,18 @@ public class ArcherController: WarriorController {
         Game.instance.AcceptInput(false);
         Game.instance.theGamePanel.ShowGameOver();
         this.enabled = false;
+    }
+
+    public override void OnCharacterAttributeUpdate() {
+        //ATTR: att_chargeTimeReduction multiplier
+        float chargeTimeReduction = 2.0f - player.charBuild.GetAttributeEffectMultiplier("att_chargeTimeReduction");
+        FSM_Charge.FsmVariables.GetFsmFloat("chargeTime1").Value = initChargeTime1Static * chargeTimeReduction;
+        FSM_Charge.FsmVariables.GetFsmFloat("chargeTime2").Value = initChargeTime2Static * chargeTimeReduction;
+        FSM_Charge.FsmVariables.GetFsmFloat("chargeTime3").Value = initChargeTime3Static * chargeTimeReduction;
+
+        //ATTR: att_jumpCountBoost multiplier
+        int jumpCountBoost = (int)player.charBuild.GetAttributeEffectMultiplier("att_jumpCountBoost");
+        maxJumpCount = jumpCountBoost;
     }
 
 }

@@ -20,6 +20,7 @@ public class ComboEffectHam {
 public class HammerController: WarriorController {
 
     public ComboEffectHam[] comboEffect;
+    [System.NonSerialized]public float initChargeTimeStatic;
 
 
     public void OnComboHitUpdate(int _comboHit) {
@@ -36,6 +37,7 @@ public class HammerController: WarriorController {
     void Start () {
         //changed uppercut animation speed.
 		animation["uppercut"].speed = 2.0f;
+        initChargeTimeStatic = FSM_Charge.FsmVariables.GetFsmFloat("chargeTime1").Value;
     }
 
     public void OnComboEffectUp() {
@@ -287,6 +289,11 @@ public class HammerController: WarriorController {
         this.enabled = false;
     }
 
+    public override void OnCharacterAttributeUpdate() {
+        //ATTR: att_chargeTimeReduction multiplier
+        float chargeTimeReduction = 2.0f - player.charBuild.GetAttributeEffectMultiplier("att_chargeTimeReduction");
+        FSM_Charge.FsmVariables.GetFsmFloat("chargeTime1").Value = initChargeTimeStatic * chargeTimeReduction;
+    }
 }
 
 
