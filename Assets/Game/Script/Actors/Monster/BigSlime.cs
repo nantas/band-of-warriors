@@ -11,6 +11,10 @@ public class BigSlime : Enemy {
         enemyHp = initEnemyHpStatic;
     }
 
+    void Start() {
+        hurtAnimName = "big_slime_hurt";
+    }
+
     //move to random position along ground height.
     public void MoveToRandomLoc () {
         Vector3 targetPos = new Vector3(Random.Range(Game.instance.leftSpawnEntry.position.x, 
@@ -40,7 +44,7 @@ public class BigSlime : Enemy {
 		
 	}
 	
-	public IEnumerator OnDamaged(bool _isHurtFromRight) {
+	public override IEnumerator OnDamaged(bool _isHurtFromRight) {
 		if (!isTakingDamage) {
 			isTakingDamage = true;
 			spCollider.enabled = false;

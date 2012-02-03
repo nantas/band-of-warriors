@@ -37,6 +37,8 @@ public class HammerController: WarriorController {
     void Start () {
         //changed uppercut animation speed.
 		animation["uppercut"].speed = 2.0f;
+        animation["jump_attack"].speed = 2.0f;
+        animation["jump_atk_recover"].speed = 0.7f;
         initChargeTimeStatic = FSM_Charge.FsmVariables.GetFsmFloat("chargeTime1").Value;
     }
 
@@ -214,12 +216,15 @@ public class HammerController: WarriorController {
 	}
 
 	public override void StartJump() {
+        string curState = FSM_Control.ActiveStateName;
         downButton = BtnHoldState.Jump;
-        if ( FSM_Control.FsmVariables.GetFsmBool("isAffectedByGravity").Value == false ) {
-            velocity.y = jumpSpeed;
+        if ( curState == "Walk" || curState == "Uppercut" || curState == "Idle" ) {
+            velocity.y = 0;
+            OnStartJump();
             FSM_Control.Fsm.Event("To_Jump");           
-        } else  {
-            velocity.y = jumpSpeed;
+        } else if ( curState == "Jump")  {
+            OnStartJump();
+            velocity.y = 0;
             FSM_Control.Fsm.Event("To_AirAttack");
         }
 	}
@@ -237,25 +242,6 @@ public class HammerController: WarriorController {
             }
         }
     }	
-    
-
-
-    //push player back
-    public void StartHurt(bool _isHurtFromLeft) {
-        if (_isHurtFromLeft) {
-            transform.Translate(30.0f, 0, 0, Space.World);
-            if (transform.position.x > Game.instance.rightBoundary.position.x) {
-                transform.position = new Vector3(Game.instance.rightBoundary.position.x,
-                                                 transform.position.y, transform.position.z);
-            }
-        } else {
-            transform.Translate(-30.0f, 0, 0, Space.World);
-            if (transform.position.x < Game.instance.leftBoundary.position.x) {
-                transform.position = new Vector3(Game.instance.leftBoundary.position.x,
-                                                 transform.position.y, transform.position.z);
-            }
-        }
-    }
 
     public void OnStunExit() {
         string prevStateName = FSM_Control.FsmVariables.GetFsmString("PrevStateName").Value;

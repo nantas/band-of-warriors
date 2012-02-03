@@ -210,6 +210,7 @@ public class ArcherController: WarriorController {
 
     //handles player input when accepted.
 	public override void TurnRight() {
+        string curState = FSM_Control.ActiveStateName;
         downButton = BtnHoldState.Right;
         //if player moves toward the same direction, enter charge state.
         FSM_Charge.Fsm.Event("To_ChargePrepare");
@@ -229,13 +230,13 @@ public class ArcherController: WarriorController {
             layer.Dirty();
         } else if (charMoveDir == MoveDir.Right) {
             //if player is not in the air, do shoot
-            if ( FSM_Control.FsmVariables.GetFsmBool("isAffectedByGravity").Value == false ) {
+            if ( curState == "Walk" ) {
                 if (arrowSpawner.aliveArrowCount < maxArrowCount) {
                     //get into dash state
                     FSM_Control.Fsm.Event("To_Shoot");
                 }
                 //if player is in the air, do shoot in the air.
-            } else if (FSM_Control.ActiveStateName == "Jump" ) {
+            } else if ( curState == "Jump" || curState == "Double_Jump" || curState == "Jump_Falling" ) {
                 if (arrowSpawner.aliveArrowCount < maxArrowCount) {
                     FSM_Control.Fsm.Event("To_ShootInAir");
                 }
@@ -244,15 +245,16 @@ public class ArcherController: WarriorController {
 	}
 	
 	public override void TurnLeft() {
+        string curState = FSM_Control.ActiveStateName;
         downButton = BtnHoldState.Left;
         FSM_Charge.Fsm.Event("To_ChargePrepare");
         if (charMoveDir == MoveDir.Left) {
-            if ( FSM_Control.FsmVariables.GetFsmBool("isAffectedByGravity").Value == false ) {
+            if ( curState == "Walk" ) {
                 //get to shoot state
                 if (arrowSpawner.aliveArrowCount < maxArrowCount) {
                     FSM_Control.Fsm.Event("To_Shoot");
                 }
-            } else if (FSM_Control.ActiveStateName == "Jump"  ) {
+            } else if ( curState == "Jump" || curState == "Double_Jump" || curState == "Jump_Falling" ) {
                 if (arrowSpawner.aliveArrowCount < maxArrowCount) {
                     FSM_Control.Fsm.Event("To_ShootInAir");
                 }
@@ -273,15 +275,19 @@ public class ArcherController: WarriorController {
 	}
 
 	public override void StartJump() {
+        string curState = FSM_Control.ActiveStateName;
         downButton = BtnHoldState.Jump;
         //if player is on the ground, start jump.
-        if ( FSM_Control.FsmVariables.GetFsmBool("isAffectedByGravity").Value == false ) {
-            velocity.y = jumpSpeed;
+        if ( curState == "Walk" || curState == "Idle" ) {
+            velocity.y = 0;
+            OnStartJump();
             FSM_Control.Fsm.Event("To_Jump");           
             currentJumpCount += 1;
-        } else  {
+        } else if (curState == "Jump" || curState == "Jump_Falling" ) {
             //if player is in the air, do double jump if jump count allows.
             if (currentJumpCount < maxJumpCount) {
+                velocity.y = 0;
+                OnStartJump();
                 FSM_Control.Fsm.Event("To_DoubleJump");
                 currentJumpCount += 1;
             }
@@ -357,7 +363,7 @@ public class ArcherController: WarriorController {
 
     //jump in the air with magic number speed.
     public void DoubleJump() {
-        velocity.y = initJumpSpeedStatic + 100;
+        velocity.y = 0;
         velocity.x = moveSpeed + 100;
     }
 
@@ -385,23 +391,6 @@ public class ArcherController: WarriorController {
             FSM_Control.Fsm.Event("To_Stun_Ctrl");
         }
     }	
-
-    //push player back
-    public void StartHurt(bool _isHurtFromLeft) {
-        if (_isHurtFromLeft) {
-            transform.Translate(30.0f, 0, 0, Space.World);
-            if (transform.position.x > Game.instance.rightBoundary.position.x) {
-                transform.position = new Vector3(Game.instance.rightBoundary.position.x,
-                                                 transform.position.y, transform.position.z);
-            }
-        } else {
-            transform.Translate(-30.0f, 0, 0, Space.World);
-            if (transform.position.x < Game.instance.leftBoundary.position.x) {
-                transform.position = new Vector3(Game.instance.leftBoundary.position.x,
-                                                 transform.position.y, transform.position.z);
-            }
-        }
-    }
 
     //when player gets out of stun state, go back to a proper state according to where he was.
     public void OnStunExit() {

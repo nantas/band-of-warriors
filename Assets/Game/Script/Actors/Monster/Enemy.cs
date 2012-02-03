@@ -23,6 +23,8 @@ public class Enemy : MonoBehaviour {
     public int enemyHp = 1;
     public float lootDropRate = 0.0f;
     [System.NonSerialized]public int initEnemyHpStatic;
+    //use this variable to store sprite animation name for certain enemy class
+    [System.NonSerialized]public string hurtAnimName;
 	
 	protected bool isTakingDamage;
 
@@ -81,6 +83,30 @@ public class Enemy : MonoBehaviour {
 			return false;
 		}
 	}
+
+    //handle enemy hurt logic
+   	public virtual IEnumerator OnDamaged(bool _isHurtFromRight) {
+		if (!isTakingDamage) {
+			isTakingDamage = true;
+			spCollider.enabled = false;
+            iTween.Stop(gameObject);
+            //handle push back
+            float pushAmount = 50.0f;
+            Vector3 moveAmount = new Vector3(pushAmount, 0, 0);
+            float moveTime = 0.05f;
+            if (_isHurtFromRight) {
+                moveAmount.x = -pushAmount;
+            }
+            gameObject.MoveBy(moveAmount, moveTime, 0, EaseType.easeInQuad);            
+            spEnemy.spanim.Play(hurtAnimName);
+			float animTime = spEnemy.spanim.animations[1].length;
+			yield return new WaitForSeconds(animTime);
+            OnEnemyDie();
+		}
+	}
+
+    public virtual void OnEnemyDie() {
+    }
 
 
 

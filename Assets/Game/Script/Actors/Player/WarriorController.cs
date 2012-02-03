@@ -22,6 +22,8 @@ public class WarriorController : MonoBehaviour {
 	public float moveSpeed = 175.0f;
     //vertical jump speed 
     public float jumpSpeed = 1200.0f;
+    //vertical jump height
+    public float jumpHeight = 500.0f;
     //display name for character.
     public string charName;
     //display class name for character.
@@ -124,5 +126,40 @@ public class WarriorController : MonoBehaviour {
     public virtual void OnCharacterAttributeUpdate() {
     }
 
+    protected void OnStartJump() {
+        Debug.Log("jump up.");
+        Vector3 moveAmount = new Vector3(0, jumpHeight, 0);
+        float moveTime = jumpHeight/jumpSpeed;
+        iTween.Stop(gameObject);
+        gameObject.MoveBy(moveAmount, moveTime, 0, 
+                          EaseType.easeOutQuad, "StartFalling", gameObject);
+        Debug.Log("jump up sent.");
+    }
+
+    protected void StartFalling() {
+        Debug.Log("start falling.");
+        FSM_Control.FsmVariables.GetFsmBool("isAffectedByGravity").Value = true;  
+    }
+
+    //push player back
+    public void StartHurt(bool _isHurtFromLeft) {
+        float pushAmount = 50.0f;
+        Vector3 moveAmount = new Vector3(pushAmount, 0, 0);
+        float moveTime = 0.05f;
+        if (_isHurtFromLeft) {
+            if (transform.position.x + pushAmount > Game.instance.rightBoundary.position.x) {
+                float dist = Game.instance.rightBoundary.position.x - transform.position.x;
+                moveAmount.x = dist;
+            }
+        } else {
+            if (transform.position.x - pushAmount < Game.instance.leftBoundary.position.x) {
+                float dist = Game.instance.leftBoundary.position.x - transform.position.x;
+                moveAmount.x = dist;
+            } else {
+                moveAmount.x = -pushAmount;
+            }
+        }
+        gameObject.MoveBy(moveAmount, moveTime, 0, EaseType.linear);
+    }
 
 }

@@ -2,6 +2,9 @@ using UnityEngine;
 using System.Collections;
 
 public class Flymon : Enemy {
+    void Start() {
+        hurtAnimName = "flymon_hurt";
+    }
 	
     public void MoveToRandomLoc () {
         Vector3 targetPos = new Vector3(Random.Range(Game.instance.leftSpawnEntry.position.x, 
@@ -39,25 +42,7 @@ public class Flymon : Enemy {
         }
     }
 	
-	public IEnumerator OnDamaged(bool _isHurtFromRight) {
-		if (!isTakingDamage) {
-			isTakingDamage = true;
-			spCollider.enabled = false;
-            iTween.Stop(gameObject);
-            if (_isHurtFromRight) {
-                //push slime a bit, hacked magic number
-                transform.Translate(-30.0f,0,0);
-            } else {
-                transform.Translate(30.0f,0,0);
-            }
-            spEnemy.spanim.Play("flymon_hurt");
-			float animTime = spEnemy.spanim.animations[1].length;
-			yield return new WaitForSeconds(animTime);
-            OnEnemyDie();
-		}
-	}
-
-    public void OnEnemyDie() {
+    public override void OnEnemyDie() {
         Spawner_Flymon thisSpawner = spawner.GetComponent<Spawner_Flymon>() as Spawner_Flymon;
         thisSpawner.DestroyEnemy(this);
         spawner.levelManager.OnEnemyKilled(enemyType);

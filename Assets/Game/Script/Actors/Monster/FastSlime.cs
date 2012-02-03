@@ -2,6 +2,9 @@ using UnityEngine;
 using System.Collections;
 
 public class FastSlime : Enemy {
+    void Start() {
+        hurtAnimName = "fast_slime_hurt";
+    }
 
     public void MoveToPlayer () {
         Vector3 targetPos = new Vector3(Game.instance.thePlayer.transform.position.x, 
@@ -30,25 +33,8 @@ public class FastSlime : Enemy {
 		
 	}
 
-   	public IEnumerator OnDamaged(bool _isHurtFromRight) {
-		if (!isTakingDamage) {
-			isTakingDamage = true;
-			spCollider.enabled = false;
-            iTween.Stop(gameObject);
-            if (_isHurtFromRight) {
-                //push slime a bit, hacked magic number
-                transform.Translate(-30.0f,0,0);
-            } else {
-                transform.Translate(30.0f,0,0);
-            }
-            spEnemy.spanim.Play("fast_slime_hurt");
-			float animTime = spEnemy.spanim.animations[1].length;
-			yield return new WaitForSeconds(animTime);
-            OnEnemyDie();
-		}
-	}
 
-    public void OnEnemyDie() {
+    public override void OnEnemyDie() {
         Spawner_BigSlime thisSpawner = spawner.GetComponent<Spawner_BigSlime>() as Spawner_BigSlime;
         thisSpawner.DestroyEnemy(this);
         spawner.levelManager.OnEnemyKilled(enemyType);

@@ -2,6 +2,10 @@ using UnityEngine;
 using System.Collections;
 
 public class Cubat : Enemy {
+
+    void Start() {
+        hurtAnimName = "cubat_hurt";
+    }
 	
     //fly to a position to get ready for the pounce.
     public void MoveToNearPlayer () {
@@ -60,25 +64,7 @@ public class Cubat : Enemy {
         }
     }
 	
-	public IEnumerator OnDamaged(bool _isHurtFromRight) {
-		if (!isTakingDamage) {
-			isTakingDamage = true;
-			spCollider.enabled = false;
-            iTween.Stop(gameObject);
-            if (_isHurtFromRight) {
-                //push slime a bit, hacked magic number
-                transform.Translate(-30.0f,0,0);
-            } else {
-                transform.Translate(30.0f,0,0);
-            }
-            spEnemy.spanim.Play("cubat_hurt");
-			float animTime = spEnemy.spanim.animations[1].length;
-			yield return new WaitForSeconds(animTime);
-            OnEnemyDie();
-		}
-	}
-
-    public void OnEnemyDie() {
+    public override void OnEnemyDie() {
         Spawner_Cubat thisSpawner = spawner.GetComponent<Spawner_Cubat>() as Spawner_Cubat;
         thisSpawner.DestroyEnemy(this);
         spawner.levelManager.OnEnemyKilled(enemyType);

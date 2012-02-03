@@ -3,7 +3,9 @@ using System.Collections;
 
 public class Slime : Enemy {
 
-
+    void Start() {
+        hurtAnimName = "slime_hurt";
+    }
 
 
     public void MoveToRandomLoc () {
@@ -42,25 +44,7 @@ public class Slime : Enemy {
 		
 	}
 	
-	public IEnumerator OnDamaged(bool _isHurtFromRight) {
-		if (!isTakingDamage) {
-			isTakingDamage = true;
-			spCollider.enabled = false;
-            iTween.Stop(gameObject);
-            if (_isHurtFromRight) {
-                //push slime a bit, hacked magic number
-                transform.Translate(-30.0f,0,0);
-            } else {
-                transform.Translate(30.0f,0,0);
-            }
-            spEnemy.spanim.Play("slime_hurt");
-			float animTime = spEnemy.spanim.animations[1].length;
-			yield return new WaitForSeconds(animTime);
-            OnEnemyDie();
-		}
-	}
-
-    public void OnEnemyDie() {
+    public override void OnEnemyDie() {
         Spawner_Slime thisSpawner = spawner.GetComponent<Spawner_Slime>() as Spawner_Slime;
         thisSpawner.DestroyEnemy(this);
         spawner.levelManager.OnEnemyKilled(enemyType);
