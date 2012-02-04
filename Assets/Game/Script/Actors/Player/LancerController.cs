@@ -147,31 +147,31 @@ public class LancerController: WarriorController {
                 transform.position = new Vector3 ( Game.instance.rightBoundary.position.x,
                                                    transform.position.y, transform.position.z);
             }
+
             if ( transform.position.x + horizonDist < Game.instance.leftBoundary.position.x ) {
 	    		transform.position = new Vector3 ( Game.instance.leftBoundary.position.x,
                                                    transform.position.y, transform.position.z);
 		    }
+
+            //HACK: added player collider width margin
+            if ( transform.position.x > moveConstraint.rightEdge + dropMargin  || 
+                 transform.position.x < moveConstraint.leftEdge - dropMargin) {
+                //set stayHeight to ground position temporarily
+                moveConstraint.stayHeight = Game.instance.groundPosY;
+                if (FSM_Control.ActiveStateName == "Walk" || FSM_Control.ActiveStateName == "Jump" 
+                    || FSM_Control.ActiveStateName == "Dash_Recover" ) {
+                    FSM_Control.Fsm.Event("To_JumpFalling");
+                }
+                if (FSM_Control.ActiveStateName == "Stun" ) {
+                    FSM_Control.Fsm.Event("To_JumpNoMove");
+                }
+            }
 
             //vertical
             if ( FSM_Control.FsmVariables.GetFsmBool("isAffectedByGravity").Value == true  ) {
                 transform.Translate (0, verticalDist, 0);
             }
         }
-
-        //update air to ground state
-        if (FSM_Control.FsmVariables.GetFsmBool("isAffectedByGravity").Value == true) {
-            if ( transform.position.y <= Game.instance.groundPosY ) {
-                transform.position = new Vector3 (transform.position.x, 
-                                              Game.instance.groundPosY, transform.position.z);
-                //handle gameover
-                if (FSM_Control.FsmVariables.GetFsmBool("isPlayerNoHP").Value == false) {
-                    FSM_Control.Fsm.Event("To_Walk");
-                } else {
-                    //player dead
-                    PlayerDead();
-                }
-            }
-        } 
 
     }
 
@@ -195,7 +195,8 @@ public class LancerController: WarriorController {
                 velocity.x = dashSpeed;
                 FSM_Control.Fsm.Event("To_Dash");
                 }
-            } else if (FSM_Control.ActiveStateName == "Jump") {
+            } else if (FSM_Control.ActiveStateName == "Jump"
+                       || FSM_Control.ActiveStateName == "Jump_Falling") {
                 velocity.x = airDashSpeed;
                 FSM_Control.Fsm.Event("To_AirDash");
             }
@@ -212,7 +213,8 @@ public class LancerController: WarriorController {
                     velocity.x = dashSpeed;
                     FSM_Control.Fsm.Event("To_Dash");
                 }
-            } else if (FSM_Control.ActiveStateName == "Jump") {
+            } else if (FSM_Control.ActiveStateName == "Jump" ||
+                       FSM_Control.ActiveStateName == "Jump_Falling") {
                 velocity.x = airDashSpeed;
                 FSM_Control.Fsm.Event("To_AirDash");
             } 
@@ -238,7 +240,7 @@ public class LancerController: WarriorController {
             velocity.y = 0;
             OnStartJump();
             FSM_Control.Fsm.Event("To_Jump");           
-        } else if ( curState == "Jump" )  {
+        } else if ( curState == "Jump" || curState == "Jump_Falling" )  {
             velocity.x = airDashSpeed;
             iTween.Stop(gameObject);
             FSM_Control.Fsm.Event("To_AirDash");
@@ -287,7 +289,7 @@ public class LancerController: WarriorController {
         }
     }
 
-    public void PlayerDead() {
+    public override void PlayerDead() {
         velocity = new Vector2 (0, 0);
         Game.instance.AcceptInput(false);
         Game.instance.theGamePanel.ShowGameOver();

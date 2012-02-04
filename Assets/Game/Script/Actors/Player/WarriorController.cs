@@ -18,6 +18,17 @@ public enum BtnHoldState {
 
 public class WarriorController : MonoBehaviour {
 
+    public class MoveConstraint {
+        public float leftEdge; 
+        public float rightEdge;        
+        public float stayHeight;
+        public MoveConstraint() {
+            leftEdge = -2000;
+            rightEdge = 2000;
+            stayHeight = -130;
+        }
+    }
+
     //horizontal move speed for character.
 	public float moveSpeed = 175.0f;
     //vertical jump speed 
@@ -30,6 +41,11 @@ public class WarriorController : MonoBehaviour {
     public string charClass;
     //attack damage for each time player weapon touches an enemy. 
     public int attackPower = 10;
+    //move constraint
+    [System.NonSerialized]public MoveConstraint moveConstraint;
+    //edge drop safe margin
+    [System.NonSerialized]public float dropMargin = 30.0f;
+
 
     //the visual part of the player.
     [System.NonSerialized]public PlayerBase player; 
@@ -83,7 +99,10 @@ public class WarriorController : MonoBehaviour {
         initMoveSpeedStatic = moveSpeed;
         initAttackPowerStatic = attackPower;
         initInvincibleDuration = FSM_Hit.FsmVariables.GetFsmFloat("varInvincibleDuration").Value;
- 
+        moveConstraint = new MoveConstraint();
+        moveConstraint.leftEdge = Game.instance.leftBoundary.position.x;
+        moveConstraint.rightEdge = Game.instance.rightBoundary.position.x;
+        moveConstraint.stayHeight = Game.instance.groundPosY;
     }
 
     //check if player is able to accept input, depending on fsm variable set.
@@ -120,6 +139,9 @@ public class WarriorController : MonoBehaviour {
     public virtual void TurnRight(){
     }
 
+    public virtual void PlayerDead(){
+    }
+
     public virtual void ReleaseCharge(BtnHoldState _upButton) {
     }
 
@@ -127,13 +149,13 @@ public class WarriorController : MonoBehaviour {
     }
 
     protected void OnStartJump() {
-        Debug.Log("jump up.");
+        //Debug.Log("jump up.");
         Vector3 moveAmount = new Vector3(0, jumpHeight, 0);
         float moveTime = jumpHeight/jumpSpeed;
         iTween.Stop(gameObject);
         gameObject.MoveBy(moveAmount, moveTime, 0, 
                           EaseType.easeOutQuad, "StartFalling", gameObject);
-        Debug.Log("jump up sent.");
+        //Debug.Log("jump up sent.");
     }
 
     protected void OnStartDoubleJump() {
@@ -153,7 +175,7 @@ public class WarriorController : MonoBehaviour {
     //push player back
     public void StartHurt(bool _isHurtFromLeft) {
         float pushAmount = 50.0f;
-        Vector3 moveAmount = new Vector3(pushAmount, 0, 0);
+        Vector3 moveAmount = new Vector3(-pushAmount, 0, 0);
         float moveTime = 0.05f;
         if (_isHurtFromLeft) {
             if (transform.position.x + pushAmount > Game.instance.rightBoundary.position.x) {
@@ -164,11 +186,21 @@ public class WarriorController : MonoBehaviour {
             if (transform.position.x - pushAmount < Game.instance.leftBoundary.position.x) {
                 float dist = Game.instance.leftBoundary.position.x - transform.position.x;
                 moveAmount.x = dist;
-            } else {
-                moveAmount.x = -pushAmount;
             }
         }
         gameObject.MoveBy(moveAmount, moveTime, 0, EaseType.linear);
+    }
+
+    public void OnPlatformUpdate() {
+        Debug.Log("update platform. start walking.");
+        velocity.y = 0;
+        //handle gameover
+        if (FSM_Control.FsmVariables.GetFsmBool("isPlayerNoHP").Value == false) {
+            FSM_Control.Fsm.Event("To_Walk");
+        } else {
+            //player dead
+            PlayerDead();
+        }
     }
 
 }
