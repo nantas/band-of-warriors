@@ -23,7 +23,7 @@ public class WarriorController : MonoBehaviour {
     //vertical jump speed 
     public float jumpSpeed = 1200.0f;
     //vertical jump height
-    public float jumpHeight = 500.0f;
+    public float jumpHeight = 200.0f;
     //display name for character.
     public string charName;
     //display class name for character.
@@ -134,6 +134,15 @@ public class WarriorController : MonoBehaviour {
         gameObject.MoveBy(moveAmount, moveTime, 0, 
                           EaseType.easeOutQuad, "StartFalling", gameObject);
         Debug.Log("jump up sent.");
+    }
+
+    protected void OnStartDoubleJump() {
+        FSM_Control.FsmVariables.GetFsmBool("isAffectedByGravity").Value = false;  
+        Vector3 moveAmount = new Vector3(0, jumpHeight/1.5f, 0);
+        float moveTime = jumpHeight/1.5f/jumpSpeed;
+        iTween.Stop(gameObject);
+        gameObject.MoveBy(moveAmount, moveTime, 0, EaseType.easeOutQuad, "StartFalling",
+                          gameObject);
     }
 
     protected void StartFalling() {

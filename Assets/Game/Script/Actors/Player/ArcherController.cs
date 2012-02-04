@@ -287,8 +287,8 @@ public class ArcherController: WarriorController {
             //if player is in the air, do double jump if jump count allows.
             if (currentJumpCount < maxJumpCount) {
                 velocity.y = 0;
-                OnStartJump();
-                FSM_Control.Fsm.Event("To_DoubleJump");
+                OnStartDoubleJump();
+                //FSM_Control.Fsm.Event("To_Jump");
                 currentJumpCount += 1;
             }
         }

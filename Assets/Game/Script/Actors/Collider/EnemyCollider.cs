@@ -9,6 +9,7 @@ public class EnemyCollider : MonoBehaviour {
 		controller = transform.parent.GetComponent<Enemy>();
 	}
 
+    /*
 	void OnTriggerEnter (Collider other) {
         //check if the collide is from left or right 
         bool isEnemyOnLeft;
@@ -33,7 +34,31 @@ public class EnemyCollider : MonoBehaviour {
 			other.SendMessage("AttackEnemy",collisionPos);
 			controller.SendMessage("OnDamaged", isEnemyOnLeft);
 		}
-	}
+	}*/
+
+    void OnCollisionEnter(Collision _collision) {
+        //check if the collide is from left or right 
+        bool isEnemyOnLeft;
+        ContactPoint contact = _collision.contacts[0];
+        if (transform.position.x < contact.point.x) {
+            isEnemyOnLeft = true;
+        } else {
+            isEnemyOnLeft = false;
+        }
+
+        //when collide with player body, send message to player collider.
+		if (_collision.collider.tag == "player" && transform.root.gameObject.tag != "itemCarrier") {
+			_collision.collider.GetComponent<PlayerCollider>().TouchedEnemy(isEnemyOnLeft, 
+                                                              controller.attackPower);
+
+		}
+        //when collide with player weapon, push back and trigger damage.
+		if (_collision.collider.tag == "player_weapon") {
+            Vector2 collisionPos = new Vector2(contact.point.x, contact.point.y);
+			_collision.collider.SendMessage("AttackEnemy",collisionPos);
+			controller.SendMessage("OnDamaged", isEnemyOnLeft);
+		}
+    }
 	
 	void LateUpdate () {
 		//hack: force collision z index
