@@ -25,6 +25,8 @@ public class Enemy : MonoBehaviour {
     [System.NonSerialized]public int initEnemyHpStatic;
     //use this variable to store sprite animation name for certain enemy class
     [System.NonSerialized]public string hurtAnimName;
+    //move constraint only used for ground enemy
+    [System.NonSerialized]public PlatformCollider currentPlatform;
 	
 	protected bool isTakingDamage;
 
@@ -48,6 +50,8 @@ public class Enemy : MonoBehaviour {
         //reset enemy hp
         enemyHp = initEnemyHpStatic;
 	}
+
+
 	
 	void OnDisable () {
 		StopAllCoroutines();
@@ -97,7 +101,7 @@ public class Enemy : MonoBehaviour {
             if (_isHurtFromRight) {
                 moveAmount.x = -pushAmount;
             }
-            gameObject.MoveBy(moveAmount, moveTime, 0, EaseType.easeInQuad);            
+            gameObject.MoveBy(moveAmount, Space.World, moveTime, 0, EaseType.easeInQuad);            
             spEnemy.spanim.Play(hurtAnimName);
 			float animTime = spEnemy.spanim.animations[1].length;
 			yield return new WaitForSeconds(animTime);
@@ -106,6 +110,19 @@ public class Enemy : MonoBehaviour {
 	}
 
     public virtual void OnEnemyDie() {
+    }
+
+    //get a target position for random ground moving enemy
+    protected Vector3 GetRandomGroundPos() {
+        float leftMostX = Mathf.Max(Game.instance.leftSpawnEntry.position.x, currentPlatform.leftEdge);
+        float rightMostX = Mathf.Min(Game.instance.rightSpawnEntry.position.x, currentPlatform.rightEdge);
+        Vector3 targetPos = new Vector3(Random.Range(leftMostX, rightMostX),
+                                        currentPlatform.stayHeight, transform.position.z);
+        return targetPos;
+    }
+
+    public void UpdateMoveConstraint(PlatformCollider _platform) {
+        currentPlatform = _platform;
     }
 
 

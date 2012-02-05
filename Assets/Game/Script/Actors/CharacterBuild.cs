@@ -59,7 +59,8 @@ public class CharacterBuild : MonoBehaviour {
             //handle character level up.
             charLevel += 1;
             curExp = 0;
-            StartCoroutine(OnPlayerLvlUp());
+            //disable attribute gain for now.
+            //StartCoroutine(OnPlayerLvlUp());
             OnPlayerExpChange(extraExp);
         } else {
             //update experience bar display.

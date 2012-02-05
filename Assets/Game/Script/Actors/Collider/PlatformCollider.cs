@@ -4,16 +4,17 @@ using System.Collections;
 public class PlatformCollider : MonoBehaviour {
 	
 	private WarriorController player;
-    private float groundHeight;
-    private float leftBound;
-    private float rightBound; 
+
+    [System.NonSerialized]public float stayHeight;
+    [System.NonSerialized]public float leftEdge;
+    [System.NonSerialized]public float rightEdge; 
 	
 	void Awake() {
         BoxCollider thisCollider = GetComponent<BoxCollider>();
         Vector3 colliderCenter = transform.position + thisCollider.center;
-        groundHeight = colliderCenter.y + thisCollider.size.y/2;
-        leftBound = colliderCenter.x - thisCollider.size.x/2;
-        rightBound = colliderCenter.x + thisCollider.size.x/2;
+        stayHeight = colliderCenter.y + thisCollider.size.y/2;
+        leftEdge = colliderCenter.x - thisCollider.size.x/2;
+        rightEdge = colliderCenter.x + thisCollider.size.x/2;
 	}
 
     void OnTriggerEnter(Collider _other) {
@@ -23,12 +24,9 @@ public class PlatformCollider : MonoBehaviour {
             //if (_other.transform.position.y > transform.position.y) {
             if (player.FSM_Control.FsmVariables.GetFsmBool("isAffectedByGravity").Value == true) {
                 Debug.Log("###222### player collide from above.");
- 
-                player.moveConstraint.stayHeight = groundHeight;
-                player.moveConstraint.leftEdge = leftBound;
-                player.moveConstraint.rightEdge = rightBound;
+                player.currentPlatform = this;
                 player.transform.position = new Vector3(player.transform.position.x, 
-                                               groundHeight, player.transform.position.z);
+                                               stayHeight, player.transform.position.z);
                 player.OnPlatformUpdate();
             }
         }

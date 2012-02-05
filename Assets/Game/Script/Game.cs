@@ -40,6 +40,8 @@ public class Game : MonoBehaviour {
     //the camera boundary, it mostly used for checking if an actor is out of camera view. 
     public Transform leftSpawnEntry;
     public Transform rightSpawnEntry;
+    //base platform, usually the ground floor
+    public PlatformCollider theBasePlatform;
     //player hp
     public int maxPlayerHP = 100;	
     //reference for player class

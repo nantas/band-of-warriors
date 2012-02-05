@@ -69,6 +69,9 @@ public class BtnCharSelect : MonoBehaviour {
         MoveDir curMoveDir = Game.instance.thePlayer.playerController.charMoveDir;
         //send the old character state to idle and disable the controller.
         Game.instance.thePlayer.playerController.FSM_Control.Fsm.Event("To_Idle");
+        Game.instance.thePlayer.playerController.FSM_Control.enabled = false;
+        Game.instance.thePlayer.playerController.FSM_Hit.enabled = false;
+        Game.instance.thePlayer.playerController.FSM_Charge.enabled = false;
         Game.instance.thePlayer.playerController.enabled = false;
         //switch reference in game class to the new character
         Game.instance.thePlayer = nextChar;
@@ -76,6 +79,9 @@ public class BtnCharSelect : MonoBehaviour {
         Camera.main.GetComponent<CameraFollow>().target = nextChar.transform;
         //enable control for the new character, and set its state to idle.
         Game.instance.thePlayer.playerController.enabled = true;
+        Game.instance.thePlayer.playerController.FSM_Control.enabled = true;
+        Game.instance.thePlayer.playerController.FSM_Hit.enabled = true;
+        Game.instance.thePlayer.playerController.FSM_Charge.enabled = true;
         Game.instance.thePlayer.playerController.charMoveDir = curMoveDir;
         Game.instance.thePlayer.playerController.GetFaceDirection();
         Game.instance.thePlayer.playerController.charMoveDir = MoveDir.Stop;

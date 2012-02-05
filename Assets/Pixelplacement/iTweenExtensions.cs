@@ -538,6 +538,10 @@ public static class iTweenExtensions
 	/// <param name="easeType">
 	/// A <see cref="EaseType"/>
 	/// </param>
+	public static void MoveBy(this GameObject go,Vector3 amount, Space space, float time,float delay,EaseType easeType){
+		iTween.MoveBy(go,iTween.Hash("amount",amount,"space", space, "time",time,"delay",delay,"easeType",easeType.ToString()));
+	}
+
 	public static void MoveBy(this GameObject go,Vector3 amount,float time,float delay,EaseType easeType){
 		iTween.MoveBy(go,iTween.Hash("amount",amount,"time",time,"delay",delay,"easeType",easeType.ToString()));
 	}
@@ -690,11 +694,24 @@ public static class iTweenExtensions
                                      "oncomplete", onCompleteCall, "oncompletetarget", onCompleteGO));
 	}
 
+	public static void MoveTo(this GameObject go,Vector3[] path,float time,float delay, EaseType easeType, 
+                              string onCompleteCall, GameObject onCompleteGO, Object onCompleteParams){
+		iTween.MoveTo(go,iTween.Hash("path",path,"time",time,"delay",delay, "easeType", easeType.ToString(),
+                                     "oncomplete", onCompleteCall, "oncompletetarget", onCompleteGO, 
+                                     "oncompleteparams", onCompleteParams));
+	}
+
 	public static void MoveTo(this GameObject go,Vector3 position,float time,
                               float delay,EaseType easeType, string onCompleteCall, GameObject onCompleteGO){
 		iTween.MoveTo(go,iTween.Hash("position",position,"time",time,
                                      "delay",delay,"easeType",easeType.ToString(),"oncomplete", onCompleteCall, "oncompletetarget", onCompleteGO));
 		
+	}
+
+	public static void MoveTo(this GameObject go,Vector3 position,float time,
+                              float delay,EaseType easeType, string onCompleteCall, GameObject onCompleteGO, Vector3 onCompleteParams){
+		iTween.MoveTo(go,iTween.Hash("position",position,"time",time,"delay",delay,"easeType",easeType.ToString(),
+                                     "oncomplete", onCompleteCall, "oncompletetarget", onCompleteGO,"oncompleteparams", onCompleteParams));
 	}
 
 	public static void MoveTo(this GameObject go,Vector3 position,float time,

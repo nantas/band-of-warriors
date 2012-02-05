@@ -17,9 +17,7 @@ public class BigSlime : Enemy {
 
     //move to random position along ground height.
     public void MoveToRandomLoc () {
-        Vector3 targetPos = new Vector3(Random.Range(Game.instance.leftSpawnEntry.position.x, 
-                                                     Game.instance.rightSpawnEntry.position.x),
-                                        Game.instance.groundPosY, transform.position.z);
+        Vector3 targetPos = GetRandomGroundPos(); 
         float moveTime = Mathf.Abs((targetPos.x - transform.position.x))/moveSpeed;
         float delayTime = Random.Range(0.0f, 0.7f);
         //start moving, and repeating after reach the position.
@@ -31,6 +29,8 @@ public class BigSlime : Enemy {
 	public void GetIntoField (MoveDir moveDir) {
         spEnemy.spanim.Play("big_slime_idle");
 		Vector3 targetPos = new Vector3(0, Game.instance.groundPosY, transform.position.z);
+        PlatformCollider platform = Game.instance.theBasePlatform;
+        UpdateMoveConstraint(platform);
 		float moveTime = 0;
 		if (moveDir == MoveDir.Left) {
 			targetPos.x = Game.instance.rightSpawnEntry.position.x - 30;

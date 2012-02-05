@@ -9,9 +9,7 @@ public class Slime : Enemy {
 
 
     public void MoveToRandomLoc () {
-        Vector3 targetPos = new Vector3(Random.Range(Game.instance.leftSpawnEntry.position.x, 
-                                                     Game.instance.rightSpawnEntry.position.x),
-                                        Game.instance.groundPosY, transform.position.z);
+        Vector3 targetPos = GetRandomGroundPos();  
         float moveTime = Mathf.Abs((targetPos.x - transform.position.x))/moveSpeed;
         float delayTime = Random.Range(0.0f, 0.7f);
         //start moving
