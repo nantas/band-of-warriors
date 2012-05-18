@@ -17,7 +17,7 @@ namespace HutongGames.PlayMaker.Actions
 		public FsmString fsmName;
 
 		[RequiredField]
-		[UIHint(UIHint.FsmMaterial)]
+		[UIHint(UIHint.FsmQuaternion)]
 		public FsmString variableName;
 
 		[RequiredField]
@@ -39,7 +39,7 @@ namespace HutongGames.PlayMaker.Actions
 
 		public override void OnEnter()
 		{
-			DoSetFsmBool();
+			DoSetFsmQuaternion();
 
 			if (!everyFrame)
 			{
@@ -47,7 +47,7 @@ namespace HutongGames.PlayMaker.Actions
 			}
 		}
 
-		void DoSetFsmBool()
+		void DoSetFsmQuaternion()
 		{
 			if (setValue == null)
 			{
@@ -84,7 +84,7 @@ namespace HutongGames.PlayMaker.Actions
 
 		public override void OnUpdate()
 		{
-			DoSetFsmBool();
+			DoSetFsmQuaternion();
 		}
 
 	}

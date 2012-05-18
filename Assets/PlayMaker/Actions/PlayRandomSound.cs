@@ -23,7 +23,7 @@ namespace HutongGames.PlayMaker.Actions
 			gameObject = null;
 			position = new FsmVector3 { UseVariable = true };
 			audioClips = new AudioClip[3];
-			weights = new FsmFloat[3] {1,1,1};
+			weights = new FsmFloat[] {1,1,1};
 			volume = 1;
 		}
 

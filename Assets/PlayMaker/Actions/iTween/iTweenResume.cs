@@ -11,8 +11,8 @@ namespace HutongGames.PlayMaker.Actions
 		[RequiredField]
 		public FsmOwnerDefault gameObject;
 		public iTweenFSMType iTweenType = iTweenFSMType.all;
-		public bool includeChildren = false;
-		public bool inScene = false;
+		public bool includeChildren;
+		public bool inScene;
 		
 		public override void Reset()
 		{

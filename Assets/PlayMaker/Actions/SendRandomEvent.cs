@@ -19,7 +19,7 @@ namespace HutongGames.PlayMaker.Actions
 		public override void Reset()
 		{
 			events = new FsmEvent[3];
-			weights = new FsmFloat[3] {1,1,1};
+			weights = new FsmFloat[] {1,1,1};
 			delay = null;
 		}
 
@@ -31,11 +31,15 @@ namespace HutongGames.PlayMaker.Actions
 			
 				if (randomIndex != -1)
 				{
-					delayedEvent = new DelayedEvent(Fsm, events[randomIndex], delay.Value);
-					delayedEvent.Update();
-				
-					if (delayedEvent.Finished)
+					if (delay.Value < 0.001f)
+					{
+						Fsm.Event(events[randomIndex]);
 						Finish();
+					}
+					else
+					{
+						delayedEvent = Fsm.DelayedEvent(events[randomIndex], delay.Value);
+					}
 					
 					return;
 				}
@@ -46,10 +50,10 @@ namespace HutongGames.PlayMaker.Actions
 		
 		public override void OnUpdate()
 		{
-			delayedEvent.Update();
-			
-			if (delayedEvent.Finished)
+			if (DelayedEvent.WasSent(delayedEvent))
+			{
 				Finish();
+			}
 		}
 	}
 }

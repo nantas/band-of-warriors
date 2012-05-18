@@ -11,14 +11,17 @@ namespace HutongGames.PlayMaker.Actions
 		[RequiredField]
 		[CheckForComponent(typeof(Animation))]
 		public FsmOwnerDefault gameObject;
+		
 		[RequiredField]
 		[UIHint(UIHint.Animation)]
 		public FsmString animName;
+		
 		[RequiredField]
 		public FsmBool enable;
+		
 		public FsmBool resetOnExit;
 		
-		AnimationState anim;
+		private AnimationState anim;
 		
 		public override void Reset()
 		{
@@ -30,17 +33,17 @@ namespace HutongGames.PlayMaker.Actions
 
 		public override void OnEnter()
 		{
-			if (gameObject.OwnerOption == OwnerDefaultOption.UseOwner)
-				DoEnableAnimation(Owner);
-			else
-				DoEnableAnimation(gameObject.GameObject.Value);
+			DoEnableAnimation(Fsm.GetOwnerDefaultTarget(gameObject));
 			
 			Finish();
 		}
 
 		void DoEnableAnimation(GameObject go)
 		{
-			if (go == null) return;
+			if (go == null)
+			{
+				return;
+			}
 
 			if (go.animation == null)
 			{

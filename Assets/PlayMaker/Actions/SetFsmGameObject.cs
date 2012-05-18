@@ -11,23 +11,28 @@ namespace HutongGames.PlayMaker.Actions
 	{
 		[RequiredField]
 		public FsmOwnerDefault gameObject;
+		
 		[UIHint(UIHint.FsmName)]
 		[Tooltip("Optional name of FSM on Game Object")]
 		public FsmString fsmName;
+		
 		[RequiredField]
 		[UIHint(UIHint.FsmGameObject)]
 		public FsmString variableName;
+		
 		public FsmGameObject setValue;
+		
 		public bool everyFrame;
 
-		GameObject goLastFrame;
-		PlayMakerFSM fsm;
+		private GameObject goLastFrame;
+		private PlayMakerFSM fsm;
 		
 		public override void Reset()
 		{
 			gameObject = null;
 			fsmName = "";
 			setValue = null;
+			everyFrame = false;
 		}
 
 		public override void OnEnter()
@@ -35,13 +40,18 @@ namespace HutongGames.PlayMaker.Actions
 			DoSetFsmGameObject();
 			
 			if (!everyFrame)
-				Finish();		
+			{
+				Finish();
+			}		
 		}
 
 		void DoSetFsmGameObject()
 		{
-			GameObject go = Fsm.GetOwnerDefaultTarget(gameObject);
-			if (go == null) return;
+			var go = Fsm.GetOwnerDefaultTarget(gameObject);
+			if (go == null)
+			{
+				return;
+			}
 			
 			if (go != goLastFrame)
 			{
@@ -52,19 +62,17 @@ namespace HutongGames.PlayMaker.Actions
 				fsm = ActionHelpers.GetGameObjectFsm(go, fsmName.Value);
 			}			
 			
-			if (fsm == null) return;
-			
-			FsmGameObject fsmGameObject = fsm.FsmVariables.GetFsmGameObject(variableName.Value);
-			
-			if (fsmGameObject == null) return;
-			
-			if (setValue == null) 
+			if (fsm == null)
 			{
-				fsmGameObject.Value = null;
+				return;
 			}
-			else
+			
+			var fsmGameObject = fsm.FsmVariables.GetFsmGameObject(variableName.Value);
+			
+			if (fsmGameObject != null)
+
 			{
-				fsmGameObject.Value = setValue.Value;
+				fsmGameObject.Value = setValue == null ? null : setValue.Value;
 			}
 		}
 

@@ -21,14 +21,16 @@ namespace HutongGames.PlayMaker.Actions
 		}
 		
 		public TimeInfo getInfo;
+		
 		[RequiredField]
 		[UIHint(UIHint.Variable)]
 		public FsmFloat storeValue;
+		
 		public bool everyFrame;
 
 		public override void Reset()
 		{
-			getInfo = GetTimeInfo.TimeInfo.TimeSinceLevelLoad;
+			getInfo = TimeInfo.TimeSinceLevelLoad;
 			storeValue = null;
 			everyFrame = false;
 		}
@@ -38,7 +40,9 @@ namespace HutongGames.PlayMaker.Actions
 			DoGetTimeInfo();
 			
 			if (!everyFrame)
+			{
 				Finish();
+			}
 		}
 
 		public override void OnUpdate()
@@ -76,11 +80,11 @@ namespace HutongGames.PlayMaker.Actions
 				break;
 				
 			case TimeInfo.RealTimeSinceStartup:
-				storeValue.Value = Time.realtimeSinceStartup;
+				storeValue.Value = FsmTime.RealtimeSinceStartup;
 				break;
 			
 			case TimeInfo.RealTimeInCurrentState:
-				storeValue.Value = Time.realtimeSinceStartup - State.RealStartTime;
+				storeValue.Value = FsmTime.RealtimeSinceStartup - State.RealStartTime;
 				break;
 				
 			default:

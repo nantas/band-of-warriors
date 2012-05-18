@@ -1,7 +1,6 @@
 // (c) Copyright HutongGames, LLC 2010-2011. All rights reserved.
 
 using UnityEngine;
-
 namespace HutongGames.PlayMaker.Actions
 {
 	[ActionCategory(ActionCategory.Math)]
@@ -18,12 +17,17 @@ namespace HutongGames.PlayMaker.Actions
 		
 		[RequiredField]
 		public FsmBool bool1;
+		
 		[RequiredField]
 		public FsmBool bool2;
+		
 		public Operation operation;
+		
 		[RequiredField]
 		[UIHint(UIHint.Variable)]
+		
 		public FsmBool storeResult;
+		
 		public bool everyFrame;
 
 		public override void Reset()
@@ -40,7 +44,9 @@ namespace HutongGames.PlayMaker.Actions
 			DoBoolOperator();
 			
 			if (!everyFrame)
+			{
 				Finish();
+			}
 		}
 		
 		public override void OnUpdate()
@@ -50,8 +56,8 @@ namespace HutongGames.PlayMaker.Actions
 		
 		void DoBoolOperator()
 		{
-			bool v1 = bool1.Value;
-			bool v2 = bool2.Value;
+			var v1 = bool1.Value;
+			var v2 = bool2.Value;
 
 			switch (operation)
 			{
@@ -69,9 +75,6 @@ namespace HutongGames.PlayMaker.Actions
 
 				case Operation.XOR:
 					storeResult.Value = v1 ^ v2;
-					break;
-
-				default:
 					break;
 			}
 		}

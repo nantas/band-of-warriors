@@ -10,10 +10,14 @@ namespace HutongGames.PlayMaker.Actions
 	{
 		[RequiredField]
 		public FsmOwnerDefault gameObject;
+		
 		[RequiredField]
 		public FsmGameObject isChildOf;
+		
 		public FsmEvent trueEvent;
+		
 		public FsmEvent falseEvent;
+		
 		[RequiredField]
 		[UIHint(UIHint.Variable)]
 		public FsmBool storeResult;
@@ -29,22 +33,21 @@ namespace HutongGames.PlayMaker.Actions
 
 		public override void OnEnter()
 		{
-			if (gameObject.OwnerOption == OwnerDefaultOption.UseOwner)
-				DoIsChildOf(Owner);
-			else
-				DoIsChildOf(gameObject.GameObject.Value);
+			DoIsChildOf(Fsm.GetOwnerDefaultTarget(gameObject));
 			
 			Finish();
 		}
 
 		void DoIsChildOf(GameObject go)
 		{
-			if (go == null || isChildOf == null) return;
+			if (go == null || isChildOf == null)
+			{
+				return;
+			}
 			
-			bool isChild = go.transform.IsChildOf(isChildOf.Value.transform);
-			
-			if (storeResult != null)
-				storeResult.Value = isChild;
+			var isChild = go.transform.IsChildOf(isChildOf.Value.transform);
+
+			storeResult.Value = isChild;
 			
 			Fsm.Event(isChild ? trueEvent : falseEvent);
 		}

@@ -30,9 +30,12 @@ namespace HutongGames.PlayMaker.Actions
 
 		public override void OnGUI()
 		{
-			if (applied) return;
+			if (applied)
+			{
+				return;
+			}
 
-			Vector2 pivotPoint = new Vector2(pivotX.Value, pivotY.Value);
+			var pivotPoint = new Vector2(pivotX.Value, pivotY.Value);
 			
 			if (normalized)
 			{

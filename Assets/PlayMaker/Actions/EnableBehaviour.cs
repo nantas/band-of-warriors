@@ -10,19 +10,23 @@ namespace HutongGames.PlayMaker.Actions
 	{
 		[RequiredField]
 		public FsmOwnerDefault gameObject;
+		
 		[UIHint(UIHint.Behaviour)]
 		public FsmString behaviour;
+		
 		[Tooltip("Optionally drag a component directly into this field")]
 		public Component component;
+		
 		[RequiredField]
 		public FsmBool enable;
+		
 		public FsmBool resetOnExit;
-
 
 		public override void Reset()
 		{
 			gameObject = null;
 			behaviour = null;
+			component = null;
 			enable = true;
 			resetOnExit = true;
 		}
@@ -31,17 +35,17 @@ namespace HutongGames.PlayMaker.Actions
 
 		public override void OnEnter()
 		{
-			if (gameObject.OwnerOption == OwnerDefaultOption.UseOwner)
-				DoEnableBehaviour(Owner);
-			else
-				DoEnableBehaviour(gameObject.GameObject.Value);
+			DoEnableBehaviour(Fsm.GetOwnerDefaultTarget(gameObject));
 			
 			Finish();
 		}
 
 		void DoEnableBehaviour(GameObject go)
 		{
-			if (go == null) return;
+			if (go == null)
+			{
+				return;
+			}
 
 			if (component != null)
 			{
@@ -63,7 +67,10 @@ namespace HutongGames.PlayMaker.Actions
 
 		public override void OnExit()
 		{
-			if (componentTarget == null) return;
+			if (componentTarget == null)
+			{
+				return;
+			}
 
 			if (resetOnExit.Value)
 			{

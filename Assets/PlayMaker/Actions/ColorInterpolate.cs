@@ -41,7 +41,7 @@ namespace HutongGames.PlayMaker.Actions
 
 		public override void OnEnter()
 		{
-			startTime = Time.realtimeSinceStartup;
+			startTime = FsmTime.RealtimeSinceStartup;
 			currentTime = 0f;
 
 			if (colors.Length < 2)
@@ -64,7 +64,7 @@ namespace HutongGames.PlayMaker.Actions
 			
 			if (realTime)
 			{
-				currentTime = Time.realtimeSinceStartup - startTime;
+				currentTime = FsmTime.RealtimeSinceStartup - startTime;
 			}
 			else
 			{

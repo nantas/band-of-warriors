@@ -31,7 +31,7 @@ namespace HutongGames.PlayMaker.Actions
 				return;
 			}
 				
-			startTime = Time.realtimeSinceStartup;
+			startTime = FsmTime.RealtimeSinceStartup;
 			timer = 0f;
 		}
 		
@@ -41,16 +41,19 @@ namespace HutongGames.PlayMaker.Actions
 			
 			if (realTime)
 			{
-				timer = Time.realtimeSinceStartup - startTime;
+				timer = FsmTime.RealtimeSinceStartup - startTime;
 			}
 			else
 			{
 				timer += Time.deltaTime;
 			}
 			
-			if (timer > time.Value){
+			if (timer >= time.Value){
 				Finish();
-				if(finishEvent != null) Fsm.Event(finishEvent);
+				if(finishEvent != null)
+				{
+					Fsm.Event(finishEvent);
+				}
 			}
 		}
 		

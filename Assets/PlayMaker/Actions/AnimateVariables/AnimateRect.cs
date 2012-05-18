@@ -1,7 +1,4 @@
-/// <copyright>(c) Hutong Games, LLC. 2010-2011. All rights reserved.</copyright>
-/// <history> 
-/// Version 1.0 
-/// </history>
+// (c) Copyright HutongGames, LLC 2010-2011. All rights reserved.
 
 using UnityEngine;
 

@@ -21,7 +21,7 @@ namespace HutongGames.PlayMaker.Actions
 		
 		public override void OnEnter ()
 		{
-			storeGameObject.Value = Camera.main.gameObject;
+			storeGameObject.Value = Camera.main != null ? Camera.main.gameObject : null;
 			
 			Finish();
 		}

@@ -11,17 +11,24 @@ namespace HutongGames.PlayMaker.Actions
 		[RequiredField]
 		[CheckForComponent(typeof(Rigidbody))]
 		public FsmOwnerDefault gameObject;
+		
 		[UIHint(UIHint.Variable)]
-		[Tooltip("A Vector3 torque to add. Optionally override any axis with the X, Y, Z parameters.")]
+		[Tooltip("A Vector3 torque. Optionally override any axis with the X, Y, Z parameters.")]
 		public FsmVector3 vector;
+
 		[Tooltip("To leave unchanged, set to 'None'.")]
 		public FsmFloat x;
+
 		[Tooltip("To leave unchanged, set to 'None'.")]
 		public FsmFloat y;
+
 		[Tooltip("To leave unchanged, set to 'None'.")]
 		public FsmFloat z;
+
 		public Space space;
+
 		public ForceMode forceMode;
+
 		public bool everyFrame;
 
 		public override void Reset()
@@ -41,7 +48,9 @@ namespace HutongGames.PlayMaker.Actions
 			DoAddTorque();
 			
 			if (!everyFrame)
-				Finish();		
+			{
+				Finish();
+			}		
 		}
 
 		public override void OnFixedUpdate()
@@ -51,20 +60,19 @@ namespace HutongGames.PlayMaker.Actions
 
 		void DoAddTorque()
 		{
-			GameObject go = gameObject.OwnerOption == OwnerDefaultOption.UseOwner ? Owner : gameObject.GameObject.Value;
-			if (go == null) return;
+			var go = Fsm.GetOwnerDefaultTarget(gameObject);
+			if (go == null)
+			{
+				return;
+			}
+
 			if (go.rigidbody == null)
 			{
 				LogWarning("Missing rigid body: " + go.name);
 				return;
 			}
 
-			Vector3 torque;
-			
-			if (vector.IsNone)
-				torque = new Vector3(x.Value, y.Value, z.Value);
-			else
-				torque = vector.Value;
+			var torque = vector.IsNone ? new Vector3(x.Value, y.Value, z.Value) : vector.Value;
 			
 			// override any axis
 
@@ -76,11 +84,11 @@ namespace HutongGames.PlayMaker.Actions
 			
 			if (space == Space.World)
 			{
-				go.rigidbody.AddTorque(torque);
+				go.rigidbody.AddTorque(torque, forceMode);
 			}
 			else
 			{
-				go.rigidbody.AddRelativeTorque(torque);
+				go.rigidbody.AddRelativeTorque(torque, forceMode);
 			}
 		}
 

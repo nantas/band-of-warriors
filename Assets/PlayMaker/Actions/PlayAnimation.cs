@@ -1,5 +1,6 @@
 // (c) Copyright HutongGames, LLC 2010-2011. All rights reserved.
 
+using System;
 using UnityEngine;
 
 namespace HutongGames.PlayMaker.Actions
@@ -9,17 +10,32 @@ namespace HutongGames.PlayMaker.Actions
 	public class PlayAnimation : FsmStateAction
 	{
 		[RequiredField]
+		[CheckForComponent(typeof(Animation))]
+		[Tooltip("Game Object to play the animation on.")]
 		public FsmOwnerDefault gameObject;
+		
 		[UIHint(UIHint.Animation)]
+		[Tooltip("The name of the animation to play.")]
 		public FsmString animName;
+		
+		[Tooltip("How to treat previously playing animations.")]
 		public PlayMode playMode;
+		
 		[HasFloatSlider(0f, 5f)]
+		[Tooltip("Time taken to blend to this animation.")]
 		public FsmFloat blendTime;
+		
+		[Tooltip("Event to send when the animation is finished playing. NOTE: Not sent with Loop or PingPong wrap modes!")]
 		public FsmEvent finishEvent;
+
+		[Tooltip("Event to send when the animation loops. If you want to send this event to another FSM use Set Event Target. NOTE: This event is only sent with Loop and PingPong wrap modes.")]
+		public FsmEvent loopEvent;
+
+		[Tooltip("Stop playing the animation when this state is exited.")]
 		public bool stopOnExit;
 
-		AnimationState anim;
-		float prevAnimTime;
+		private AnimationState anim;
+		private float prevAnimtTime;
 
 		public override void Reset()
 		{
@@ -28,6 +44,7 @@ namespace HutongGames.PlayMaker.Actions
 			playMode = PlayMode.StopAll;
 			blendTime = 0.3f;
 			finishEvent = null;
+			loopEvent = null;
 			stopOnExit = false;
 		}
 
@@ -38,7 +55,7 @@ namespace HutongGames.PlayMaker.Actions
 
 		void DoPlayAnimation()
 		{
-			GameObject go = Fsm.GetOwnerDefaultTarget(gameObject);
+			var go = Fsm.GetOwnerDefaultTarget(gameObject);
 			if (go == null || string.IsNullOrEmpty(animName.Value))
 			{
 				Finish();
@@ -68,41 +85,54 @@ namespace HutongGames.PlayMaker.Actions
 				return;
 			}
 
-			float time = blendTime.Value;
-			if (time == 0) {
-                //go.animation.Rewind(animName.Value);
+			var time = blendTime.Value;
+			if (time < 0.001f)
+			{
 				go.animation.Play(animName.Value, playMode);
-            }
+			}
 			else
+			{
 				go.animation.CrossFade(animName.Value, time, playMode);
+			}
+
+			prevAnimtTime = anim.time;
 		}
 
 		public override void OnUpdate()
 		{
-			GameObject go = Fsm.GetOwnerDefaultTarget(gameObject);
-			if (go == null || anim == null) return;
+			var go = Fsm.GetOwnerDefaultTarget(gameObject);
+			if (go == null || anim == null)
+			{
+				return;
+			}
 
-			// Use helper since different wrap modes make it harder to tell if anim has finished
-			if (ActionHelpers.HasAnimationFinished(anim, prevAnimTime, anim.time))
+			if (!anim.enabled || (anim.wrapMode == WrapMode.ClampForever && anim.time > anim.length))
 			{
 				Fsm.Event(finishEvent);
 				Finish();
 			}
 
-			prevAnimTime = anim.time;
+			if (anim.wrapMode != WrapMode.ClampForever && anim.time > anim.length && prevAnimtTime < anim.length)
+			{
+				Fsm.Event(loopEvent);
+			}
 		}
 
 		public override void OnExit()
 		{
 			if (stopOnExit)
+			{
 				StopAnimation();
+			}
 		}
 
 		void StopAnimation()
 		{
-			GameObject go = Fsm.GetOwnerDefaultTarget(gameObject);
+			var go = Fsm.GetOwnerDefaultTarget(gameObject);
 			if (go != null && go.animation != null)
+			{
 				go.animation.Stop(animName.Value);
+			}
 		}
 	}
 }

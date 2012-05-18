@@ -22,7 +22,7 @@ namespace HutongGames.PlayMaker.Actions
 		[Tooltip("Gets a Texture from the url.")]
 		public FsmTexture storeTexture;
 
-#if !(UNITY_IPHONE || UNITY_ANDROID)
+#if !(UNITY_IPHONE || UNITY_ANDROID || UNITY_FLASH)
 
 		[UIHint(UIHint.Variable)]
 		[ObjectType(typeof(MovieTexture))]
@@ -95,8 +95,8 @@ namespace HutongGames.PlayMaker.Actions
 				storeText.Value = wwwObject.text;
 				storeTexture.Value = wwwObject.texture;
 
-#if !(UNITY_IPHONE || UNITY_ANDROID)
-	
+#if !(UNITY_IPHONE || UNITY_ANDROID || UNITY_FLASH)
+
 				storeMovieTexture.Value = wwwObject.movie;
 #endif
 

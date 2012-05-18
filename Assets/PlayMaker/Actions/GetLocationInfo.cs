@@ -41,15 +41,38 @@ namespace HutongGames.PlayMaker.Actions
 
 		public override void OnEnter()
 		{
-#if UNITY_IPHONE
 			DoGetLocationInfo();
-#endif
+
 			Finish();
 		}
 
-#if UNITY_IPHONE
 		void DoGetLocationInfo()
 		{
+#if UNITY_IPHONE
+
+#if UNITY_3_5
+
+			if (Input.location.status != LocationServiceStatus.Running)
+			{
+				Fsm.Event(errorEvent);
+				return;
+			}
+			
+			float x = Input.location.lastData.longitude;
+			float y = Input.location.lastData.latitude;
+			float z = Input.location.lastData.altitude;
+			
+			vectorPosition.Value = new Vector3(x,y,z);
+			
+			longitude.Value = x;
+			latitude.Value = y;
+			altitude.Value = z;
+
+			horizontalAccuracy.Value = Input.location.lastData.horizontalAccuracy;
+			verticalAccuracy.Value = Input.location.lastData.verticalAccuracy;
+			
+#else
+			
 			if (iPhoneSettings.locationServiceStatus != LocationServiceStatus.Running)
 			{
 				Fsm.Event(errorEvent);
@@ -70,7 +93,10 @@ namespace HutongGames.PlayMaker.Actions
 			verticalAccuracy.Value = iPhoneInput.lastLocation.verticalAccuracy;
 			
 			//timeStamp.Value = locationInfo.timestamp - 
-		}
+
 #endif
+			
+#endif
+		}
 	}
 }

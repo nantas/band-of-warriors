@@ -10,12 +10,21 @@ namespace HutongGames.PlayMaker.Actions
 	{
 		[RequiredField]
 		[UIHint(UIHint.Variable)]
+		[Tooltip("The bool variable to test.")]
 		public FsmBool boolVariable;
+		
 		[RequiredField]
 		[UIHint(UIHint.Variable)]
+		[Tooltip("The color variable to set based on the bool variable value.")]
 		public FsmColor colorVariable;
+
+		[Tooltip("Color if bool variable is false.")]
 		public FsmColor falseColor;
+		
+		[Tooltip("Color if bool variable is true.")]
 		public FsmColor trueColor;
+		
+		[Tooltip("Repeat every frame. Useful if the bool variable is changing.")]
 		public bool everyFrame;
 
 		public override void Reset()
@@ -32,7 +41,9 @@ namespace HutongGames.PlayMaker.Actions
 			DoConvertBoolToColor();
 			
 			if (!everyFrame)
+			{
 				Finish();
+			}
 		}
 		
 		public override void OnUpdate()
@@ -42,10 +53,7 @@ namespace HutongGames.PlayMaker.Actions
 		
 		void DoConvertBoolToColor()
 		{
-			if (boolVariable.Value)
-				colorVariable.Value = trueColor.Value;
-			else
-				colorVariable.Value = falseColor.Value;
+			colorVariable.Value = boolVariable.Value ? trueColor.Value : falseColor.Value;
 		}
 	}
 }

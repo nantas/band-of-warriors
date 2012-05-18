@@ -128,9 +128,6 @@ namespace HutongGames.PlayMaker.Actions
 				case Vector3Operation.Max:
 					storeVector3Result.Value = Vector3.Max(v1, v2);
 					break;
-
-				default:
-					break;
 			}
 		}
 	}

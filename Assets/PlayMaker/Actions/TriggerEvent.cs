@@ -5,7 +5,7 @@ using UnityEngine;
 namespace HutongGames.PlayMaker.Actions
 {
 	[ActionCategory(ActionCategory.Physics)]
-	[Tooltip("Detect collisions with a Tagged trigger.\nNOTE: TRIGGER ENTER, TRIGGER STAY, and TRIGGER EXIT are sent automatically when objects collide with ANY trigger. Use this action to send custom events when colliding with a particular Tag.")]
+	[Tooltip("Detect collisions with objects that have RigidBody components. \nNOTE: The system events, TRIGGER ENTER, TRIGGER STAY, and TRIGGER EXIT are sent when any object collides with the trigger. Use this action to filter collisions by Tag.")]
 	public class TriggerEvent : FsmStateAction
 	{
 		public TriggerType trigger;

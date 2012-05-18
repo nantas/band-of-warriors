@@ -3625,6 +3625,12 @@ public class iTween : MonoBehaviour{
 	}
 	
 	void GenerateMoveByTargets(){
+		
+   // 	foreach (var key in tweenArguments.Keys)
+   // 	{
+   // 		Debug.Log(key + ": " + tweenArguments[key]);
+   // 	}
+		
 		//values holder [0] from, [1] to, [2] calculated value from ease equation, [3] previous value for Translate usage to allow Space utilization, [4] original rotation to make sure look requests don't interfere with the direction object should move in, [5] for dial in location:
 		vector3s=new Vector3[6];
 		

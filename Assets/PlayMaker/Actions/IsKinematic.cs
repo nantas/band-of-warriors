@@ -12,10 +12,14 @@ namespace HutongGames.PlayMaker.Actions
 		[RequiredField]
 		[CheckForComponent(typeof(Rigidbody))]
 		public FsmOwnerDefault gameObject;
+		
 		public FsmEvent trueEvent;
+		
 		public FsmEvent falseEvent;
+		
 		[UIHint(UIHint.Variable)]
 		public FsmBool store;
+		
 		public bool everyFrame;
 		
 		public override void Reset()
@@ -32,7 +36,9 @@ namespace HutongGames.PlayMaker.Actions
 			DoIsKinematic();
 			
 			if (!everyFrame)
+			{
 				Finish();
+			}
 		}
 
 		public override void OnUpdate()
@@ -42,20 +48,17 @@ namespace HutongGames.PlayMaker.Actions
 
 		void DoIsKinematic()
 		{
-			GameObject go = gameObject.OwnerOption == OwnerDefaultOption.UseOwner ? Owner : gameObject.GameObject.Value;
+			var go = Fsm.GetOwnerDefaultTarget(gameObject);
+
+			if (go == null || go.rigidbody == null)
+			{
+				return;
+			}
 			
-			if (go == null) return;
-			if (go.rigidbody == null) return;
-			
-			bool isKinematic = go.rigidbody.isKinematic;
-			
-			if (store != null)
-				store.Value = isKinematic;
-			
-			if (isKinematic)
-				Fsm.Event(trueEvent);
-			else
-				Fsm.Event(falseEvent);
+			var isKinematic = go.rigidbody.isKinematic;
+			store.Value = isKinematic;
+
+			Fsm.Event(isKinematic ? trueEvent : falseEvent);
 		}
 	}
 }

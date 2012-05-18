@@ -3,10 +3,10 @@ using System.Collections;
 
 public class MovementCollider : MonoBehaviour {
 	
-	private WarriorController controller;
+	//private WarriorController controller;
 	
 	void Awake () {
-        controller = transform.root.GetComponent<WarriorController>();
+     //   controller = transform.root.GetComponent<WarriorController>();
 	}
 
 	void LateUpdate () {

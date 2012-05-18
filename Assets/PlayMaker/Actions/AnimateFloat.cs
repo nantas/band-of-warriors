@@ -1,7 +1,4 @@
-﻿/// <copyright>(c) Hutong Games, LLC. 2010-2011. All rights reserved.</copyright>
-/// <history> 
-/// Version 1.0 
-/// </history>
+﻿// (c) Copyright HutongGames, LLC 2010-2011. All rights reserved.
 
 using UnityEngine;
 
@@ -36,7 +33,7 @@ namespace HutongGames.PlayMaker.Actions
 
 		public override void OnEnter()
 		{
-			startTime = Time.realtimeSinceStartup;
+			startTime = FsmTime.RealtimeSinceStartup;
 			currentTime = 0f;
 			
 			if (animCurve != null && animCurve.curve != null && animCurve.curve.keys.Length > 0)
@@ -59,7 +56,7 @@ namespace HutongGames.PlayMaker.Actions
 			
 			if (realTime)
 			{
-				currentTime = Time.realtimeSinceStartup - startTime;
+				currentTime = FsmTime.RealtimeSinceStartup - startTime;
 			}
 			else
 			{

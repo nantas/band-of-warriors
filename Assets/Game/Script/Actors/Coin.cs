@@ -23,7 +23,7 @@ public class Coin : Item {
     public float coinStayHeight = -100.0f;
     //the height coin go up to when it pops up
     public float coinJumpHeight = 100.0f; 
-    private PickUpState coinState;
+    //private PickUpState coinState;
 
 	void OnEnable () {
 		if (spCoin) spCoin.enabled = true;
@@ -42,12 +42,12 @@ public class Coin : Item {
 	// Use this for initialization
 	void Start () {
 		gameObject.Init();
-        coinState = PickUpState.Disabled;
+        //coinState = PickUpState.Disabled;
 	}
     
     public void PopUp () {
         spCoin.spanim.Play("coin_idle");
-        coinState = PickUpState.PopUp;
+        //coinState = PickUpState.PopUp;
         Vector3 targetPos = new Vector3(transform.position.x, transform.position.y + coinJumpHeight, transform.position.z);
         float moveTime = coinMoveUpTime;
         gameObject.MoveTo(targetPos, moveTime, 0, EaseType.easeOutQuart, "DropDown", gameObject); 
@@ -55,7 +55,7 @@ public class Coin : Item {
     }
 
     public void DropDown () {
-        coinState = PickUpState.Available;
+        //coinState = PickUpState.Available;
         //only enable collider when it starts dropping
         if (spCollider) spCollider.enabled = true;
         Vector3 targetPos = new Vector3 (transform.position.x, coinStayHeight, transform.position.z);

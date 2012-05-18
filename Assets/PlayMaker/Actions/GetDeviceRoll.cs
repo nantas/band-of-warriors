@@ -23,7 +23,7 @@ namespace HutongGames.PlayMaker.Actions
 		public FsmFloat smoothing;
 		public bool everyFrame;
 		
-		float lastZAngle = 0;
+		private float lastZAngle;
 		
 		public override void Reset()
 		{

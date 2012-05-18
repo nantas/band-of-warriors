@@ -22,7 +22,7 @@ namespace HutongGames.PlayMaker.Actions
 			
 			if (!gameObject.IsNone)
 			{
-				text = gameObject.Name + ": " + gameObject.ToString();
+				text = gameObject.Name + ": " + gameObject;
 			}
 			
 			ActionHelpers.DebugLog(Fsm, logLevel, text);

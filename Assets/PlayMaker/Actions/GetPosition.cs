@@ -10,15 +10,21 @@ namespace HutongGames.PlayMaker.Actions
 	{
 		[RequiredField]
 		public FsmOwnerDefault gameObject;
+		
 		[UIHint(UIHint.Variable)]
 		public FsmVector3 vector;
+		
 		[UIHint(UIHint.Variable)]
 		public FsmFloat x;
+		
 		[UIHint(UIHint.Variable)]
 		public FsmFloat y;
+		
 		[UIHint(UIHint.Variable)]
 		public FsmFloat z;
+		
 		public Space space;
+		
 		public bool everyFrame;
 
 		public override void Reset()
@@ -37,7 +43,9 @@ namespace HutongGames.PlayMaker.Actions
 			DoGetPosition();
 			
 			if (!everyFrame)
-				Finish();		
+			{
+				Finish();
+			}		
 		}
 
 		public override void OnUpdate()
@@ -47,19 +55,13 @@ namespace HutongGames.PlayMaker.Actions
 
 		void DoGetPosition()
 		{
-			GameObject go = Fsm.GetOwnerDefaultTarget(gameObject);
-			if (go == null) return;
-
-			Vector3 position;
-			
-			if (space == Space.World)
+			var go = Fsm.GetOwnerDefaultTarget(gameObject);
+			if (go == null)
 			{
-				position = go.transform.position;
+				return;
 			}
-			else
-			{
-				position = go.transform.localPosition;
-			}				
+
+			var position = space == Space.World ? go.transform.position : go.transform.localPosition;				
 			
 			vector.Value = position;
 			x.Value = position.x;

@@ -9,19 +9,37 @@ namespace HutongGames.PlayMaker.Actions
 	public class SmoothLookAt : FsmStateAction
 	{
 		[RequiredField]
+		[Tooltip("The GameObject to rotate to face a target.")]
 		public FsmOwnerDefault gameObject;
-		public FsmGameObject targetObject;
-		public FsmVector3 targetPosition;
-		public FsmVector3 upVector;
-		public FsmBool keepVertical;
-		[HasFloatSlider(0.5f,15)]
-		public FsmFloat speed;
-		//[Tooltip("Draw a line in the Scene View to the look at position.")]
-		public FsmBool debug;
 		
-		GameObject previousGo; // track game object so we can re-initialize when it changes.
-		Quaternion lastRotation;
-		Quaternion desiredRotation;
+		[Tooltip("A target GameObject.")]
+		public FsmGameObject targetObject;
+		
+		[Tooltip("A target position. If a Target Object is defined, this is used as a local offset.")]
+		public FsmVector3 targetPosition;
+
+		[Tooltip("Used to keep the game object generally upright. If left undefined the world y axis is used.")]
+		public FsmVector3 upVector;
+		
+		[Tooltip("Force the game object to remain vertical. Useful for characters.")]
+		public FsmBool keepVertical;
+		
+		[HasFloatSlider(0.5f,15)]
+		[Tooltip("How fast the look at moves.")]
+		public FsmFloat speed;
+		
+		[Tooltip("Draw a line in the Scene View to the look at position.")]
+		public FsmBool debug;
+
+		[Tooltip("If the angle to the target is less than this, send the Finish Event below. Measured in degrees.")]
+		public FsmFloat finishTolerance;
+
+		[Tooltip("Event to send if the angle to target is less than the Finish Tolerance.")]
+		public FsmEvent finishEvent;
+
+		private GameObject previousGo; // track game object so we can re-initialize when it changes.
+		private Quaternion lastRotation;
+		private Quaternion desiredRotation;
 		
 		public override void Reset()
 		{
@@ -32,6 +50,8 @@ namespace HutongGames.PlayMaker.Actions
 			keepVertical = true;
 			debug = false;
 			speed = 5;
+			finishTolerance = 1;
+			finishEvent = null;
 		}
 
 		public override void OnEnter()
@@ -46,11 +66,17 @@ namespace HutongGames.PlayMaker.Actions
 
 		void DoSmoothLookAt()
 		{
-			GameObject go = Fsm.GetOwnerDefaultTarget(gameObject);
-			if (go == null) return;
+			var go = Fsm.GetOwnerDefaultTarget(gameObject);
+			if (go == null)
+			{
+				return;
+			}
 
-			GameObject goTarget = targetObject.Value;
-			if (goTarget == null && targetPosition.IsNone) return;
+			var goTarget = targetObject.Value;
+			if (goTarget == null && targetPosition.IsNone)
+			{
+				return;
+			}
 
 			// re-initialize if game object has changed
 			
@@ -66,10 +92,9 @@ namespace HutongGames.PlayMaker.Actions
 			Vector3 lookAtPos;
 			if (goTarget != null)
 			{
-				if (!targetPosition.IsNone)
-					lookAtPos = goTarget.transform.TransformPoint(targetPosition.Value);
-				else
-					lookAtPos = goTarget.transform.position;
+				lookAtPos = !targetPosition.IsNone ? 
+					goTarget.transform.TransformPoint(targetPosition.Value) : 
+					goTarget.transform.position;
 			}
 			else
 			{
@@ -83,7 +108,7 @@ namespace HutongGames.PlayMaker.Actions
 			
 			// smooth look at
 			
-			Vector3 diff = lookAtPos - go.transform.position;
+			var diff = lookAtPos - go.transform.position;
 			if (diff.sqrMagnitude > 0)
 			{
 				desiredRotation = Quaternion.LookRotation(diff, upVector.IsNone ? Vector3.up : upVector.Value);
@@ -97,6 +122,19 @@ namespace HutongGames.PlayMaker.Actions
 			if (debug.Value)
 			{
 				Debug.DrawLine(go.transform.position, lookAtPos, Color.grey);
+			}
+
+			// send finish event?
+
+			if (finishEvent != null)
+			{
+				var targetDir = lookAtPos - go.transform.position;
+				var angle = Vector3.Angle(targetDir, go.transform.forward);
+
+				if (Mathf.Abs(angle) <= finishTolerance.Value)
+				{
+					Fsm.Event(finishEvent);
+				}
 			}
 		}
 

@@ -19,7 +19,7 @@ namespace HutongGames.PlayMaker.Actions
 		public override void Reset()
 		{
 			vector3Array = new FsmVector3[3];
-			weights = new FsmFloat[3] {1,1,1};
+			weights = new FsmFloat[] {1,1,1};
 			storeVector3 = null;
 		}
 

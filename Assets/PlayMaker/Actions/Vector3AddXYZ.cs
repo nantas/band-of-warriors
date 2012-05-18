@@ -42,12 +42,16 @@ namespace HutongGames.PlayMaker.Actions
 		
 		void DoVector3AddXYZ()
 		{
-			Vector3 vector = new Vector3(addX.Value, addY.Value, addZ.Value);
+			var vector = new Vector3(addX.Value, addY.Value, addZ.Value);
 			
 			if(perSecond)
+			{
 				vector3Variable.Value += vector * Time.deltaTime;
+			}
 			else
+			{
 				vector3Variable.Value += vector;
+			}
 				
 		}
 	}

@@ -1,40 +1,42 @@
-// (c) Copyright HutongGames, LLC 2010-2011. All rights reserved.
+﻿// (c) Copyright HutongGames, LLC 2010-2011. All rights reserved.
 
 using UnityEngine;
 
 namespace HutongGames.PlayMaker.Actions
 {
 	[ActionCategory(ActionCategory.Physics)]
-	[Tooltip("Sets the Rigid Body that a Joint connects to.")]
+	[Tooltip("Connect a joint to a game object.")]
 	public class SetJointConnectedBody : FsmStateAction
 	{
 		[RequiredField]
-		[CheckForComponent(typeof(Rigidbody))]
-		public FsmOwnerDefault gameObject;
-		[RequiredField]
-		[HasFloatSlider(0.1f,10f)]
-		public FsmFloat mass;
+		[CheckForComponent(typeof(Joint))]
+		[Tooltip("The joint to connect. Requires a Joint component.")]
+		public FsmOwnerDefault joint;
+
+		[CheckForComponent(typeof (Rigidbody))] 
+		[Tooltip("The game object to connect to the Joint. Set to none to connect the Joint to the world.")] 
+		public FsmGameObject rigidBody;
 
 		public override void Reset()
 		{
-			gameObject = null;
-			mass = 1;
+			joint = null;
+			rigidBody = null;
 		}
 
 		public override void OnEnter()
 		{
-			DoSetMass();
-			
-			Finish();
-		}
+			var go = Fsm.GetOwnerDefaultTarget(joint);
+			if (go != null)
+			{
+				var jointComponent = go.GetComponent<Joint>();
+				
+				if (jointComponent != null)
+				{
+					jointComponent.connectedBody = rigidBody.Value == null ? null : rigidBody.Value.rigidbody;
+				}
+			}
 
-		void DoSetMass()
-		{
-			GameObject go = Fsm.GetOwnerDefaultTarget(gameObject);
-			if (go == null) return;
-			if (go.rigidbody == null) return;
-			
-			go.rigidbody.mass = mass.Value;
+			Finish();
 		}
 	}
 }

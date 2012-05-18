@@ -13,8 +13,12 @@ class PlayMakerGlobalsInspector : Editor
 
 	private List<FsmVariable> variableList;
 
+	private GUIStyle warningBox;
+
 	void OnEnable()
 	{
+		//Debug.Log("PlayMakerGlobalsInspector: OnEnable");
+
 		globals = target as PlayMakerGlobals;
 
 		BuildVariableList();
@@ -22,6 +26,14 @@ class PlayMakerGlobalsInspector : Editor
 
 	public override void OnInspectorGUI()
 	{
+		if (warningBox == null)
+		{
+			warningBox = new GUIStyle(EditorStyles.boldLabel);
+			warningBox.wordWrap = true;
+		}
+
+		GUILayout.Label("NOTE: This inspector shows the DEFAULT values of Globals. To see current values when playing, use the PlayMaker Editor (Global Variables Window, Debug fields, etc.)", warningBox);
+	
 		if (refresh)
 		{
 			Refresh();
@@ -41,7 +53,7 @@ class PlayMakerGlobalsInspector : Editor
 					tooltip += "\n" + fsmVariable.Tooltip;
 				}
 
-				fsmVariable.DoValueGUI(new GUIContent(fsmVariable.Name, tooltip));
+				fsmVariable.DoValueGUI(new GUIContent(fsmVariable.Name, tooltip), true);
 			}
 		}
 		else

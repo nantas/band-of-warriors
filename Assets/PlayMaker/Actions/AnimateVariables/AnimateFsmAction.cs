@@ -1,7 +1,4 @@
-﻿/// <copyright>(c) Hutong Games, LLC. 2010-2011. All rights reserved.</copyright>
-/// <history> 
-/// Version 1.0 
-/// </history>
+﻿// (c) Copyright HutongGames, LLC 2010-2011. All rights reserved.
 
 using UnityEngine;
 
@@ -77,8 +74,8 @@ namespace HutongGames.PlayMaker.Actions
 
 		public override void OnEnter()
 		{
-			startTime = Time.realtimeSinceStartup;
-			lastTime = Time.realtimeSinceStartup - startTime;
+			startTime = FsmTime.RealtimeSinceStartup;
+			lastTime = FsmTime.RealtimeSinceStartup - startTime;
 			deltaTime = 0f;
 			currentTime = 0f;
 			isRunning = false;
@@ -122,8 +119,8 @@ namespace HutongGames.PlayMaker.Actions
 			if(!isRunning && start){	
 				if(delayTime >= 0) {
 					if(realTime){
-						deltaTime = (Time.realtimeSinceStartup - startTime) - lastTime;
-						lastTime = Time.realtimeSinceStartup - startTime;
+						deltaTime = (FsmTime.RealtimeSinceStartup - startTime) - lastTime;
+						lastTime = FsmTime.RealtimeSinceStartup - startTime;
 						delayTime -= deltaTime;
 					} else {
 						delayTime -= Time.deltaTime;
@@ -137,8 +134,8 @@ namespace HutongGames.PlayMaker.Actions
 			if(isRunning){
 				if (realTime)
 				{
-					deltaTime = (Time.realtimeSinceStartup - startTime) - lastTime;
-					lastTime = Time.realtimeSinceStartup - startTime;
+					deltaTime = (FsmTime.RealtimeSinceStartup - startTime) - lastTime;
+					lastTime = FsmTime.RealtimeSinceStartup - startTime;
 					
 					if(!speed.IsNone) currentTime += deltaTime*speed.Value;
 					else currentTime += deltaTime; 

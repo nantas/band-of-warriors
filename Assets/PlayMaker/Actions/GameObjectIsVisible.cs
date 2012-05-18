@@ -12,10 +12,14 @@ namespace HutongGames.PlayMaker.Actions
 		[RequiredField]
 		[CheckForComponent(typeof(Renderer))]
 		public FsmOwnerDefault gameObject;
+		
 		public FsmEvent trueEvent;
+		
 		public FsmEvent falseEvent;
+		
 		[UIHint(UIHint.Variable)]
 		public FsmBool storeResult;
+		
 		public bool everyFrame;
 		
 		public override void Reset()
@@ -32,7 +36,9 @@ namespace HutongGames.PlayMaker.Actions
 			DoIsVisible();
 			
 			if (!everyFrame)
+			{
 				Finish();
+			}
 		}
 
 		public override void OnUpdate()
@@ -42,20 +48,18 @@ namespace HutongGames.PlayMaker.Actions
 
 		void DoIsVisible()
 		{
-			GameObject go = gameObject.OwnerOption == OwnerDefaultOption.UseOwner ? Owner : gameObject.GameObject.Value;
+			var go = Fsm.GetOwnerDefaultTarget(gameObject);
 			
-			if (go == null) return;
-			if (go.renderer == null) return;
+			if (go == null || go.renderer == null)
+			{
+				return;
+			}
 			
-			bool isVisible = go.renderer.isVisible;
+			var isVisible = go.renderer.isVisible;
 			
-			if (storeResult != null)
-				storeResult.Value = isVisible;
-			
-			if (isVisible)
-				Fsm.Event(trueEvent);
-			else
-				Fsm.Event(falseEvent);
+			storeResult.Value = isVisible;
+
+			Fsm.Event(isVisible ? trueEvent : falseEvent);
 		}
 	}
 }

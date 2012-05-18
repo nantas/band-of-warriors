@@ -15,18 +15,29 @@ namespace HutongGames.PlayMaker.Actions
 			YZ
 		}
 		
-		[RequiredField]
+		[Tooltip("The name of the horizontal input axis. See Unity Input Manager.")]
 		public FsmString horizontalAxis;
-		[RequiredField]
+		
+		[Tooltip("The name of the vertical input axis. See Unity Input Manager.")]
 		public FsmString verticalAxis;
+		
+		[Tooltip("Input axis are reported in the range -1 to 1, this multiplier lets you set a new range.")]
 		public FsmFloat multiplier;
+		
 		[RequiredField]
+		[Tooltip("The world plane to map the 2d input onto.")]
 		public AxisPlane mapToPlane;
+		
+		[Tooltip("Make the result relative to a GameObject, typically the main camera.")]
 		public FsmGameObject relativeTo;
+		
 		[RequiredField]
 		[UIHint(UIHint.Variable)]
+		[Tooltip("Store the direction vector.")]
 		public FsmVector3 storeVector;
+		
 		[UIHint(UIHint.Variable)]
+		[Tooltip("Store the length of the direction vector.")]
 		public FsmFloat storeMagnitude;
 
 		public override void Reset()
@@ -34,15 +45,15 @@ namespace HutongGames.PlayMaker.Actions
 			horizontalAxis = "Horizontal";
 			verticalAxis = "Vertical";
 			multiplier = 1.0f;
-			mapToPlane = GetAxisVector.AxisPlane.XZ;
+			mapToPlane = AxisPlane.XZ;
 			storeVector = null;
 			storeMagnitude = null;
 		}
 
 		public override void OnUpdate()
 		{
-			Vector3 forward = new Vector3();
-			Vector3 right = new Vector3();
+			var forward = new Vector3();
+			var right = new Vector3();
 			
 			if (relativeTo.Value == null)
 			{
@@ -92,16 +103,23 @@ namespace HutongGames.PlayMaker.Actions
 				
 			}
 			
-			float h = Input.GetAxis(horizontalAxis.Value);
-			float v = Input.GetAxis(verticalAxis.Value);
+			// get individual axis
+			// leaving an axis blank or set to None sets it to 0
+
+			var h = (horizontalAxis.IsNone || string.IsNullOrEmpty(horizontalAxis.Value)) ? 0f : Input.GetAxis(horizontalAxis.Value);
+			var v = (verticalAxis.IsNone || string.IsNullOrEmpty(verticalAxis.Value)) ? 0f : Input.GetAxis(verticalAxis.Value);
 			
+			// calculate resulting direction vector
+
 			var direction = h * right + v * forward;
 			direction *= multiplier.Value;
 			
 			storeVector.Value = direction;
 			
 			if (!storeMagnitude.IsNone)
+			{
 				storeMagnitude.Value = direction.magnitude;
+			}
 		}
 	}
 }

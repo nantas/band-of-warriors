@@ -10,17 +10,23 @@ namespace HutongGames.PlayMaker.Actions
 	{
 		[RequiredField]
 		public FsmOwnerDefault gameObject;
+	
 		[RequiredField]
 		[UIHint(UIHint.Script)]
 		public FsmString behaviour;
+
 		[RequiredField]
 		[UIHint(UIHint.Method)]
 		public FsmString methodName;
+		
 		[HasFloatSlider(0, 10)]
 		public FsmFloat delay;
+		
 		public FsmBool repeating;
+		
 		[HasFloatSlider(0, 10)]
 		public FsmFloat repeatDelay;
+		
 		public FsmBool cancelOnExit;
 
 		public override void Reset()
@@ -38,17 +44,17 @@ namespace HutongGames.PlayMaker.Actions
 
 		public override void OnEnter()
 		{
-			if (gameObject.OwnerOption == OwnerDefaultOption.UseOwner)
-				DoInvokeMethod(Owner);
-			else
-				DoInvokeMethod(gameObject.GameObject.Value);
-			
+			DoInvokeMethod(Fsm.GetOwnerDefaultTarget(gameObject));
+
 			Finish();
 		}
 
 		void DoInvokeMethod(GameObject go)
 		{
-			if (go == null) return;
+			if (go == null)
+			{
+				return;
+			}
 
 			component = go.GetComponent(behaviour.Value) as MonoBehaviour;
 
@@ -59,17 +65,26 @@ namespace HutongGames.PlayMaker.Actions
 			}
 
 			if (repeating.Value)
+			{
 				component.InvokeRepeating(methodName.Value, delay.Value, repeatDelay.Value);
+			}
 			else
+			{
 				component.Invoke(methodName.Value, delay.Value);
+			}
 		}
 
 		public override void OnExit()
 		{
-			if (component == null) return;
+			if (component == null)
+			{
+				return;
+			}
 
 			if (cancelOnExit.Value)
+			{
 				component.CancelInvoke(methodName.Value);
+			}
 		}
 
 	}

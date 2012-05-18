@@ -10,10 +10,14 @@ namespace HutongGames.PlayMaker.Actions
 	{
 		[RequiredField]
 		public FsmOwnerDefault gameObject;
+		
 		[RequiredField]
+		[Tooltip("The name of the child. Note, you can specify a path to the child, e.g., LeftShoulder/Arm/Hand/Finger")]
 		public FsmString childName;
+		
 		[RequiredField]
 		[UIHint(UIHint.Variable)]
+		[Tooltip("Store the child in a GameObject variable.")]
 		public FsmGameObject storeResult;
 
 		public override void Reset()
@@ -33,7 +37,10 @@ namespace HutongGames.PlayMaker.Actions
 		void DoFindChild()
 		{
 			var go = Fsm.GetOwnerDefaultTarget(gameObject);
-			if (go == null) return;
+			if (go == null)
+			{
+				return;
+			}
 
 			var transform = go.transform.FindChild(childName.Value);
 			storeResult.Value = transform != null ? transform.gameObject : null;

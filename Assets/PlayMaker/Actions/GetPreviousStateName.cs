@@ -18,15 +18,8 @@ namespace HutongGames.PlayMaker.Actions
 
 		public override void OnEnter()
 		{
-			if (Fsm.PreviousActiveState == null)
-			{
-				storeName.Value = null;
-			}
-			else
-			{
-				storeName.Value = Fsm.PreviousActiveState.Name;
-			}
-			
+			storeName.Value = Fsm.PreviousActiveState == null ? null : Fsm.PreviousActiveState.Name;
+
 			Finish();
 		}
 	}

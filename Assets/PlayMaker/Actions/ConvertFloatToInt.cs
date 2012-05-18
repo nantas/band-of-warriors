@@ -18,17 +18,20 @@ namespace HutongGames.PlayMaker.Actions
 		[RequiredField]
 		[UIHint(UIHint.Variable)]
 		public FsmFloat floatVariable;
+
 		[RequiredField]
 		[UIHint(UIHint.Variable)]
 		public FsmInt intVariable;
+		
 		public FloatRounding rounding;
+		
 		public bool everyFrame;
 
 		public override void Reset()
 		{
 			floatVariable = null;
 			intVariable = null;
-			rounding = ConvertFloatToInt.FloatRounding.Nearest;
+			rounding = FloatRounding.Nearest;
 			everyFrame = false;
 		}
 
@@ -37,7 +40,9 @@ namespace HutongGames.PlayMaker.Actions
 			DoConvertFloatToInt();
 			
 			if (!everyFrame)
+			{
 				Finish();
+			}
 		}
 		
 		public override void OnUpdate()

@@ -12,10 +12,14 @@ namespace HutongGames.PlayMaker.Actions
 		[RequiredField]
 		[CheckForComponent(typeof(Rigidbody))]
 		public FsmOwnerDefault gameObject;
+		
 		public FsmEvent trueEvent;
+		
 		public FsmEvent falseEvent;
+		
 		[UIHint(UIHint.Variable)]
 		public FsmBool store;
+		
 		public bool everyFrame;
 		
 		public override void Reset()
@@ -32,7 +36,9 @@ namespace HutongGames.PlayMaker.Actions
 			DoIsSleeping();
 			
 			if (!everyFrame)
+			{
 				Finish();
+			}
 		}
 
 		public override void OnUpdate()
@@ -42,20 +48,17 @@ namespace HutongGames.PlayMaker.Actions
 
 		void DoIsSleeping()
 		{
-			GameObject go = gameObject.OwnerOption == OwnerDefaultOption.UseOwner ? Owner : gameObject.GameObject.Value;
+			var go = Fsm.GetOwnerDefaultTarget(gameObject);
+
+			if (go == null || go.rigidbody == null)
+			{
+				return;
+			}
 			
-			if (go == null) return;
-			if (go.rigidbody == null) return;
-			
-			bool isSleeping = go.rigidbody.IsSleeping();
-			
-			if (store != null)
-				store.Value = isSleeping;
-			
-			if (isSleeping)
-				Fsm.Event(trueEvent);
-			else
-				Fsm.Event(falseEvent);
+			var isSleeping = go.rigidbody.IsSleeping();
+			store.Value = isSleeping;
+
+			Fsm.Event(isSleeping ? trueEvent : falseEvent);
 		}
 	}
 }

@@ -58,7 +58,6 @@ namespace HutongGames.PlayMaker.Actions
 			if (integer1.Value > integer2.Value)
 			{
 				Fsm.Event(greaterThan);
-				return;
 			}
 
 		}

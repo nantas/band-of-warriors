@@ -38,7 +38,7 @@ namespace HutongGames.PlayMaker.Actions
 		
 		void DoConvertIntToFloat()
 		{
-			floatVariable.Value = (float)intVariable.Value;
+			floatVariable.Value = intVariable.Value;
 		}
 	}
 }

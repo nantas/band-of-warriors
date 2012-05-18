@@ -23,12 +23,18 @@ namespace HutongGames.PlayMaker.Actions
 
 		public override void Reset()
 		{
-			setBoolData = null;
+			setGameObjectData = null;
 			setIntData = null;
 			setFloatData = null;
-			setVector3Data = null;
 			setStringData = null;
-			setGameObjectData = null;
+			setBoolData = null;
+			setVector3Data = null;
+			setRectData = null;
+			setQuaternionData = null;
+			setColorData = null;
+			setMaterialData = null;
+			setTextureData = null;
+			setObjectData = null;
 		}
 
 		public override void OnEnter()
@@ -38,7 +44,7 @@ namespace HutongGames.PlayMaker.Actions
 			Fsm.EventData.FloatData = setFloatData.Value;
 			Fsm.EventData.Vector3Data = setVector3Data.Value;
 			Fsm.EventData.StringData = setStringData.Value;
-			Fsm.EventData.ObjectData = setGameObjectData.Value;
+			Fsm.EventData.GameObjectData = setGameObjectData.Value;
 			Fsm.EventData.RectData = setRectData.Value;
 			Fsm.EventData.QuaternionData = setQuaternionData.Value;
 			Fsm.EventData.ColorData = setColorData.Value;

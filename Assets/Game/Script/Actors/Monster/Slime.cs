@@ -37,6 +37,8 @@ public class Slime : Enemy {
 			targetPos.x = Game.instance.leftSpawnEntry.position.x + 30;
 			moveTime = 1.0f;
 		}
+        PlatformCollider platform = Game.instance.theBasePlatform;
+        UpdateMoveConstraint(platform);
 		gameObject.MoveTo(targetPos, moveTime, 0, EaseType.easeInOutQuad, "MoveToRandomLoc", gameObject);
 //		gameObject.MoveTo(targetPos, moveTime, 0);		
 		

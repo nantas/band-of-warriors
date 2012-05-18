@@ -9,16 +9,33 @@ namespace HutongGames.PlayMaker.Actions
 	public class Rotate : FsmStateAction
 	{
 		[RequiredField]
+		[Tooltip("The game object to rotate.")]
 		public FsmOwnerDefault gameObject;
+
+		[Tooltip("A rotation vector. NOTE: You can override individual axis below.")]
 		[UIHint(UIHint.Variable)]
 		public FsmVector3 vector;
+		
+		[Tooltip("Rotation around x axis.")]
 		public FsmFloat xAngle;
+
+		[Tooltip("Rotation around y axis.")]
 		public FsmFloat yAngle;
+
+		[Tooltip("Rotation around z axis.")]
 		public FsmFloat zAngle;
+		
+		[Tooltip("Rotate in local or world space.")]
 		public Space space;
+		
 		[Tooltip("Rotate over one second")]
 		public bool perSecond;
+		
+		[Tooltip("Repeat every frame.")]
 		public bool everyFrame;
+		
+		[Tooltip("Perform the rotation in LateUpdate. This is useful if you want to override the rotation of objects that are animated or otherwise rotated in Update.")]
+		public bool lateUpdate;
 		
 		public override void Reset()
 		{
@@ -31,26 +48,48 @@ namespace HutongGames.PlayMaker.Actions
 			space = Space.Self;
 			perSecond = false;
 			everyFrame = true;
+			lateUpdate = false;
 		}
 
 		public override void OnEnter()
 		{
-			DoRotate();
-
-			if(!everyFrame)
+			if(!everyFrame && !lateUpdate)
 			{
+				DoRotate();
 				Finish();
 			}
 		}
 
 		public override void OnUpdate()
 		{
-			DoRotate();
+			if (!lateUpdate)
+			{
+				DoRotate();
+			}
+		}
+
+		public override void OnLateUpdate()
+		{
+			if (lateUpdate)
+			{
+				DoRotate();
+			}
+
+			if (!everyFrame)
+			{
+				Finish();
+			}
 		}
 
 		void DoRotate()
 		{
 			var go = Fsm.GetOwnerDefaultTarget(gameObject);
+			if (go == null)
+			{
+				return;
+			}
+
+			// Use vector if specified
 
 			var rotate = vector.IsNone ? new Vector3(xAngle.Value, yAngle.Value, zAngle.Value) : vector.Value;
 
@@ -64,14 +103,11 @@ namespace HutongGames.PlayMaker.Actions
 			
 			if (!perSecond)
 			{
-				go.transform.Rotate(xAngle.Value, yAngle.Value, zAngle.Value, space);
+				go.transform.Rotate(rotate, space);
 			}
 			else
 			{
-				go.transform.Rotate(xAngle.Value * Time.deltaTime, 
-					yAngle.Value * Time.deltaTime, 
-					zAngle.Value * Time.deltaTime, 
-					space);
+				go.transform.Rotate(rotate * Time.deltaTime, space);
 			}
 		}
 

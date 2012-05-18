@@ -9,11 +9,6 @@ namespace HutongGames.PlayMaker.Actions
 	[Tooltip("GUI Box.")]
 	public class GUIBox : GUIContentAction
 	{
-		public override void Reset()
-		{
-			base.Reset();
-		}
-		
 		public override void OnGUI()
 		{
 			base.OnGUI();

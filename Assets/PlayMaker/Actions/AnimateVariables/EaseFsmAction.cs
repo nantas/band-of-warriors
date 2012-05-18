@@ -84,8 +84,8 @@ namespace HutongGames.PlayMaker.Actions
 			runningTime = 0f;
 			percentage = reverse.IsNone ? 0f : reverse.Value ? 1f : 0f;
 			finishAction = false;
-			startTime = Time.realtimeSinceStartup;
-			lastTime = Time.realtimeSinceStartup - startTime;
+			startTime = FsmTime.RealtimeSinceStartup;
+			lastTime = FsmTime.RealtimeSinceStartup - startTime;
 			delayTime = delay.IsNone ? 0f : delayTime = delay.Value;
 			start = true;
 		}
@@ -99,8 +99,8 @@ namespace HutongGames.PlayMaker.Actions
 			if(start && !isRunning){
 				if(delayTime >= 0) {
 					if(realTime){
-						deltaTime = (Time.realtimeSinceStartup - startTime) - lastTime;
-						lastTime = Time.realtimeSinceStartup - startTime;
+						deltaTime = (FsmTime.RealtimeSinceStartup - startTime) - lastTime;
+						lastTime = FsmTime.RealtimeSinceStartup - startTime;
 						delayTime -= deltaTime;
 					} else {
 						delayTime -= Time.deltaTime;
@@ -108,8 +108,8 @@ namespace HutongGames.PlayMaker.Actions
 				} else {
 					isRunning = true;
 					start= false;
-					startTime = Time.realtimeSinceStartup;
-					lastTime = Time.realtimeSinceStartup - startTime;
+					startTime = FsmTime.RealtimeSinceStartup;
+					lastTime = FsmTime.RealtimeSinceStartup - startTime;
 				}
 			}
 			
@@ -145,8 +145,8 @@ namespace HutongGames.PlayMaker.Actions
 	        // Added by PressPlay   
 	        if (realTime)
 			{
-				deltaTime = (Time.realtimeSinceStartup - startTime) - lastTime;
-				lastTime = Time.realtimeSinceStartup - startTime;
+				deltaTime = (FsmTime.RealtimeSinceStartup - startTime) - lastTime;
+				lastTime = FsmTime.RealtimeSinceStartup - startTime;
 				
 				if(!speed.IsNone) runningTime += deltaTime*speed.Value;
 				else runningTime += deltaTime; 

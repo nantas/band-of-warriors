@@ -10,11 +10,15 @@ namespace HutongGames.PlayMaker.Actions
 	{
 		[RequiredField]
 		public FsmOwnerDefault gameObject;
+		
 		[HasFloatSlider(0, 1)]
 		public FsmFloat frequency;
+		
 		[HasFloatSlider(0, 1)]
 		public FsmFloat amountOn;
+		
 		public bool rendererOnly;
+		
 		public bool realTime;
 		
 		private float startTime;
@@ -32,22 +36,25 @@ namespace HutongGames.PlayMaker.Actions
 	
 		public override void OnEnter()
 		{
-			startTime = Time.realtimeSinceStartup;
+			startTime = FsmTime.RealtimeSinceStartup;
 			timer = 0f;
 		}
 		
 		public override void OnUpdate()
 		{
 			// get target
-			
-			GameObject go = gameObject.OwnerOption == OwnerDefaultOption.UseOwner ? Owner : gameObject.GameObject.Value;
-			if (go == null) return;
+
+			var go = Fsm.GetOwnerDefaultTarget(gameObject);
+			if (go == null)
+			{
+				return;
+			}
 			
 			// update time
 			
 			if (realTime)
 			{
-				timer = Time.realtimeSinceStartup - startTime;
+				timer = FsmTime.RealtimeSinceStartup - startTime;
 			}
 			else
 			{
@@ -56,14 +63,16 @@ namespace HutongGames.PlayMaker.Actions
 			
 			if (timer > frequency.Value)
 			{
-				bool on = Random.Range(0f,1f) < amountOn.Value ? true : false;
+				var on = Random.Range(0f,1f) < amountOn.Value;
 
 				// do flicker
 				
 				if (rendererOnly)
 				{
 					if (go.renderer != null)
+					{
 						go.renderer.enabled = on;
+					}
 				}
 				else
 				{

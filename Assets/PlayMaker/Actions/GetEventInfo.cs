@@ -73,7 +73,7 @@ namespace HutongGames.PlayMaker.Actions
 			getFloatData.Value = Fsm.EventData.FloatData;
 			getVector3Data.Value = Fsm.EventData.Vector3Data;
 			getStringData.Value = Fsm.EventData.StringData;
-			getGameObjectData.Value = Fsm.EventData.ObjectData as GameObject;
+			getGameObjectData.Value = Fsm.EventData.GameObjectData;
 			getRectData.Value = Fsm.EventData.RectData;
 			getQuaternionData.Value = Fsm.EventData.QuaternionData;
 			getMaterialData.Value = Fsm.EventData.MaterialData;

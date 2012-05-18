@@ -114,7 +114,6 @@ public class Enemy : MonoBehaviour {
 
     //get a target position for random ground moving enemy
     protected Vector3 GetRandomGroundPos() {
-        Debug.Log("currentPlatform: " + currentPlatform);
         float leftMostX = Mathf.Max(Game.instance.leftSpawnEntry.position.x, currentPlatform.leftEdge);
         float rightMostX = Mathf.Min(Game.instance.rightSpawnEntry.position.x, currentPlatform.rightEdge);
         Vector3 targetPos = new Vector3(Random.Range(leftMostX, rightMostX),
@@ -123,7 +122,6 @@ public class Enemy : MonoBehaviour {
     }
 
     public void UpdateMoveConstraint(PlatformCollider _platform) {
-        Debug.Log("_platform: " + _platform);
         currentPlatform = _platform;
     }
 

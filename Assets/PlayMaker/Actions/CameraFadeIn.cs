@@ -30,7 +30,7 @@ namespace HutongGames.PlayMaker.Actions
 		
 		public override void OnEnter()
 		{
-			startTime = Time.realtimeSinceStartup;
+			startTime = FsmTime.RealtimeSinceStartup;
 			currentTime = 0f;
 			colorLerp = color.Value;
 		}
@@ -39,7 +39,7 @@ namespace HutongGames.PlayMaker.Actions
 		{
 			if (realTime)
 			{
-				currentTime = Time.realtimeSinceStartup - startTime;
+				currentTime = FsmTime.RealtimeSinceStartup - startTime;
 			}
 			else
 			{

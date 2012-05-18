@@ -10,13 +10,19 @@ namespace HutongGames.PlayMaker.Actions
 	{
 		[RequiredField]
 		public FsmOwnerDefault gameObject;
+		
 		public FsmGameObject targetObject;
+		
 		public FsmVector3 targetPosition;
+		
 		public FsmBool ignoreVertical;
+		
 		[HasFloatSlider(0, 20)]
 		public FsmFloat maxSpeed;
+		
 		[HasFloatSlider(0, 5)]
 		public FsmFloat finishDistance;
+		
 		public FsmEvent finishEvent;
 
 		public override void Reset()
@@ -35,19 +41,24 @@ namespace HutongGames.PlayMaker.Actions
 
 		void DoMoveTowards()
 		{
-			GameObject go = Fsm.GetOwnerDefaultTarget(gameObject);
-			if (go == null) return;
+			var go = Fsm.GetOwnerDefaultTarget(gameObject);
+			if (go == null)
+			{
+				return;
+			}
 			
-			GameObject goTarget = targetObject.Value;
-			if (goTarget == null && targetPosition.IsNone) return;
+			var goTarget = targetObject.Value;
+			if (goTarget == null && targetPosition.IsNone)
+			{
+				return;
+			}
 
 			Vector3 targetPos;
 			if (goTarget != null)
 			{
-				if (!targetPosition.IsNone)
-					targetPos = goTarget.transform.TransformPoint(targetPosition.Value);
-				else
-					targetPos = goTarget.transform.position;
+				targetPos = !targetPosition.IsNone ? 
+					goTarget.transform.TransformPoint(targetPosition.Value) : 
+					goTarget.transform.position;
 			}
 			else
 			{
@@ -61,12 +72,11 @@ namespace HutongGames.PlayMaker.Actions
 			
 			go.transform.position = Vector3.MoveTowards(go.transform.position, targetPos, maxSpeed.Value * Time.deltaTime);
 			
-			float distance = (go.transform.position - targetPos).magnitude;
+			var distance = (go.transform.position - targetPos).magnitude;
 			if (distance < finishDistance.Value)
 			{
 				Fsm.Event(finishEvent);
 				Finish();
-				return;
 			}
 		}
 

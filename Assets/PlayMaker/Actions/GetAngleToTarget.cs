@@ -10,12 +10,17 @@ namespace HutongGames.PlayMaker.Actions
 	{
 		[RequiredField]
 		public FsmOwnerDefault gameObject;
+		
 		public FsmGameObject targetObject;
+		
 		public FsmVector3 targetPosition;
+		
 		public FsmBool ignoreHeight;
+		
 		[RequiredField]
 		[UIHint(UIHint.Variable)]
 		public FsmFloat storeAngle;
+		
 		public bool everyFrame;
 		
 		public override void Reset()
@@ -33,24 +38,31 @@ namespace HutongGames.PlayMaker.Actions
 			DoGetAngleToTarget();
 			
 			if (!everyFrame)
+			{
 				Finish();
+			}
 		}
 
 		void DoGetAngleToTarget()
 		{
-			GameObject go = Fsm.GetOwnerDefaultTarget(gameObject);
-			if (go == null) return;
+			var go = Fsm.GetOwnerDefaultTarget(gameObject);
+			if (go == null)
+			{
+				return;
+			}
 			
-			GameObject goTarget = targetObject.Value;
-			if (goTarget == null && targetPosition.IsNone) return;
+			var goTarget = targetObject.Value;
+			if (goTarget == null && targetPosition.IsNone)
+			{
+				return;
+			}
 
 			Vector3 targetPos;
 			if (goTarget != null)
 			{
-				if (!targetPosition.IsNone)
-					targetPos = goTarget.transform.TransformPoint(targetPosition.Value);
-				else
-					targetPos = goTarget.transform.position;
+				targetPos = !targetPosition.IsNone ? 
+					goTarget.transform.TransformPoint(targetPosition.Value) : 
+					goTarget.transform.position;
 			}
 			else
 			{

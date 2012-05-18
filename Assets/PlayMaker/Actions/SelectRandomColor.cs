@@ -19,7 +19,7 @@ namespace HutongGames.PlayMaker.Actions
 		public override void Reset()
 		{
 			colors = new FsmColor[3];
-			weights = new FsmFloat[3] {1,1,1};
+			weights = new FsmFloat[] {1,1,1};
 			storeColor = null;
 		}
 

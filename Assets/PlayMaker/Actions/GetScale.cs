@@ -12,16 +12,22 @@ namespace HutongGames.PlayMaker.Actions
     {
         [RequiredField]
         public FsmOwnerDefault gameObject;
-        [UIHint(UIHint.Variable)]
+        
+		[UIHint(UIHint.Variable)]
         public FsmVector3 vector;
-        [UIHint(UIHint.Variable)]
+        
+		[UIHint(UIHint.Variable)]
         public FsmFloat xScale;
-        [UIHint(UIHint.Variable)]
+        
+		[UIHint(UIHint.Variable)]
         public FsmFloat yScale;
-        [UIHint(UIHint.Variable)]
+        
+		[UIHint(UIHint.Variable)]
         public FsmFloat zScale;
-        public Space space;
-        public bool everyFrame;
+        
+		public Space space;
+        
+		public bool everyFrame;
 
         public override void Reset()
         {
@@ -39,7 +45,9 @@ namespace HutongGames.PlayMaker.Actions
             DoGetScale();
 
             if (!everyFrame)
-                Finish();
+            {
+            	Finish();
+            }
         }
 
         public override void OnUpdate()
@@ -49,19 +57,13 @@ namespace HutongGames.PlayMaker.Actions
 
         void DoGetScale()
         {
-            GameObject go = Fsm.GetOwnerDefaultTarget(gameObject);
-            if (go == null) return;
-
-            Vector3 scale;
-
-            if (space == Space.World)
+            var go = Fsm.GetOwnerDefaultTarget(gameObject);
+            if (go == null)
             {
-                scale = go.transform.lossyScale;
+            	return;
             }
-            else
-            {
-                scale = go.transform.localScale;
-            }
+
+        	var scale = space == Space.World ? go.transform.lossyScale : go.transform.localScale;
 
             vector.Value = scale;
             xScale.Value = scale.x;

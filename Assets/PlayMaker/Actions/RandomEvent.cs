@@ -20,33 +20,34 @@ namespace HutongGames.PlayMaker.Actions
 
 		public override void OnEnter()
 		{
-			if (State.Transitions.Length == 0) return;
+			if (State.Transitions.Length == 0)
+			{
+				return;
+			}
 			
-			delayedEvent = new DelayedEvent(Fsm, GetRandomEvent(), delay.Value);
-			delayedEvent.Update();
+			if (delay.Value < 0.001f)
+			{
+				Fsm.Event(GetRandomEvent());
+				Finish();
+			}
+			else
+			{
+				delayedEvent = Fsm.DelayedEvent(GetRandomEvent(), delay.Value);
+			}
 		}
 
 		public override void OnUpdate()
 		{
-			if (delayedEvent != null)
-			{
-				delayedEvent.Update();
-
-				if (delayedEvent.Finished)
-				{
-					Finish();
-				}
-			}
-			else
+			if (DelayedEvent.WasSent(delayedEvent))
 			{
 				Finish();
 			}
 		}
 
-		string GetRandomEvent()
+		FsmEvent GetRandomEvent()
 		{
 			var randomIndex = Random.Range(0, State.Transitions.Length);
-			return State.Transitions[randomIndex].FsmEvent.Name;
+			return State.Transitions[randomIndex].FsmEvent;
 		}
 
 	}

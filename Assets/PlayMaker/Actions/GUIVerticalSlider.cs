@@ -27,6 +27,7 @@ namespace HutongGames.PlayMaker.Actions
 			bottomValue = 0f;
 			sliderStyle = "verticalslider";
 			thumbStyle = "verticalsliderthumb";
+			width = 0.1f;
 		}
 		
 		public override void OnGUI()

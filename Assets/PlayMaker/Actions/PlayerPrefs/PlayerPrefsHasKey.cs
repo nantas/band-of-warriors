@@ -10,7 +10,7 @@ namespace HutongGames.PlayMaker.Actions
 	{
 		[RequiredField]
 		public FsmString key;
-		
+
 		[UIHint(UIHint.Variable)]
 		[Title("Store Result")]
 		public FsmBool variable;
@@ -20,7 +20,7 @@ namespace HutongGames.PlayMaker.Actions
 
 		[Tooltip("Event to send if key does not exist.")]
 		public FsmEvent falseEvent;
-		
+
 		public override void Reset()
 		{
 			key = "";
@@ -30,7 +30,7 @@ namespace HutongGames.PlayMaker.Actions
 		{
 			Finish();
 
-			if(!variable.IsNone && !key.IsNone && !key.Value.Equals(""))
+			if (!key.IsNone && !key.Value.Equals(""))
 			{
 				variable.Value = PlayerPrefs.HasKey(key.Value);
 			}

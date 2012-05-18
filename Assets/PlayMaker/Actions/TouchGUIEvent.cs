@@ -202,7 +202,6 @@ namespace HutongGames.PlayMaker.Actions
 				else
 				{
 					Fsm.Event(notTouching);
-					return;
 				}
 			}
 		}

@@ -55,19 +55,17 @@ namespace HutongGames.PlayMaker.Actions
 						
 						return;
 					}
+					
+					if (!volume.IsNone)
+					{
+						audio.PlayOneShot(audioClip, volume.Value);
+					}
 					else
 					{
-						if (!volume.IsNone)
-						{
-							audio.PlayOneShot(audioClip, volume.Value);
-						}
-						else
-						{
-							audio.PlayOneShot(audioClip);
-						}
-						
-						return;
+						audio.PlayOneShot(audioClip);
 					}
+						
+					return;
 				}
 			}
 			

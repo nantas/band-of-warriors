@@ -1,7 +1,6 @@
 // (c) Copyright HutongGames, LLC 2010-2011. All rights reserved.
 
 using UnityEngine;
-using System.Collections.Generic;
 
 namespace HutongGames.PlayMaker.Actions
 {
@@ -20,6 +19,7 @@ namespace HutongGames.PlayMaker.Actions
 		
 		public override void Reset()
 		{
+			base.Reset();
 			floatVariable = null;
 			topValue = 100;
 			bottomValue = 0;

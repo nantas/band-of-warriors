@@ -10,8 +10,10 @@ namespace HutongGames.PlayMaker.Actions
 	{
 		[RequiredField]
 		public FsmOwnerDefault gameObject;
+		
 		[RequiredField]
 		public FsmInt childIndex;
+		
 		[RequiredField]
 		[UIHint(UIHint.Variable)]
 		public FsmGameObject store;
@@ -25,19 +27,14 @@ namespace HutongGames.PlayMaker.Actions
 
 		public override void OnEnter()
 		{
-			if (gameObject.OwnerOption == OwnerDefaultOption.UseOwner)
-				store.Value = DoGetChildNum(Owner);
-			else
-				store.Value = DoGetChildNum(gameObject.GameObject.Value);
-			
+			store.Value = DoGetChildNum(Fsm.GetOwnerDefaultTarget(gameObject));
+
 			Finish();
 		}
 
 		GameObject DoGetChildNum(GameObject go)
 		{
-			if (go == null) return null;
-
-			return go.transform.GetChild(childIndex.Value % go.transform.childCount).gameObject;
+			return go == null ? null : go.transform.GetChild(childIndex.Value % go.transform.childCount).gameObject;
 		}
 	}
 }

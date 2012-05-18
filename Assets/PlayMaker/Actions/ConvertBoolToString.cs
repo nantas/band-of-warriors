@@ -10,12 +10,21 @@ namespace HutongGames.PlayMaker.Actions
 	{
 		[RequiredField]
 		[UIHint(UIHint.Variable)]
+		[Tooltip("The bool variable to test.")]
 		public FsmBool boolVariable;
+		
 		[RequiredField]
 		[UIHint(UIHint.Variable)]
+		[Tooltip("The string variable to set based on the bool variable value.")]
 		public FsmString stringVariable;
+
+		[Tooltip("String value if bool variable is false.")]
 		public FsmString falseString;
+
+		[Tooltip("String value if bool variable is true.")]
 		public FsmString trueString;
+
+		[Tooltip("Repeat every frame. Useful if the bool variable is changing.")]
 		public bool everyFrame;
 
 		public override void Reset()
@@ -32,7 +41,9 @@ namespace HutongGames.PlayMaker.Actions
 			DoConvertBoolToString();
 			
 			if (!everyFrame)
+			{
 				Finish();
+			}
 		}
 		
 		public override void OnUpdate()
@@ -42,10 +53,7 @@ namespace HutongGames.PlayMaker.Actions
 		
 		void DoConvertBoolToString()
 		{
-			if (boolVariable.Value)
-				stringVariable.Value = trueString.Value;
-			else
-				stringVariable.Value = falseString.Value;
+			stringVariable.Value = boolVariable.Value ? trueString.Value : falseString.Value;
 		}
 	}
 }

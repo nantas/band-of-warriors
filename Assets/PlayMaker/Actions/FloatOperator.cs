@@ -23,7 +23,7 @@ namespace HutongGames.PlayMaker.Actions
 		[RequiredField]
 		public FsmFloat float2;
 		public Operation operation = Operation.Add;
-		[RequiredField()]
+		[RequiredField]
 		[UIHint(UIHint.Variable)]
 		public FsmFloat storeResult;
 		public bool everyFrame;
@@ -79,9 +79,6 @@ namespace HutongGames.PlayMaker.Actions
 
 				case Operation.Max:
 					storeResult.Value = Mathf.Max(v1, v2);
-					break;
-
-				default:
 					break;
 			}
 		}

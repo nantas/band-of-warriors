@@ -19,27 +19,36 @@ namespace HutongGames.PlayMaker.Actions
 
 		public override void OnEnter()
 		{
-			int eventCount = State.Transitions.Length;
+			var eventCount = State.Transitions.Length;
 
 			if (eventCount > 0)
 			{
-				string eventName = State.Transitions[eventIndex].EventName;
-				delayedEvent = new DelayedEvent(Fsm, eventName, delay.Value);
-				delayedEvent.Update();
-
+				var fsmEvent = State.Transitions[eventIndex].FsmEvent;
+				
+				if (delay.Value < 0.001f)
+				{
+					Fsm.Event(fsmEvent);
+					Finish();
+				}
+				else
+				{
+					delayedEvent = Fsm.DelayedEvent(fsmEvent, delay.Value);
+				}
+				
 				eventIndex++;
 				if (eventIndex == eventCount)
+				{
 					eventIndex = 0;
+				}
 			}
 		}
 
 		public override void OnUpdate()
 		{
-			if (delayedEvent != null)
-				delayedEvent.Update();
-			
-			if (delayedEvent.Finished)
+			if (DelayedEvent.WasSent(delayedEvent))
+			{
 				Finish();
+			}
 		}
 	}
 }

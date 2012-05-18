@@ -68,8 +68,8 @@ namespace HutongGames.PlayMaker.Actions
 			
 			Vector2 screenPos = Camera.main.WorldToScreenPoint(worldPosition);
 			
-			var left = screenPos.x + (normalized.Value == true ? offsetLeft.Value * Screen.width : offsetLeft.Value);
-			var top = screenPos.y + (normalized.Value == true ? offsetTop.Value * Screen.width : offsetTop.Value);
+			var left = screenPos.x + (normalized.Value ? offsetLeft.Value * Screen.width : offsetLeft.Value);
+			var top = screenPos.y + (normalized.Value ? offsetTop.Value * Screen.width : offsetTop.Value);
 			
 			var rect = new Rect(left, top, width.Value, height.Value);
 			

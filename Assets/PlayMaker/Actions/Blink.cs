@@ -37,7 +37,7 @@ namespace HutongGames.PlayMaker.Actions
 	
 		public override void OnEnter()
 		{
-			startTime = Time.realtimeSinceStartup;
+			startTime = FsmTime.RealtimeSinceStartup;
 			timer = 0f;
 			
 			UpdateBlinkState(startOn.Value);
@@ -49,7 +49,7 @@ namespace HutongGames.PlayMaker.Actions
 			
 			if (realTime)
 			{
-				timer = Time.realtimeSinceStartup - startTime;
+				timer = FsmTime.RealtimeSinceStartup - startTime;
 			}
 			else
 			{
@@ -58,7 +58,7 @@ namespace HutongGames.PlayMaker.Actions
 			
 			// update blink
 			
-			if (blinkOn == true && timer > timeOn.Value)
+			if (blinkOn && timer > timeOn.Value)
 			{
 				UpdateBlinkState(false);
 			}
@@ -88,7 +88,7 @@ namespace HutongGames.PlayMaker.Actions
 			
 			// reset timer
 			
-			startTime = Time.realtimeSinceStartup;
+			startTime = FsmTime.RealtimeSinceStartup;
 			timer = 0f;
 		}
 			

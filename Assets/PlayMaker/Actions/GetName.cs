@@ -8,9 +8,11 @@ namespace HutongGames.PlayMaker.Actions
 	{
 		[RequiredField]
 		public FsmGameObject gameObject;
+		
 		[RequiredField]
 		[UIHint(UIHint.Variable)]
 		public FsmString storeName;
+		
 		public bool everyFrame;
 
 		public override void Reset()
@@ -25,7 +27,9 @@ namespace HutongGames.PlayMaker.Actions
 			DoGetGameObjectName();
 			
 			if (!everyFrame)
+			{
 				Finish();
+			}
 		}
 		
 		public override void OnUpdate()
@@ -37,10 +41,7 @@ namespace HutongGames.PlayMaker.Actions
 		{
 			var go = gameObject.Value;
 
-			if (go != null)
-				storeName.Value = go.name;
-			else
-				storeName.Value = "";
+			storeName.Value = go != null ? go.name : "";
 		}
 	}
 }

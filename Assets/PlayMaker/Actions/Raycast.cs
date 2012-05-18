@@ -8,30 +8,49 @@ namespace HutongGames.PlayMaker.Actions
 	[Tooltip("Casts a Ray against all Colliders in the scene. Use either a Game Object or Vector3 world position as the origin of the ray. Use GetRaycastInfo to get more detailed info.")]
 	public class Raycast : FsmStateAction
 	{
-		[Tooltip("Start ray at game object position. \nOr use Origin parameter.")]
+		[Tooltip("Start ray at game object position. \nOr use From Position parameter.")]
 		public FsmOwnerDefault fromGameObject;
+
 		[Tooltip("Start ray at a vector3 world position. \nOr use Game Object parameter.")]
 		public FsmVector3 fromPosition;
+
 		[Tooltip("A vector3 direction vector")]
 		public FsmVector3 direction;
+
+		[Tooltip("Cast the ray in world or local space. Note if no Game Object is specfied, the direction is in world space.")]
+		public Space space;
+
 		[Tooltip("The length of the ray. Set to -1 for infinity.")]
 		public FsmFloat distance;
+
 		[Tooltip("Event to send if the ray hits an object.")]
 		[UIHint(UIHint.Variable)]
 		public FsmEvent hitEvent;
+
 		[Tooltip("Set a bool variable to true if hit something, otherwise false.")]
 		[UIHint(UIHint.Variable)]
 		public FsmBool storeDidHit;
+
 		[Tooltip("Store the game object hit in a variable.")]
 		[UIHint(UIHint.Variable)]
 		public FsmGameObject storeHitObject;
+
 		[Tooltip("Set how often to cast a ray. 0 = once, don't repeat; 1 = everyFrame; 2 = every other frame... \nSince raycasts can get expensive use the highest repeat interval you can get away with.")]
 		public FsmInt repeatInterval;
-		[Tooltip("Pick only from these layers.")]
+
 		[UIHint(UIHint.Layer)]
+		[Tooltip("Pick only from these layers.")]
 		public FsmInt[] layerMask;
+		
 		[Tooltip("Invert the mask, so you pick from all layers except those defined above.")]
 		public FsmBool invertMask;
+
+		[ActionSection("Debug")] 
+		
+		[Tooltip("The color to use for the debug line.")]
+		public FsmColor debugColor;
+
+		[Tooltip("Draw a debug line. Note: Check Gizmos in the Game View to see it in game.")]
 		public FsmBool debug;
 		
 		int repeat;
@@ -41,13 +60,15 @@ namespace HutongGames.PlayMaker.Actions
 			fromGameObject = null;
 			fromPosition = new FsmVector3 { UseVariable = true };
 			direction = new FsmVector3 { UseVariable = true };
+			space = Space.Self;
 			distance = 100;
 			hitEvent = null;
 			storeDidHit = null;
 			storeHitObject = null;
-			repeatInterval = 0;
+			repeatInterval = 1;
 			layerMask = new FsmInt[0];
-			invertMask = false;		
+			invertMask = false;
+			debugColor = Color.yellow;
 			debug = false;
 		}
 
@@ -56,7 +77,9 @@ namespace HutongGames.PlayMaker.Actions
 			DoRaycast();
 			
 			if (repeatInterval.Value == 0)
-				Finish();		
+			{
+				Finish();
+			}		
 		}
 
 		public override void OnUpdate()
@@ -64,7 +87,9 @@ namespace HutongGames.PlayMaker.Actions
 			repeat--;
 			
 			if (repeat == 0)
+			{
 				DoRaycast();
+			}
 		}
 		
 		void DoRaycast()
@@ -72,23 +97,28 @@ namespace HutongGames.PlayMaker.Actions
 			repeat = repeatInterval.Value;
 
 			if (distance.Value == 0)
+			{
 				return;
-			
-			Vector3 originPos;
-			
+			}
+
 			var go = Fsm.GetOwnerDefaultTarget(fromGameObject);
 			
-			if (go != null)
-				originPos = go.transform.position;
-			else
-				originPos = fromPosition.Value;
+			var originPos = go != null ? go.transform.position : fromPosition.Value;
 			
-			float rayLength = Mathf.Infinity;
+			var rayLength = Mathf.Infinity;
 			if (distance.Value > 0 )
+			{
 				rayLength = distance.Value;
-			
+			}
+
+			var dirVector = direction.Value;
+			if(go != null && space == Space.Self)
+			{
+				dirVector = go.transform.TransformDirection(direction.Value);
+			}
+
 			RaycastHit hitInfo;
-			Physics.Raycast(originPos, direction.Value, out hitInfo, rayLength, ActionHelpers.LayerArrayToLayerMask(layerMask, invertMask.Value)); //TODO LayerMask support
+			Physics.Raycast(originPos, dirVector, out hitInfo, rayLength, ActionHelpers.LayerArrayToLayerMask(layerMask, invertMask.Value));
 			
 			Fsm.RaycastHitInfo = hitInfo;
 			
@@ -98,14 +128,14 @@ namespace HutongGames.PlayMaker.Actions
 			
 			if (didHit)
 			{
-				Fsm.Event(hitEvent);
 				storeHitObject.Value = hitInfo.collider.collider.gameObject;
+				Fsm.Event(hitEvent);
 			}
 			
 			if (debug.Value)
 			{
-				float debugRayLength = Mathf.Min(rayLength, 1000);
-				Debug.DrawLine(originPos, originPos + direction.Value * debugRayLength, Fsm.DebugRaycastColor);
+				var debugRayLength = Mathf.Min(rayLength, 1000);
+				Debug.DrawLine(originPos, originPos + dirVector * debugRayLength, debugColor.Value);
 			}
 		}
 	}

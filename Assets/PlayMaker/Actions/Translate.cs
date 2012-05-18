@@ -9,16 +9,34 @@ namespace HutongGames.PlayMaker.Actions
 	public class Translate : FsmStateAction
 	{
 		[RequiredField]
+		[Tooltip("The game object to translate.")]
 		public FsmOwnerDefault gameObject;
+		
 		[UIHint(UIHint.Variable)]
+		[Tooltip("A translation vector. NOTE: You can override individual axis below.")]
 		public FsmVector3 vector;
+		
+		[Tooltip("Translation along x axis.")]
 		public FsmFloat x;
+
+		[Tooltip("Translation along y axis.")]
 		public FsmFloat y;
+
+		[Tooltip("Translation along z axis.")]
 		public FsmFloat z;
+
+		[Tooltip("Translate in local or world space.")]
 		public Space space;
+		
 		[Tooltip("Translate over one second")]
 		public bool perSecond;
-		
+
+		[Tooltip("Repeat every frame.")]
+		public bool everyFrame;
+
+		[Tooltip("Perform the rotation in LateUpdate. This is useful if you want to override the rotation of objects that are animated or otherwise rotated in Update.")]
+		public bool lateUpdate;		
+
 		public override void Reset()
 		{
 			gameObject = null;
@@ -29,26 +47,53 @@ namespace HutongGames.PlayMaker.Actions
 			z = new FsmFloat { UseVariable = true };
 			space = Space.Self;
 			perSecond = true;
+			everyFrame = true;
+			lateUpdate = false;
+		}
+
+		public override void OnEnter()
+		{
+			if (!everyFrame && !lateUpdate)
+			{
+				DoTranslate();
+				Finish();
+			}
 		}
 
 		public override void OnUpdate()
 		{
-			if (gameObject.OwnerOption == OwnerDefaultOption.UseOwner)
-				DoTranslate(Owner);
-			else
-				DoTranslate(gameObject.GameObject.Value);
+			if (!lateUpdate)
+			{
+				DoTranslate();
+			}
 		}
 
-		void DoTranslate(GameObject go)
+		public override void OnLateUpdate()
+		{
+			if (lateUpdate)
+			{
+				DoTranslate();
+			}
+
+			if (!everyFrame)
+			{
+				Finish();
+			}
+		}
+
+		void DoTranslate()
 		{
 			// init
-			
-			Vector3 translate;
-			
-			if (vector.IsNone)
-				translate = new Vector3(x.Value, y.Value, z.Value);
-			else
-				translate = vector.Value;
+
+			var go = Fsm.GetOwnerDefaultTarget(gameObject);
+			if (go == null)
+			{
+				return;
+			}
+
+			// Use vector if specified
+
+			var translate = vector.IsNone ? new Vector3(x.Value, y.Value, z.Value) : vector.Value;
 
 			// override any axis
 

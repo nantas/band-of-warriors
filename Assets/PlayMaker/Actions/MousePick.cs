@@ -71,7 +71,7 @@ namespace HutongGames.PlayMaker.Actions
 			{
 				// TODO: not sure if this is the right strategy...
 				storeGameObject.Value = null;
-				storeDistance = Mathf.Infinity;
+				storeDistance.Value = Mathf.Infinity;
 				storePoint.Value = Vector3.zero;
 				storeNormal.Value = Vector3.zero;
 			}

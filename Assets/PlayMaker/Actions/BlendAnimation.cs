@@ -10,18 +10,29 @@ namespace HutongGames.PlayMaker.Actions
 	{
 		[RequiredField]
 		[CheckForComponent(typeof(Animation))]
+		[Tooltip("The game object to animate.")]
 		public FsmOwnerDefault gameObject;
+		
 		[RequiredField]
 		[UIHint(UIHint.Animation)]
+		[Tooltip("The name of the animation to blend.")]
 		public FsmString animName;
+		
 		[RequiredField]
 		[HasFloatSlider(0f, 1f)]
+		[Tooltip("Target weight to blend to.")]
 		public FsmFloat targetWeight;
+		
 		[RequiredField]
 		[HasFloatSlider(0f, 5f)]
+		[Tooltip("How long should the blend take.")]
 		public FsmFloat time;
+		
+		[Tooltip("Event to send when the blend has finished.")]
 		public FsmEvent finishEvent;
 
+		// TODO: Delayed event doesn't handle speed changes etc.
+		// Use Animation isPlaying instead?
 		DelayedEvent delayedFinishEvent;
 
 		public override void Reset()
@@ -40,39 +51,47 @@ namespace HutongGames.PlayMaker.Actions
 
 		public override void OnUpdate()
 		{
-			delayedFinishEvent.Update();
-			
-			if (delayedFinishEvent.Finished)
+			if (DelayedEvent.WasSent(delayedFinishEvent))
+			{
 				Finish();
+			}
 		}
 
 		void DoBlendAnimation(GameObject go)
 		{
-			if (go == null) return;
+			if (go == null)
+			{
+				return;
+			}
 
 			if (go.animation == null)
 			{
 				LogWarning("Missing Animation component on GameObject: " + go.name);
+				Finish();
 				return;
 			}
 
-			AnimationState anim = go.animation[animName.Value];
+			var anim = go.animation[animName.Value];
 
 			if (anim == null)
 			{
 				LogWarning("Missing animation: " + animName.Value);
+				Finish();
 				return;
 			}
 
-			float timeValue = time.Value;
+			var timeValue = time.Value;
 			go.animation.Blend(animName.Value, targetWeight.Value, timeValue);
-			
 			
 			// TODO: doesn't work well with scaled time
 			if (finishEvent != null)
-				delayedFinishEvent = new DelayedEvent(Fsm, finishEvent, anim.length);
+			{
+				delayedFinishEvent = Fsm.DelayedEvent(finishEvent, anim.length);
+			}
 			else
+			{
 				Finish();
+			}
 		}
 	}
 }

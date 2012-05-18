@@ -28,6 +28,9 @@ namespace HutongGames.PlayMaker.Actions
 		[Tooltip("Draw a debug line from the GameObject to the Target.")]
 		public FsmBool debug;
 
+		[Tooltip("Color to use for the debug line.")] 
+		public FsmColor debugLineColor;
+
 		[Tooltip("Repeat every frame.")]
 		public bool everyFrame = true;
 
@@ -39,6 +42,7 @@ namespace HutongGames.PlayMaker.Actions
 			upVector = new FsmVector3 { UseVariable = true};
 			keepVertical = true;
 			debug = false;
+			debugLineColor = Color.yellow;
 			everyFrame = true;
 		}
 
@@ -91,7 +95,7 @@ namespace HutongGames.PlayMaker.Actions
 			
 			if (debug.Value)
 			{
-				Debug.DrawLine(go.transform.position, lookAtPos, Fsm.DebugLookAtColor);
+				Debug.DrawLine(go.transform.position, lookAtPos, debugLineColor.Value);
 			}
 		}
 

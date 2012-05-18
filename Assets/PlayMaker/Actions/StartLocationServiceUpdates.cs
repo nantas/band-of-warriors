@@ -32,8 +32,15 @@ namespace HutongGames.PlayMaker.Actions
 		public override void OnEnter()
 		{
 #if UNITY_IPHONE
-			startTime = Time.realtimeSinceStartup;
-  			iPhoneSettings.StartLocationServiceUpdates();
+			startTime = FsmTime.RealtimeSinceStartup;
+			
+#if UNITY_3_5
+  			Input.location.Start(desiredAccuracy.Value, updateDistance.Value);			
+#else
+  			iPhoneSettings.StartLocationServiceUpdates(desiredAccuracy.Value, updateDistance.Value);
+#endif
+
+
 #else
 			Finish();
 #endif
@@ -42,9 +49,28 @@ namespace HutongGames.PlayMaker.Actions
 		public override void OnUpdate()
 		{
 #if UNITY_IPHONE
+			
+#if UNITY_3_5
+
+			if (Input.location.status == LocationServiceStatus.Failed ||
+				Input.location.status == LocationServiceStatus.Stopped ||
+				(FsmTime.RealtimeSinceStartup - startTime) > maxWait.Value )
+			{
+				Fsm.Event(failedEvent);
+				Finish();
+			}
+			
+			if (Input.location.status == LocationServiceStatus.Running)
+			{
+				Fsm.Event(successEvent);
+				Finish();
+			}
+			
+#else
+			
 			if (iPhoneSettings.locationServiceStatus == LocationServiceStatus.Failed ||
 				iPhoneSettings.locationServiceStatus == LocationServiceStatus.Stopped ||
-				(Time.realtimeSinceStartup - startTime) > maxWait.Value )
+				(FsmTime.RealtimeSinceStartup - startTime) > maxWait.Value )
 			{
 				Fsm.Event(failedEvent);
 				Finish();
@@ -55,6 +81,8 @@ namespace HutongGames.PlayMaker.Actions
 				Fsm.Event(successEvent);
 				Finish();
 			}
+#endif
+			
 #endif
 		}
 	}

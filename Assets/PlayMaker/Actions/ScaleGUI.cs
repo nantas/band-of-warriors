@@ -10,13 +10,19 @@ namespace HutongGames.PlayMaker.Actions
 	{
 		[RequiredField]
 		public FsmFloat scaleX;
+		
 		[RequiredField]
 		public FsmFloat scaleY;
+		
 		[RequiredField]
 		public FsmFloat pivotX;
+		
 		[RequiredField]
 		public FsmFloat pivotY;
+		
+		[Tooltip("Pivot point uses normalized coordinates. E.g. 0.5 is the center of the screen.")]
 		public bool normalized;
+		
 		public bool applyGlobally;
 
 		bool applied;
@@ -33,10 +39,19 @@ namespace HutongGames.PlayMaker.Actions
 
 		public override void OnGUI()
 		{
-			if (applied) return;
+			if (applied)
+			{
+				return;
+			}
 			
-			Vector2 scale = new Vector2(scaleX.Value, scaleY.Value);
-			Vector2 pivotPoint = new Vector2(pivotX.Value, pivotY.Value);
+			var scale = new Vector2(scaleX.Value, scaleY.Value);
+
+			// Not allowed to scale to 0 - it breaks the GUI matrix
+
+			if (Equals(scale.x, 0)) scale.x = 0.0001f;
+			if (Equals(scale.y, 0)) scale.x = 0.0001f;
+
+			var pivotPoint = new Vector2(pivotX.Value, pivotY.Value);
 			
 			if (normalized)
 			{

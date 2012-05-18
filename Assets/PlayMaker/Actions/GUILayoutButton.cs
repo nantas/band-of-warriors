@@ -1,7 +1,6 @@
 // (c) Copyright HutongGames, LLC 2010-2011. All rights reserved.
 
 using UnityEngine;
-using System.Collections.Generic;
 
 namespace HutongGames.PlayMaker.Actions
 {
@@ -25,21 +24,30 @@ namespace HutongGames.PlayMaker.Actions
 			text = "";
 			image = null;
 			tooltip = "";
-			style = "Button";
+			style = "";
 		}
 		
 		public override void OnGUI()
 		{
-			bool pressed = false;
-			if (GUILayout.Button(new GUIContent(text.Value, image.Value, tooltip.Value), style.Value, LayoutOptions))
+			bool buttonPressed;
+
+			if (string.IsNullOrEmpty(style.Value))
+			{
+				buttonPressed = GUILayout.Button(new GUIContent(text.Value, image.Value, tooltip.Value), LayoutOptions);
+			}
+			else
+			{
+				buttonPressed = GUILayout.Button(new GUIContent(text.Value, image.Value, tooltip.Value), style.Value, LayoutOptions);
+			}
+
+			if (buttonPressed)
 			{
 				Fsm.Event(sendEvent);
-				pressed = true;
 			}
 			
 			if (storeButtonState != null)
 			{
-				storeButtonState.Value = pressed;
+				storeButtonState.Value = buttonPressed;
 			}
 		}
 	}

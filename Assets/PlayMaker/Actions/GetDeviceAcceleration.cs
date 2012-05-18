@@ -75,7 +75,7 @@ namespace HutongGames.PlayMaker.Actions
 				break;
 			}
 */
-			Vector3 dir = new Vector3(Input.acceleration.x, Input.acceleration.y, Input.acceleration.z);
+			var dir = new Vector3(Input.acceleration.x, Input.acceleration.y, Input.acceleration.z);
 			
 			if (!multiplier.IsNone)
 			{

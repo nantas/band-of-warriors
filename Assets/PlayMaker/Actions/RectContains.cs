@@ -40,10 +40,10 @@ namespace HutongGames.PlayMaker.Actions
 
 		public override void Reset()
 		{
-			rectangle = new FsmRect() { UseVariable = true };
-			point = new FsmVector3() { UseVariable = true };
-			x = new FsmFloat() { UseVariable = true };
-			y = new FsmFloat() { UseVariable = true };
+			rectangle = new FsmRect { UseVariable = true };
+			point = new FsmVector3 { UseVariable = true };
+			x = new FsmFloat { UseVariable = true };
+			y = new FsmFloat { UseVariable = true };
 			storeResult = null;
 			trueEvent = null;
 			falseEvent = null;

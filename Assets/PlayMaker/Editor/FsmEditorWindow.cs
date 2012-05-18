@@ -18,6 +18,7 @@ class FsmEditorWindow : EditorWindow
 	
 	// tool windows (can't open them inside dll)
 
+	//[SerializeField] PlayMakerWelcomeWindow welcomeWindow;
 	[SerializeField] FsmSelectorWindow fsmSelectorWindow;
 	[SerializeField] FsmTemplateWindow fsmTemplateWindow;
 	[SerializeField] FsmStateWindow stateSelectorWindow;
@@ -30,26 +31,45 @@ class FsmEditorWindow : EditorWindow
 	[SerializeField] ReportWindow reportWindow;
 	[SerializeField] AboutWindow aboutWindow;
 
-	[MenuItem("PlayMaker/Open PlayMaker FSM Editor")]
+	/// <summary>
+	/// Open the Fsm Editor and optionally show the Welcome Screen
+	/// </summary>
 	public static void OpenWindow()
 	{
 		GetWindow<FsmEditorWindow>();
-		//window.fsmEditor.OnSelectionChange();
+
+		if (EditorPrefs.GetBool("PlayMaker.ShowWelcomeScreen", true))
+		{
+			GetWindow<PlayMakerWelcomeWindow>(true);
+		}
 	}
-	
+
+	/// <summary>
+	/// Open the Fsm Editor and select an Fsm Component
+	/// </summary>
 	public static void OpenWindow(PlayMakerFSM fsmComponent)
 	{
-		GetWindow<FsmEditorWindow>();
+		OpenWindow();
 
 		FsmEditor.SelectFsm(fsmComponent.Fsm);
 	}
 
+	/// <summary>
+	/// Is the Fsm Editor open?
+	/// </summary>
 	public static bool IsOpen()
 	{
 		return instance != null;
 	}
 
-	public void OnEnable()
+	// ReSharper disable UnusedMember.Local
+
+	/// <summary>
+	/// Called when the Fsm Editor window is created
+	/// NOTE: happens on playmode change and recompile!
+	/// </summary>
+
+	void OnEnable()
 	{
 		instance = this;
 
@@ -62,7 +82,10 @@ class FsmEditorWindow : EditorWindow
 		fsmEditor.OnEnable();
 	}
 	
-	public void OnGUI()
+	/// <summary>
+	/// Do the GUI
+	/// </summary>
+	void OnGUI()
 	{
 		fsmEditor.OnGUI();
 		
@@ -118,7 +141,11 @@ class FsmEditorWindow : EditorWindow
 				case "SelectAll":
 					FsmEditor.SelectAll();
 					break;
-				
+
+				case "OpenWelcomeWindow":
+					GetWindow<PlayMakerWelcomeWindow>();
+					break;
+
 				case "OpenToolWindow":
 					toolWindow = GetWindow<ContextToolWindow>();
 					break;
@@ -228,32 +255,32 @@ class FsmEditorWindow : EditorWindow
 		Repaint();
 	}
 
-	public void Update()
+	void Update()
 	{
 		fsmEditor.Update();
 	}
 
-	public void OnInspectorUpdate()
+	void OnInspectorUpdate()
 	{
 		fsmEditor.OnInspectorUpdate();
 	}
 
-	public void OnFocus()
+	void OnFocus()
 	{
 		fsmEditor.OnFocus();
 	}
 
-	public void OnSelectionChange()
+	void OnSelectionChange()
 	{
 		fsmEditor.OnSelectionChange();
 	}
 
-	public void OnHierarchyChange()
+	void OnHierarchyChange()
 	{
 		fsmEditor.OnHierarchyChange();
 	}
 
-	public void OnProjectChange()
+	void OnProjectChange()
 	{
 		if (fsmEditor != null)
 		{
@@ -261,7 +288,7 @@ class FsmEditorWindow : EditorWindow
 		}
 	}
 
-	public void OnDisable()
+	void OnDisable()
 	{
 		if (fsmEditor != null)
 		{
@@ -271,7 +298,7 @@ class FsmEditorWindow : EditorWindow
 		instance = null;
 	}
 
-	public void OnDestroy()
+	void OnDestroy()
 	{
 		if (toolWindow != null)
 		{
@@ -329,5 +356,6 @@ class FsmEditorWindow : EditorWindow
 		}
 	}
 
+	// ReSharper restore UnusedMember.Local
 }
 

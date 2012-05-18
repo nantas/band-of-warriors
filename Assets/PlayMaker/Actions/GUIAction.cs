@@ -11,10 +11,12 @@ namespace HutongGames.PlayMaker.Actions
 	{
 		[UIHint(UIHint.Variable)]
 		public FsmRect screenRect;
+
 		public FsmFloat left;
-		public FsmFloat top;
-		public FsmFloat width;
+		public FsmFloat top;		
+		public FsmFloat width;		
 		public FsmFloat height;
+		
 		[RequiredField]
 		public FsmBool normalized;
 		
@@ -32,14 +34,7 @@ namespace HutongGames.PlayMaker.Actions
 		
 		public override void OnGUI()
 		{
-			if (!screenRect.IsNone)
-			{
-				rect = screenRect.Value;
-			}
-			else
-			{
-				rect = new Rect();
-			}
+			rect = !screenRect.IsNone ? screenRect.Value : new Rect();
 			
 			if (!left.IsNone) rect.x = left.Value;
 			if (!top.IsNone) rect.y = top.Value;

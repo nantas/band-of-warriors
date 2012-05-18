@@ -47,8 +47,8 @@ namespace HutongGames.PlayMaker.Actions
 		
 		public override void OnEnter()
 		{
-			screenWidth = (float)Screen.width;
-			screenHeight = (float)Screen.height;
+			screenWidth = Screen.width;
+			screenHeight = Screen.height;
 
 			DoGetTouchInfo();
 

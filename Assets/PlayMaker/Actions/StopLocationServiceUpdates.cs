@@ -16,7 +16,13 @@ namespace HutongGames.PlayMaker.Actions
 		{
 			
 #if UNITY_IPHONE
-  			iPhoneSettings.StopLocationServiceUpdates();
+			
+#if UNITY_3_5			
+  			Input.location.Stop();
+#else
+  			iPhoneSettings.StopLocationServiceUpdates();			
+#endif
+
 #endif
 			
 			Finish();

@@ -39,8 +39,8 @@ namespace HutongGames.PlayMaker.Actions
 			radius = new FsmFloat { UseVariable = true };
 			slopeLimit = new FsmFloat { UseVariable = true };
 			stepOffset = new FsmFloat { UseVariable = true };
-			center = new FsmVector3() { UseVariable = true };
-			detectCollisions = new FsmBool() { UseVariable = true };
+			center = new FsmVector3 { UseVariable = true };
+			detectCollisions = new FsmBool { UseVariable = true };
 			everyFrame = false;
 		}
 

@@ -1,45 +1,58 @@
 // (c) Copyright HutongGames, LLC 2010-2011. All rights reserved.
 
+using System;
+
 namespace HutongGames.PlayMaker.Actions
 {
 	[ActionCategory(ActionCategory.StateMachine)]
 	[Tooltip("Sends an Event after an optional delay. NOTE: To send events between FSMs they must be marked as Global in the Events Browser.")]
 	public class SendEvent : FsmStateAction
 	{
+		[Tooltip("Where to send the event.")]
 		public FsmEventTarget eventTarget;
+		
 		[RequiredField]
+		[Tooltip("The event to send. NOTE: Events must be marked Global to send between FSMs.")]
 		public FsmEvent sendEvent;
+		
 		[HasFloatSlider(0, 10)]
+		[Tooltip("Optional delay in seconds.")]
 		public FsmFloat delay;
 
-		DelayedEvent delayedEvent;
+		[Tooltip("Repeat every frame. Rarely needed.")]
+		public bool everyFrame;
+
+		private DelayedEvent delayedEvent;
 
 		public override void Reset()
 		{
+			eventTarget = null;
 			sendEvent = null;
 			delay = null;
+			everyFrame = false;
 		}
 
 		public override void OnEnter()
 		{
-			if (delay.Value == 0f)
+			if (delay.Value < 0.001f)
 			{
 				Fsm.Event(eventTarget, sendEvent);
 				Finish();
 			}
 			else
 			{
-				delayedEvent = new DelayedEvent(Fsm, eventTarget, sendEvent, delay.Value);
+				delayedEvent = Fsm.DelayedEvent(eventTarget, sendEvent, delay.Value);
 			}
 		}
 
 		public override void OnUpdate()
 		{
-			delayedEvent.Update();
-			
-			if (delayedEvent.Finished)
+			if (!everyFrame)
 			{
-				Finish();
+				if (DelayedEvent.WasSent(delayedEvent))
+				{
+					Finish();
+				}
 			}
 		}
 	}

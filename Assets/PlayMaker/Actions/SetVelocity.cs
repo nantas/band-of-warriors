@@ -11,12 +11,16 @@ namespace HutongGames.PlayMaker.Actions
 		[RequiredField]
 		[CheckForComponent(typeof(Rigidbody))]
 		public FsmOwnerDefault gameObject;
+		
 		[UIHint(UIHint.Variable)]
 		public FsmVector3 vector;
+		
 		public FsmFloat x;
 		public FsmFloat y;
 		public FsmFloat z;
+		
 		public Space space;
+		
 		public bool everyFrame;
 
 		public override void Reset()
@@ -37,7 +41,9 @@ namespace HutongGames.PlayMaker.Actions
 			DoSetVelocity();
 			
 			if (!everyFrame)
-				Finish();		
+			{
+				Finish();
+			}		
 		}
 
 		public override void OnFixedUpdate()
@@ -50,9 +56,11 @@ namespace HutongGames.PlayMaker.Actions
 
 		void DoSetVelocity()
 		{
-			GameObject go = Fsm.GetOwnerDefaultTarget(gameObject);
-			if (go == null) return;
-			if (go.rigidbody == null) return;
+			var go = Fsm.GetOwnerDefaultTarget(gameObject);
+			if (go == null || go.rigidbody == null)
+			{
+				return;
+			}
 			
 			// init position
 			
@@ -60,10 +68,9 @@ namespace HutongGames.PlayMaker.Actions
 
 			if (vector.IsNone)
 			{
-				if (space == Space.World)
-					velocity = go.rigidbody.velocity;
-				else
-					velocity = go.transform.InverseTransformDirection(go.rigidbody.velocity);
+				velocity = space == Space.World ?
+					go.rigidbody.velocity : 
+					go.transform.InverseTransformDirection(go.rigidbody.velocity);
 			}
 			else
 			{
@@ -78,10 +85,7 @@ namespace HutongGames.PlayMaker.Actions
 
 			// apply
 			
-			if (space == Space.World)
-				go.rigidbody.velocity = velocity;
-			else
-				go.rigidbody.velocity = go.transform.TransformDirection(velocity);
+			go.rigidbody.velocity = space == Space.World ? velocity : go.transform.TransformDirection(velocity);
 		}
 	}
 }

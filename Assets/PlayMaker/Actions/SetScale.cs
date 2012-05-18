@@ -10,11 +10,14 @@ namespace HutongGames.PlayMaker.Actions
 	{
 		[RequiredField]
 		public FsmOwnerDefault gameObject;
+		
 		[UIHint(UIHint.Variable)]
 		public FsmVector3 vector;
+		
 		public FsmFloat x;
 		public FsmFloat y;
 		public FsmFloat z;
+		
 		public bool everyFrame;
 
 		public override void Reset()
@@ -33,7 +36,9 @@ namespace HutongGames.PlayMaker.Actions
 			DoSetScale();
 			
 			if (!everyFrame)
-				Finish();		
+			{
+				Finish();
+			}		
 		}
 
 		public override void OnUpdate()
@@ -43,15 +48,13 @@ namespace HutongGames.PlayMaker.Actions
 
 		void DoSetScale()
 		{
-			GameObject go = Fsm.GetOwnerDefaultTarget(gameObject);
-			if (go == null) return;
-			
-			Vector3 scale;
-			
-			if (vector.IsNone)
-				scale = go.transform.localScale;
-			else
-				scale = vector.Value;
+			var go = Fsm.GetOwnerDefaultTarget(gameObject);
+			if (go == null)
+			{
+				return;
+			}
+
+			var scale = vector.IsNone ? go.transform.localScale : vector.Value;
 			
 			if (!x.IsNone) scale.x = x.Value;
 			if (!y.IsNone) scale.y = y.Value;

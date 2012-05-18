@@ -76,12 +76,7 @@ namespace HutongGames.PlayMaker.Actions
 
 			if (go != gameObjectCached)
 			{
-				guiElement = go.guiTexture;
-
-				if (guiElement == null)
-				{
-					guiElement = go.guiText;
-				}
+				guiElement = go.guiTexture ?? (GUIElement) go.guiText;
 
 				gameObjectCached = go;
 			}

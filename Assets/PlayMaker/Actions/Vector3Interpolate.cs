@@ -38,7 +38,7 @@ namespace HutongGames.PlayMaker.Actions
 
 		public override void OnEnter()
 		{
-			startTime = Time.realtimeSinceStartup;
+			startTime = FsmTime.RealtimeSinceStartup;
 			currentTime = 0f;
 			
 			if (storeResult == null)
@@ -53,7 +53,7 @@ namespace HutongGames.PlayMaker.Actions
 			
 			if (realTime)
 			{
-				currentTime = Time.realtimeSinceStartup - startTime;
+				currentTime = FsmTime.RealtimeSinceStartup - startTime;
 			}
 			else
 			{
@@ -69,10 +69,6 @@ namespace HutongGames.PlayMaker.Actions
 				
 			case InterpolationType.EaseInOut:
 				weight = Mathf.SmoothStep(0, 1, weight);				
-				break;
-			
-			default:
-
 				break;
 			}
 

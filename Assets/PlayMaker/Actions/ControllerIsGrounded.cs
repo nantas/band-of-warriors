@@ -10,15 +10,24 @@ namespace HutongGames.PlayMaker.Actions
 	{
 		[RequiredField]
 		[CheckForComponent(typeof(CharacterController))]
+		[Tooltip("The GameObject to check.")]
 		public FsmOwnerDefault gameObject;
+		
+		[Tooltip("Event to send if touching the ground.")]
 		public FsmEvent trueEvent;
+		
+		[Tooltip("Event to send if not touching the ground.")]
 		public FsmEvent falseEvent;
+		
+		[Tooltip("Sore the result in a bool variable.")]
 		[UIHint(UIHint.Variable)]
 		public FsmBool storeResult;
+		
+		[Tooltip("Repeat every frame.")]
 		public bool everyFrame;
 		
-		GameObject previousGo; // remember so we can get new controller only when it changes.
-		CharacterController controller;
+		private GameObject previousGo; // remember so we can get new controller only when it changes.
+		private CharacterController controller;
 		
 		public override void Reset()
 		{
@@ -34,7 +43,9 @@ namespace HutongGames.PlayMaker.Actions
 			DoControllerIsGrounded();
 			
 			if (!everyFrame)
+			{
 				Finish();
+			}
 		}
 
 		public override void OnUpdate()
@@ -44,8 +55,11 @@ namespace HutongGames.PlayMaker.Actions
 		
 		void DoControllerIsGrounded()
 		{
-			GameObject go = Fsm.GetOwnerDefaultTarget(gameObject);
-			if (go == null) return;
+			var go = Fsm.GetOwnerDefaultTarget(gameObject);
+			if (go == null)
+			{
+				return;
+			}
 		
 			if (go != previousGo)
 			{
@@ -55,14 +69,11 @@ namespace HutongGames.PlayMaker.Actions
 			
 			if (controller == null)	return;
 	
-			bool isGrounded = controller.isGrounded;
+			var isGrounded = controller.isGrounded;
 
 			storeResult.Value = isGrounded;
 
-			if (isGrounded)
-				Fsm.Event(trueEvent);
-			else
-				Fsm.Event(falseEvent);
+			Fsm.Event(isGrounded ? trueEvent : falseEvent);
 		}
 	}
 }

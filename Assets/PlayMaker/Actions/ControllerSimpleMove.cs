@@ -10,14 +10,21 @@ namespace HutongGames.PlayMaker.Actions
 	{
 		[RequiredField]
 		[CheckForComponent(typeof(CharacterController))]
+		[Tooltip("The GameObject to move.")]
 		public FsmOwnerDefault gameObject;
+		
 		[RequiredField]
+		[Tooltip("The movement vector.")]
 		public FsmVector3 moveVector;
+		
+		[Tooltip("Multiply the movement vector by a speed factor.")]
 		public FsmFloat speed;
+
+		[Tooltip("Move in local or word space.")]
 		public Space space;
 		
-		GameObject previousGo; // remember so we can get new controller only when it changes.
-		CharacterController controller;
+		private GameObject previousGo; // remember so we can get new controller only when it changes.
+		private CharacterController controller;
 		
 		public override void Reset()
 		{
@@ -29,7 +36,7 @@ namespace HutongGames.PlayMaker.Actions
 
 		public override void OnUpdate()
 		{
-			GameObject go = Fsm.GetOwnerDefaultTarget(gameObject);
+			var go = Fsm.GetOwnerDefaultTarget(gameObject);
 			if (go == null) return;
 		
 			if (go != previousGo)
@@ -40,16 +47,10 @@ namespace HutongGames.PlayMaker.Actions
 			
 			if (controller != null)
 			{
-				Vector3 move;
-				
-				if (space == Space.World)
-					move = moveVector.Value;
-				else
-					move = go.transform.TransformDirection(moveVector.Value);
-				
+				var move = space == Space.World ? moveVector.Value : go.transform.TransformDirection(moveVector.Value);
+
 				controller.SimpleMove(move * speed.Value);
 			}
-			
 		}
 	}
 }

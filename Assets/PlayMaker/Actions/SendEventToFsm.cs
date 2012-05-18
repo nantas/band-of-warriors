@@ -36,7 +36,7 @@ namespace HutongGames.PlayMaker.Actions
 
 		public override void OnEnter()
 		{
-			go = gameObject.OwnerOption == OwnerDefaultOption.UseOwner ? Owner : gameObject.GameObject.Value;
+			go = Fsm.GetOwnerDefaultTarget(gameObject);
 
 			if (go == null)
 			{
@@ -44,7 +44,7 @@ namespace HutongGames.PlayMaker.Actions
 				return;
 			}
 			
-			PlayMakerFSM sendToFsm = ActionHelpers.GetGameObjectFsm(go, fsmName.Value);
+			var sendToFsm = ActionHelpers.GetGameObjectFsm(go, fsmName.Value);
 			
 			if (sendToFsm == null)
 			{
@@ -56,17 +56,23 @@ namespace HutongGames.PlayMaker.Actions
 				return;
 			}
 
-			delayedEvent = new DelayedEvent(sendToFsm, sendEvent.Value, delay.Value);
-			delayedEvent.Update();
+			if (delay.Value < 0.001)
+			{
+				sendToFsm.Fsm.Event(sendEvent.Value);
+				Finish();
+			}
+			else
+			{
+				delayedEvent = sendToFsm.Fsm.DelayedEvent(FsmEvent.GetFsmEvent(sendEvent.Value), delay.Value);
+			}
 		}
 
 		public override void OnUpdate()
 		{
-			if (delayedEvent != null)
-				delayedEvent.Update();
-			
-			if (delayedEvent.Finished)
+			if (DelayedEvent.WasSent(delayedEvent))
+			{
 				Finish();
+			}
 		}
 	}
 }

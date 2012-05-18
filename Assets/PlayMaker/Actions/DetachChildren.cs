@@ -18,19 +18,17 @@ namespace HutongGames.PlayMaker.Actions
 
 		public override void OnEnter()
 		{
-			if (gameObject.OwnerOption == OwnerDefaultOption.UseOwner)
-				DoDetachChildren(Owner);
-			else
-				DoDetachChildren(gameObject.GameObject.Value);
+			DoDetachChildren(Fsm.GetOwnerDefaultTarget(gameObject));
 			
 			Finish();
 		}
 
 		static void DoDetachChildren(GameObject go)
 		{
-			if (go == null) return;
-
-			go.transform.DetachChildren();
+			if (go != null)
+			{
+				go.transform.DetachChildren();
+			}
 		}
 	}
 }

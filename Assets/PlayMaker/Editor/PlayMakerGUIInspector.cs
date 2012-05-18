@@ -1,9 +1,7 @@
 ﻿// (c) Copyright HutongGames, LLC 2010-2011. All rights reserved.
 
-using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
-using HutongGames.PlayMakerEditor;
 
 [CustomEditor(typeof(PlayMakerGUI))]
 class PlayMakerGUIInspector : Editor
@@ -13,6 +11,10 @@ class PlayMakerGUIInspector : Editor
 	void OnEnable()
 	{
 		guiComponent = target as PlayMakerGUI;
+
+		guiComponent.drawStateLabels = EditorPrefs.GetBool("PlayMaker.ShowStateLabelsInGameView");
+
+		CheckForDuplicateComponents();
 	}
 
 	public override void OnInspectorGUI()
@@ -40,7 +42,14 @@ class PlayMakerGUIInspector : Editor
 		GUILayout.Label("Debugging", EditorStyles.boldLabel);
 		EditorGUI.indentLevel = 1;
 
-		guiComponent.drawStateLabels = EditorGUILayout.Toggle(new GUIContent("Draw Active State Labels", "Draw the currently active state over GameObjects in the Game View. You can enable/disable for each FSM in the PlayMakerFSM Inspector."), guiComponent.drawStateLabels);
+		var drawStateLabels = EditorGUILayout.Toggle(new GUIContent("Draw Active State Labels", "Draw the currently active state over GameObjects in the Game View. You can enable/disable for each FSM in the PlayMakerFSM Inspector."), guiComponent.drawStateLabels);
+
+		if (drawStateLabels != guiComponent.drawStateLabels)
+		{
+			guiComponent.drawStateLabels = drawStateLabels;
+			EditorPrefs.SetBool("PlayMaker.ShowStateLabelsInGameView", drawStateLabels);
+		}
+
 
 		GUI.enabled = guiComponent.drawStateLabels;
 		//EditorGUI.indentLevel = 2;
@@ -56,5 +65,44 @@ class PlayMakerGUIInspector : Editor
 		GUI.enabled = guiComponent.filterLabelsWithDistance;
 
 		guiComponent.maxLabelDistance = EditorGUILayout.FloatField(new GUIContent("Distance", "Distance is measured from the main camera"), guiComponent.maxLabelDistance);
+
+		if (GUI.changed)
+		{
+			CheckForDuplicateComponents();
+		}
 	}
+
+	void CheckForDuplicateComponents()
+	{
+		var components = FindObjectsOfType(typeof(PlayMakerGUI));
+
+		if (components.Length > 1)
+		{
+			if (EditorUtility.DisplayDialog("Playmaker", "The scene has more than one PlayMakerGUI!\nRemove other instances?", "Yes", "No"))
+			{
+				foreach (Object component in components)
+				{
+					if (component != target)
+					{
+						var behavior = (PlayMakerGUI)component as Behaviour;
+						
+						// Delete the game object if it only has the PlayMakerGUI component?
+
+						if (behavior.gameObject.GetComponents(typeof(Component)).Length == 2) // every game object has a transform component
+						{
+							if (EditorUtility.DisplayDialog("Playmaker", "Delete: " + behavior.gameObject.name + "?", "Yes", "No"))
+							{
+								DestroyImmediate(behavior.gameObject);
+							}
+						}
+						else
+						{
+							DestroyImmediate(component);
+						}
+					}
+				}
+			}
+		}
+	}
+
 }

@@ -9,11 +9,6 @@ namespace HutongGames.PlayMaker.Actions
 	[Tooltip("GUI Label.")]
 	public class GUILabel : GUIContentAction
 	{
-		public override void Reset()
-		{
-			base.Reset();
-		}
-		
 		public override void OnGUI()
 		{
 			base.OnGUI();

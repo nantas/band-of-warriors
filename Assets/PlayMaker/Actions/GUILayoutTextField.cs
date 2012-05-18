@@ -1,7 +1,6 @@
 // (c) Copyright HutongGames, LLC 2010-2011. All rights reserved.
 
 using UnityEngine;
-using System.Collections.Generic;
 
 namespace HutongGames.PlayMaker.Actions
 {
@@ -17,6 +16,7 @@ namespace HutongGames.PlayMaker.Actions
 
 		public override void Reset()
 		{
+			base.Reset();
 			text = null;
 			maxLength = 25;
 			style = "TextField";
@@ -28,7 +28,7 @@ namespace HutongGames.PlayMaker.Actions
 			var guiChanged = GUI.changed;
 			GUI.changed = false;
 			
-			text.Value = GUILayout.TextField(text.Value, style.Value, LayoutOptions);
+			text.Value = GUILayout.TextField(text.Value, maxLength.Value, style.Value, LayoutOptions);
 			
 			if (GUI.changed)
 			{
