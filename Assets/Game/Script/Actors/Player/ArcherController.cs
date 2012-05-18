@@ -417,7 +417,7 @@ public class ArcherController: WarriorController {
         }
     }
 
-    public void PlayerDead() {
+    public new void PlayerDead() {
         velocity = new Vector2 (0, 0);
         Game.instance.AcceptInput(false);
         Game.instance.theGamePanel.ShowGameOver();

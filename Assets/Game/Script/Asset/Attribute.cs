@@ -24,7 +24,7 @@ public class Attribute : ScriptableObject {
     //
     ///////////////////////////////////////////////////////////////////////////////
 
-    public string name = "Attribute";
+    public new string name = "Attribute";
     public string description = "Description of the Attribute.";
     public float[] modifiers;
     //varaible name to be used for other script. this will link the attribute to real code.

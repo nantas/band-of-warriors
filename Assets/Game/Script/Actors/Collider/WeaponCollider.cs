@@ -4,11 +4,11 @@ using System.Collections;
 public class WeaponCollider : MonoBehaviour {
 	
     public exSprite spWeapon;
-	private PlayerBase controller;
+	//private PlayerBase controller;
     private Spawner commonSpawner;
 	
 	void Awake () {
-		controller = transform.root.GetComponent<PlayerBase>();
+		//controller = transform.root.GetComponent<PlayerBase>();
         commonSpawner = Game.instance.theSpawner;
 	}
 	

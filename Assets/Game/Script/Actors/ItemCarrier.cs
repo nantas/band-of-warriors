@@ -102,7 +102,7 @@ public class ItemCarrier : Enemy {
     }
 
 	
-	public void OnDamaged(bool _isHurtFromRight) {
+	public new void OnDamaged(bool _isHurtFromRight) {
 			spCollider.enabled = false;
             fx.emit = false;
             iTween.Stop(gameObject);
@@ -110,7 +110,7 @@ public class ItemCarrier : Enemy {
 	}
 
     //when it's hit by player, reset postiion and wait to spawn again.
-    public void OnEnemyDie() {
+    public new void OnEnemyDie() {
         SpawnLoot();
         transform.position = originPos;
         moveDir = MoveDir.Stop;

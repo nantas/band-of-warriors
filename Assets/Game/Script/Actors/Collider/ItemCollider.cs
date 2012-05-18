@@ -11,12 +11,12 @@ public class ItemCollider : MonoBehaviour {
 
 	void OnTriggerEnter (Collider other) {
         //not using collide direction at the moment.
-        bool isPlayerOnRight;
-        if (transform.position.x < other.transform.position.x) {
-            isPlayerOnRight = true;
-        } else {
-            isPlayerOnRight = false;
-        }
+      //  bool isPlayerOnRight;
+      //  if (transform.position.x < other.transform.position.x) {
+      //      isPlayerOnRight = true;
+      //  } else {
+      //      isPlayerOnRight = false;
+      //  }
 
 		if (other.tag == "player") {
 			controller.OnPickedUp();

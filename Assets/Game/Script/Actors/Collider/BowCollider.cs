@@ -6,7 +6,7 @@ public class BowCollider : MonoBehaviour {
     public exSprite spWeapon;
 	private PlayerBase controller;
     private Spawner commonSpawner;
-    private Collider collider;
+    //private Collider collider;
     //this is the bow's durability, when it reaches maxHitBeforeBreak it will not collide with enemy anymore
     public int maxHitBeforeBreak = 2;
     public float timePerHitRecover = 1.0f;
@@ -14,7 +14,7 @@ public class BowCollider : MonoBehaviour {
 	
 	void Awake () {
 		controller = transform.root.GetComponent<PlayerBase>();
-        collider = GetComponent<Collider>();
+        //collider = GetComponent<Collider>();
         commonSpawner = Game.instance.theSpawner;
 	}
 	
