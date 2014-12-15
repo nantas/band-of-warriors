@@ -1,4 +1,4 @@
-﻿// (c) Copyright HutongGames, LLC 2010-2011. All rights reserved.
+﻿// (c) Copyright HutongGames, LLC 2010-2013. All rights reserved.
 
 using System.Collections.Generic;
 using UnityEditor;
@@ -13,7 +13,9 @@ class PlayMakerGlobalsInspector : Editor
 
 	private List<FsmVariable> variableList;
 
+#if UNITY_3_4
 	private GUIStyle warningBox;
+#endif
 
 	void OnEnable()
 	{
@@ -26,13 +28,16 @@ class PlayMakerGlobalsInspector : Editor
 
 	public override void OnInspectorGUI()
 	{
+#if UNITY_3_4
 		if (warningBox == null)
 		{
-			warningBox = new GUIStyle(EditorStyles.boldLabel);
-			warningBox.wordWrap = true;
-		}
+			warningBox = new GUIStyle(EditorStyles.boldLabel) {wordWrap = true};
+        }
 
-		GUILayout.Label("NOTE: This inspector shows the DEFAULT values of Globals. To see current values when playing, use the PlayMaker Editor (Global Variables Window, Debug fields, etc.)", warningBox);
+        GUILayout.Label(Strings.Hint_GlobalsInspector_Shows_DEFAULT_Values, warningBox);
+#else
+        EditorGUILayout.HelpBox(Strings.Hint_GlobalsInspector_Shows_DEFAULT_Values, MessageType.Info);
+#endif
 	
 		if (refresh)
 		{
@@ -40,7 +45,7 @@ class PlayMakerGlobalsInspector : Editor
 			return;
 		}
 
-		GUILayout.Label("Global Variables", EditorStyles.boldLabel);
+		GUILayout.Label(Strings.Command_Global_Variables, EditorStyles.boldLabel);
 
 		if (variableList.Count > 0)
 		{
@@ -58,10 +63,10 @@ class PlayMakerGlobalsInspector : Editor
 		}
 		else
 		{
-			GUILayout.Label("[None]");
+			GUILayout.Label(Strings.Label_None_In_Table);
 		}
 
-		GUILayout.Label("Global Events", EditorStyles.boldLabel);
+		GUILayout.Label(Strings.Label_Global_Events, EditorStyles.boldLabel);
 
 		if (globals.Events.Count > 0)
 		{
@@ -72,16 +77,25 @@ class PlayMakerGlobalsInspector : Editor
 		}
 		else
 		{
-			GUILayout.Label("[None]");
+			GUILayout.Label(Strings.Label_None_In_Table);
 		}
 
-/*		GUILayout.Space(5);
+        GUILayout.Space(5);
 
-		if (GUILayout.Button(new GUIContent("Refresh Lists", "Edit Globals in the PlayMaker FSM Editor.")) || globals.NeedsRefresh) // TODO
-		{
-			refresh = true;
-			GUIUtility.ExitGUI();
-		}*/
+        if (GUILayout.Button(Strings.Command_Export_Globals))
+        {
+            FsmEditorUtility.ExportGlobals();
+        }
+
+        if (GUILayout.Button(Strings.Command_Import_Globals))
+        {
+            FsmEditorUtility.ImportGlobals();
+        }
+#if UNITY_3_4
+        GUILayout.Label(Strings.Hint_Export_Globals_Notes, warningBox);
+#else
+        EditorGUILayout.HelpBox(Strings.Hint_Export_Globals_Notes, MessageType.None);
+#endif
 	}
 
 	void Refresh()
@@ -94,5 +108,6 @@ class PlayMakerGlobalsInspector : Editor
 	void BuildVariableList()
 	{
 		variableList = FsmVariable.GetFsmVariableList(globals.Variables, globals);
+		variableList.Sort();
 	}
 }

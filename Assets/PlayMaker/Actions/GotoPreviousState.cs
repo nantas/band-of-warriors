@@ -1,4 +1,4 @@
-// (c) Copyright HutongGames, LLC 2010-2011. All rights reserved.
+// (c) Copyright HutongGames, LLC 2010-2013. All rights reserved.
 
 using UnityEngine;
 
@@ -16,9 +16,9 @@ namespace HutongGames.PlayMaker.Actions
 		{
 			if (Fsm.PreviousActiveState != null)
 			{
+                Log("Goto Previous State: " + Fsm.PreviousActiveState.Name);
+
 				Fsm.GotoPreviousState();
-			
-				Log("Goto Previous State: " + Fsm.PreviousActiveState.Name);
 			}
 			
 			Finish();

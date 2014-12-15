@@ -1,4 +1,4 @@
-// (c) Copyright HutongGames, LLC 2010-2011. All rights reserved.
+// (c) Copyright HutongGames, LLC 2010-2013. All rights reserved.
 
 using System.Collections;
 using UnityEngine;
@@ -21,6 +21,8 @@ namespace HutongGames.PlayMaker.Actions
 
 		[Tooltip("Event to send when the level has loaded. NOTE: This only makes sense if the FSM is still in the scene!")]
 		public FsmEvent loadedEvent;
+
+        [Tooltip("Keep this GameObject in the new level. NOTE: The GameObject and components is disabled then enabled on load; uncheck Reset On Disable to keep the active state.")]
 		public FsmBool dontDestroyOnLoad;
 
 		private AsyncOperation asyncOperation;

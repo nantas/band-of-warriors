@@ -1,4 +1,4 @@
-// (c) Copyright HutongGames, LLC 2010-2011. All rights reserved.
+// (c) Copyright HutongGames, LLC 2010-2013. All rights reserved.
 
 using UnityEngine;
 
@@ -9,16 +9,30 @@ namespace HutongGames.PlayMaker.Actions
 	public class SmoothLookAtDirection : FsmStateAction
 	{
 		[RequiredField]
+		[Tooltip("The GameObject to rotate.")]
 		public FsmOwnerDefault gameObject;
+
 		[RequiredField]
+		[Tooltip("The direction to smoothly rotate towards.")]
 		public FsmVector3 targetDirection;
+
+		[Tooltip("Only rotate if Target Direction Vector length is greater than this threshold.")]
 		public FsmFloat minMagnitude;
+		
+		[Tooltip("Keep this vector pointing up as the GameObject rotates.")]
 		public FsmVector3 upVector;
+		
 		[RequiredField]
+		[Tooltip("Eliminate any tilt up/down as the GameObject rotates.")]
 		public FsmBool keepVertical;
+		
 		[RequiredField]
 		[HasFloatSlider(0.5f,15)]
+		[Tooltip("How quickly to rotate.")]
 		public FsmFloat speed;
+
+		[Tooltip("Perform in LateUpdate. This can help eliminate jitters in some situations.")]
+		public bool lateUpdate;
 		
 		GameObject previousGo; // track game object so we can re-initialize when it changes.
 		Quaternion lastRotation;
@@ -32,24 +46,42 @@ namespace HutongGames.PlayMaker.Actions
 			upVector = new FsmVector3 { UseVariable = true};
 			keepVertical = true;
 			speed = 5;
+			lateUpdate = true;
 		}
 
 		public override void OnEnter()
 		{
 			previousGo = null;
 		}
-		
+
+		public override void OnUpdate()
+		{
+			if (!lateUpdate)
+			{
+				DoSmoothLookAtDirection();
+			}
+		}
+
 		public override void OnLateUpdate()
 		{
-			DoSmoothLookAtDirection();
+			if (lateUpdate)
+			{
+				DoSmoothLookAtDirection();
+			}
 		}
 
 		void DoSmoothLookAtDirection()
 		{
-			if (targetDirection.IsNone) return;
+			if (targetDirection.IsNone)
+			{
+				return;
+			}
 			
-			GameObject go = Fsm.GetOwnerDefaultTarget(gameObject);
-			if (go == null) return;
+			var go = Fsm.GetOwnerDefaultTarget(gameObject);
+			if (go == null)
+			{
+				return;
+			}
 
 			// re-initialize if game object has changed
 			
@@ -62,7 +94,7 @@ namespace HutongGames.PlayMaker.Actions
 			
 			// desired direction
 
-			Vector3 diff = targetDirection.Value;
+			var diff = targetDirection.Value;
 			
 			if (keepVertical.Value)
 			{

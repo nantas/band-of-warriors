@@ -1,4 +1,4 @@
-// (c) Copyright HutongGames, LLC 2010-2011. All rights reserved.
+// (c) Copyright HutongGames, LLC 2010-2013. All rights reserved.
 
 namespace HutongGames.PlayMaker.Actions
 {
@@ -6,8 +6,11 @@ namespace HutongGames.PlayMaker.Actions
 	[Tooltip("Logs the value of a Game Object Variable in the PlayMaker Log Window.")]
 	public class DebugGameObject : FsmStateAction
 	{
-		public LogLevel logLevel;
+        [Tooltip("Info, Warning, or Error.")]
+        public LogLevel logLevel;
+
 		[UIHint(UIHint.Variable)]
+        [Tooltip("Prints the value of a GameObject variable in the PlayMaker log window.")]
 		public FsmGameObject gameObject;
 
 		public override void Reset()

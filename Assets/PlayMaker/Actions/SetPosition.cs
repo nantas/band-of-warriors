@@ -1,4 +1,4 @@
-// (c) Copyright HutongGames, LLC 2010-2011. All rights reserved.
+// (c) Copyright HutongGames, LLC 2010-2013. All rights reserved.
 
 using UnityEngine;
 
@@ -9,18 +9,25 @@ namespace HutongGames.PlayMaker.Actions
 	public class SetPosition : FsmStateAction
 	{
 		[RequiredField]
+		[Tooltip("The GameObject to position.")]
 		public FsmOwnerDefault gameObject;
 		
 		[UIHint(UIHint.Variable)]
+		[Tooltip("Use a stored Vector3 position, and/or set individual axis below.")]
 		public FsmVector3 vector;
 		
 		public FsmFloat x;
 		public FsmFloat y;
 		public FsmFloat z;
-		
+
+		[Tooltip("Use local or world space.")]
 		public Space space;
 		
+		[Tooltip("Repeat every frame.")]
 		public bool everyFrame;
+
+		[Tooltip("Perform in LateUpdate. This is useful if you want to override the position of objects that are animated or otherwise positioned in Update.")]
+		public bool lateUpdate;	
 
 		public override void Reset()
 		{
@@ -32,26 +39,42 @@ namespace HutongGames.PlayMaker.Actions
 			z = new FsmFloat { UseVariable = true };
 			space = Space.Self;
 			everyFrame = false;
+			lateUpdate = false;
 		}
 
 		public override void OnEnter()
 		{
-			DoSetPosition();
-			
-			if (!everyFrame)
+			if (!everyFrame && !lateUpdate)
 			{
+				DoSetPosition();
 				Finish();
 			}		
 		}
 
 		public override void OnUpdate()
 		{
-			DoSetPosition();
+			if (!lateUpdate)
+			{
+				DoSetPosition();
+			}
+		}
+
+		public override void OnLateUpdate()
+		{
+			if (lateUpdate)
+			{
+				DoSetPosition();
+			}
+
+			if (!everyFrame)
+			{
+				Finish();
+			}
 		}
 
 		void DoSetPosition()
 		{
-			GameObject go = Fsm.GetOwnerDefaultTarget(gameObject);
+			var go = Fsm.GetOwnerDefaultTarget(gameObject);
 			if (go == null)
 			{
 				return;

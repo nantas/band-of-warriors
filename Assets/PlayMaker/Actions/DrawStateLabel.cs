@@ -1,4 +1,4 @@
-// (c) Copyright HutongGames, LLC 2010-2011. All rights reserved.
+// (c) Copyright HutongGames, LLC 2010-2013. All rights reserved.
 
 using UnityEngine;
 
@@ -9,6 +9,7 @@ namespace HutongGames.PlayMaker.Actions
 	public class DrawStateLabel : FsmStateAction
 	{
 		[RequiredField]
+        [Tooltip("Set to True to show State labels, or Fals to hide them.")]
 		public FsmBool showLabel;
 
 		public override void Reset()

@@ -1,4 +1,4 @@
-﻿// (c) Copyright HutongGames, LLC 2010-2011. All rights reserved.
+﻿// (c) Copyright HutongGames, LLC 2010-2013. All rights reserved.
 
 using UnityEngine;
 
@@ -10,15 +10,15 @@ namespace HutongGames.PlayMaker.Actions
 	{
 		[RequiredField]
 		[UIHint(UIHint.Variable)]
-		[Tooltip("The Material variable.")]
+		[Tooltip("The Material variable to convert to an Object.")]
 		public FsmMaterial materialVariable;
 
 		[RequiredField]
 		[UIHint(UIHint.Variable)]
-		[Tooltip("The Object variable.")]
+		[Tooltip("Store the result in an Object variable.")]
 		public FsmObject objectVariable;
 	
-		[Tooltip("Repeat every frame. Useful if the material variable is changing.")]
+		[Tooltip("Repeat every frame. Useful if the Material variable is changing.")]
 		public bool everyFrame;
 
 		public override void Reset()

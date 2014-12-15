@@ -1,4 +1,4 @@
-// (c) Copyright HutongGames, LLC 2010-2011. All rights reserved.
+// (c) Copyright HutongGames, LLC 2010-2013. All rights reserved.
 
 using UnityEngine;
 
@@ -23,7 +23,7 @@ namespace HutongGames.PlayMaker.Actions
 		[UIHint(UIHint.Variable)]
 		public FsmBool storeResult;
 		
-		[Tooltip("Repeat every frame.")]
+		[Tooltip("Repeat every frame while the state is active.")]
 		public bool everyFrame;
 		
 		private GameObject previousGo; // remember so we can get new controller only when it changes.

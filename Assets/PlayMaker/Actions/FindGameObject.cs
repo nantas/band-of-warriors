@@ -1,4 +1,4 @@
-// (c) Copyright HutongGames, LLC 2010-2011. All rights reserved.
+// (c) Copyright HutongGames, LLC 2010-2013. All rights reserved.
 
 using UnityEngine;
 
@@ -8,11 +8,16 @@ namespace HutongGames.PlayMaker.Actions
 	[Tooltip("Finds a Game Object by Name and/or Tag.")]
 	public class FindGameObject : FsmStateAction
 	{
+        [Tooltip("The name of the GameObject to find. You can leave this empty if you specify a Tag.")]
 		public FsmString objectName;
+
 		[UIHint(UIHint.Tag)]
+        [Tooltip("Find a GameObject with this tag. If Object Name is specified then both name and Tag must match.")]
 		public FsmString withTag;
+
 		[RequiredField]
 		[UIHint(UIHint.Variable)]
+        [Tooltip("Store the result in a GameObject variable.")]
 		public FsmGameObject store;
 
 		public override void Reset()
@@ -30,9 +35,9 @@ namespace HutongGames.PlayMaker.Actions
 			{
 				if (!string.IsNullOrEmpty(objectName.Value))
 				{
-					GameObject[] possibleGameObjects = GameObject.FindGameObjectsWithTag(withTag.Value);
+					var possibleGameObjects = GameObject.FindGameObjectsWithTag(withTag.Value);
 
-					foreach (GameObject go in possibleGameObjects)
+					foreach (var go in possibleGameObjects)
 					{
 						if (go.name == objectName.Value)
 						{
@@ -55,7 +60,10 @@ namespace HutongGames.PlayMaker.Actions
 		public override string ErrorCheck()
 		{
 			if (string.IsNullOrEmpty(objectName.Value) && string.IsNullOrEmpty(withTag.Value))
-				return "Specify Name, Tag, or both.";
+			{
+			    return "Specify Name, Tag, or both.";
+			}
+
 			return null;
 		}
 

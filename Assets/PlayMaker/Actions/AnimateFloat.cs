@@ -1,4 +1,4 @@
-﻿// (c) Copyright HutongGames, LLC 2010-2011. All rights reserved.
+﻿// (c) Copyright HutongGames, LLC 2010-2013. All rights reserved.
 
 using UnityEngine;
 
@@ -9,13 +9,18 @@ namespace HutongGames.PlayMaker.Actions
 	public class AnimateFloat : FsmStateAction
 	{
 		[RequiredField]
+        [Tooltip("The animation curve to use.")]
 		public FsmAnimationCurve animCurve;
-		[RequiredField]
+		
+        [RequiredField]
 		[UIHint(UIHint.Variable)]
-		public FsmFloat floatVariable;
-		[Tooltip("Optionally send an Event when the animation finishes.")]
+		[Tooltip("The float variable to set.")]
+        public FsmFloat floatVariable;
+		
+        [Tooltip("Optionally send an Event when the animation finishes.")]
 		public FsmEvent finishEvent;
-		[Tooltip("Ignore TimeScale. Useful if the game is paused.")]
+		
+        [Tooltip("Ignore TimeScale. Useful if the game is paused.")]
 		public bool realTime;
 
 		private float startTime;

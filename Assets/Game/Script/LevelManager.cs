@@ -36,10 +36,18 @@ public class LevelManager : MonoBehaviour {
     [System.NonSerialized]public int currentLevel = 0;
     [System.NonSerialized]public int currentKillNum = 0;
 
+    bool isLevelStarted = false;
+
     void Awake () {
         Init();
-        Invoke("StartLevel", 2.0f);
-        Invoke("HealthPackTimer", 35.0f);
+    }
+
+    public void InvokeStart() {
+        if (isLevelStarted == false) {
+            isLevelStarted = true;
+            Invoke("StartLevel", 2.0f);
+            Invoke("HealthPackTimer", 35.0f);
+        }
     }
 
     public void Init () {

@@ -1,5 +1,6 @@
-// (c) Copyright HutongGames, LLC 2010-2011. All rights reserved.
+// (c) Copyright HutongGames, LLC 2010-2013. All rights reserved.
 
+using System;
 using UnityEngine;
 
 namespace HutongGames.PlayMaker.Actions
@@ -21,6 +22,22 @@ namespace HutongGames.PlayMaker.Actions
 			collideTag = "Untagged";
 			sendEvent = null;
 			storeCollider = null;
+		}
+
+		public override void Awake()
+		{
+			switch (trigger)
+			{
+				case TriggerType.OnTriggerEnter:
+					Fsm.HandleTriggerEnter = true;
+					break;
+				case TriggerType.OnTriggerStay:
+					Fsm.HandleTriggerStay = true;
+					break;
+				case TriggerType.OnTriggerExit:
+					Fsm.HandleTriggerExit = true;
+					break;
+			}
 		}
 
 		void StoreCollisionInfo(Collider collisionInfo)

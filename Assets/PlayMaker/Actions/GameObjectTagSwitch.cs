@@ -1,4 +1,4 @@
-// (c) Copyright HutongGames, LLC 2010-2011. All rights reserved.
+// (c) Copyright HutongGames, LLC 2010-2013. All rights reserved.
 
 using UnityEngine;
 
@@ -10,12 +10,16 @@ namespace HutongGames.PlayMaker.Actions
 	{
 		[RequiredField]
 		[UIHint(UIHint.Variable)]
+        [Tooltip("The GameObject to test.")]
 		public FsmGameObject gameObject;
+
 		[CompoundArray("Tag Switches", "Compare Tag", "Send Event")]
 		[UIHint(UIHint.Tag)]
 		public FsmString[] compareTo;
 		public FsmEvent[] sendEvent;
-		public bool everyFrame;
+		
+        [Tooltip("Repeat every frame.")]
+        public bool everyFrame;
 
 		public override void Reset()
 		{
@@ -30,7 +34,9 @@ namespace HutongGames.PlayMaker.Actions
 			DoTagSwitch();
 			
 			if (!everyFrame)
-				Finish();
+			{
+			    Finish();
+			}
 		}
 
 		public override void OnUpdate()
@@ -40,10 +46,13 @@ namespace HutongGames.PlayMaker.Actions
 		
 		void DoTagSwitch()
 		{
-			GameObject go = gameObject.Value;
-			if (go == null) return;
+			var go = gameObject.Value;
+			if (go == null)
+			{
+			    return;
+			}
 			
-			for (int i = 0; i < compareTo.Length; i++) 
+			for (var i = 0; i < compareTo.Length; i++) 
 			{
 				if (go.tag == compareTo[i].Value)
 				{

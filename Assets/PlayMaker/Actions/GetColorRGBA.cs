@@ -1,4 +1,4 @@
-// (c) Copyright HutongGames, LLC 2010-2011. All rights reserved.
+// (c) Copyright HutongGames, LLC 2010-2013. All rights reserved.
 
 using UnityEngine;
 
@@ -10,15 +10,26 @@ namespace HutongGames.PlayMaker.Actions
 	{
 		[RequiredField]
 		[UIHint(UIHint.Variable)]
+        [Tooltip("The Color variable.")]
 		public FsmColor color;
+
 		[UIHint(UIHint.Variable)]
-		public FsmFloat storeRed;		
+        [Tooltip("Store the red channel in a float variable.")]
+		public FsmFloat storeRed;	
+	
 		[UIHint(UIHint.Variable)]
-		public FsmFloat storeGreen;		
+        [Tooltip("Store the green channel in a float variable.")]
+		public FsmFloat storeGreen;	
+	
 		[UIHint(UIHint.Variable)]
-		public FsmFloat storeBlue;		
+        [Tooltip("Store the blue channel in a float variable.")]
+		public FsmFloat storeBlue;
+		
 		[UIHint(UIHint.Variable)]
+        [Tooltip("Store the alpha channel in a float variable.")]
 		public FsmFloat storeAlpha;
+
+        [Tooltip("Repeat every frame. Useful if the color variable is changing.")]
 		public bool everyFrame;
 		
 		public override void Reset()

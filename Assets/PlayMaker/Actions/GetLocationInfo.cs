@@ -1,4 +1,4 @@
-// (c) Copyright HutongGames, LLC 2010-2011. All rights reserved.
+// (c) Copyright HutongGames, LLC 2010-2013. All rights reserved.
 
 using UnityEngine;
 
@@ -48,9 +48,7 @@ namespace HutongGames.PlayMaker.Actions
 
 		void DoGetLocationInfo()
 		{
-#if UNITY_IPHONE
-
-#if UNITY_3_5
+#if UNITY_IPHONE || UNITY_ANDROID || UNITY_BLACKBERRY || UNITY_WP8
 
 			if (Input.location.status != LocationServiceStatus.Running)
 			{
@@ -71,32 +69,7 @@ namespace HutongGames.PlayMaker.Actions
 			horizontalAccuracy.Value = Input.location.lastData.horizontalAccuracy;
 			verticalAccuracy.Value = Input.location.lastData.verticalAccuracy;
 			
-#else
-			
-			if (iPhoneSettings.locationServiceStatus != LocationServiceStatus.Running)
-			{
-				Fsm.Event(errorEvent);
-				return;
-			}
-			
-			float x = iPhoneInput.lastLocation.longitude;
-			float y = iPhoneInput.lastLocation.latitude;
-			float z = iPhoneInput.lastLocation.altitude;
-			
-			vectorPosition.Value = new Vector3(x,y,z);
-			
-			longitude.Value = x;
-			latitude.Value = y;
-			altitude.Value = z;
-
-			horizontalAccuracy.Value = iPhoneInput.lastLocation.horizontalAccuracy;
-			verticalAccuracy.Value = iPhoneInput.lastLocation.verticalAccuracy;
-			
-			//timeStamp.Value = locationInfo.timestamp - 
-
 #endif
-			
-#endif
-		}
+        }
 	}
 }

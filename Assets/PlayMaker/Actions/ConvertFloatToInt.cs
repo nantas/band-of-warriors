@@ -1,4 +1,4 @@
-// (c) Copyright HutongGames, LLC 2010-2011. All rights reserved.
+// (c) Copyright HutongGames, LLC 2010-2013. All rights reserved.
 
 using UnityEngine;
 
@@ -17,10 +17,12 @@ namespace HutongGames.PlayMaker.Actions
 		
 		[RequiredField]
 		[UIHint(UIHint.Variable)]
+        [Tooltip("The Float variable to convert to an integer.")]
 		public FsmFloat floatVariable;
 
 		[RequiredField]
 		[UIHint(UIHint.Variable)]
+        [Tooltip("Store the result in an Integer variable.")]
 		public FsmInt intVariable;
 		
 		public FloatRounding rounding;
@@ -66,9 +68,7 @@ namespace HutongGames.PlayMaker.Actions
 			case FloatRounding.RoundUp:
 				intVariable.Value = Mathf.CeilToInt(floatVariable.Value);
 				break;
-			}
-			
-			
+			}			
 		}
 	}
 }

@@ -1,4 +1,4 @@
-// (c) Copyright HutongGames, LLC 2010-2011. All rights reserved.
+// (c) Copyright HutongGames, LLC 2010-2013. All rights reserved.
 
 using UnityEngine;
 
@@ -10,18 +10,18 @@ namespace HutongGames.PlayMaker.Actions
 	{
 		[RequiredField]
 		[UIHint(UIHint.Variable)]
-		[Tooltip("The int variable to convert.")]
+		[Tooltip("The Int variable to convert.")]
 		public FsmInt intVariable;
 		
 		[RequiredField]
 		[UIHint(UIHint.Variable)]
-		[Tooltip("A string variable to store the converted value.")]
+		[Tooltip("A String variable to store the converted value.")]
 		public FsmString stringVariable;
         
 		[Tooltip("Optional Format, allows for leading zeroes. E.g., 0000")]
         public FsmString format;
 		
-		[Tooltip("Repeat every frame. Useful if the int variable is changing.")]
+		[Tooltip("Repeat every frame. Useful if the Int variable is changing.")]
 		public bool everyFrame;
 
 		public override void Reset()

@@ -1,6 +1,7 @@
-// (c) Copyright HutongGames, LLC 2010-2011. All rights reserved.
+// (c) Copyright HutongGames, LLC 2010-2013. All rights reserved.
 
 using UnityEngine;
+using System.Collections.Generic;
 
 namespace HutongGames.PlayMaker.Actions
 {
@@ -9,10 +10,16 @@ namespace HutongGames.PlayMaker.Actions
 	public class RandomEvent : FsmStateAction
 	{
 		[HasFloatSlider(0, 10)]
+        [Tooltip("Delay before sending the event.")]
 		public FsmFloat delay;
 
-		DelayedEvent delayedEvent;
+        [Tooltip("Don't repeat the same event twice in a row.")]
+	    public FsmBool noRepeat;
 
+		private DelayedEvent delayedEvent;
+	    private int randomEventIndex;
+        private int lastEventIndex = -1;
+        
 		public override void Reset()
 		{
 			delay = null;
@@ -25,6 +32,11 @@ namespace HutongGames.PlayMaker.Actions
 				return;
 			}
 			
+            if (lastEventIndex == -1)
+            {
+                lastEventIndex = Random.Range(0, State.Transitions.Length);
+            }
+
 			if (delay.Value < 0.001f)
 			{
 				Fsm.Event(GetRandomEvent());
@@ -46,8 +58,14 @@ namespace HutongGames.PlayMaker.Actions
 
 		FsmEvent GetRandomEvent()
 		{
-			var randomIndex = Random.Range(0, State.Transitions.Length);
-			return State.Transitions[randomIndex].FsmEvent;
+            do
+            {
+                randomEventIndex = Random.Range(0, State.Transitions.Length);
+            } while (noRepeat.Value && State.Transitions.Length > 1 && randomEventIndex == lastEventIndex);
+
+            lastEventIndex = randomEventIndex;
+
+            return State.Transitions[randomEventIndex].FsmEvent;
 		}
 
 	}

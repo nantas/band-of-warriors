@@ -1,4 +1,4 @@
-﻿// (c) Copyright HutongGames, LLC 2010-2011. All rights reserved.
+﻿// (c) Copyright HutongGames, LLC 2010-2013. All rights reserved.
 
 using UnityEngine;
 
@@ -10,7 +10,7 @@ namespace HutongGames.PlayMaker.Actions
 	{
 		[RequiredField]
 		[CheckForComponent(typeof(Animation))]
-		[Tooltip("A Game Object with an Animation Component.")]
+		[Tooltip("A GameObject with an Animation Component.")]
 		public FsmOwnerDefault gameObject;
 		
 		[RequiredField]

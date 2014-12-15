@@ -1,4 +1,4 @@
-// (c) Copyright HutongGames, LLC 2010-2011. All rights reserved.
+// (c) Copyright HutongGames, LLC 2010-2013. All rights reserved.
 
 using UnityEngine;
 
@@ -10,11 +10,15 @@ namespace HutongGames.PlayMaker.Actions
 	{
 		[RequiredField]
 		[UIHint(UIHint.Variable)]
+        [Tooltip("The float variable to test.")]
 		public FsmFloat floatVariable;
+
 		[CompoundArray("Float Switches", "Less Than", "Send Event")]
 		public FsmFloat[] lessThan;
 		public FsmEvent[] sendEvent;
-		public bool everyFrame;
+		
+        [Tooltip("Repeat every frame. Useful if the variable is changing.")]
+        public bool everyFrame;
 
 		public override void Reset()
 		{
@@ -29,7 +33,9 @@ namespace HutongGames.PlayMaker.Actions
 			DoFloatSwitch();
 			
 			if (!everyFrame)
-				Finish();
+			{
+			    Finish();
+			}
 		}
 
 		public override void OnUpdate()
@@ -40,9 +46,11 @@ namespace HutongGames.PlayMaker.Actions
 		void DoFloatSwitch()
 		{
 			if (floatVariable.IsNone)
-				return;
+			{
+			    return;
+			}
 			
-			for (int i = 0; i < lessThan.Length; i++) 
+			for (var i = 0; i < lessThan.Length; i++) 
 			{
 				if (floatVariable.Value < lessThan[i].Value)
 				{

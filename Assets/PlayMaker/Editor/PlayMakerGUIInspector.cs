@@ -1,5 +1,6 @@
-﻿// (c) Copyright HutongGames, LLC 2010-2011. All rights reserved.
+﻿// (c) Copyright HutongGames, LLC 2010-2013. All rights reserved.
 
+using HutongGames.PlayMakerEditor;
 using UnityEditor;
 using UnityEngine;
 
@@ -10,61 +11,61 @@ class PlayMakerGUIInspector : Editor
 
 	void OnEnable()
 	{
-		guiComponent = target as PlayMakerGUI;
+		guiComponent = (PlayMakerGUI) target;
 
-		guiComponent.drawStateLabels = EditorPrefs.GetBool("PlayMaker.ShowStateLabelsInGameView");
+		guiComponent.drawStateLabels = EditorPrefs.GetBool(EditorPrefStrings.ShowStateLabelsInGameView);
 
 		CheckForDuplicateComponents();
 	}
 
 	public override void OnInspectorGUI()
-	{
-		EditorGUIUtility.LookLikeInspector();
-
-		GUILayout.Label("NOTES", EditorStyles.boldLabel);
-		
-		GUILayout.Label("- A scene should only have one PlayMakerGUI component.\n- PlayMaker will auto-add this component.\n- Disable auto-add in Preferences.");
-		
-		GUILayout.Label("General", EditorStyles.boldLabel);
+    {
+#if UNITY_4_3 || UNITY_4_5
+	    EditorGUIUtility.labelWidth = 210;
+#else
+        EditorGUIUtility.LookLikeInspector();
+#endif
+		GUILayout.Label(Strings.Label_NOTES, EditorStyles.boldLabel);
+		GUILayout.Label(Strings.Hint_PlayMakerGUI_Notes);
+		GUILayout.Label(Strings.Label_General, EditorStyles.boldLabel);
 
 		EditorGUI.indentLevel = 1;
 
-		guiComponent.enableGUILayout = EditorGUILayout.Toggle(new GUIContent("Enable GUILayout",
-		                                                               "Disabling GUILayout can improve the performance of GUI actions, especially on mobile devices. NOTE: You cannot use GUILayout actions with GUILayout disabled."),
+		guiComponent.enableGUILayout = EditorGUILayout.Toggle(new GUIContent(Strings.Label_Enable_GUILayout,
+		                                                               Strings.Tooltip_Enable_GUILayout),
 																	   guiComponent.enableGUILayout);
-		guiComponent.controlMouseCursor = EditorGUILayout.Toggle(new GUIContent("Control Mouse Cursor",
-		                                                                  "Disable this if you have scripts that need to control the mouse cursor."),
+		guiComponent.controlMouseCursor = EditorGUILayout.Toggle(new GUIContent(Strings.Label_Control_Mouse_Cursor,
+		                                                                  Strings.Tooltip_Control_Mouse_Cursor),
 																		  guiComponent.controlMouseCursor);
 
-		guiComponent.previewOnGUI = EditorGUILayout.Toggle(new GUIContent("Preview GUI Actions While Editing", "This lets you preview GUI actions as you edit them. NOTE: This is an experimental feature, so you might run into some bugs!"), guiComponent.previewOnGUI);
+		guiComponent.previewOnGUI = EditorGUILayout.Toggle(new GUIContent(Strings.Label_Preview_GUI_Actions_While_Editing, Strings.Tooltip_Preview_GUI_Actions_While_Editing), guiComponent.previewOnGUI);
 
 		EditorGUI.indentLevel = 0;
-		GUILayout.Label("Debugging", EditorStyles.boldLabel);
+		GUILayout.Label(Strings.Label_Debugging, EditorStyles.boldLabel);
 		EditorGUI.indentLevel = 1;
 
-		var drawStateLabels = EditorGUILayout.Toggle(new GUIContent("Draw Active State Labels", "Draw the currently active state over GameObjects in the Game View. You can enable/disable for each FSM in the PlayMakerFSM Inspector."), guiComponent.drawStateLabels);
+		var drawStateLabels = EditorGUILayout.Toggle(new GUIContent(Strings.Label_Draw_Active_State_Labels, Strings.Tooltip_Draw_Active_State_Labels), guiComponent.drawStateLabels);
 
 		if (drawStateLabels != guiComponent.drawStateLabels)
 		{
 			guiComponent.drawStateLabels = drawStateLabels;
-			EditorPrefs.SetBool("PlayMaker.ShowStateLabelsInGameView", drawStateLabels);
+			EditorPrefs.SetBool(EditorPrefStrings.ShowStateLabelsInGameView, drawStateLabels);
 		}
-
 
 		GUI.enabled = guiComponent.drawStateLabels;
 		//EditorGUI.indentLevel = 2;
 
-		guiComponent.GUITextureStateLabels = EditorGUILayout.Toggle(new GUIContent("GUITexture State Labels", "Draw active state labels on GUITextures."), guiComponent.GUITextureStateLabels);
-		guiComponent.GUITextStateLabels = EditorGUILayout.Toggle(new GUIContent("GUIText State Labels", "Draw active state labels on GUITexts."), guiComponent.GUITextStateLabels);
+		guiComponent.GUITextureStateLabels = EditorGUILayout.Toggle(new GUIContent(Strings.Label_GUITexture_State_Labels, Strings.Tooltip_GUITexture_State_Labels), guiComponent.GUITextureStateLabels);
+		guiComponent.GUITextStateLabels = EditorGUILayout.Toggle(new GUIContent(Strings.Label_GUIText_State_Labels, Strings.Tooltip_GUIText_State_Labels), guiComponent.GUITextStateLabels);
 
 		GUI.enabled = true;
 		//EditorGUI.indentLevel = 1;
 
-		guiComponent.filterLabelsWithDistance = EditorGUILayout.Toggle(new GUIContent("Filter State Labels With Distance", "This is useful if you only want to see nearby state labels as you move in the Game View."), guiComponent.filterLabelsWithDistance);
+		guiComponent.filterLabelsWithDistance = EditorGUILayout.Toggle(new GUIContent(Strings.Label_Filter_State_Labels_With_Distance, Strings.Tooltip_Filter_State_Labels_With_Distance), guiComponent.filterLabelsWithDistance);
 
 		GUI.enabled = guiComponent.filterLabelsWithDistance;
 
-		guiComponent.maxLabelDistance = EditorGUILayout.FloatField(new GUIContent("Distance", "Distance is measured from the main camera"), guiComponent.maxLabelDistance);
+		guiComponent.maxLabelDistance = EditorGUILayout.FloatField(new GUIContent(Strings.Label_Camera_Distance, Strings.Tooltip_Camera_Distance), guiComponent.maxLabelDistance);
 
 		if (GUI.changed)
 		{
@@ -78,7 +79,7 @@ class PlayMakerGUIInspector : Editor
 
 		if (components.Length > 1)
 		{
-			if (EditorUtility.DisplayDialog("Playmaker", "The scene has more than one PlayMakerGUI!\nRemove other instances?", "Yes", "No"))
+			if (EditorUtility.DisplayDialog(Strings.ProductName, Strings.Error_Multiple_PlayMakerGUI_components, Strings.Yes, Strings.No))
 			{
 				foreach (Object component in components)
 				{
@@ -90,7 +91,7 @@ class PlayMakerGUIInspector : Editor
 
 						if (behavior.gameObject.GetComponents(typeof(Component)).Length == 2) // every game object has a transform component
 						{
-							if (EditorUtility.DisplayDialog("Playmaker", "Delete: " + behavior.gameObject.name + "?", "Yes", "No"))
+                            if (EditorUtility.DisplayDialog(Strings.ProductName, string.Format(Strings.Dialog_Delete_Extra_PlayMakerGUI_GameObject, behavior.gameObject.name), Strings.Yes, Strings.No))
 							{
 								DestroyImmediate(behavior.gameObject);
 							}

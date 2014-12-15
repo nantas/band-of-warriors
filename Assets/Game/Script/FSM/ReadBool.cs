@@ -2,13 +2,13 @@ using UnityEngine;
 using HutongGames.PlayMaker;
 
 [ActionCategory(ActionCategory.StateMachine)]
-[Tooltip("Read a bool from another Fsm, either store it value and assign it to another variable in this fsm , or just send event from the value found")]
+[HutongGames.PlayMaker.Tooltip("Read a bool from another Fsm, either store it value and assign it to another variable in this fsm , or just send event from the value found")]
 public class ReadBool : FsmStateAction
 {
 	[RequiredField]
 	public FsmOwnerDefault gameObject;
 	[UIHint(UIHint.FsmName)]
-	[Tooltip("Optional name of FSM on Game Object")]
+	[HutongGames.PlayMaker.Tooltip("Optional name of FSM on Game Object")]
 	public FsmString fsmName;
 	[RequiredField]
 	[UIHint(UIHint.FsmBool)]

@@ -1,4 +1,4 @@
-// (c) Copyright HutongGames, LLC 2010-2011. All rights reserved.
+// (c) Copyright HutongGames, LLC 2010-2013. All rights reserved.
 
 using UnityEngine;
 
@@ -9,17 +9,30 @@ namespace HutongGames.PlayMaker.Actions
 	public class SetRotation : FsmStateAction
 	{
 		[RequiredField]
+		[Tooltip("The GameObject to rotate.")]
 		public FsmOwnerDefault gameObject;
+
 		[UIHint(UIHint.Variable)]
+		[Tooltip("Use a stored quaternion, or vector angles below.")]
 		public FsmQuaternion quaternion;
+		
 		[UIHint(UIHint.Variable)]
 		[Title("Euler Angles")]
+		[Tooltip("Use euler angles stored in a Vector3 variable, and/or set each axis below.")]
 		public FsmVector3 vector;
+		
 		public FsmFloat xAngle;
 		public FsmFloat yAngle;
 		public FsmFloat zAngle;
+
+		[Tooltip("Use local or world space.")]
 		public Space space;
+
+		[Tooltip("Repeat every frame.")]
 		public bool everyFrame;
+
+		[Tooltip("Perform in LateUpdate. This is useful if you want to override the position of objects that are animated or otherwise positioned in Update.")]
+		public bool lateUpdate;	
 
 		public override void Reset()
 		{
@@ -32,21 +45,37 @@ namespace HutongGames.PlayMaker.Actions
 			zAngle = new FsmFloat { UseVariable = true };
 			space = Space.World;
 			everyFrame = false;
+			lateUpdate = false;
 		}
 
 		public override void OnEnter()
 		{
-			DoSetRotation();
-			
-			if (!everyFrame)
+			if (!everyFrame && !lateUpdate)
 			{
+				DoSetRotation();
 				Finish();
-			}		
+			}	
 		}
 
 		public override void OnUpdate()
 		{
-			DoSetRotation();
+			if (!lateUpdate)
+			{
+				DoSetRotation();
+			}
+		}
+
+		public override void OnLateUpdate()
+		{
+			if (lateUpdate)
+			{
+				DoSetRotation();
+			}
+
+			if (!everyFrame)
+			{
+				Finish();
+			}
 		}
 
 		void DoSetRotation()

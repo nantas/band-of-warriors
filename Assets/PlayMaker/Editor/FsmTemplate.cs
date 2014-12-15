@@ -1,4 +1,6 @@
-// (c) Copyright HutongGames, LLC 2010-2011. All rights reserved.
+// (c) Copyright HutongGames, LLC 2010-2013. All rights reserved.
+
+/* Moved to PlayMake.dll
 
 using System;
 using HutongGames.PlayMaker;
@@ -24,4 +26,4 @@ public class FsmTemplate : ScriptableObject
     }
 }
 
-
+*/

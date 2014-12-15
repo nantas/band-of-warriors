@@ -1,4 +1,4 @@
-// (c) Copyright HutongGames, LLC 2010-2011. All rights reserved.
+// (c) Copyright HutongGames, LLC 2010-2013. All rights reserved.
 
 namespace HutongGames.PlayMaker.Actions
 {
@@ -8,6 +8,7 @@ namespace HutongGames.PlayMaker.Actions
 	{
 		[RequiredField]
 		[UIHint(UIHint.Variable)]
+        [Tooltip("Bool variable to flip.")]
 		public FsmBool boolVariable;
 
 		public override void Reset()

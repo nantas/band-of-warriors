@@ -1,4 +1,4 @@
-// (c) Copyright HutongGames, LLC 2010-2011. All rights reserved.
+// (c) Copyright HutongGames, LLC 2010-2013. All rights reserved.
 
 using UnityEngine;
 
@@ -9,16 +9,24 @@ namespace HutongGames.PlayMaker.Actions
 	public class DrawTexture : FsmStateAction
 	{
 		[RequiredField]
+        [Tooltip("Texture to draw.")]
 		public FsmTexture texture;
 		
 		[UIHint(UIHint.Variable)]
 		[Tooltip("Rectangle on the screen to draw the texture within. Alternatively, set or override individual properties below.")]
 		[Title("Position")]
 		public FsmRect screenRect;
-		
+
+        [Tooltip("Left screen coordinate.")]
 		public FsmFloat left;
-		public FsmFloat top;
-		public FsmFloat width;
+
+        [Tooltip("Top screen coordinate.")]
+        public FsmFloat top;
+
+        [Tooltip("Width of texture on screen.")]
+        public FsmFloat width;
+
+        [Tooltip("Height of texture on screen.")]
 		public FsmFloat height;
 
 		[Tooltip("How to scale the image when the aspect ratio of it doesn't fit the aspect ratio to be drawn within.")]

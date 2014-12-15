@@ -1,4 +1,4 @@
-﻿// (c) Copyright HutongGames, LLC 2010-2011. All rights reserved.
+﻿// (c) Copyright HutongGames, LLC 2010-2013. All rights reserved.
 
 using UnityEngine;
 
@@ -27,21 +27,21 @@ namespace HutongGames.PlayMaker.Actions
 		[RequiredField]
 		public FsmFloat sensitivityY;
 
-		[RequiredField]
 		[HasFloatSlider(-360,360)]
+        [Tooltip("Clamp rotation around X axis. Set to None for no clamping.")]
 		public FsmFloat minimumX;
 
-		[RequiredField]
 		[HasFloatSlider(-360, 360)]
-		public FsmFloat maximumX;
+        [Tooltip("Clamp rotation around X axis. Set to None for no clamping.")]
+        public FsmFloat maximumX;
 
-		[RequiredField]
 		[HasFloatSlider(-360, 360)]
-		public FsmFloat minimumY;
+        [Tooltip("Clamp rotation around Y axis. Set to None for no clamping.")]
+        public FsmFloat minimumY;
 
-		[RequiredField]
 		[HasFloatSlider(-360, 360)]
-		public FsmFloat maximumY;
+        [Tooltip("Clamp rotation around Y axis. Set to None for no clamping.")]
+        public FsmFloat maximumY;
 
 		[Tooltip("Repeat every frame.")]
 		public bool everyFrame;
@@ -55,8 +55,8 @@ namespace HutongGames.PlayMaker.Actions
 			axes = RotationAxes.MouseXAndY;
 			sensitivityX = 15f;
 			sensitivityY = 15f;
-			minimumX = -360f;
-			maximumX = 360f;
+			minimumX = new FsmFloat {UseVariable = true};
+            maximumX = new FsmFloat { UseVariable = true };
 			minimumY = -60f;
 			maximumY = 60f;
 			everyFrame = true;
@@ -77,6 +77,11 @@ namespace HutongGames.PlayMaker.Actions
 			{
 				go.rigidbody.freezeRotation = true;
 			}
+
+            // initialize rotation
+
+		    rotationX = go.transform.localRotation.eulerAngles.y;
+            rotationY = go.transform.localRotation.eulerAngles.x;
 
 			DoMouseLook();
 

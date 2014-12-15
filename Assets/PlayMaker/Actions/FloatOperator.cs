@@ -1,4 +1,4 @@
-// (c) Copyright HutongGames, LLC 2010-2011. All rights reserved.
+// (c) Copyright HutongGames, LLC 2010-2013. All rights reserved.
 
 using UnityEngine;
 
@@ -19,14 +19,23 @@ namespace HutongGames.PlayMaker.Actions
 		}
 
 		[RequiredField]
+        [Tooltip("The first float.")]
 		public FsmFloat float1;
+
 		[RequiredField]
+        [Tooltip("The second float.")]
 		public FsmFloat float2;
+
+        [Tooltip("The math operation to perform on the floats.")]
 		public Operation operation = Operation.Add;
+
 		[RequiredField]
 		[UIHint(UIHint.Variable)]
-		public FsmFloat storeResult;
-		public bool everyFrame;
+		[Tooltip("Store the result of the operation in a float variable.")]
+        public FsmFloat storeResult;
+		
+        [Tooltip("Repeat every frame. Useful if the variables are changing.")]
+        public bool everyFrame;
 
 		public override void Reset()
 		{
@@ -42,7 +51,9 @@ namespace HutongGames.PlayMaker.Actions
 			DoFloatOperator();
 			
 			if (!everyFrame)
-				Finish();
+			{
+			    Finish();
+			}
 		}
 		
 		public override void OnUpdate()
@@ -52,8 +63,8 @@ namespace HutongGames.PlayMaker.Actions
 		
 		void DoFloatOperator()
 		{
-			float v1 = float1.Value;
-			float v2 = float2.Value;
+			var v1 = float1.Value;
+			var v2 = float2.Value;
 
 			switch (operation)
 			{

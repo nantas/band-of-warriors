@@ -1,4 +1,4 @@
-// (c) Copyright HutongGames, LLC 2010-2011. All rights reserved.
+// (c) Copyright HutongGames, LLC 2010-2013. All rights reserved.
 
 using UnityEngine;
 
@@ -10,11 +10,18 @@ namespace HutongGames.PlayMaker.Actions
 	{
 		[RequiredField]
 		[UIHint(UIHint.Variable)]
+        [Tooltip("Float variable to clamp.")]
 		public FsmFloat floatVariable;
+
 		[RequiredField]
+        [Tooltip("The minimum value.")]
 		public FsmFloat minValue;
+
 		[RequiredField]
+        [Tooltip("The maximum value.")]
 		public FsmFloat maxValue;
+
+        [Tooltip("Repeate every frame. Useful if the float variable is changing.")]
 		public bool everyFrame;
 
 		public override void Reset()
@@ -30,7 +37,9 @@ namespace HutongGames.PlayMaker.Actions
 			DoClamp();
 			
 			if (!everyFrame)
-				Finish();
+			{
+			    Finish();
+			}
 		}
 
 		public override void OnUpdate()

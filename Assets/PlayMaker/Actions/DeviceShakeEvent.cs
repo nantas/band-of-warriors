@@ -1,4 +1,4 @@
-// (c) Copyright HutongGames, LLC 2010-2011. All rights reserved.
+// (c) Copyright HutongGames, LLC 2010-2013. All rights reserved.
 
 using UnityEngine;
 
@@ -9,8 +9,11 @@ namespace HutongGames.PlayMaker.Actions
 	public class DeviceShakeEvent : FsmStateAction
 	{
 		[RequiredField]
+		[Tooltip("Amount of acceleration required to trigger the event. Higher numbers require a harder shake.")]
 		public FsmFloat shakeThreshold;
+		
 		[RequiredField]
+		[Tooltip("Event to send when Shake Threshold is exceded.")]
 		public FsmEvent sendEvent;
 
 		public override void Reset()
@@ -24,7 +27,9 @@ namespace HutongGames.PlayMaker.Actions
 			var acceleration = Input.acceleration;
 			
 			if (acceleration.sqrMagnitude > (shakeThreshold.Value * shakeThreshold.Value))
+			{
 				Fsm.Event(sendEvent);
+			}
 		}
 	}
 }

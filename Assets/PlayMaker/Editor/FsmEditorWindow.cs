@@ -1,4 +1,4 @@
-// (c) Copyright HutongGames, LLC 2010-2011. All rights reserved.
+// (c) Copyright HutongGames, LLC 2010-2013. All rights reserved.
 
 using HutongGames.PlayMakerEditor;
 using UnityEditor;
@@ -9,127 +9,122 @@ using UnityEngine;
 // TODO: move this to dll when Unity supports it...
 
 [System.Serializable]
-class FsmEditorWindow : EditorWindow
+class FsmEditorWindow : HutongGames.PlayMakerEditor.BaseEditorWindow
 {
-	static FsmEditorWindow instance;
+    /// <summary>
+    /// Open the Fsm Editor and optionally show the Welcome Screen
+    /// </summary>
+    public static void OpenWindow()
+    {
+        GetWindow<FsmEditorWindow>();
+
+        if (EditorPrefs.GetBool(EditorPrefStrings.ShowWelcomeScreen, true))
+        {
+            GetWindow<PlayMakerWelcomeWindow>(true);
+        }
+    }
+
+    /// <summary>
+    /// Open the Fsm Editor and select an Fsm Component
+    /// </summary>
+    public static void OpenWindow(PlayMakerFSM fsmComponent)
+    {
+        OpenWindow();
+
+        FsmEditor.SelectFsm(fsmComponent.Fsm);
+    }
+
+    /// <summary>
+    /// Open the Fsm Editor and select an Fsm Component
+    /// </summary>
+    public static void OpenWindow(FsmTemplate fsmTemplate)
+    {
+        OpenWindow();
+
+        FsmEditor.SelectFsm(fsmTemplate.fsm);
+    }
+
+    /// <summary>
+    /// Is the Fsm Editor open?
+    /// </summary>
+    public static bool IsOpen()
+    {
+        return instance != null;
+    }
+
+	private static FsmEditorWindow instance;
 
 	[SerializeField]
-	FsmEditor fsmEditor;
+	private FsmEditor fsmEditor;
 	
 	// tool windows (can't open them inside dll)
 
-	//[SerializeField] PlayMakerWelcomeWindow welcomeWindow;
-	[SerializeField] FsmSelectorWindow fsmSelectorWindow;
-	[SerializeField] FsmTemplateWindow fsmTemplateWindow;
-	[SerializeField] FsmStateWindow stateSelectorWindow;
-	[SerializeField] FsmActionWindow actionWindow;
-	[SerializeField] FsmErrorWindow errorWindow;
-	[SerializeField] FsmLogWindow logWindow;
-	[SerializeField] ContextToolWindow toolWindow;
-	[SerializeField] GlobalEventsWindow globalEventsWindow;
-	[SerializeField] GlobalVariablesWindow globalVariablesWindow;
-	[SerializeField] ReportWindow reportWindow;
-	[SerializeField] AboutWindow aboutWindow;
-
-	/// <summary>
-	/// Open the Fsm Editor and optionally show the Welcome Screen
-	/// </summary>
-	public static void OpenWindow()
-	{
-		GetWindow<FsmEditorWindow>();
-
-		if (EditorPrefs.GetBool("PlayMaker.ShowWelcomeScreen", true))
-		{
-			GetWindow<PlayMakerWelcomeWindow>(true);
-		}
-	}
-
-	/// <summary>
-	/// Open the Fsm Editor and select an Fsm Component
-	/// </summary>
-	public static void OpenWindow(PlayMakerFSM fsmComponent)
-	{
-		OpenWindow();
-
-		FsmEditor.SelectFsm(fsmComponent.Fsm);
-	}
-
-	/// <summary>
-	/// Is the Fsm Editor open?
-	/// </summary>
-	public static bool IsOpen()
-	{
-		return instance != null;
-	}
+	[SerializeField] private FsmSelectorWindow fsmSelectorWindow;    
+    [SerializeField] private FsmTemplateWindow fsmTemplateWindow;
+    [SerializeField] private FsmStateWindow stateSelectorWindow;
+    [SerializeField] private FsmActionWindow actionWindow;
+    [SerializeField] private FsmErrorWindow errorWindow;
+    [SerializeField] private FsmLogWindow logWindow;
+    [SerializeField] private ContextToolWindow toolWindow;
+    [SerializeField] private GlobalEventsWindow globalEventsWindow;
+    [SerializeField] private GlobalVariablesWindow globalVariablesWindow;
+    [SerializeField] private ReportWindow reportWindow;
+    [SerializeField] private AboutWindow aboutWindow;
 
 	// ReSharper disable UnusedMember.Local
 
-	/// <summary>
-	/// Called when the Fsm Editor window is created
-	/// NOTE: happens on playmode change and recompile!
-	/// </summary>
+    /// <summary>
+    /// Delay initialization until first OnGUI to avoid interfering with runtime system intialization.
+    /// </summary>
+    public override void Initialize()
+    {
+        instance = this;
 
-	void OnEnable()
-	{
-		instance = this;
+        if (fsmEditor == null)
+        {
+            fsmEditor = new FsmEditor();
+        }
 
-		if (fsmEditor == null)
-		{
-			fsmEditor = new FsmEditor();
-		}
-		
-		fsmEditor.InitWindow(this);
-		fsmEditor.OnEnable();
-	}
-	
-	/// <summary>
-	/// Do the GUI
-	/// </summary>
-	void OnGUI()
+        fsmEditor.InitWindow(this);
+        fsmEditor.OnEnable();
+    }
+
+    public override void DoGUI()
 	{
 		fsmEditor.OnGUI();
-		
-/*		BeginWindows();
-		
-		fsmEditor.DoPopupWindows();
-		
-		EndWindows();*/
+
+        /* Debug Repaint events
+        if (Event.current.type == EventType.repaint)
+        {
+            Debug.Log("Repaint");
+        }*/
 		
 		if (Event.current.type == EventType.ValidateCommand)
     	{
-			//Debug.Log(Event.current.commandName);
-
-			switch (Event.current.commandName)
+            switch (Event.current.commandName)
 			{
 				case "UndoRedoPerformed":
-					Event.current.Use();
-					break;
-				
-				case "Copy":
-					Event.current.Use();
-					break;
-					
-				case "Paste":
-					Event.current.Use();
-					break;
-				
-				case "SelectAll":
+                case "Cut":
+                case "Copy":
+                case "Paste":
+                case "SelectAll":
 					Event.current.Use();
 					break;
 			}
     	}
 		
 		if (Event.current.type == EventType.ExecuteCommand)
-		{
-			
-			//Debug.Log(Event.current.commandName);
-			
+		{			
 			switch (Event.current.commandName)
 			{
 				case "UndoRedoPerformed":
 					FsmEditor.UndoRedoPerformed();
 					break;
-				
+
+                case "Cut":
+                    FsmEditor.Cut();
+                    break;
+
 				case "Copy":
 					FsmEditor.Copy();
 					break;
@@ -198,12 +193,69 @@ class FsmEditorWindow : EditorWindow
 				case "RepaintAll":
 					RepaintAllWindows();
 					break;
+
+                case "ChangeLanguage":
+                    ResetWindowTitles();
+			        break;
 			}
 	
 			GUIUtility.ExitGUI();
-		}
-	
+		}	
 	}
+
+    // called when you change editor language
+    public void ResetWindowTitles()
+    {
+        if (toolWindow != null)
+        {
+            toolWindow.InitWindowTitle();
+        }
+
+        if (fsmSelectorWindow != null)
+        {
+            fsmSelectorWindow.InitWindowTitle();
+        }
+
+        if (stateSelectorWindow != null)
+        {
+            stateSelectorWindow.InitWindowTitle();
+        }
+
+        if (actionWindow != null)
+        {
+            actionWindow.InitWindowTitle();
+        }
+
+        if (globalEventsWindow != null)
+        {
+            globalEventsWindow.InitWindowTitle();
+        }
+
+        if (globalVariablesWindow != null)
+        {
+            globalVariablesWindow.InitWindowTitle();
+        }
+
+        if (errorWindow != null)
+        {
+            errorWindow.InitWindowTitle();
+        }
+
+        if (logWindow != null)
+        {
+            logWindow.InitWindowTitle();
+        }
+
+        if (reportWindow != null)
+        {
+            reportWindow.InitWindowTitle();
+        }
+
+        if (fsmTemplateWindow != null)
+        {
+            fsmTemplateWindow.InitWindowTitle();
+        }
+    }
 
 	public void RepaintAllWindows()
 	{
@@ -252,45 +304,65 @@ class FsmEditorWindow : EditorWindow
 			reportWindow.Repaint();
 		}
 
+        if (fsmTemplateWindow != null)
+        {
+            fsmTemplateWindow.Repaint();
+        }
+
 		Repaint();
 	}
 
-	void Update()
+    private void Update()
 	{
-		fsmEditor.Update();
+        if (Initialized && fsmEditor != null)
+        {
+            fsmEditor.Update();
+        }
 	}
 
-	void OnInspectorUpdate()
+    private void OnInspectorUpdate()
 	{
-		fsmEditor.OnInspectorUpdate();
+        if (Initialized && fsmEditor != null)
+        {
+            fsmEditor.OnInspectorUpdate();
+        }
 	}
 
-	void OnFocus()
+    private void OnFocus()
 	{
-		fsmEditor.OnFocus();
+        if (Initialized && fsmEditor != null)
+        {
+            fsmEditor.OnFocus();
+        }
 	}
 
-	void OnSelectionChange()
+    private void OnSelectionChange()
 	{
-		fsmEditor.OnSelectionChange();
+        if (Initialized && fsmEditor != null)
+        {
+            fsmEditor.OnSelectionChange();
+        }
 	}
 
-	void OnHierarchyChange()
+    private void OnHierarchyChange()
 	{
-		fsmEditor.OnHierarchyChange();
+        if (Initialized && fsmEditor != null)
+        {
+            fsmEditor.OnHierarchyChange();
+        }
 	}
 
-	void OnProjectChange()
+    private void OnProjectChange()
 	{
-		if (fsmEditor != null)
+        if (Initialized && fsmEditor != null)
 		{
 			fsmEditor.OnProjectChange();
 		}
 	}
 
-	void OnDisable()
+    private void OnDisable()
 	{
-		if (fsmEditor != null)
+        if (Initialized && fsmEditor != null)
 		{
 			fsmEditor.OnDisable();
 		}
@@ -298,62 +370,67 @@ class FsmEditorWindow : EditorWindow
 		instance = null;
 	}
 
-	void OnDestroy()
+	private void OnDestroy()
 	{
 		if (toolWindow != null)
 		{
-			toolWindow.Close();
+			toolWindow.SafeClose();
 		}
 		
 		if (fsmSelectorWindow != null)
 		{
-			fsmSelectorWindow.Close();
+			fsmSelectorWindow.SafeClose();
 		}
 		
 		if (fsmTemplateWindow != null)
 		{
-			fsmTemplateWindow.Close();
+			fsmTemplateWindow.SafeClose();
 		}
 
 		if (stateSelectorWindow != null)
 		{
-			stateSelectorWindow.Close();
+			stateSelectorWindow.SafeClose();
 		}
 
 		if (actionWindow != null)
 		{
-			actionWindow.Close();
+			actionWindow.SafeClose();
 		}
 
 		if (globalVariablesWindow != null)
 		{
-			globalVariablesWindow.Close();
+			globalVariablesWindow.SafeClose();
 		}
 
 		if (globalEventsWindow != null)
 		{
-			globalEventsWindow.Close();
+			globalEventsWindow.SafeClose();
 		}
 		
 		if (errorWindow != null)
 		{
-			errorWindow.Close();
+			errorWindow.SafeClose();
 		}
 
 		if (logWindow != null)
 		{
-			logWindow.Close();
+			logWindow.SafeClose();
 		}
 
 		if (reportWindow != null)
 		{
-			reportWindow.Close();
+			reportWindow.SafeClose();
 		}
 
 		if (aboutWindow != null)
 		{
-			aboutWindow.Close();
+			aboutWindow.SafeClose();
 		}
+
+        if (Initialized && fsmEditor != null)
+	    {
+	        fsmEditor.OnDestroy();
+	    }
 	}
 
 	// ReSharper restore UnusedMember.Local

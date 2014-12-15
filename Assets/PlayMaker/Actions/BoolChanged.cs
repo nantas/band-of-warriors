@@ -1,4 +1,4 @@
-// (c) Copyright HutongGames, LLC 2010-2011. All rights reserved.
+// (c) Copyright HutongGames, LLC 2010-2013. All rights reserved.
 
 using UnityEngine;
 
@@ -10,10 +10,15 @@ namespace HutongGames.PlayMaker.Actions
 	{
 		[RequiredField]
 		[UIHint(UIHint.Variable)]
+        [Tooltip("The Bool variable to watch for changes.")]
 		public FsmBool boolVariable;
+
+        [Tooltip("Event to send if the variable changes.")]
 		public FsmEvent changedEvent;
+
 		[UIHint(UIHint.Variable)]
-		public FsmBool storeResult;
+		[Tooltip("Set to True if changed.")]
+        public FsmBool storeResult;
 
 		bool previousValue;
 

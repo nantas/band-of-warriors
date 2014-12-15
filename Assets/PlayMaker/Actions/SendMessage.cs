@@ -1,11 +1,11 @@
-// (c) Copyright HutongGames, LLC 2010-2011. All rights reserved.
+// (c) Copyright HutongGames, LLC 2010-2013. All rights reserved.
 
 using UnityEngine;
 
 namespace HutongGames.PlayMaker.Actions
 {
 	[ActionCategory(ActionCategory.ScriptControl)]
-	[Tooltip("Sends a Message to a Game Object. See Unity SendMessage docs.")]
+	[Tooltip("Sends a Message to a Game Object. See Unity docs for SendMessage.")]
 	public class SendMessage : FsmStateAction
 	{
 		public enum MessageType
@@ -16,10 +16,16 @@ namespace HutongGames.PlayMaker.Actions
 		}
 
 		[RequiredField]
-		public FsmOwnerDefault gameObject;
-		public MessageType delivery;
+        [Tooltip("GameObject that sends the message.")]		
+        public FsmOwnerDefault gameObject;
+		
+        [Tooltip("Where to send the message.\nSee Unity docs.")]
+        public MessageType delivery;
+
+        [Tooltip("Send options.\nSee Unity docs.")]
 		public SendMessageOptions options;
-		[RequiredField]
+		
+        [RequiredField]
 		public FunctionCall functionCall;
 
 		public override void Reset()
@@ -68,6 +74,10 @@ namespace HutongGames.PlayMaker.Actions
 					parameter = functionCall.StringParameter.Value;
 					break;
 
+                case "Vector2":
+                    parameter = functionCall.Vector2Parameter.Value;
+                    break;
+
 				case "Vector3":
 					parameter = functionCall.Vector3Parameter.Value;
 					break;
@@ -87,6 +97,10 @@ namespace HutongGames.PlayMaker.Actions
 				case "Texture":
 					parameter = functionCall.TextureParameter.Value;
 					break;
+
+                case "Color":
+                    parameter = functionCall.ColorParameter.Value;
+                    break;
 
 				case "Quaternion":
 					parameter = functionCall.QuaternionParameter.Value;

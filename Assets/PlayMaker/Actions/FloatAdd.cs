@@ -1,4 +1,4 @@
-// (c) Copyright HutongGames, LLC 2010-2011. All rights reserved.
+// (c) Copyright HutongGames, LLC 2010-2013. All rights reserved.
 
 using UnityEngine;
 
@@ -10,10 +10,17 @@ namespace HutongGames.PlayMaker.Actions
 	{
 		[RequiredField]
 		[UIHint(UIHint.Variable)]
+        [Tooltip("The Float variable to add to.")]
 		public FsmFloat floatVariable;
+
 		[RequiredField]
+        [Tooltip("Amount to add.")]
 		public FsmFloat add;
+
+        [Tooltip("Repeat every frame while the state is active.")]
 		public bool everyFrame;
+
+        [Tooltip("Used with Every Frame. Adds the value over one second to make the operation frame rate independent.")]
 		public bool perSecond;
 
 		public override void Reset()
@@ -29,7 +36,9 @@ namespace HutongGames.PlayMaker.Actions
 			DoFloatAdd();
 			
 			if (!everyFrame)
-				Finish();
+			{
+			    Finish();
+			}
 		}
 
 		public override void OnUpdate()
@@ -40,9 +49,13 @@ namespace HutongGames.PlayMaker.Actions
 		void DoFloatAdd()
 		{
 			if (!perSecond)
-				floatVariable.Value += add.Value;
+			{
+			    floatVariable.Value += add.Value;
+			}
 			else
-				floatVariable.Value += add.Value * Time.deltaTime;
+			{
+			    floatVariable.Value += add.Value * Time.deltaTime;
+			}
 		}
 	}
 }

@@ -1,4 +1,4 @@
-// (c) Copyright HutongGames, LLC 2010-2011. All rights reserved.
+// (c) Copyright HutongGames, LLC 2010-2013. All rights reserved.
 
 using UnityEngine;
 
@@ -16,11 +16,11 @@ namespace HutongGames.PlayMaker.Actions
 		public FsmEvent successEvent;
 		[Tooltip("Event to send if the location services fail to start.")]
 		public FsmEvent failedEvent;
-		
-#if UNITY_IPHONE
+
+#if UNITY_IPHONE || UNITY_ANDROID || UNITY_BLACKBERRY || UNITY_WP8
 		float startTime;
-#endif		
-		public override void Reset()
+#endif
+        public override void Reset()
 		{
 			maxWait = 20;
 			desiredAccuracy = 10;
@@ -30,28 +30,20 @@ namespace HutongGames.PlayMaker.Actions
 		}
 
 		public override void OnEnter()
-		{
-#if UNITY_IPHONE
-			startTime = FsmTime.RealtimeSinceStartup;
+        {
+#if UNITY_IPHONE || UNITY_ANDROID || UNITY_BLACKBERRY || UNITY_WP8
+            startTime = FsmTime.RealtimeSinceStartup;
 			
-#if UNITY_3_5
   			Input.location.Start(desiredAccuracy.Value, updateDistance.Value);			
 #else
-  			iPhoneSettings.StartLocationServiceUpdates(desiredAccuracy.Value, updateDistance.Value);
-#endif
-
-
-#else
-			Finish();
+            Finish();
 #endif
 		}
 		
 		public override void OnUpdate()
-		{
-#if UNITY_IPHONE
+        {
+#if UNITY_IPHONE || UNITY_ANDROID || UNITY_BLACKBERRY || UNITY_WP8
 			
-#if UNITY_3_5
-
 			if (Input.location.status == LocationServiceStatus.Failed ||
 				Input.location.status == LocationServiceStatus.Stopped ||
 				(FsmTime.RealtimeSinceStartup - startTime) > maxWait.Value )
@@ -64,26 +56,8 @@ namespace HutongGames.PlayMaker.Actions
 			{
 				Fsm.Event(successEvent);
 				Finish();
-			}
-			
-#else
-			
-			if (iPhoneSettings.locationServiceStatus == LocationServiceStatus.Failed ||
-				iPhoneSettings.locationServiceStatus == LocationServiceStatus.Stopped ||
-				(FsmTime.RealtimeSinceStartup - startTime) > maxWait.Value )
-			{
-				Fsm.Event(failedEvent);
-				Finish();
-			}
-			
-			if (iPhoneSettings.locationServiceStatus == LocationServiceStatus.Running)
-			{
-				Fsm.Event(successEvent);
-				Finish();
-			}
+			}	
 #endif
-			
-#endif
-		}
+        }
 	}
 }

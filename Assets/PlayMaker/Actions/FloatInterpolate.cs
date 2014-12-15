@@ -1,4 +1,4 @@
-// (c) Copyright HutongGames, LLC 2010-2011. All rights reserved.
+// (c) Copyright HutongGames, LLC 2010-2013. All rights reserved.
 
 using UnityEngine;
 
@@ -8,18 +8,30 @@ namespace HutongGames.PlayMaker.Actions
 	[Tooltip("Interpolates between 2 Float values over a specified Time.")]
 	public class FloatInterpolate : FsmStateAction
 	{
+        [Tooltip("Interpolation mode: Linear or EaseInOut.")]
 		public InterpolationType mode;
-		[RequiredField]
+		
+        [RequiredField]
+        [Tooltip("Interpolate from this value.")]
 		public FsmFloat fromFloat;
+
 		[RequiredField]
-		public FsmFloat toFloat;
-		[RequiredField]
+		[Tooltip("Interpolate to this value.")]
+        public FsmFloat toFloat;
+
+        [RequiredField]
+        [Tooltip("Interpolate over this amount of time in seconds.")]
 		public FsmFloat time;
+
 		[RequiredField]
 		[UIHint(UIHint.Variable)]
-		public FsmFloat storeResult;
+		[Tooltip("Store the current value in a float variable.")]
+        public FsmFloat storeResult;
+
+        [Tooltip("Event to send when the interpolation is finished.")]
 		public FsmEvent finishEvent;
-		[Tooltip("Ignore TimeScale")]
+
+		[Tooltip("Ignore TimeScale. Useful if the game is paused (Time scaled to 0).")]
 		public bool realTime;
 
 		private float startTime;
@@ -42,9 +54,13 @@ namespace HutongGames.PlayMaker.Actions
 			currentTime = 0f;
 			
 			if (storeResult == null)
-				Finish();
+			{
+			    Finish();
+			}
 			else
-				storeResult.Value = fromFloat.Value;
+			{
+			    storeResult.Value = fromFloat.Value;
+			}
 		}
 		
 		public override void OnUpdate()
@@ -60,7 +76,7 @@ namespace HutongGames.PlayMaker.Actions
 				currentTime += Time.deltaTime;
 			}
 			
-			float lerpTime = currentTime/time.Value;
+			var lerpTime = currentTime/time.Value;
 
 			switch (mode) {
 			
@@ -80,7 +96,9 @@ namespace HutongGames.PlayMaker.Actions
 			if (lerpTime > 1)
 			{
 				if (finishEvent != null)
-					Fsm.Event(finishEvent);
+				{
+				    Fsm.Event(finishEvent);
+				}
 
 				Finish();
 			}

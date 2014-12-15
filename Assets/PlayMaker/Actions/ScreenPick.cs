@@ -1,11 +1,11 @@
-// (c) Copyright HutongGames, LLC 2010-2011. All rights reserved.
+// (c) Copyright HutongGames, LLC 2010-2013. All rights reserved.
 
 using UnityEngine;
 
 namespace HutongGames.PlayMaker.Actions
 {
 	[ActionCategory(ActionCategory.Input)]
-	[Tooltip("Perform a raycast into the scene using screen coordinates and stores the results. Use Ray Distance to set how close the camera must be to pick the object.")]
+	[Tooltip("Perform a raycast into the scene using screen coordinates and stores the results. Use Ray Distance to set how close the camera must be to pick the object. NOTE: Uses the MainCamera!")]
 	public class ScreenPick : FsmStateAction
 	{
 		[Tooltip("A Vector3 screen position. Commonly stored by other actions.")]
@@ -57,7 +57,9 @@ namespace HutongGames.PlayMaker.Actions
 			DoScreenPick();
 			
 			if (!everyFrame)
+			{
 				Finish();
+			}
 		}
 		
 		public override void OnUpdate()
@@ -67,7 +69,14 @@ namespace HutongGames.PlayMaker.Actions
 
 		void DoScreenPick()
 		{
-			Vector3 rayStart = Vector3.zero;
+			if (Camera.main == null)
+			{
+				LogError("No MainCamera defined!");
+				Finish();
+				return;
+			}
+
+			var rayStart = Vector3.zero;
 			
 			if (!screenVector.IsNone) rayStart = screenVector.Value;
 			if (!screenX.IsNone) rayStart.x = screenX.Value;
@@ -80,10 +89,10 @@ namespace HutongGames.PlayMaker.Actions
 			}
 			
 			RaycastHit hitInfo;
-			Ray ray = Camera.main.ScreenPointToRay(rayStart);
+			var ray = Camera.main.ScreenPointToRay(rayStart);
 			Physics.Raycast(ray, out hitInfo, rayDistance.Value, ActionHelpers.LayerArrayToLayerMask(layerMask, invertMask.Value));
 			
-			bool didPick = hitInfo.collider != null;
+			var didPick = hitInfo.collider != null;
 			storeDidPickObject.Value = didPick;
 			
 			if (didPick)

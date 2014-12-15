@@ -1,4 +1,4 @@
-// (c) Copyright HutongGames, LLC 2010-2011. All rights reserved.
+// (c) Copyright HutongGames, LLC 2010-2013. All rights reserved.
 
 namespace HutongGames.PlayMaker.Actions
 {
@@ -6,8 +6,11 @@ namespace HutongGames.PlayMaker.Actions
 	[Tooltip("Logs the value of a Bool Variable in the PlayMaker Log Window.")]
 	public class DebugBool : FsmStateAction
 	{
-		public LogLevel logLevel;
-		[UIHint(UIHint.Variable)]
+        [Tooltip("Info, Warning, or Error.")]
+        public LogLevel logLevel;
+		
+        [UIHint(UIHint.Variable)]
+        [Tooltip("Prints the value of a Bool variable in the PlayMaker log window.")]
 		public FsmBool boolVariable;
 
 		public override void Reset()
@@ -18,7 +21,7 @@ namespace HutongGames.PlayMaker.Actions
 
 		public override void OnEnter()
 		{
-			string text = "None";
+			var text = "None";
 
 			if (!boolVariable.IsNone)
 			{

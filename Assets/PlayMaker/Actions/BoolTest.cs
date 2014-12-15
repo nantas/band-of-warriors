@@ -1,4 +1,4 @@
-// (c) Copyright HutongGames, LLC 2010-2011. All rights reserved.
+// (c) Copyright HutongGames, LLC 2010-2013. All rights reserved.
 
 namespace HutongGames.PlayMaker.Actions
 {
@@ -8,9 +8,16 @@ namespace HutongGames.PlayMaker.Actions
 	{
 		[RequiredField]
 		[UIHint(UIHint.Variable)]
+        [Tooltip("The Bool variable to test.")]
 		public FsmBool boolVariable;
+
+        [Tooltip("Event to send if the Bool variable is True.")]
 		public FsmEvent isTrue;
+
+        [Tooltip("Event to send if the Bool variable is False.")]
 		public FsmEvent isFalse;
+
+        [Tooltip("Repeat every frame while the state is active.")]
 		public bool everyFrame;
 
 		public override void Reset()
@@ -26,7 +33,9 @@ namespace HutongGames.PlayMaker.Actions
 			Fsm.Event(boolVariable.Value ? isTrue : isFalse);
 			
 			if (!everyFrame)
-				Finish();
+			{
+			    Finish();
+			}
 		}
 		
 		public override void OnUpdate()

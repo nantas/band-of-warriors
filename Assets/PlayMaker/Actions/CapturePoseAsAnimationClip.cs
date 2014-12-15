@@ -1,4 +1,4 @@
-﻿// (c) copyright Hutong Games, LLC 2010-2011. All rights reserved.
+﻿// (c) Copyright HutongGames, LLC 2010-2013. All rights reserved.
 
 using UnityEngine;
 
@@ -10,7 +10,7 @@ namespace HutongGames.PlayMaker.Actions
 	{
 		[RequiredField]
 		[CheckForComponent(typeof(Animation))]
-		[Tooltip("The game object playing the animation.")]
+		[Tooltip("The GameObject root of the hierarchy to capture.")]
 		public FsmOwnerDefault gameObject;
 
 		[Tooltip("Capture position keys.")]

@@ -1,4 +1,4 @@
-// (c) Copyright HutongGames, LLC 2010-2011. All rights reserved.
+// (c) Copyright HutongGames, LLC 2010-2013. All rights reserved.
 
 using UnityEngine;
 
@@ -9,9 +9,12 @@ namespace HutongGames.PlayMaker.Actions
 	public class DestroyComponent : FsmStateAction
 	{
 		[RequiredField]
+        [Tooltip("The GameObject that owns the Component.")]
 		public FsmOwnerDefault gameObject;
+
 		[RequiredField]
 		[UIHint(UIHint.ScriptComponent)]
+        [Tooltip("The name of the Component to destroy.")]
 		public FsmString component;
 				
 		Component aComponent;

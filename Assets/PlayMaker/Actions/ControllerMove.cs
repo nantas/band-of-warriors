@@ -1,11 +1,11 @@
-// (c) Copyright HutongGames, LLC 2010-2011. All rights reserved.
+// (c) Copyright HutongGames, LLC 2010-2013. All rights reserved.
 
 using UnityEngine;
 
 namespace HutongGames.PlayMaker.Actions
 {
 	[ActionCategory(ActionCategory.Character)]
-	[Tooltip("Moves a Game Object with a Character Controller. See also CharacterSimpleMove.")]
+	[Tooltip("Moves a Game Object with a Character Controller. See also Controller Simple Move. NOTE: It is recommended that you make only one call to Move or SimpleMove per frame.")]
 	public class ControllerMove : FsmStateAction
 	{
 		[RequiredField]

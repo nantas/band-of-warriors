@@ -1,4 +1,4 @@
-// (c) Copyright HutongGames, LLC 2010-2011. All rights reserved.
+// (c) Copyright HutongGames, LLC 2010-2013. All rights reserved.
 
 using UnityEngine;
 
@@ -9,7 +9,7 @@ namespace HutongGames.PlayMaker.Actions
 	public class LookAt : FsmStateAction
 	{
 		[RequiredField]
-		[Tooltip("The GameObject to rorate.")]
+		[Tooltip("The GameObject to rotate.")]
 		public FsmOwnerDefault gameObject;
 
 		[Tooltip("The GameObject to Look At.")]
@@ -34,6 +34,11 @@ namespace HutongGames.PlayMaker.Actions
 		[Tooltip("Repeat every frame.")]
 		public bool everyFrame = true;
 
+	    private GameObject go;
+	    private GameObject goTarget;
+	    private Vector3 lookAtPos;
+	    private Vector3 lookAtPosWithVertical;
+        
 		public override void Reset()
 		{
 			gameObject = null;
@@ -63,35 +68,12 @@ namespace HutongGames.PlayMaker.Actions
 
 		void DoLookAt()
 		{
-			var go = Fsm.GetOwnerDefaultTarget(gameObject);
-			if (go == null)
+			if (!UpdateLookAtPosition())
 			{
-				return;
+			    return;
 			}
 			
-			var goTarget = targetObject.Value;
-			if (goTarget == null && targetPosition.IsNone)
-			{
-				return;
-			}
-
-			Vector3 lookAtPos;
-			if (goTarget != null)
-			{
-				lookAtPos = !targetPosition.IsNone ? goTarget.transform.TransformPoint(targetPosition.Value) : goTarget.transform.position;
-			}
-			else
-			{
-				lookAtPos = targetPosition.Value;
-			}
-
-			if (keepVertical.Value)
-			{
-				lookAtPos.y = go.transform.position.y;
-			}
-			
-			go.transform.LookAt(lookAtPos, upVector.IsNone ? Vector3.up : upVector.Value);
-			
+			go.transform.LookAt(lookAtPos, upVector.IsNone ? Vector3.up : upVector.Value);			
 			
 			if (debug.Value)
 			{
@@ -99,5 +81,47 @@ namespace HutongGames.PlayMaker.Actions
 			}
 		}
 
+        public bool UpdateLookAtPosition()
+        {
+            go = Fsm.GetOwnerDefaultTarget(gameObject);
+            if (go == null)
+            {
+                return false;
+            }
+
+            goTarget = targetObject.Value;
+            if (goTarget == null && targetPosition.IsNone)
+            {
+                return false;
+            }
+
+            if (goTarget != null)
+            {
+                lookAtPos = !targetPosition.IsNone ? goTarget.transform.TransformPoint(targetPosition.Value) : goTarget.transform.position;
+            }
+            else
+            {
+                lookAtPos = targetPosition.Value;
+            }
+
+            lookAtPosWithVertical = lookAtPos;
+
+            if (keepVertical.Value)
+            {
+                lookAtPos.y = go.transform.position.y;
+            }
+
+            return true;
+        }
+
+        public Vector3 GetLookAtPosition()
+        {
+            return lookAtPos;
+        }
+
+        public Vector3 GetLookAtPositionWithVertical()
+        {
+            return lookAtPosWithVertical;
+        }
 	}
 }

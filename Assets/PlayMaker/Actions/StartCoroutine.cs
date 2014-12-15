@@ -1,4 +1,4 @@
-// (c) Copyright HutongGames, LLC 2010-2011. All rights reserved.
+// (c) Copyright HutongGames, LLC 2010-2013. All rights reserved.
 
 using UnityEngine;
 
@@ -9,14 +9,21 @@ namespace HutongGames.PlayMaker.Actions
 	public class StartCoroutine : FsmStateAction
 	{
 		[RequiredField]
+        [Tooltip("The game object that owns the Behaviour.")]
 		public FsmOwnerDefault gameObject;
-		[RequiredField]
+		
+        [RequiredField]
 		[UIHint(UIHint.Behaviour)]
+        [Tooltip("The Behaviour that contains the method to start as a coroutine.")]
 		public FsmString behaviour;
-		[RequiredField]
+		
+        [RequiredField]
 		[UIHint(UIHint.Coroutine)]
+        [Tooltip("The name of the coroutine method.")]
 		public FunctionCall functionCall;
-		public bool stopOnExit;
+
+        [Tooltip("Stop the coroutine when the state is exited.")]
+        public bool stopOnExit;
 
 		public override void Reset()
 		{
@@ -72,6 +79,10 @@ namespace HutongGames.PlayMaker.Actions
 				case "bool":
 					component.StartCoroutine(functionCall.FunctionName, functionCall.BoolParameter.Value);
 					return;
+                
+                case "Vector2":
+                    component.StartCoroutine(functionCall.FunctionName, functionCall.Vector2Parameter.Value);
+                    return;
 
 				case "Vector3":
 					component.StartCoroutine(functionCall.FunctionName, functionCall.Vector3Parameter.Value);

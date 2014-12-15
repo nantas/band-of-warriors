@@ -1,4 +1,4 @@
-// (c) Copyright HutongGames, LLC 2010-2011. All rights reserved.
+// (c) Copyright HutongGames, LLC 2010-2013. All rights reserved.
 
 using UnityEngine;
 using System.Collections.Generic;
@@ -48,7 +48,8 @@ namespace HutongGames.PlayMaker.Actions
 				rect.height *= Screen.height;
 			}
 			
-			GUILayout.BeginArea(rect, style.Value);
+			// if no GUIContent is given, then the signature is misunderstood as BeginAreay(Rect,String)
+			GUILayout.BeginArea(rect, GUIContent.none, style.Value);
 		}
 	}
 }

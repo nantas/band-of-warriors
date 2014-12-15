@@ -1,4 +1,4 @@
-// (c) Copyright HutongGames, LLC 2010-2011. All rights reserved.
+// (c) Copyright HutongGames, LLC 2010-2013. All rights reserved.
 
 using UnityEngine;
 
@@ -11,9 +11,11 @@ namespace HutongGames.PlayMaker.Actions
 		[RequiredField]
 		[Tooltip("The GameObject to destroy.")]
 		public FsmGameObject gameObject;
+
 		[HasFloatSlider(0, 5)]
 		[Tooltip("Optional delay before destroying the Game Object.")]
 		public FsmFloat delay;
+
 		[Tooltip("Detach children before destroying the Game Object.")]
 		public FsmBool detachChildren;
 		//public FsmEvent sendEvent;
@@ -29,14 +31,18 @@ namespace HutongGames.PlayMaker.Actions
 
 		public override void OnEnter()
 		{
-			GameObject go = gameObject.Value;
+			var go = gameObject.Value;
 			
 			if (go != null)
 			{
-				if (delay.Value <= 0 )
-					Object.Destroy(go);
+				if (delay.Value <= 0)
+				{
+				    Object.Destroy(go);
+				}
 				else
-					Object.Destroy(go, delay.Value);
+				{
+				    Object.Destroy(go, delay.Value);
+				}
 	
 				if (detachChildren.Value)
 					go.transform.DetachChildren();

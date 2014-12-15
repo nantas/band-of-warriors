@@ -1,4 +1,4 @@
-// (c) Copyright HutongGames, LLC 2010-2011. All rights reserved.
+// (c) Copyright HutongGames, LLC 2010-2013. All rights reserved.
 
 using UnityEngine;
 
@@ -18,6 +18,8 @@ namespace HutongGames.PlayMaker.Actions
 		public FsmInt getIntData;
 		[UIHint(UIHint.Variable)]
 		public FsmFloat getFloatData;
+		[UIHint(UIHint.Variable)]
+		public FsmVector2 getVector2Data;
 		[UIHint(UIHint.Variable)]
 		public FsmVector3 getVector3Data;
 		[UIHint(UIHint.Variable)]
@@ -44,6 +46,7 @@ namespace HutongGames.PlayMaker.Actions
 			getBoolData = null;
 			getIntData = null;
 			getFloatData = null;
+			getVector2Data = null;
 			getVector3Data = null;
 			getStringData = null;
 			getGameObjectData = null;
@@ -71,6 +74,7 @@ namespace HutongGames.PlayMaker.Actions
 			getBoolData.Value = Fsm.EventData.BoolData;
 			getIntData.Value = Fsm.EventData.IntData;
 			getFloatData.Value = Fsm.EventData.FloatData;
+			getVector2Data.Value = Fsm.EventData.Vector2Data;
 			getVector3Data.Value = Fsm.EventData.Vector3Data;
 			getStringData.Value = Fsm.EventData.StringData;
 			getGameObjectData.Value = Fsm.EventData.GameObjectData;

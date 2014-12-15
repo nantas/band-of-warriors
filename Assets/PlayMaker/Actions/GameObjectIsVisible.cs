@@ -1,4 +1,4 @@
-// (c) Copyright HutongGames, LLC 2010-2011. All rights reserved.
+// (c) Copyright HutongGames, LLC 2010-2013. All rights reserved.
 
 using System;
 using UnityEngine;
@@ -11,13 +11,17 @@ namespace HutongGames.PlayMaker.Actions
 	{
 		[RequiredField]
 		[CheckForComponent(typeof(Renderer))]
+        [Tooltip("The GameObject to test.")]
 		public FsmOwnerDefault gameObject;
 		
+        [Tooltip("Event to send if the GameObject is visible.")]
 		public FsmEvent trueEvent;
 		
+        [Tooltip("Event to send if the GameObject is NOT visible.")]
 		public FsmEvent falseEvent;
 		
 		[UIHint(UIHint.Variable)]
+        [Tooltip("Store the result in a bool variable.")]
 		public FsmBool storeResult;
 		
 		public bool everyFrame;

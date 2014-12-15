@@ -1,21 +1,5 @@
-﻿// (c) Copyright HutongGames, LLC 2010-2011. All rights reserved.
-
-using UnityEngine;
-
-namespace HutongGames.PlayMaker.Actions
-{
-	[Tooltip("TESTS")]
-	public class TestAction : FsmStateAction
-	{
-		public FsmMaterial[] materials;
-
-		public override void Reset()
-		{
-			materials = new FsmMaterial[3];
-		}
-
-		public override void OnUpdate()
-		{
-		}
-	}
-}
+﻿// (c) Copyright HutongGames, LLC 2010-2013. All rights reserved.
+/*
+ * Accidentally checked in a test action. 
+ * Checking in empty file since there's no way to delete files when importing unitypackage
+*/

@@ -1,4 +1,4 @@
-// (c) Copyright HutongGames, LLC 2010-2011. All rights reserved.
+// (c) Copyright HutongGames, LLC 2010-2013. All rights reserved.
 
 using UnityEngine;
 
@@ -10,26 +10,28 @@ namespace HutongGames.PlayMaker.Actions
 	{
 		[RequiredField]
 		[CheckForComponent(typeof(AudioSource))]
-		[Tooltip("The GameObject with the AudioSource component.")]
+		[Tooltip("The GameObject with an AudioSource component.")]
 		public FsmOwnerDefault gameObject;
 		
 		[HasFloatSlider(0,1)]
+        [Tooltip("Set the volume.")]
 		public FsmFloat volume;
 		
 		[ObjectType(typeof(AudioClip))]
-		[Tooltip("Optionally play a 'one shot' AudioClip.")]
+		[Tooltip("Optionally play a 'one shot' AudioClip. NOTE: Volume cannot be adjusted while playing a 'one shot' AudioClip.")]
 		public FsmObject oneShotClip;
 		
-		[Tooltip("Event to send when the AudioClip finished playing.")]
+		[Tooltip("Event to send when the AudioClip finishes playing.")]
 		public FsmEvent finishedEvent;
 
-		AudioSource audio;
-		
+		private AudioSource audio;
+				
 		public override void Reset()
 		{
 			gameObject = null;
 			volume = 1f;
 			oneShotClip = null;
+		    finishedEvent = null;
 		}
 
 		public override void OnEnter()
@@ -69,8 +71,8 @@ namespace HutongGames.PlayMaker.Actions
 				}
 			}
 			
-			// Finish if failed to play sound
-			
+			// Finish if failed to play sound	
+		
 			Finish();
 		}
 		
@@ -86,6 +88,10 @@ namespace HutongGames.PlayMaker.Actions
 				{
 					Fsm.Event(finishedEvent);
 					Finish();
+				}
+                else if (!volume.IsNone && volume.Value != audio.volume)
+				{
+					audio.volume = volume.Value;
 				}
 			}
 		}

@@ -1,4 +1,4 @@
-// (c) Copyright HutongGames, LLC 2010-2011. All rights reserved.
+// (c) Copyright HutongGames, LLC 2010-2013. All rights reserved.
 
 namespace HutongGames.PlayMaker.Actions
 {
@@ -7,14 +7,24 @@ namespace HutongGames.PlayMaker.Actions
 	public class GameObjectCompareTag : FsmStateAction
 	{
 		[RequiredField]
+        [Tooltip("The GameObject to test.")]
 		public FsmGameObject gameObject;
+
 		[RequiredField]
 		[UIHint(UIHint.Tag)]
+        [Tooltip("The Tag to check for.")]
 		public FsmString tag;
+
+        [Tooltip("Event to send if the GameObject has the Tag.")]
 		public FsmEvent trueEvent;
+
+        [Tooltip("Event to send if the GameObject does not have the Tag.")]
 		public FsmEvent falseEvent;
+
 		[UIHint(UIHint.Variable)]
-		public FsmBool storeResult;
+		[Tooltip("Store the result in a Bool variable.")]
+        public FsmBool storeResult;
+
 		[Tooltip("Repeat every frame.")]
 		public bool everyFrame;
 		

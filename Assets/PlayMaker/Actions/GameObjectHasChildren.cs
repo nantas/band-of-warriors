@@ -1,24 +1,25 @@
-// (c) Copyright HutongGames, LLC 2010-2011. All rights reserved.
+// (c) Copyright HutongGames, LLC 2010-2013. All rights reserved.
 
 using UnityEngine;
 
 namespace HutongGames.PlayMaker.Actions
 {
 	[ActionCategory(ActionCategory.Logic)]
-	[Tooltip("Tests if a Game Object has children.")]
+	[Tooltip("Tests if a GameObject has children.")]
 	public class GameObjectHasChildren : FsmStateAction
 	{
 		[RequiredField]
+        [Tooltip("The GameObject to test.")]
 		public FsmOwnerDefault gameObject;
 		
-		[Tooltip("Event to send if the Game Object has children.")]
+		[Tooltip("Event to send if the GameObject has children.")]
 		public FsmEvent trueEvent;
 		
-		[Tooltip("Event to send if the Game Object does not have children.")]
+		[Tooltip("Event to send if the GameObject does not have children.")]
 		public FsmEvent falseEvent;
 		
 		[UIHint(UIHint.Variable)]
-		[Tooltip("Store true/false in a bool variable.")]
+		[Tooltip("Store the result in a bool variable.")]
 		public FsmBool storeResult;
 		
 		[Tooltip("Repeat every frame.")]

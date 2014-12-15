@@ -1,4 +1,4 @@
-// (c) Copyright HutongGames, LLC 2010-2011. All rights reserved.
+// (c) Copyright HutongGames, LLC 2010-2013. All rights reserved.
 
 using UnityEngine;
 
@@ -9,6 +9,7 @@ namespace HutongGames.PlayMaker.Actions
 	public class DrawFullscreenColor : FsmStateAction
 	{
 		[RequiredField]
+        [Tooltip("Color. NOTE: Uses OnGUI so you need a PlayMakerGUI component in the scene.")]
 		public FsmColor color;
 		
 		public override void Reset()

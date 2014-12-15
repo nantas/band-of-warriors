@@ -1,4 +1,4 @@
-// (c) Copyright HutongGames, LLC 2010-2011. All rights reserved.
+// (c) Copyright HutongGames, LLC 2010-2013. All rights reserved.
 
 using UnityEngine;
 
@@ -8,11 +8,18 @@ namespace HutongGames.PlayMaker.Actions
 	[Tooltip("Fade to a fullscreen Color. NOTE: Uses OnGUI so requires a PlayMakerGUI component in the scene.")]
 	public class CameraFadeOut : FsmStateAction
 	{
-		public FsmColor color;
+        [RequiredField]
+        [Tooltip("Color to fade to. E.g., Fade to black.")]
+        public FsmColor color;
+
 		[RequiredField]
 		[HasFloatSlider(0,10)]
+        [Tooltip("Fade out time in seconds.")]
 		public FsmFloat time;
+
+         [Tooltip("Event to send when finished.")]
 		public FsmEvent finishEvent;
+
 		[Tooltip("Ignore TimeScale. Useful if the game is paused.")]
 		public bool realTime;
 		

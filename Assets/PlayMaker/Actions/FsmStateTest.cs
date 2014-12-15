@@ -1,4 +1,4 @@
-// (c) Copyright HutongGames, LLC 2010-2011. All rights reserved.
+// (c) Copyright HutongGames, LLC 2010-2013. All rights reserved.
 
 using UnityEngine;
 
@@ -9,24 +9,36 @@ namespace HutongGames.PlayMaker.Actions
 	public class FsmStateTest : FsmStateAction
 	{
 		[RequiredField]
+        [Tooltip("The GameObject that owns the FSM.")]
 		public FsmGameObject gameObject;
+
 		[UIHint(UIHint.FsmName)]
-		[Tooltip("Optional name of Fsm on Game Object")]
+        [Tooltip("Optional name of Fsm on Game Object. Useful if there is more than one FSM on the GameObject.")]
 		public FsmString fsmName;
-		[RequiredField]
-		public FsmString stateName;
+		
+        [RequiredField]
+        [Tooltip("Check to see if the FSM is in this state.")]
+        public FsmString stateName;
+
+        [Tooltip("Event to send if the FSM is in the specified state.")]
 		public FsmEvent trueEvent;
+
+        [Tooltip("Event to send if the FSM is NOT in the specified state.")]
 		public FsmEvent falseEvent;
+
 		[UIHint(UIHint.Variable)]
+        [Tooltip("Store the result of this test in a bool variable. Useful if other actions depend on this test.")]
 		public FsmBool storeResult;
+
+        [Tooltip("Repeat every frame. Useful if you're waiting for a particular state.")]
 		public bool everyFrame;
 		
 		// store game object last frame so we know when it's changed
 		// and have to cache a new fsm
-		GameObject previousGo;
+		private GameObject previousGo;
 		
 		// cach the fsm component since that's an expensive operation
-		PlayMakerFSM fsm;
+        private PlayMakerFSM fsm;
 
 		public override void Reset()
 		{
@@ -44,7 +56,9 @@ namespace HutongGames.PlayMaker.Actions
 			DoFsmStateTest();
 			
 			if (!everyFrame)
-				Finish();
+			{
+			    Finish();
+			}
 		}
 		
 		public override void OnUpdate()
@@ -54,7 +68,7 @@ namespace HutongGames.PlayMaker.Actions
 		
 		void DoFsmStateTest()
 		{
-			GameObject go = gameObject.Value;
+			var go = gameObject.Value;
 			if (go == null) return;
 			
 			if (go != previousGo)
@@ -63,9 +77,12 @@ namespace HutongGames.PlayMaker.Actions
 				previousGo = go;
 			}
 			
-			if (fsm == null) return;
+			if (fsm == null)
+			{
+			    return;
+			}
 			
-			bool isState = false;
+			var isState = false;
 			
 			if (fsm.ActiveStateName == stateName.Value)
 			{

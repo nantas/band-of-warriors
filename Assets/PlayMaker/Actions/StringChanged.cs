@@ -1,4 +1,4 @@
-// (c) Copyright HutongGames, LLC 2010-2011. All rights reserved.
+// (c) Copyright HutongGames, LLC 2010-2013. All rights reserved.
 
 using UnityEngine;
 
@@ -11,7 +11,6 @@ namespace HutongGames.PlayMaker.Actions
 		[RequiredField]
 		[UIHint(UIHint.Variable)]
 		public FsmString stringVariable;
-		[RequiredField]
 		public FsmEvent changedEvent;
 		[UIHint(UIHint.Variable)]
 		public FsmBool storeResult;

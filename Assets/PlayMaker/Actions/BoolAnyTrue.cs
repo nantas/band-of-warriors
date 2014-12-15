@@ -1,4 +1,4 @@
-// (c) Copyright HutongGames, LLC 2010-2011. All rights reserved.
+// (c) Copyright HutongGames, LLC 2010-2013. All rights reserved.
 
 namespace HutongGames.PlayMaker.Actions
 {
@@ -8,11 +8,18 @@ namespace HutongGames.PlayMaker.Actions
 	{
 		[RequiredField]
 		[UIHint(UIHint.Variable)]
+        [Tooltip("The Bool variables to check.")]
 		public FsmBool[] boolVariables;
+
+        [Tooltip("Event to send if any of the Bool variables are True.")]
 		public FsmEvent sendEvent;
-		[UIHint(UIHint.Variable)]
-		public FsmBool storeResult;
-		public bool everyFrame;
+		
+        [UIHint(UIHint.Variable)]
+        [Tooltip("Store the result in a Bool variable.")]
+        public FsmBool storeResult;
+
+        [Tooltip("Repeat every frame while the state is active.")]
+        public bool everyFrame;
 
 		public override void Reset()
 		{
@@ -27,7 +34,9 @@ namespace HutongGames.PlayMaker.Actions
 			DoAnyTrue();
 			
 			if (!everyFrame)
-				Finish();		
+			{
+			    Finish();
+			}		
 		}
 		
 		public override void OnUpdate()
@@ -37,11 +46,14 @@ namespace HutongGames.PlayMaker.Actions
 		
 		void DoAnyTrue()
 		{
-			if (boolVariables.Length == 0) return;
+			if (boolVariables.Length == 0)
+			{
+			    return;
+			}
 			
 			storeResult.Value = false;
 			
-			for (int i = 0; i < boolVariables.Length; i++) 
+			for (var i = 0; i < boolVariables.Length; i++) 
 			{
 				if (boolVariables[i].Value)
 				{

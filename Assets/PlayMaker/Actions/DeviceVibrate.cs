@@ -1,4 +1,4 @@
-﻿// (c) Copyright HutongGames, LLC 2010-2011. All rights reserved.
+﻿// (c) Copyright HutongGames, LLC 2010-2013. All rights reserved.
 
 using UnityEngine;
 
@@ -13,19 +13,10 @@ namespace HutongGames.PlayMaker.Actions
 
 		public override void OnEnter()
 		{
-#if (UNITY_IPHONE || UNITY_ANDROID)
-			
-#if UNITY_3_5
-			
+#if (UNITY_IPHONE || UNITY_ANDROID)			
 			Handheld.Vibrate();
-
-#else
-			
-			iPhoneUtils.Vibrate();
-			
 #endif
-
-#endif
-		}
+            Finish();
+        }
 	}
 }

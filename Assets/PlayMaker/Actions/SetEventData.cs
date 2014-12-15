@@ -1,4 +1,4 @@
-// (c) Copyright HutongGames, LLC 2010-2011. All rights reserved.
+// (c) Copyright HutongGames, LLC 2010-2013. All rights reserved.
 
 using UnityEngine;
 
@@ -13,6 +13,7 @@ namespace HutongGames.PlayMaker.Actions
 		public FsmFloat setFloatData;
 		public FsmString setStringData;
 		public FsmBool setBoolData;
+		public FsmVector2 setVector2Data;
 		public FsmVector3 setVector3Data;
 		public FsmRect setRectData;
 		public FsmQuaternion setQuaternionData;
@@ -23,18 +24,19 @@ namespace HutongGames.PlayMaker.Actions
 
 		public override void Reset()
 		{
-			setGameObjectData = null;
-			setIntData = null;
-			setFloatData = null;
-			setStringData = null;
-			setBoolData = null;
-			setVector3Data = null;
-			setRectData = null;
-			setQuaternionData = null;
-			setColorData = null;
-			setMaterialData = null;
-			setTextureData = null;
-			setObjectData = null;
+			setGameObjectData = new FsmGameObject{UseVariable = true};
+			setIntData = new FsmInt { UseVariable = true };
+			setFloatData = new FsmFloat { UseVariable = true };
+			setStringData = new FsmString { UseVariable = true };
+			setBoolData = new FsmBool { UseVariable = true };
+			setVector2Data = new FsmVector2 { UseVariable = true };
+			setVector3Data = new FsmVector3 { UseVariable = true };
+			setRectData = new FsmRect { UseVariable = true };
+			setQuaternionData = new FsmQuaternion { UseVariable = true };
+			setColorData = new FsmColor { UseVariable = true };
+			setMaterialData = new FsmMaterial { UseVariable = true };
+			setTextureData = new FsmTexture { UseVariable = true };
+			setObjectData = new FsmObject { UseVariable = true };
 		}
 
 		public override void OnEnter()
@@ -42,6 +44,7 @@ namespace HutongGames.PlayMaker.Actions
 			Fsm.EventData.BoolData = setBoolData.Value;
 			Fsm.EventData.IntData = setIntData.Value;
 			Fsm.EventData.FloatData = setFloatData.Value;
+			Fsm.EventData.Vector2Data = setVector2Data.Value;
 			Fsm.EventData.Vector3Data = setVector3Data.Value;
 			Fsm.EventData.StringData = setStringData.Value;
 			Fsm.EventData.GameObjectData = setGameObjectData.Value;

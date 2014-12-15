@@ -1,17 +1,20 @@
-// (c) Copyright HutongGames, LLC 2010-2011. All rights reserved.
+// (c) Copyright HutongGames, LLC 2010-2013. All rights reserved.
 
 using UnityEngine;
 
 namespace HutongGames.PlayMaker.Actions
 {
 	[ActionCategory(ActionCategory.GameObject)]
-	[Tooltip("Gets the number of children that a Game Object has.")]
+	[Tooltip("Gets the number of children that a GameObject has.")]
 	public class GetChildCount : FsmStateAction
 	{
 		[RequiredField]
+        [Tooltip("The GameObject to test.")]
 		public FsmOwnerDefault gameObject;
+
 		[RequiredField]
 		[UIHint(UIHint.Variable)]
+        [Tooltip("Store the number of children in an int variable.")]
 		public FsmInt storeResult;
 
 		public override void Reset()
@@ -29,8 +32,11 @@ namespace HutongGames.PlayMaker.Actions
 
 		void DoGetChildCount()
 		{
-			GameObject go = Fsm.GetOwnerDefaultTarget(gameObject);
-			if (go == null) return;
+			var go = Fsm.GetOwnerDefaultTarget(gameObject);
+			if (go == null)
+			{
+			    return;
+			}
 
 			storeResult.Value = go.transform.childCount;
 		}

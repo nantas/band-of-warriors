@@ -1,4 +1,4 @@
-// (c) Copyright HutongGames, LLC 2010-2011. All rights reserved.
+// (c) Copyright HutongGames, LLC 2010-2013. All rights reserved.
 
 using UnityEngine;
 
@@ -9,16 +9,24 @@ namespace HutongGames.PlayMaker.Actions
 	public class Blink : FsmStateAction
 	{
 		[RequiredField]
+        [Tooltip("The GameObject to blink on/off.")]
 		public FsmOwnerDefault gameObject;
+
 		[HasFloatSlider(0, 5)]
+        [Tooltip("Time to stay off in seconds.")]
 		public FsmFloat timeOff;
-		[HasFloatSlider(0, 5)]
-		public FsmFloat timeOn;
-		[Tooltip("Should the object start in the active/visible state?")]
+		
+        [HasFloatSlider(0, 5)]
+        [Tooltip("Time to stay on in seconds.")]
+        public FsmFloat timeOn;
+		
+        [Tooltip("Should the object start in the active/visible state?")]
 		public FsmBool startOn;
-		[Tooltip("Check this to keep the object active, but not rendered.")]
+
+        [Tooltip("Only effect the renderer, keeping other components active.")]
 		public bool rendererOnly;
-		[Tooltip("Ignore TimeScale. Useful if the game is paused.")]
+		
+        [Tooltip("Ignore TimeScale. Useful if the game is paused.")]
 		public bool realTime;
 		
 		private float startTime;
@@ -71,7 +79,7 @@ namespace HutongGames.PlayMaker.Actions
 			
 		void UpdateBlinkState(bool state)
 		{
-			GameObject go = gameObject.OwnerOption == OwnerDefaultOption.UseOwner ? Owner : gameObject.GameObject.Value;
+			var go = gameObject.OwnerOption == OwnerDefaultOption.UseOwner ? Owner : gameObject.GameObject.Value;
 			if (go == null) return;
 			
 			if (rendererOnly)
@@ -80,9 +88,13 @@ namespace HutongGames.PlayMaker.Actions
 					go.renderer.enabled = state;
 			}
 			else
-			{
-				go.active = state;
-			}
+            {
+#if UNITY_3_5 || UNITY_3_4
+                go.active = state;
+#else          
+                go.SetActive(state);
+#endif
+            }
 			
 			blinkOn = state;
 			
@@ -91,11 +103,6 @@ namespace HutongGames.PlayMaker.Actions
 			startTime = FsmTime.RealtimeSinceStartup;
 			timer = 0f;
 		}
-			
-			
-
-
-		
 	}
 }
 

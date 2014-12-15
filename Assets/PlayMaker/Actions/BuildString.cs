@@ -1,4 +1,4 @@
-// (c) Copyright HutongGames, LLC 2010-2011. All rights reserved.
+// (c) Copyright HutongGames, LLC 2010-2013. All rights reserved.
 
 using UnityEngine;
 
@@ -9,13 +9,21 @@ namespace HutongGames.PlayMaker.Actions
 	public class BuildString : FsmStateAction
 	{
 		[RequiredField]
+        [Tooltip("Array of Strings to combine.")]
 		public FsmString[] stringParts;
-		public FsmString separator;
+
+        [Tooltip("Separator to insert between each String. E.g. space character.")]
+        public FsmString separator;
+
 		[RequiredField]
 		[UIHint(UIHint.Variable)]
-		public FsmString storeResult;
-		public bool everyFrame;
-	    private string result;
+		[Tooltip("Store the final String in a variable.")]
+        public FsmString storeResult;
+
+        [Tooltip("Repeat every frame while the state is active.")]
+        public bool everyFrame;
+	    
+        private string result;
 
 		public override void Reset()
 		{
@@ -30,7 +38,9 @@ namespace HutongGames.PlayMaker.Actions
 			DoBuildString();
 			
 			if (!everyFrame)
-				Finish();
+			{
+			    Finish();
+			}
 		}
 
 		public override void OnUpdate()

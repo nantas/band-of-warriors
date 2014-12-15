@@ -1,4 +1,4 @@
-// (c) Copyright HutongGames, LLC 2010-2011. All rights reserved.
+// (c) Copyright HutongGames, LLC 2010-2013. All rights reserved.
 
 using UnityEngine;
 
@@ -10,12 +10,19 @@ namespace HutongGames.PlayMaker.Actions
 	{
 		[RequiredField]
 		[HasFloatSlider(0,4)]
+		[Tooltip("Scales time: 1 = normal, 0.5 = half speed, 2 = double speed.")]
 		public FsmFloat timeScale;
+
+		[Tooltip("Adjust the fixed physics time step to match the time scale.")]
+		public FsmBool adjustFixedDeltaTime;
+
+		[Tooltip("Repeat every frame. Useful when animating the value.")]
 		public bool everyFrame;
 
 		public override void Reset()
 		{
 			timeScale = 1.0f;
+			adjustFixedDeltaTime = true;
 			everyFrame = false;
 		}
 		
@@ -24,7 +31,9 @@ namespace HutongGames.PlayMaker.Actions
 			DoTimeScale();
 			
 			if (!everyFrame)
+			{
 				Finish();
+			}
 		}
 		public override void OnUpdate()
 		{
@@ -35,7 +44,7 @@ namespace HutongGames.PlayMaker.Actions
 		{
 			Time.timeScale = timeScale.Value;
 			
-			//TODO: found 0.02 in the docs... can this be set anywhere else?
+			//TODO: how to get the user set default value?
 			Time.fixedDeltaTime = 0.02f * Time.timeScale;
 		}
 	}

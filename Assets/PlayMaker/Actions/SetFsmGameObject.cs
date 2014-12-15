@@ -1,4 +1,4 @@
-// (c) Copyright HutongGames, LLC 2010-2011. All rights reserved.
+// (c) Copyright HutongGames, LLC 2010-2013. All rights reserved.
 // JeanFabre: This version allow setting the variable to null. 
 
 using UnityEngine;
@@ -10,6 +10,7 @@ namespace HutongGames.PlayMaker.Actions
 	public class SetFsmGameObject : FsmStateAction
 	{
 		[RequiredField]
+        [Tooltip("The GameObject that owns the FSM.")]
 		public FsmOwnerDefault gameObject;
 		
 		[UIHint(UIHint.FsmName)]
@@ -18,11 +19,14 @@ namespace HutongGames.PlayMaker.Actions
 		
 		[RequiredField]
 		[UIHint(UIHint.FsmGameObject)]
+        [Tooltip("The name of the FSM variable.")]
 		public FsmString variableName;
-		
+
+        [Tooltip("Set the value of the variable.")]
 		public FsmGameObject setValue;
-		
-		public bool everyFrame;
+
+        [Tooltip("Repeat every frame. Useful if the value is changing.")]
+        public bool everyFrame;
 
 		private GameObject goLastFrame;
 		private PlayMakerFSM fsm;
@@ -67,13 +71,16 @@ namespace HutongGames.PlayMaker.Actions
 				return;
 			}
 			
-			var fsmGameObject = fsm.FsmVariables.GetFsmGameObject(variableName.Value);
+			var fsmGameObject = fsm.FsmVariables.FindFsmGameObject(variableName.Value);
 			
 			if (fsmGameObject != null)
-
 			{
 				fsmGameObject.Value = setValue == null ? null : setValue.Value;
 			}
+            else
+            {
+                LogWarning("Could not find variable: " + variableName.Value);
+            }
 		}
 
 		public override void OnUpdate()

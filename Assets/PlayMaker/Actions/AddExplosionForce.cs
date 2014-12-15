@@ -1,4 +1,4 @@
-// (c) copyright Hutong Games, LLC 2010-2011. All rights reserved.
+// (c) Copyright HutongGames, LLC 2010-2013. All rights reserved.
 
 using UnityEngine;
 
@@ -10,18 +10,29 @@ namespace HutongGames.PlayMaker.Actions
 	{
 		[RequiredField]
 		[CheckForComponent(typeof(Rigidbody))]
+        [Tooltip("The GameObject to add the explosion force to.")]
 		public FsmOwnerDefault gameObject;
-		[RequiredField]
-		[Tooltip("Hint: this is often the position returned from a GetCollisionInfo action.")]
+		
+        [RequiredField]
+        [Tooltip("The center of the explosion. Hint: this is often the position returned from a GetCollisionInfo action.")]
 		public FsmVector3 center;
-		[RequiredField]
+
+        [RequiredField]
+        [Tooltip("The strength of the explosion.")]
 		public FsmFloat force;
-		[RequiredField]
+		
+        [RequiredField]
+        [Tooltip("The radius of the explosion. Force falls off linearly with distance.")]
 		public FsmFloat radius;
-		[Tooltip("Explosions often look better when given an extra artificial upward force.")]
+
+        [Tooltip("Applies the force as if it was applied from beneath the object. This is useful since explosions that throw things up instead of pushing things to the side look cooler. A value of 2 will apply a force as if it is applied from 2 meters below while not changing the actual explosion position.")]
 		public FsmFloat upwardsModifier;
-		public ForceMode forceMode;
-		public bool everyFrame;
+		
+        [Tooltip("The type of force to apply. See Unity Physics docs.")]
+        public ForceMode forceMode;
+		
+        [Tooltip("Repeat every frame while the state is active.")]
+        public bool everyFrame;
 
 		public override void Reset()
 		{
@@ -32,12 +43,19 @@ namespace HutongGames.PlayMaker.Actions
 			everyFrame = false;
 		}
 
+        public override void Awake()
+        {
+            Fsm.HandleFixedUpdate = true;
+        }
+
 		public override void OnEnter()
 		{
 			DoAddExplosionForce();
 			
 			if (!everyFrame)
-				Finish();		
+			{
+			    Finish();
+			}		
 		}
 
 		public override void OnFixedUpdate()
@@ -47,10 +65,11 @@ namespace HutongGames.PlayMaker.Actions
 
 		void DoAddExplosionForce()
 		{
-			GameObject go = gameObject.OwnerOption == OwnerDefaultOption.UseOwner ? Owner : gameObject.GameObject.Value;
-			if (go == null) return;
-			if (center == null) return;
-			if (go.rigidbody == null) return;
+			var go = gameObject.OwnerOption == OwnerDefaultOption.UseOwner ? Owner : gameObject.GameObject.Value;
+            if (go == null || center == null || go.rigidbody == null)
+			{
+			    return;
+			}
 
 			go.rigidbody.AddExplosionForce(force.Value, center.Value, radius.Value, upwardsModifier.Value, forceMode);
 		}

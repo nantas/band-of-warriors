@@ -1,4 +1,4 @@
-// (c) Copyright HutongGames, LLC 2010-2011. All rights reserved.
+// (c) Copyright HutongGames, LLC 2010-2013. All rights reserved.
 
 using UnityEngine;
 
@@ -10,8 +10,10 @@ namespace HutongGames.PlayMaker.Actions
 	{
 		[Tooltip("Note: If device is physically situated between discrete positions, as when (for example) rotated diagonally, system will report Unknown orientation.")]
 		public DeviceOrientation orientation;
+
 		[Tooltip("The event to send if the device orientation matches Orientation.")]
 		public FsmEvent sendEvent;
+
 		[Tooltip("Repeat every frame. Useful if you want to wait for the orientation to be true.")]
 		public bool everyFrame;
 		
@@ -27,7 +29,9 @@ namespace HutongGames.PlayMaker.Actions
 			DoDetectDeviceOrientation();
 			
 			if (!everyFrame)
-				Finish();
+			{
+			    Finish();
+			}
 		}
 		
 
@@ -39,7 +43,9 @@ namespace HutongGames.PlayMaker.Actions
 		void DoDetectDeviceOrientation()
 		{
 			if (Input.deviceOrientation == orientation)
-				Fsm.Event(sendEvent);
+			{
+			    Fsm.Event(sendEvent);
+			}
 		}
 		
 	}

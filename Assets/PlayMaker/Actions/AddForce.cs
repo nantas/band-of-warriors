@@ -1,4 +1,4 @@
-// (c) Copyright HutongGames, LLC 2010-2011. All rights reserved.
+// (c) Copyright HutongGames, LLC 2010-2013. All rights reserved.
 
 using UnityEngine;
 
@@ -10,6 +10,7 @@ namespace HutongGames.PlayMaker.Actions
 	{
 		[RequiredField]
 		[CheckForComponent(typeof(Rigidbody))]
+        [Tooltip("The GameObject to apply the force to.")]
 		public FsmOwnerDefault gameObject;
 		
 		[UIHint(UIHint.Variable)]
@@ -19,21 +20,24 @@ namespace HutongGames.PlayMaker.Actions
 		[UIHint(UIHint.Variable)]
 		[Tooltip("A Vector3 force to add. Optionally override any axis with the X, Y, Z parameters.")]
 		public FsmVector3 vector;
-		
-		[Tooltip("To leave unchanged, set to 'None'.")]
+
+        [Tooltip("Force along the X axis. To leave unchanged, set to 'None'.")]
 		public FsmFloat x;
-		
-		[Tooltip("To leave unchanged, set to 'None'.")]
+
+        [Tooltip("Force along the Y axis. To leave unchanged, set to 'None'.")]
 		public FsmFloat y;
-		
-		[Tooltip("To leave unchanged, set to 'None'.")]
+
+        [Tooltip("Force along the Z axis. To leave unchanged, set to 'None'.")]
 		public FsmFloat z;
-		
+
+        [Tooltip("Apply the force in world or local space.")]
 		public Space space;
-		
-		public ForceMode forceMode;
-		
-		public bool everyFrame;
+
+        [Tooltip("The type of force to apply. See Unity Physics docs.")]
+        public ForceMode forceMode;
+
+        [Tooltip("Repeat every frame while the state is active.")]
+        public bool everyFrame;
 
 		public override void Reset()
 		{
@@ -48,6 +52,11 @@ namespace HutongGames.PlayMaker.Actions
 			forceMode = ForceMode.Force;
 			everyFrame = false;
 		}
+
+        public override void Awake()
+        {
+            Fsm.HandleFixedUpdate = true;
+        }
 
 		public override void OnEnter()
 		{
@@ -92,16 +101,16 @@ namespace HutongGames.PlayMaker.Actions
 			{
 				if (!atPosition.IsNone)
 				{
-					go.rigidbody.AddForceAtPosition(force, atPosition.Value);
+					go.rigidbody.AddForceAtPosition(force, atPosition.Value, forceMode);
 				}
 				else
 				{
-					go.rigidbody.AddForce(force);
+					go.rigidbody.AddForce(force, forceMode);
 				}
 			}
 			else
 			{
-				go.rigidbody.AddRelativeForce(force);
+				go.rigidbody.AddRelativeForce(force,forceMode);
 			}
 		}
 

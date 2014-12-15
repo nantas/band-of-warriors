@@ -1,4 +1,4 @@
-// (c) Copyright HutongGames, LLC 2010-2011. All rights reserved.
+// (c) Copyright HutongGames, LLC 2010-2013. All rights reserved.
 
 using UnityEngine;
 
@@ -25,12 +25,16 @@ namespace HutongGames.PlayMaker.Actions
 		[Tooltip("Get the distance along the ray to the hit point and store it in a variable.")]
 		public FsmFloat distance;
 
+        [Tooltip("Repeat every frame.")]
+	    public bool everyFrame;
+
 		public override void Reset()
 		{
 			gameObjectHit = null;
 			point = null;
 			normal = null;
 			distance = null;
+		    everyFrame = false;
 		}
 
 		void StoreRaycastInfo()
@@ -48,7 +52,15 @@ namespace HutongGames.PlayMaker.Actions
 		{
 			StoreRaycastInfo();
 			
-			Finish();
+            if (!everyFrame)
+            {
+                Finish();
+            }
 		}
+
+        public override void OnUpdate()
+        {
+            StoreRaycastInfo();
+        }
 	}
 }

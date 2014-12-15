@@ -1,4 +1,4 @@
-﻿// (c) Copyright HutongGames, LLC 2010-2011. All rights reserved.
+﻿// (c) Copyright HutongGames, LLC 2010-2013. All rights reserved.
 
 using UnityEngine;
 
@@ -10,21 +10,28 @@ namespace HutongGames.PlayMaker.Actions
 	{
 		[RequiredField]
 		[CheckForComponent(typeof(CharacterController))]
+        [Tooltip("The GameObject that owns the CharacterController.")]
 		public FsmOwnerDefault gameObject;
 
 		[Tooltip("The height of the character's capsule.")]
 		public FsmFloat height;
+
 		[Tooltip("The radius of the character's capsule.")]
 		public FsmFloat radius;
+
 		[Tooltip("The character controllers slope limit in degrees.")]
 		public FsmFloat slopeLimit;
+
 		[Tooltip("The character controllers step offset in meters.")]
 		public FsmFloat stepOffset;
+
 		[Tooltip("The center of the character's capsule relative to the transform's position")]
 		public FsmVector3 center;
+
 		[Tooltip("Should other rigidbodies or character controllers collide with this character controller (By default always enabled).")]
 		public FsmBool detectCollisions;
 
+        [Tooltip("Repeat every frame while the state is active.")]
 		public bool everyFrame;
 
 		// cache so we can get new controller only when it changes.

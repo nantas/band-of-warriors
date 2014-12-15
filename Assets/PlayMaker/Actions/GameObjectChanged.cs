@@ -1,22 +1,26 @@
-// (c) Copyright HutongGames, LLC 2010-2011. All rights reserved.
+// (c) Copyright HutongGames, LLC 2010-2013. All rights reserved.
 
 using UnityEngine;
 
 namespace HutongGames.PlayMaker.Actions
 {
 	[ActionCategory(ActionCategory.Logic)]
-	[Tooltip("Tests if the value of a game object variable changed. Use this to send an event on change, or store a bool that can be used in other operations.")]
+	[Tooltip("Tests if the value of a GameObject variable changed. Use this to send an event on change, or store a bool that can be used in other operations.")]
 	public class GameObjectChanged : FsmStateAction
 	{
 		[RequiredField]
 		[UIHint(UIHint.Variable)]
+        [Tooltip("The GameObject variable to watch for a change.")]
 		public FsmGameObject gameObjectVariable;
-		[RequiredField]
+
+        [Tooltip("Event to send if the variable changes.")]
 		public FsmEvent changedEvent;
+
 		[UIHint(UIHint.Variable)]
+        [Tooltip("Set to True if the variable changes.")]
 		public FsmBool storeResult;
 		
-		GameObject previousValue;
+		private GameObject previousValue;
 
 		public override void Reset()
 		{

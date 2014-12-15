@@ -1,4 +1,4 @@
-// (c) Copyright HutongGames, LLC 2010-2011. All rights reserved.
+// (c) Copyright HutongGames, LLC 2010-2013. All rights reserved.
 
 using UnityEngine;
 
@@ -13,16 +13,21 @@ namespace HutongGames.PlayMaker.Actions
 		[Title("Game Object")]
 		[Tooltip("A Game Object variable to compare.")]
 		public FsmOwnerDefault gameObjectVariable;
+
 		[RequiredField]
 		[Tooltip("Compare the variable with this Game Object")]
 		public FsmGameObject compareTo;
+
 		[Tooltip("Send this event if Game Objects are equal")]
 		public FsmEvent equalEvent;
+
 		[Tooltip("Send this event if Game Objects are not equal")]
 		public FsmEvent notEqualEvent;
+
 		[UIHint(UIHint.Variable)]
 		[Tooltip("Store the result of the check in a Bool Variable. (True if equal, false if not equal).")]
 		public FsmBool storeResult;
+
 		[Tooltip("Repeat every frame. Useful if you're waiting for a true or false result.")]
 		public bool everyFrame;
 

@@ -1,4 +1,4 @@
-// (c) Copyright HutongGames, LLC 2010-2011. All rights reserved.
+// (c) Copyright HutongGames, LLC 2010-2013. All rights reserved.
 
 using UnityEngine;
 
@@ -50,7 +50,7 @@ namespace HutongGames.PlayMaker.Actions
 			}
 			else
 			{
-				gameObjects = (GameObject[])Object.FindSceneObjectsOfType(typeof(GameObject));
+                gameObjects = (GameObject[])Object.FindObjectsOfType(typeof(GameObject));
 			}
 
 			if (gameObjects.Length > 0)

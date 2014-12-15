@@ -1,4 +1,4 @@
-// (c) Copyright HutongGames, LLC 2010-2011. All rights reserved.
+// (c) Copyright HutongGames, LLC 2010-2013. All rights reserved.
 
 using UnityEngine;
 
@@ -9,10 +9,15 @@ namespace HutongGames.PlayMaker.Actions
 	public class GetButtonUp : FsmStateAction
 	{
 		[RequiredField]
+        [Tooltip("The name of the button. Set in the Unity Input Manager.")]
 		public FsmString buttonName;
+
+        [Tooltip("Event to send if the button is released.")]
 		public FsmEvent sendEvent;
+
 		[UIHint(UIHint.Variable)]
-		public FsmBool storeResult;
+		[Tooltip("Set to True if the button is released.")]
+        public FsmBool storeResult;
 		
 		public override void Reset()
 		{
@@ -23,10 +28,12 @@ namespace HutongGames.PlayMaker.Actions
 
 		public override void OnUpdate()
 		{
-			bool buttonUp = Input.GetButtonUp(buttonName.Value);
+			var buttonUp = Input.GetButtonUp(buttonName.Value);
 			
-			if(buttonUp)
-				Fsm.Event(sendEvent);
+			if (buttonUp)
+			{
+			    Fsm.Event(sendEvent);
+			}
 			
 			storeResult.Value = buttonUp;
 		}

@@ -1,4 +1,4 @@
-// (c) Copyright HutongGames, LLC 2010-2011. All rights reserved.
+// (c) Copyright HutongGames, LLC 2010-2013. All rights reserved.
 
 using UnityEngine;
 
@@ -9,22 +9,26 @@ namespace HutongGames.PlayMaker.Actions
 	public class FsmStateSwitch : FsmStateAction
 	{
 		[RequiredField]
+        [Tooltip("The GameObject that owns the FSM.")]
 		public FsmGameObject gameObject;
+
 		[UIHint(UIHint.FsmName)]
-		[Tooltip("Optional name of Fsm on Game Object")]
-		public FsmString fsmName;
-		[CompoundArray("State Switches", "Compare State", "Send Event")]
+		[Tooltip("Optional name of Fsm on GameObject. Useful if there is more than one FSM on the GameObject.")]
+        public FsmString fsmName;
+
+        [CompoundArray("State Switches", "Compare State", "Send Event")]
 		public FsmString[] compareTo;
 		public FsmEvent[] sendEvent;
-		[Tooltip("Repeat")]
+		
+        [Tooltip("Repeat every frame. Useful if you're waiting for a particular result.")]
 		public bool everyFrame;
 		
 		// store game object last frame so we know when it's changed
 		// and have to cache a new fsm
-		GameObject previousGo;
+        private GameObject previousGo;
 		
 		// cach the fsm component since that's an expensive operation
-		PlayMakerFSM fsm;
+        private PlayMakerFSM fsm;
 		
 		public override void Reset()
 		{
@@ -40,7 +44,9 @@ namespace HutongGames.PlayMaker.Actions
 			DoFsmStateSwitch();
 			
 			if (!everyFrame)
-				Finish();
+			{
+			    Finish();
+			}
 		}
 
 		public override void OnUpdate()
@@ -50,8 +56,11 @@ namespace HutongGames.PlayMaker.Actions
 		
 		void DoFsmStateSwitch()
 		{
-			GameObject go = gameObject.Value;
-			if (go == null) return;
+			var go = gameObject.Value;
+			if (go == null)
+			{
+			    return;
+			}
 			
 			if (go != previousGo)
 			{
@@ -59,11 +68,14 @@ namespace HutongGames.PlayMaker.Actions
 				previousGo = go;
 			}
 			
-			if (fsm == null) return;
+			if (fsm == null)
+			{
+			    return;
+			}
 			
-			string activeStateName = fsm.ActiveStateName;
+			var activeStateName = fsm.ActiveStateName;
 			
-			for (int i = 0; i < compareTo.Length; i++) 
+			for (var i = 0; i < compareTo.Length; i++) 
 			{
 				if (activeStateName == compareTo[i].Value)
 				{

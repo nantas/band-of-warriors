@@ -1,4 +1,4 @@
-// (c) Copyright HutongGames, LLC 2010-2011. All rights reserved.
+// (c) Copyright HutongGames, LLC 2010-2013. All rights reserved.
 
 using UnityEngine;
 
@@ -92,7 +92,7 @@ namespace HutongGames.PlayMaker.Actions
 			Vector3 lookAtPos;
 			if (goTarget != null)
 			{
-				lookAtPos = !targetPosition.IsNone ? 
+				lookAtPos = !targetPosition.IsNone ?
 					goTarget.transform.TransformPoint(targetPosition.Value) : 
 					goTarget.transform.position;
 			}
@@ -107,14 +107,14 @@ namespace HutongGames.PlayMaker.Actions
 			}
 			
 			// smooth look at
-			
-			var diff = lookAtPos - go.transform.position;
-			if (diff.sqrMagnitude > 0)
+
+            var diff = lookAtPos - go.transform.position;
+            if (diff != Vector3.zero && diff.sqrMagnitude > 0)
 			{
 				desiredRotation = Quaternion.LookRotation(diff, upVector.IsNone ? Vector3.up : upVector.Value);
 			}
 
-			lastRotation = Quaternion.Slerp(lastRotation, desiredRotation, speed.Value * Time.deltaTime);	
+			lastRotation = Quaternion.Slerp(lastRotation, desiredRotation, speed.Value * Time.deltaTime);
 			go.transform.rotation = lastRotation;
 			
 			// debug line to target

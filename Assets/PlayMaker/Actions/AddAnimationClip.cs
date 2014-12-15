@@ -1,4 +1,4 @@
-// (c) copyright Hutong Games, LLC 2010-2011. All rights reserved.
+// (c) Copyright HutongGames, LLC 2010-2013. All rights reserved.
 
 using UnityEngine;
 
@@ -10,11 +10,12 @@ namespace HutongGames.PlayMaker.Actions
 	{
 		[RequiredField]
 		[CheckForComponent(typeof(Animation))]
+        [Tooltip("The GameObject to add the Animation Clip to.")]
 		public FsmOwnerDefault gameObject;
 		
 		[RequiredField]
 		[ObjectType(typeof(AnimationClip))]
-		[Tooltip("NOTE: Make sure the clip is compatible with the object's hierarchy.")]
+		[Tooltip("The animation clip to add. NOTE: Make sure the clip is compatible with the object's hierarchy.")]
 		public FsmObject animationClip;
 		
 		[RequiredField]

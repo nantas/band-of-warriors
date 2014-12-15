@@ -1,11 +1,11 @@
-// (c) Copyright HutongGames, LLC 2010-2011. All rights reserved.
+// (c) Copyright HutongGames, LLC 2010-2013. All rights reserved.
 
 using UnityEngine;
 
 namespace HutongGames.PlayMaker.Actions
 {
 	[ActionCategory(ActionCategory.Camera)]
-	[Tooltip("Transforms position from world space into screen space.")]
+	[Tooltip("Transforms position from world space into screen space. NOTE: Uses the MainCamera!")]
 	public class WorldToScreenPoint : FsmStateAction
 	{
 		[UIHint(UIHint.Variable)]
@@ -49,7 +49,9 @@ namespace HutongGames.PlayMaker.Actions
 			DoWorldToScreenPoint();
 			
 			if (!everyFrame)
-				Finish();		
+			{
+				Finish();
+			}		
 		}
 
 		public override void OnUpdate()
@@ -59,7 +61,14 @@ namespace HutongGames.PlayMaker.Actions
 
 		void DoWorldToScreenPoint()
 		{
-			Vector3 position = Vector3.zero;
+			if (Camera.main == null)
+			{
+				LogError("No MainCamera defined!");
+				Finish();
+				return;
+			}
+
+			var position = Vector3.zero;
 
 			if(!worldPosition.IsNone) position = worldPosition.Value;
 

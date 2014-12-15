@@ -1,4 +1,4 @@
-﻿// (c) Copyright HutongGames, LLC 2010-2011. All rights reserved.
+﻿// (c) Copyright HutongGames, LLC 2010-2013. All rights reserved.
 
 using UnityEngine;
 
@@ -39,8 +39,8 @@ namespace HutongGames.PlayMaker.Actions
 		}
 
 		void DoRebuildTextures()
-		{
-#if !(UNITY_IPHONE || UNITY_ANDROID || UNITY_NACL)
+        {
+#if !(UNITY_IPHONE || UNITY_ANDROID || UNITY_NACL || UNITY_FLASH || UNITY_PS3 || UNITY_BLACKBERRY || UNITY_METRO || UNITY_WP8)
 	
 			var substance = substanceMaterial.Value as ProceduralMaterial;
 
@@ -60,6 +60,6 @@ namespace HutongGames.PlayMaker.Actions
 			}
 
 #endif
-		}
+        }
 	}
 }

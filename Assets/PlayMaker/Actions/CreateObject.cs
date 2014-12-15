@@ -1,4 +1,4 @@
-// (c) Copyright HutongGames, LLC 2010-2011. All rights reserved.
+// (c) Copyright HutongGames, LLC 2010-2013. All rights reserved.
 
 using UnityEngine;
 
@@ -73,8 +73,9 @@ namespace HutongGames.PlayMaker.Actions
 					{
 						spawnRotation = rotation.Value;
 					}
-				}
+                }
 
+#if !(UNITY_FLASH || UNITY_NACL || UNITY_METRO || UNITY_WP8)
 				GameObject newObject;
 
 				if (!networkInstantiate.Value)
@@ -85,8 +86,10 @@ namespace HutongGames.PlayMaker.Actions
 				{
 					newObject = (GameObject)Network.Instantiate(go, spawnPosition, Quaternion.Euler(spawnRotation), networkGroup.Value);
 				}
-				
-				storeObject.Value = newObject;
+#else
+                var newObject = (GameObject)Object.Instantiate(go, spawnPosition, Quaternion.Euler(spawnRotation));
+#endif
+                storeObject.Value = newObject;
 				
 				//newObject.transform.position = spawnPosition;
 				//newObject.transform.eulerAngles = spawnRotation;

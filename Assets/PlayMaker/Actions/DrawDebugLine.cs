@@ -1,4 +1,4 @@
-// (c) Copyright HutongGames, LLC 2010-2011. All rights reserved.
+// (c) Copyright HutongGames, LLC 2010-2013. All rights reserved.
 
 using UnityEngine;
 
@@ -8,16 +8,16 @@ namespace HutongGames.PlayMaker.Actions
 	[Tooltip("Draws a line from a Start point to an End point. Specify the points as Game Objects or Vector3 world positions. If both are specified, position is used as a local offset from the Object's position.")]
 	public class DrawDebugLine : FsmStateAction
 	{
-		[Tooltip("From a Game Object.")]
+		[Tooltip("Draw line from a GameObject.")]
 		public FsmGameObject fromObject;
 		
-		[Tooltip("From a world position, or local offset from Game Object if provided.")]
+		[Tooltip("Draw line from a world position, or local offset from GameObject if provided.")]
 		public FsmVector3 fromPosition;
 		
-		[Tooltip("To a Game Object.")]
+		[Tooltip("Draw line to a GameObject.")]
 		public FsmGameObject toObject;
 		
-		[Tooltip("To a world position, or local offset from Game Object if provided.")]
+		[Tooltip("Draw line to a world position, or local offset from GameObject if provided.")]
 		public FsmVector3 toPosition;
 		
 		[Tooltip("The color of the line.")]

@@ -1,4 +1,4 @@
-// (c) Copyright HutongGames, LLC 2010-2011. All rights reserved.
+// (c) Copyright HutongGames, LLC 2010-2013. All rights reserved.
 
 using System.Collections;
 using UnityEngine;
@@ -10,6 +10,7 @@ namespace HutongGames.PlayMaker.Actions
 	public class DontDestroyOnLoad : FsmStateAction
 	{
 		[RequiredField]
+        [Tooltip("GameObject to mark as DontDestroyOnLoad.")]
 		public FsmOwnerDefault gameObject;
 
 		public override void Reset()

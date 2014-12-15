@@ -76,7 +76,11 @@ public class Game : MonoBehaviour {
         playerHP = maxPlayerHP;
         currentExp = 0;
         curCharIndex = 1;
-        AcceptInput(true);
+        theGamePanel.charSelectPanel.transform.position 
+            = new Vector3 ( Camera.main.transform.position.x , 0, theGamePanel.charSelectPanel.transform.position.z );
+        AcceptInput(false);
+        theGamePanel.charSelectPanel.enabled = true;
+        // AcceptInput(true);
 	}
 	
 	// Update is called once per frame

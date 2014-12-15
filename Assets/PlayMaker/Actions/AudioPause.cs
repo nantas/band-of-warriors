@@ -1,4 +1,4 @@
-// (c) Copyright HutongGames, LLC 2010-2011. All rights reserved.
+// (c) Copyright HutongGames, LLC 2010-2013. All rights reserved.
 
 using UnityEngine;
 
@@ -10,7 +10,8 @@ namespace HutongGames.PlayMaker.Actions
 	{
 		[RequiredField]
 		[CheckForComponent(typeof(AudioSource))]
-		public FsmOwnerDefault gameObject;
+        [Tooltip("The GameObject with an Audio Source component.")]
+        public FsmOwnerDefault gameObject;
 
 		public override void Reset()
 		{

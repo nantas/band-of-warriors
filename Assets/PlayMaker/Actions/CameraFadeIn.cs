@@ -1,4 +1,4 @@
-// (c) Copyright HutongGames, LLC 2010-2011. All rights reserved.
+// (c) Copyright HutongGames, LLC 2010-2013. All rights reserved.
 
 using UnityEngine;
 
@@ -9,11 +9,17 @@ namespace HutongGames.PlayMaker.Actions
 	public class CameraFadeIn : FsmStateAction
 	{
 		[RequiredField]
+        [Tooltip("Color to fade from. E.g., Fade up from black.")]
 		public FsmColor color;
+
 		[RequiredField]
 		[HasFloatSlider(0,10)]
+        [Tooltip("Fade in time in seconds.")]
 		public FsmFloat time;
+
+        [Tooltip("Event to send when finished.")]
 		public FsmEvent finishEvent;
+
 		[Tooltip("Ignore TimeScale. Useful if the game is paused.")]
 		public bool realTime;
 		
@@ -51,7 +57,9 @@ namespace HutongGames.PlayMaker.Actions
 			if (currentTime > time.Value)
 			{
 				if (finishEvent != null)
-					Fsm.Event(finishEvent);
+				{
+				    Fsm.Event(finishEvent);
+				}
 				
 				Finish();
 			}
@@ -59,7 +67,7 @@ namespace HutongGames.PlayMaker.Actions
 		
 		public override void OnGUI()
 		{
-			Color guiColor = GUI.color;
+			var guiColor = GUI.color;
 			GUI.color = colorLerp;
 			GUI.DrawTexture(new Rect(0,0,Screen.width, Screen.height), ActionHelpers.WhiteTexture);
 			GUI.color = guiColor;

@@ -1,4 +1,6 @@
-// (c) Copyright HutongGames, LLC 2010-2011. All rights reserved.
+// (c) Copyright HutongGames, LLC 2010-2013. All rights reserved.
+
+#if !(UNITY_FLASH || UNITY_NACL || UNITY_METRO || UNITY_WP8)
 
 using UnityEngine;
 
@@ -84,3 +86,5 @@ namespace HutongGames.PlayMaker.Actions
 
 	}
 }
+
+#endif

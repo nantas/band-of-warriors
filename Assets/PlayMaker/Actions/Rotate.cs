@@ -1,4 +1,4 @@
-// (c) Copyright HutongGames, LLC 2010-2011. All rights reserved.
+// (c) Copyright HutongGames, LLC 2010-2013. All rights reserved.
 
 using UnityEngine;
 
@@ -36,6 +36,9 @@ namespace HutongGames.PlayMaker.Actions
 		
 		[Tooltip("Perform the rotation in LateUpdate. This is useful if you want to override the rotation of objects that are animated or otherwise rotated in Update.")]
 		public bool lateUpdate;
+
+        [Tooltip("Perform the rotation in FixedUpdate. This is useful when working with rigid bodies and physics.")]
+        public bool fixedUpdate;	
 		
 		public override void Reset()
 		{
@@ -49,11 +52,17 @@ namespace HutongGames.PlayMaker.Actions
 			perSecond = false;
 			everyFrame = true;
 			lateUpdate = false;
+		    fixedUpdate = false;
 		}
+
+        public override void Awake()
+        {
+            Fsm.HandleFixedUpdate = true;
+        }
 
 		public override void OnEnter()
 		{
-			if(!everyFrame && !lateUpdate)
+			if(!everyFrame && !lateUpdate && !fixedUpdate)
 			{
 				DoRotate();
 				Finish();
@@ -62,7 +71,7 @@ namespace HutongGames.PlayMaker.Actions
 
 		public override void OnUpdate()
 		{
-			if (!lateUpdate)
+			if (!lateUpdate && !fixedUpdate)
 			{
 				DoRotate();
 			}
@@ -80,6 +89,19 @@ namespace HutongGames.PlayMaker.Actions
 				Finish();
 			}
 		}
+
+        public override void OnFixedUpdate()
+        {
+            if (fixedUpdate)
+            {
+                DoRotate();
+            }
+
+            if (!everyFrame)
+            {
+                Finish();
+            }
+        }
 
 		void DoRotate()
 		{

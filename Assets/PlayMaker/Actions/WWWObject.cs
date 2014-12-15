@@ -1,4 +1,6 @@
-﻿// (c) Copyright HutongGames, LLC 2010-2011. All rights reserved.
+﻿// (c) Copyright HutongGames, LLC 2010-2013. All rights reserved.
+
+#if !(UNITY_IPHONE || UNITY_ANDROID || UNITY_FLASH || UNITY_PS3 || UNITY_BLACKBERRY || UNITY_WP8)
 
 using UnityEngine;
 
@@ -22,14 +24,11 @@ namespace HutongGames.PlayMaker.Actions
 		[Tooltip("Gets a Texture from the url.")]
 		public FsmTexture storeTexture;
 
-#if !(UNITY_IPHONE || UNITY_ANDROID || UNITY_FLASH)
-
-		[UIHint(UIHint.Variable)]
+        [UIHint(UIHint.Variable)]
 		[ObjectType(typeof(MovieTexture))]
 		[Tooltip("Gets a Texture from the url.")]
 		public FsmObject storeMovieTexture;
 
-#endif
 		[UIHint(UIHint.Variable)]
 		[Tooltip("Error message if there was an error during the download.")]
 		public FsmString errorString;
@@ -95,10 +94,7 @@ namespace HutongGames.PlayMaker.Actions
 				storeText.Value = wwwObject.text;
 				storeTexture.Value = wwwObject.texture;
 
-#if !(UNITY_IPHONE || UNITY_ANDROID || UNITY_FLASH)
-
-				storeMovieTexture.Value = wwwObject.movie;
-#endif
+                storeMovieTexture.Value = wwwObject.movie;
 
 				errorString.Value = wwwObject.error;
 
@@ -109,3 +105,5 @@ namespace HutongGames.PlayMaker.Actions
 		}
 	}
 }
+
+#endif

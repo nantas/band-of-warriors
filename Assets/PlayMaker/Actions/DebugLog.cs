@@ -1,4 +1,4 @@
-// (c) Copyright HutongGames, LLC 2010-2011. All rights reserved.
+// (c) Copyright HutongGames, LLC 2010-2013. All rights reserved.
 
 namespace HutongGames.PlayMaker.Actions
 {
@@ -6,7 +6,10 @@ namespace HutongGames.PlayMaker.Actions
 	[Tooltip("Sends a log message to the PlayMaker Log Window.")]
 	public class DebugLog : FsmStateAction
 	{
+        [Tooltip("Info, Warning, or Error.")]
 		public LogLevel logLevel;
+
+        [Tooltip("Text to print to the PlayMaker log window.")]
 		public FsmString text;
 
 		public override void Reset()

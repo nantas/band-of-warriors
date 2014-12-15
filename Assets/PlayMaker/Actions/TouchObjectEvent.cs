@@ -1,4 +1,4 @@
-﻿// (c) Copyright HutongGames, LLC 2010-2011. All rights reserved.
+﻿// (c) Copyright HutongGames, LLC 2010-2013. All rights reserved.
 
 using System;
 using UnityEngine;
@@ -6,7 +6,7 @@ using UnityEngine;
 namespace HutongGames.PlayMaker.Actions
 {
 	[ActionCategory(ActionCategory.Device)]
-	[Tooltip("Sends events when an object is touched. Optionally filter by a fingerID.")]
+	[Tooltip("Sends events when an object is touched. Optionally filter by a fingerID. NOTE: Uses the MainCamera!")]
 	public class TouchObjectEvent : FsmStateAction
 	{
 		[RequiredField]
@@ -71,6 +71,13 @@ namespace HutongGames.PlayMaker.Actions
 
 		public override void OnUpdate()
 		{
+			if (Camera.main == null)
+			{
+				LogError("No MainCamera defined!");
+				Finish();
+				return;
+			}
+
 			if (Input.touchCount > 0)
 			{
 				var go = Fsm.GetOwnerDefaultTarget(gameObject);

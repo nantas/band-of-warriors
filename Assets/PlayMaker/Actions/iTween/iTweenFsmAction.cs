@@ -1,4 +1,4 @@
-// (c) Copyright HutongGames, LLC 2010-2011. All rights reserved.
+// (c) Copyright HutongGames, LLC 2010-2013. All rights reserved.
 
 using UnityEngine;
 using System.Collections.Generic;
@@ -45,6 +45,7 @@ namespace HutongGames.PlayMaker.Actions
 		protected void OnEnteriTween(FsmOwnerDefault anOwner)
 		{
 			GameObject go = Fsm.GetOwnerDefaultTarget(anOwner);
+            if (go == null) return;
 			itweenEvents = (iTweenFSMEvents)go.AddComponent("iTweenFSMEvents");
 			itweenEvents.itweenFSMAction = this;
 			iTweenFSMEvents.itweenIDCount++;
@@ -59,6 +60,7 @@ namespace HutongGames.PlayMaker.Actions
 		
 		protected void OnExitiTween(FsmOwnerDefault anOwner){
 			GameObject go = Fsm.GetOwnerDefaultTarget(anOwner);
+		    if (go == null) return; // iTween can auto-delete sometimes...?
 			if(itweenEvents) GameObject.Destroy(itweenEvents);
 			if(stopOnExit.IsNone) iTween.Stop(go, itweenType);
 			else if(stopOnExit.Value) iTween.Stop(go, itweenType);

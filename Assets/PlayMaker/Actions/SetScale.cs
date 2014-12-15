@@ -1,4 +1,4 @@
-// (c) Copyright HutongGames, LLC 2010-2011. All rights reserved.
+// (c) Copyright HutongGames, LLC 2010-2013. All rights reserved.
 
 using UnityEngine;
 
@@ -9,16 +9,22 @@ namespace HutongGames.PlayMaker.Actions
 	public class SetScale : FsmStateAction
 	{
 		[RequiredField]
+		[Tooltip("The GameObject to scale.")]
 		public FsmOwnerDefault gameObject;
 		
 		[UIHint(UIHint.Variable)]
+		[Tooltip("Use stored Vector3 value, and/or set each axis below.")]
 		public FsmVector3 vector;
 		
 		public FsmFloat x;
 		public FsmFloat y;
 		public FsmFloat z;
-		
+
+		[Tooltip("Repeat every frame.")]
 		public bool everyFrame;
+
+		[Tooltip("Perform in LateUpdate. This is useful if you want to override the position of objects that are animated or otherwise positioned in Update.")]
+		public bool lateUpdate;	
 
 		public override void Reset()
 		{
@@ -29,6 +35,7 @@ namespace HutongGames.PlayMaker.Actions
 			y = new FsmFloat { UseVariable = true };
 			z = new FsmFloat { UseVariable = true };
 			everyFrame = false;
+			lateUpdate = false;
 		}
 
 		public override void OnEnter()
@@ -43,7 +50,23 @@ namespace HutongGames.PlayMaker.Actions
 
 		public override void OnUpdate()
 		{
-			DoSetScale();
+			if (!lateUpdate)
+			{
+				DoSetScale();
+			}
+		}
+
+		public override void OnLateUpdate()
+		{
+			if (lateUpdate)
+			{
+				DoSetScale();
+			}
+
+			if (!everyFrame)
+			{
+				Finish();
+			}
 		}
 
 		void DoSetScale()

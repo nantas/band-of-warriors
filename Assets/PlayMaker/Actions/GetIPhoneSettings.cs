@@ -1,4 +1,4 @@
-// (c) Copyright HutongGames, LLC 2010-2011. All rights reserved.
+// (c) Copyright HutongGames, LLC 2010-2013. All rights reserved.
 
 using UnityEngine;
 
@@ -51,16 +51,9 @@ namespace HutongGames.PlayMaker.Actions
 			getName.Value = SystemInfo.deviceName; //iPhoneSettings.name;
 			getModel.Value = SystemInfo.deviceModel; //iPhoneSettings.model;
 			getSystemName.Value = SystemInfo.operatingSystem; //iPhoneSettings.systemName;
-
-#if UNITY_3_5		
 			getGeneration.Value = iPhone.generation.ToString();
-#else
-			getGeneration.Value = iPhoneSettings.generation.ToString();			
 #endif
-				
-
-#endif			
-			Finish();
+            Finish();
 		}
 	}
 }

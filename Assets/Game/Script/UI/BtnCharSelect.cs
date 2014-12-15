@@ -55,6 +55,7 @@ public class BtnCharSelect : MonoBehaviour {
             = new Vector3 ( charSelectPanel.transform.position.x, 1500.0f, charSelectPanel.transform.position.z );
         charSelectPanel.enabled = false;
         Game.instance.AcceptInput(true);
+        Game.instance.theLevelManager.InvokeStart();
         Time.timeScale = 1.0f;
     }
 

@@ -1,20 +1,30 @@
-// (c) Copyright HutongGames, LLC 2010-2011. All rights reserved.
+// (c) Copyright HutongGames, LLC 2010-2013. All rights reserved.
 
+using System;
 using UnityEngine;
 
 namespace HutongGames.PlayMaker.Actions
 {
 	[ActionCategory(ActionCategory.Physics)]
-	[Tooltip("Detect collisions with Game Objects that have RigidBody components.\nNOTE: The system events, COLLISION ENTER, COLLISION STAY, and COLLISION EXIT are sent automatically on collisions with any object. Use this action to filter collisions by Tag.")]
+	[Tooltip("Detect collisions between the Owner of this FSM and other Game Objects that have RigidBody components.\nNOTE: The system events, COLLISION ENTER, COLLISION STAY, and COLLISION EXIT are sent automatically on collisions with any object. Use this action to filter collisions by Tag.")]
 	public class CollisionEvent : FsmStateAction
 	{
+        [Tooltip("The type of collision to detect.")]
 		public CollisionType collision;
-		[UIHint(UIHint.Tag)]
-		public FsmString collideTag;
-		public FsmEvent sendEvent;
+		
+        [UIHint(UIHint.Tag)]
+		[Tooltip("Filter by Tag.")]
+        public FsmString collideTag;
+		
+        [Tooltip("Event to send if a collision is detected.")]
+        public FsmEvent sendEvent;
+
 		[UIHint(UIHint.Variable)]
+        [Tooltip("Store the GameObject that collided with the Owner of this FSM.")]
 		public FsmGameObject storeCollider;
+
 		[UIHint(UIHint.Variable)]
+        [Tooltip("Store the force of the collision. NOTE: Use Get Collision Info to get more info about the collision.")]
 		public FsmFloat storeForce;
 		
 		public override void Reset()
@@ -24,6 +34,22 @@ namespace HutongGames.PlayMaker.Actions
 			sendEvent = null;
 			storeCollider = null;
 			storeForce = null;
+		}
+
+		public override void Awake()
+		{
+			switch (collision)
+			{
+				case CollisionType.OnCollisionEnter:
+					Fsm.HandleCollisionEnter = true;
+					break;
+				case CollisionType.OnCollisionStay:
+					Fsm.HandleCollisionStay = true;
+					break;
+				case CollisionType.OnCollisionExit:
+					Fsm.HandleCollisionExit = true;
+					break;
+			}
 		}
 
 		void StoreCollisionInfo(Collision collisionInfo)

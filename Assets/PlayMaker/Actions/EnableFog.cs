@@ -1,4 +1,4 @@
-// (c) Copyright HutongGames, LLC 2010-2011. All rights reserved.
+// (c) Copyright HutongGames, LLC 2010-2013. All rights reserved.
 
 using UnityEngine;
 
@@ -8,8 +8,10 @@ namespace HutongGames.PlayMaker.Actions
 	[Tooltip("Enables/Disables Fog in the scene.")]
 	public class EnableFog : FsmStateAction
 	{
-		public FsmBool enableFog;
-		[Tooltip("Repeat every frame. Useful if the Enable Fog setting is changing.")]
+        [Tooltip("Set to True to enable, False to disable.")]
+        public FsmBool enableFog;
+		
+        [Tooltip("Repeat every frame. Useful if the Enable Fog setting is changing.")]
 		public bool everyFrame;
 
 		public override void Reset()

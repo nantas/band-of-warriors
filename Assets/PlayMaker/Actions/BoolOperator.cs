@@ -1,4 +1,4 @@
-// (c) Copyright HutongGames, LLC 2010-2011. All rights reserved.
+// (c) Copyright HutongGames, LLC 2010-2013. All rights reserved.
 
 using UnityEngine;
 namespace HutongGames.PlayMaker.Actions
@@ -16,18 +16,22 @@ namespace HutongGames.PlayMaker.Actions
 		}
 		
 		[RequiredField]
+        [Tooltip("The first Bool variable.")]
 		public FsmBool bool1;
 		
 		[RequiredField]
+        [Tooltip("The second Bool variable.")]
 		public FsmBool bool2;
 		
+        [Tooltip("Boolean Operation.")]
 		public Operation operation;
 		
 		[RequiredField]
 		[UIHint(UIHint.Variable)]
-		
+        [Tooltip("Store the result in a Bool Variable.")]	
 		public FsmBool storeResult;
-		
+
+        [Tooltip("Repeat every frame while the state is active.")]
 		public bool everyFrame;
 
 		public override void Reset()

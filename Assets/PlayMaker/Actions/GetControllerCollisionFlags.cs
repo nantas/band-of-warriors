@@ -1,4 +1,4 @@
-// (c) Copyright HutongGames, LLC 2010-2011. All rights reserved.
+// (c) Copyright HutongGames, LLC 2010-2013. All rights reserved.
 
 using UnityEngine;
 
@@ -10,20 +10,31 @@ namespace HutongGames.PlayMaker.Actions
 	{
 		[RequiredField]
 		[CheckForComponent(typeof(CharacterController))]
+        [Tooltip("The GameObject with a Character Controller component.")]
 		public FsmOwnerDefault gameObject;
+
 		[UIHint(UIHint.Variable)]
-		public FsmBool isGrounded;
+        [Tooltip("True if the Character Controller capsule is on the ground")]
+        public FsmBool isGrounded;
+
 		[UIHint(UIHint.Variable)]
-		public FsmBool none;
+        [Tooltip("True if no collisions in last move.")]
+        public FsmBool none;
+
 		[UIHint(UIHint.Variable)]
+        [Tooltip("True if the Character Controller capsule was hit on the sides.")]
 		public FsmBool sides;
+
 		[UIHint(UIHint.Variable)]
+        [Tooltip("True if the Character Controller capsule was hit from above.")]
 		public FsmBool above;
+
 		[UIHint(UIHint.Variable)]
+        [Tooltip("True if the Character Controller capsule was hit from below.")]
 		public FsmBool below;
 		
-		GameObject previousGo; // remember so we can get new controller only when it changes.
-		CharacterController controller;
+		private GameObject previousGo; // remember so we can get new controller only when it changes.
+		private CharacterController controller;
 		
 		public override void Reset()
 		{
@@ -37,8 +48,11 @@ namespace HutongGames.PlayMaker.Actions
 
 		public override void OnUpdate()
 		{
-			GameObject go = Fsm.GetOwnerDefaultTarget(gameObject);
-			if (go == null) return;
+			var go = Fsm.GetOwnerDefaultTarget(gameObject);
+			if (go == null)
+			{
+			    return;
+			}
 		
 			if (go != previousGo)
 			{

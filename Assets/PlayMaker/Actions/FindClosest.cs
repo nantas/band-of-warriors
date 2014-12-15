@@ -1,4 +1,4 @@
-// (c) Copyright HutongGames, LLC 2010-2011. All rights reserved.
+// (c) Copyright HutongGames, LLC 2010-2013. All rights reserved.
 // Added Ignore Owner option. Thanks Nueral Echo: http://hutonggames.com/playmakerforum/index.php?topic=71.0
 
 using UnityEngine;
@@ -10,17 +10,29 @@ namespace HutongGames.PlayMaker.Actions
 	public class FindClosest : FsmStateAction
 	{
 		[RequiredField]
+		[Tooltip("The GameObject to measure from.")]
 		public FsmOwnerDefault gameObject;
+		
 		[RequiredField]
 		[UIHint(UIHint.Tag)]
+		[Tooltip("Only consider objects with this Tag. NOTE: It's generally a lot quicker to find objects with a Tag!")]
 		public FsmString withTag;
+		
 		[Tooltip("If checked, ignores the object that owns this FSM.")]
 		public FsmBool ignoreOwner;
+
+		[Tooltip("Only consider objects visible to the camera.")]
 		public FsmBool mustBeVisible;
+		
 		[UIHint(UIHint.Variable)]
+		[Tooltip("Store the closest object.")]
 		public FsmGameObject storeObject;
+		
 		[UIHint(UIHint.Variable)]
+		[Tooltip("Store the distance to the closest object.")]
 		public FsmFloat storeDistance;
+		
+		[Tooltip("Repeat every frame")]
 		public bool everyFrame;
 
 		
@@ -31,6 +43,8 @@ namespace HutongGames.PlayMaker.Actions
 			ignoreOwner = true;
 			mustBeVisible = false;
 			storeObject = null;
+			storeDistance = null;
+			everyFrame = false;
 		}
 
 		public override void OnEnter()
@@ -38,7 +52,9 @@ namespace HutongGames.PlayMaker.Actions
 			DoFindClosest();
 			
 			if (!everyFrame)
+			{
 				Finish();
+			}
 		}
 		
 		public override void OnUpdate()
@@ -48,19 +64,33 @@ namespace HutongGames.PlayMaker.Actions
 
 		void DoFindClosest()
 		{
-			GameObject go = gameObject.OwnerOption == OwnerDefaultOption.UseOwner ? Owner : gameObject.GameObject.Value;
+			var go = gameObject.OwnerOption == OwnerDefaultOption.UseOwner ? Owner : gameObject.GameObject.Value;
+
+			GameObject[] objects; // objects to consider
+
+			if (string.IsNullOrEmpty(withTag.Value) || withTag.Value == "Untagged")
+			{
+				objects = (GameObject[])GameObject.FindObjectsOfType(typeof(GameObject));
+			}
+			else
+			{
+				objects = GameObject.FindGameObjectsWithTag(withTag.Value);
+			}	
 			
-			GameObject[] objects = GameObject.FindGameObjectsWithTag(withTag.Value);
 			GameObject closestObj = null;
 			var closestDist = Mathf.Infinity;
 
 			foreach (var obj in objects)
 			{
 				if (ignoreOwner.Value && obj == Owner)
+				{
 					continue;
+				}
 				
 				if (mustBeVisible.Value && !ActionHelpers.IsVisible(obj))
+				{
 					continue;
+				}
 				
 				var dist = (go.transform.position - obj.transform.position).sqrMagnitude;
 				if (dist < closestDist)
@@ -71,7 +101,11 @@ namespace HutongGames.PlayMaker.Actions
 			}
 
 			storeObject.Value = closestObj;
-			storeDistance.Value = closestDist;
+			
+			if (!storeDistance.IsNone)
+			{
+				storeDistance.Value = Mathf.Sqrt(closestDist);
+			}
 		}
 	}
 }

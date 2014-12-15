@@ -6,7 +6,7 @@ using UnityEngine;
 namespace HutongGames.PlayMaker.Actions
 {
     [ActionCategory(ActionCategory.Material)]
-    [Tooltip("Sets or toggle the visibility on a game object.")]
+    [Tooltip("Sets the visibility of a GameObject. Note: this action sets the GameObject Renderer's enabled state.")]
 	public class SetVisibility : FsmStateAction
 	{
 		[RequiredField]
@@ -21,7 +21,7 @@ namespace HutongGames.PlayMaker.Actions
 		[Tooltip("Should the object be set to visible or invisible?")]
         public FsmBool visible;
         
-		[Tooltip("Resets to the initial visibility once\nit leaves the state")]
+		[Tooltip("Resets to the initial visibility when it leaves the state")]
         public bool resetOnExit;
         
 		private bool initialVisibility;
@@ -44,7 +44,6 @@ namespace HutongGames.PlayMaker.Actions
 
         void DoSetVisibility(GameObject go)
 		{
-			
 			if (go == null)
 			{
 				return;
@@ -56,7 +55,7 @@ namespace HutongGames.PlayMaker.Actions
             }
 
             // remember initial visibility
-            initialVisibility = go.renderer.isVisible;
+            initialVisibility = go.renderer.enabled;
 
             // if 'toggle' is not set, simply sets visibility to new value
             if (toggle.Value == false) 
@@ -66,7 +65,7 @@ namespace HutongGames.PlayMaker.Actions
             }
 			
             // otherwise, toggles the visibility
-            go.renderer.enabled = !go.renderer.isVisible;
+            go.renderer.enabled = !go.renderer.enabled;
 		}
 
         public override void OnExit()

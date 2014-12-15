@@ -1,4 +1,4 @@
-// (c) Copyright HutongGames, LLC 2010-2011. All rights reserved.
+// (c) Copyright HutongGames, LLC 2010-2013. All rights reserved.
 
 using UnityEngine;
 
@@ -9,14 +9,19 @@ namespace HutongGames.PlayMaker.Actions
 	public class AddComponent : FsmStateAction
 	{
 		[RequiredField]
-		[Tooltip("The Game Object to add the Component to.")]
+		[Tooltip("The GameObject to add the Component to.")]
 		public FsmOwnerDefault gameObject;
 		
 		[RequiredField]
-		[Tooltip("The Component to add to the Game Object.")]
 		[UIHint(UIHint.ScriptComponent)]
+        [Title("Component Type"), Tooltip("The type of Component to add to the Game Object.")]
 		public FsmString component;
-		
+
+        [UIHint(UIHint.Variable)]
+        [ObjectType(typeof(Component))]
+        [Tooltip("Store the component in an Object variable. E.g., to use with Set Property.")]
+	    public FsmObject storeComponent;
+
 		[Tooltip("Remove the Component when this State is exited.")]
 		public FsmBool removeOnExit;
 
@@ -26,6 +31,7 @@ namespace HutongGames.PlayMaker.Actions
 		{
 			gameObject = null;
 			component = null;
+		    storeComponent = null;
 		}
 
 		public override void OnEnter()
@@ -48,6 +54,8 @@ namespace HutongGames.PlayMaker.Actions
 			var go = Fsm.GetOwnerDefaultTarget(gameObject);
 
 			addedComponent = go.AddComponent(component.Value);
+
+		    storeComponent.Value = addedComponent;
 
 			if (addedComponent == null)
 			{

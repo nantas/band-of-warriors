@@ -1,20 +1,26 @@
-// (c) Copyright HutongGames, LLC 2010-2011. All rights reserved.
+// (c) Copyright HutongGames, LLC 2010-2013. All rights reserved.
 
 using UnityEngine;
 
 namespace HutongGames.PlayMaker.Actions
 {
 	[ActionCategory(ActionCategory.StateMachine)]
-	[Tooltip("Enables/Disables an FSM component on a Game Object.\nOptionally reverse the action on exit.")]
+	[Tooltip("Enables/Disables an FSM component on a GameObject.")]
 	public class EnableFSM : FsmStateAction
 	{
 		[RequiredField]
+        [Tooltip("The GameObject that owns the FSM component.")]
 		public FsmOwnerDefault gameObject;
-		[UIHint(UIHint.FsmName)]
-		[Tooltip("Optional name of Fsm on Game Object")]
+		
+        [UIHint(UIHint.FsmName)]
+        [Tooltip("Optional name of FSM on GameObject. Useful if you have more than one FSM on a GameObject.")]
 		public FsmString fsmName;
-		public FsmBool enable;
-		public FsmBool resetOnExit;
+
+        [Tooltip("Set to True to enable, False to disable.")]
+        public FsmBool enable;
+
+        [Tooltip("Reset the initial enabled state when exiting the state.")]
+        public FsmBool resetOnExit;
 
 		private PlayMakerFSM fsmComponent;
 		

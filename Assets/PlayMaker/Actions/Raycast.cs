@@ -1,4 +1,4 @@
-// (c) Copyright HutongGames, LLC 2010-2011. All rights reserved.
+// (c) Copyright HutongGames, LLC 2010-2013. All rights reserved.
 
 using UnityEngine;
 
@@ -8,6 +8,8 @@ namespace HutongGames.PlayMaker.Actions
 	[Tooltip("Casts a Ray against all Colliders in the scene. Use either a Game Object or Vector3 world position as the origin of the ray. Use GetRaycastInfo to get more detailed info.")]
 	public class Raycast : FsmStateAction
 	{
+        //[ActionSection("Setup Raycast")]
+ 
 		[Tooltip("Start ray at game object position. \nOr use From Position parameter.")]
 		public FsmOwnerDefault fromGameObject;
 
@@ -23,6 +25,8 @@ namespace HutongGames.PlayMaker.Actions
 		[Tooltip("The length of the ray. Set to -1 for infinity.")]
 		public FsmFloat distance;
 
+        [ActionSection("Result")] 
+
 		[Tooltip("Event to send if the ray hits an object.")]
 		[UIHint(UIHint.Variable)]
 		public FsmEvent hitEvent;
@@ -35,15 +39,29 @@ namespace HutongGames.PlayMaker.Actions
 		[UIHint(UIHint.Variable)]
 		public FsmGameObject storeHitObject;
 
-		[Tooltip("Set how often to cast a ray. 0 = once, don't repeat; 1 = everyFrame; 2 = every other frame... \nSince raycasts can get expensive use the highest repeat interval you can get away with.")]
-		public FsmInt repeatInterval;
+        [UIHint(UIHint.Variable)]
+        [Tooltip("Get the world position of the ray hit point and store it in a variable.")]
+        public FsmVector3 storeHitPoint;
 
-		[UIHint(UIHint.Layer)]
-		[Tooltip("Pick only from these layers.")]
-		public FsmInt[] layerMask;
-		
-		[Tooltip("Invert the mask, so you pick from all layers except those defined above.")]
-		public FsmBool invertMask;
+        [UIHint(UIHint.Variable)]
+        [Tooltip("Get the normal at the hit point and store it in a variable.")]
+        public FsmVector3 storeHitNormal;
+
+        [UIHint(UIHint.Variable)]
+        [Tooltip("Get the distance along the ray to the hit point and store it in a variable.")]
+        public FsmFloat storeHitDistance;
+
+        [ActionSection("Filter")] 
+
+        [Tooltip("Set how often to cast a ray. 0 = once, don't repeat; 1 = everyFrame; 2 = every other frame... \nSince raycasts can get expensive use the highest repeat interval you can get away with.")]
+        public FsmInt repeatInterval;
+
+        [UIHint(UIHint.Layer)]
+        [Tooltip("Pick only from these layers.")]
+        public FsmInt[] layerMask;
+
+        [Tooltip("Invert the mask, so you pick from all layers except those defined above.")]
+        public FsmBool invertMask;
 
 		[ActionSection("Debug")] 
 		
@@ -65,6 +83,9 @@ namespace HutongGames.PlayMaker.Actions
 			hitEvent = null;
 			storeDidHit = null;
 			storeHitObject = null;
+		    storeHitPoint = null;
+		    storeHitNormal = null;
+		    storeHitDistance = null;
 			repeatInterval = 1;
 			layerMask = new FsmInt[0];
 			invertMask = false;
@@ -122,13 +143,16 @@ namespace HutongGames.PlayMaker.Actions
 			
 			Fsm.RaycastHitInfo = hitInfo;
 			
-			bool didHit = hitInfo.collider != null;
+			var didHit = hitInfo.collider != null;
 			
 			storeDidHit.Value = didHit;
 			
 			if (didHit)
 			{
 				storeHitObject.Value = hitInfo.collider.collider.gameObject;
+                storeHitPoint.Value = Fsm.RaycastHitInfo.point;
+                storeHitNormal.Value = Fsm.RaycastHitInfo.normal;
+                storeHitDistance.Value = Fsm.RaycastHitInfo.distance;
 				Fsm.Event(hitEvent);
 			}
 			

@@ -33,6 +33,7 @@ public class GamePanel : MonoBehaviour {
     public exSpriteFont missionInfoText;
     public exSpriteFont playerLvlDisplay;
     public exUIPanel panelGameOver;
+    public exUIPanel charSelectPanel;
     public LevelUpPanel panelLevelUp;
     public exSprite charPortrait;
 

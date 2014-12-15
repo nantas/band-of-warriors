@@ -1,4 +1,4 @@
-// (c) Copyright HutongGames, LLC 2010-2011. All rights reserved.
+// (c) Copyright HutongGames, LLC 2010-2013. All rights reserved.
 
 using UnityEngine;
 
@@ -10,9 +10,16 @@ namespace HutongGames.PlayMaker.Actions
 	{
 		[RequiredField]
 		[UIHint(UIHint.Variable)]
+        [Tooltip("The float variable to test.")]
 		public FsmFloat floatValue;
+
+        [Tooltip("Event to send if the float variable is positive.")]
 		public FsmEvent isPositive;
+
+        [Tooltip("Event to send if the float variable is negative.")]
 		public FsmEvent isNegative;
+
+        [Tooltip("Repeat every frame. Useful if the variable is changing and you're waiting for a particular result.")]
 		public bool everyFrame;
 
 		public override void Reset()
@@ -28,7 +35,9 @@ namespace HutongGames.PlayMaker.Actions
 			DoSignTest();
 			
 			if (!everyFrame)
-				Finish();
+			{
+			    Finish();
+			}
 		}
 
 		public override void OnUpdate()
@@ -38,7 +47,10 @@ namespace HutongGames.PlayMaker.Actions
 
 		void DoSignTest()
 		{
-			if (floatValue == null) return;
+			if (floatValue == null)
+			{
+			    return;
+			}
 			
 			Fsm.Event(floatValue.Value < 0 ? isNegative : isPositive);
 		}

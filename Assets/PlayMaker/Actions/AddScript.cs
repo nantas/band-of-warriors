@@ -1,4 +1,4 @@
-// (c) Copyright HutongGames, LLC 2010-2011. All rights reserved.
+// (c) Copyright HutongGames, LLC 2010-2013. All rights reserved.
 
 using UnityEngine;
 
@@ -9,15 +9,15 @@ namespace HutongGames.PlayMaker.Actions
 	public class AddScript : FsmStateAction
 	{
 		[RequiredField]
-		[Tooltip("The Game Object to add the script to.")]
+		[Tooltip("The GameObject to add the script to.")]
 		public FsmOwnerDefault gameObject;
 		
 		[RequiredField]
-		[Tooltip("The Script to add to the Game Object.")]
+		[Tooltip("The Script to add to the GameObject.")]
 		[UIHint(UIHint.ScriptComponent)]
 		public FsmString script;
 		
-		[Tooltip("Remove the script from the Game Object when this State is exited.")]
+		[Tooltip("Remove the script from the GameObject when this State is exited.")]
 		public FsmBool removeOnExit;
 
 		Component addedComponent;
@@ -38,8 +38,12 @@ namespace HutongGames.PlayMaker.Actions
 		public override void OnExit()
 		{
 			if (removeOnExit.Value)
-				if (addedComponent != null)
-					Object.Destroy(addedComponent);
+            {
+                if (addedComponent != null)
+                {
+                    Object.Destroy(addedComponent);
+                }
+            }
 		}
 
 		void DoAddComponent(GameObject go)

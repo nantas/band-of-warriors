@@ -1,4 +1,4 @@
-// (c) Copyright HutongGames, LLC 2010-2011. All rights reserved.
+// (c) Copyright HutongGames, LLC 2010-2013. All rights reserved.
 
 using UnityEngine;
 
@@ -9,8 +9,13 @@ namespace HutongGames.PlayMaker.Actions
 	public class GetButtonDown : FsmStateAction
 	{
 		[RequiredField]
+        [Tooltip("The name of the button. Set in the Unity Input Manager.")]
 		public FsmString buttonName;
+
+        [Tooltip("Event to send if the button is pressed.")]
 		public FsmEvent sendEvent;
+
+        [Tooltip("Set to True if the button is pressed.")]
 		[UIHint(UIHint.Variable)]
 		public FsmBool storeResult;
 		
@@ -23,10 +28,12 @@ namespace HutongGames.PlayMaker.Actions
 
 		public override void OnUpdate()
 		{
-			bool buttonDown = Input.GetButtonDown(buttonName.Value);
+			var buttonDown = Input.GetButtonDown(buttonName.Value);
 			
-			if(buttonDown)
-				Fsm.Event(sendEvent);
+			if (buttonDown)
+			{
+			    Fsm.Event(sendEvent);
+			}
 			
 			storeResult.Value = buttonDown;
 		}
