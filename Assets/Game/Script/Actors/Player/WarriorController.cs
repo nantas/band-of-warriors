@@ -130,6 +130,11 @@ public class WarriorController : MonoBehaviour {
     public virtual void PlayerDead(){
     }
 
+    public void PlayerRevive() {
+        Game.instance.AcceptInput(true);
+        this.enabled = true;
+    }
+
     public virtual void ReleaseCharge(BtnHoldState _upButton) {
     }
 

@@ -64,6 +64,12 @@ public class GamePanel : MonoBehaviour {
                                       0.0f, trans.position.z);
     }
 
+    public void HideGameOver () {
+        panelGameOver.enabled = false;
+        Transform trans = panelGameOver.transform;
+        trans.position = new Vector3 (0.0f, -2000.0f, trans.position.z);
+    }
+
     public void UpdateCharacterInfo() {
         curCharName.text = Game.instance.thePlayer.playerController.charName;
         curCharClass.text = Game.instance.thePlayer.playerController.charClass;

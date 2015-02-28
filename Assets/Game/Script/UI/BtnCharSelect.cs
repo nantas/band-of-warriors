@@ -49,7 +49,6 @@ public class BtnCharSelect : MonoBehaviour {
             Game.instance.curCharIndex = charIndex;
             //start switching character
             SwitchCharacter();
-
         }
         charSelectPanel.transform.position 
             = new Vector3 ( charSelectPanel.transform.position.x, 1500.0f, charSelectPanel.transform.position.z );

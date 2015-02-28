@@ -28,6 +28,7 @@ public class Game : MonoBehaviour {
     [System.NonSerialized] public ScoreCounter theScoreCounter;
     [System.NonSerialized] public LevelManager theLevelManager;
     [System.NonSerialized] public ItemCarrier theItemCarrier;
+    [System.NonSerialized] public IAPCtrl iapCtrl;
     [System.NonSerialized] public int playerHP;
     [System.NonSerialized] public int currentExp;
     //current character index, from 1 to 3 at the moment.
@@ -65,10 +66,14 @@ public class Game : MonoBehaviour {
 	
 	protected virtual void Init () {
 		theSpawner = GetComponent<Spawner>();
+        iapCtrl = GetComponent<IAPCtrl>();
         theScoreCounter = GetComponent<ScoreCounter>();
         theLevelManager = GameObject.FindWithTag("levelManager").GetComponent<LevelManager>();
         theItemCarrier = GameObject.FindWithTag("itemCarrier").GetComponent<ItemCarrier>();
         initPlayerHP = maxPlayerHP;
+        if (!Application.isEditor) {
+            CmBillingAndroid.Instance.InitializeApp();
+        }
 	}
 
 	// Use this for initialization
@@ -85,8 +90,17 @@ public class Game : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-	
+        if (Input.GetKeyDown(KeyCode.U)) {
+            OnPlayerHPChange(-50);
+        }
 	}
+
+    public void Revive() {
+        OnPlayerHPChange(maxPlayerHP);
+        thePlayer.playerController.FSM_Control.Fsm.Event("To_Revive");
+        thePlayer.playerController.PlayerRevive();
+        theGamePanel.HideGameOver();
+    }
 
     public void OnPlayerHPChange(int _amount) {
         playerHP += _amount;
